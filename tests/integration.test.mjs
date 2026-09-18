@@ -254,6 +254,10 @@ test("launcher serves authenticated workspace and reports occupied port without 
     { stdio: ["ignore", "pipe", "pipe"] },
   );
   t.after(() => child.kill("SIGTERM"));
+  let launcherErrors = "";
+  child.stderr.on("data", (chunk) => {
+    launcherErrors += chunk;
+  });
   const output = await new Promise((resolve, reject) => {
     let text = "";
     const timer = setTimeout(() => reject(Error("Launcher timed out")), 10000);
@@ -266,7 +270,7 @@ test("launcher serves authenticated workspace and reports occupied port without 
     });
     child.once("exit", (code) => {
       clearTimeout(timer);
-      reject(Error(`Launcher exited ${code}`));
+      reject(Error(`Launcher exited ${code}: ${launcherErrors}`));
     });
   });
   const url = output.match(/http:\/\/127\.0\.0\.1:\d+\/#\w+/)[0],
