@@ -1,5 +1,11 @@
 name: Prerelease
 on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Version tag matching package.json
+        required: true
+        default: v0.1.0-alpha.2
   push:
     tags: ["v*-alpha.*"]
 permissions:
@@ -45,11 +51,11 @@ jobs:
       - run: npm ci
       - name: Check release version
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: node -e 'if (`v${require("./package.json").version}` !== process.env.RELEASE_TAG) process.exit(1)'
       - run: npm run package:release
       - name: Publish prerelease
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ github.ref_name }}
-        run: gh release create "$RELEASE_TAG" release/"$RELEASE_TAG"/* --verify-tag --prerelease --title "HOI OS $RELEASE_TAG" --notes-file docs/RELEASE.md
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
+        run: gh release create "$RELEASE_TAG" release/"$RELEASE_TAG"/* --target "$GITHUB_SHA" --prerelease --title "HOI OS $RELEASE_TAG" --notes-file docs/RELEASE.md

@@ -16,6 +16,6 @@ See the README compatibility table and `docs/VALIDATION.md` for measured checks.
 
 Run `npm ci`, `npm run check`, `npm run format:check`, `npm run test:browser` and `npm run package:release`. Review the exact staged file list before the initial commit: only this standalone product belongs in GitHub. Keep `.local`, `release`, test reports, private workspaces and backup data excluded.
 
-The Verify workflow runs on main pushes and pull requests. The Prerelease workflow runs on alpha tags; it repeats the platform matrix and browser checks before building and publishing the four release assets. Only the publish job has contents-write permission. A failing verification blocks publication.
+The Verify workflow runs on main pushes and pull requests. The Prerelease workflow runs on alpha tags or an explicit Run workflow request; it repeats the platform matrix and browser checks before building and publishing the four release assets. Only the publish job has contents-write permission. A failing verification blocks publication. A manual run checks the requested version and creates the tag at the exact verified commit when publishing.
 
 Do not move a published tag or replace an existing prerelease. Fixes require a new version. After publication, download each public asset and compare it with `SHA256SUMS`; verify the README's four download links.
