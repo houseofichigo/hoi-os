@@ -105,7 +105,7 @@ The assistant performs reasoning. Citation checks do not prove factual support. 
 | Surface             | Supported experience                                                        | Verification status                                               |
 | ------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | Local macOS         | Full core, scoped adapters, optional map                                    | Local automated installation/core/browser checks pass             |
-| Local Windows       | Same Node setup and core                                                    | CI result required; fresh interactive host checks pending         |
+| Local Windows       | Same Node setup and core                                                    | Node 22/24 CI passed; fresh interactive host checks pending       |
 | Codex / Claude Code | 12 operational skills and installer                                         | Package/setup verified; fresh user-session acceptance pending     |
 | ChatGPT             | Installation guide where skills are supported; Markdown attachment fallback | Guidance package verified; account-specific UI acceptance pending |
 | Claude chat         | Installer ZIP upload; guided local setup                                    | ZIP structure verified; account-specific UI acceptance pending    |

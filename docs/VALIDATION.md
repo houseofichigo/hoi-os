@@ -41,14 +41,14 @@ The initial HOI private workspace was installed separately with two sources: the
 
 ## Pending release gates
 
-- Clean-machine Windows and Linux execution. CI is configured for macOS/Windows/Linux × Node 22/24, but has not run on GitHub.
+- Fresh interactive user installations on Windows and Linux. Automated macOS/Windows/Linux × Node 22/24 checks passed on GitHub (Verify run 35391073551).
 - Fresh interactive sessions in actual Claude Code and Codex installations; installed skill files and shared CLI were verified, not the complete host experiences.
 - Live Gmail/Calendar/Drive/GitHub connection checks in each client's host. Normalized export mechanics were tested with fixtures; no client OAuth credentials are bundled.
 - A representative real 500–1,000-document evaluation with ≥90% retrieval recall@5 and ≥95% human-reviewed factual support.
 - Ten real meeting briefs and a measured ≥50% median time saving, plus at least two independent client pilots.
 - Real OCR accuracy. Tesseract is absent from this machine's PATH; the availability diagnostic correctly reports that. PDF text extraction is verified separately.
 - Broader browser and assistive-technology coverage. Chromium reduced-motion emulation, keyboard access and a 375px viewport now pass; real screen-reader and other-browser checks remain pending.
-- Publication destination, visibility and product distribution license. A standalone local Git repository exists; no remote repository, push or release tag has been created.
+- Stable distribution acceptance. Source is public at https://github.com/houseofichigo/hoi-os under MIT; prereleases remain subject to the automated release gate and the client-pilot requirements above.
 
 ## Practical limits
 
