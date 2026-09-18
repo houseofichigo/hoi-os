@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-alpha.2",
+  "skills": [
+    {
+      "name": "hoi-3d-map",
+      "description": "Open the local HOI knowledge map with source-backed relationships and temporal views.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-audit",
+      "description": "Inspect evidence health, extraction gaps, connections, and memory freshness in HOI OS.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-build-capability",
+      "description": "Define, evaluate, and activate a bounded HOI workflow using registered tools.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-capture",
+      "description": "Record user-supplied decisions, preferences, or experience as reviewable HOI memory.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-connect",
+      "description": "Check available Gmail, Calendar, Drive, or GitHub host tools for a selected HOI workspace.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-consolidate",
+      "description": "Find duplicate, stale, and proposed HOI memories for review.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-evaluate",
+      "description": "Run reproducible evidence retrieval checks for a HOI capability.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-ingest",
+      "description": "Preserve and register selected local files or host-exported sources in HOI OS.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-install",
+      "description": "Install or update HOI OS from its official GitHub release in a local Codex or Claude Code workspace, or guide a ChatGPT or Claude chat user through local installation.",
+      "version": "0.1.0-alpha.2",
+      "kind": "installer",
+      "requires": [],
+      "files": [
+        "SKILL.md",
+        "references/chat-guidance.md",
+        "references/local-setup.md"
+      ]
+    },
+    {
+      "name": "hoi-meeting-prep",
+      "description": "Prepare a cited client meeting brief using HOI knowledge and available read-only host connections.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-onboard",
+      "description": "Build or update a personal HOI OS profile through a short, resumable conversation.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-organize",
+      "description": "Propose and apply a reviewable working-folder organization while preserving originals.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-retrieve",
+      "description": "Find source-backed information and bounded context in HOI OS.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    }
+  ]
+}
