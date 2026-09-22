@@ -6,7 +6,7 @@ A local operating layer for knowledge, decisions, and meeting preparation. Bring
 
 ## Download installation skill
 
-[Download hoi-install.zip](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-install.zip) · [Download chat guide](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-install.md) · [Download all 12 operational skills](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-os-skills.zip) · [Checksums](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/SHA256SUMS)
+[Download hoi-install.zip](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-install.zip) · [Download chat guide](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-install.md) · [Download all 14 operational skills](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-os-skills.zip) · [Checksums](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/SHA256SUMS)
 
 The installer skill guides setup. The operational skills require the installed core and a private workspace; downloading them alone does not install the OS. The collection ZIP is not a single-skill upload.
 
@@ -66,24 +66,34 @@ npm start -- --workspace "../HOI Workspace" --host codex
 
 Use `--host claude` for Claude Code. Open the authenticated localhost URL printed by the command. Opening `web/index.html` does not run the app. Use `--port 0` if a port is occupied.
 
+The Workspace App adds a local interface with source-backed search, wiki review, sources, connections, and memory review:
+
+```
+node bin/hoi.mjs app --workspace "../HOI Workspace" --host claude
+```
+
+Read [the app guide](docs/APP.md). Reviewable actions only; ingestion and connections stay in the assistant skills.
+
 ## Included operational skills
 
 <!-- skills:start -->
 
-| Skill                  | Purpose                                                                                            |
-| ---------------------- | -------------------------------------------------------------------------------------------------- |
-| `hoi-3d-map`           | Open the local HOI knowledge map with source-backed relationships and temporal views.              |
-| `hoi-audit`            | Inspect evidence health, extraction gaps, connections, and memory freshness in HOI OS.             |
-| `hoi-build-capability` | Define, evaluate, and activate a bounded HOI workflow using registered tools.                      |
-| `hoi-capture`          | Record user-supplied decisions, preferences, or experience as reviewable HOI memory.               |
-| `hoi-connect`          | Check available Gmail, Calendar, Drive, or GitHub host tools for a selected HOI workspace.         |
-| `hoi-consolidate`      | Find duplicate, stale, and proposed HOI memories for review.                                       |
-| `hoi-evaluate`         | Run reproducible evidence retrieval checks for a HOI capability.                                   |
-| `hoi-ingest`           | Preserve and register selected local files or host-exported sources in HOI OS.                     |
-| `hoi-meeting-prep`     | Prepare a cited client meeting brief using HOI knowledge and available read-only host connections. |
-| `hoi-onboard`          | Build or update a personal HOI OS profile through a short, resumable conversation.                 |
-| `hoi-organize`         | Propose and apply a reviewable working-folder organization while preserving originals.             |
-| `hoi-retrieve`         | Find source-backed information and bounded context in HOI OS.                                      |
+| Skill                  | Purpose                                                                                              |
+| ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| `hoi-3d-map`           | Open the local HOI knowledge map with source-backed relationships and temporal views.                |
+| `hoi-audit`            | Inspect evidence health, extraction gaps, connections, and memory freshness in HOI OS.               |
+| `hoi-build-capability` | Define, evaluate, and activate a bounded HOI workflow using registered tools.                        |
+| `hoi-capture`          | Record user-supplied decisions, preferences, or experience as reviewable HOI memory.                 |
+| `hoi-connect`          | Check available Gmail, Calendar, Drive, or GitHub host tools for a selected HOI workspace.           |
+| `hoi-consolidate`      | Find duplicate, stale, and proposed HOI memories for review.                                         |
+| `hoi-evaluate`         | Run reproducible evidence retrieval checks for a HOI capability.                                     |
+| `hoi-ingest`           | Preserve and register selected local files or host-exported sources in HOI OS.                       |
+| `hoi-meeting-prep`     | Prepare a cited client meeting brief using HOI knowledge and available read-only host connections.   |
+| `hoi-onboard`          | Build or update a personal HOI OS profile through a short, resumable conversation.                   |
+| `hoi-organize`         | Propose and apply a reviewable working-folder organization while preserving originals.               |
+| `hoi-retrieve`         | Find source-backed information and bounded context in HOI OS.                                        |
+| `hoi-session-capture`  | Propose reviewable HOI memories and wiki updates from decisions made in the current working session. |
+| `hoi-wiki`             | Turn ingested evidence into reviewable current-view wiki pages with cited sources in HOI OS.         |
 
 <!-- skills:end -->
 
@@ -106,7 +116,7 @@ The assistant performs reasoning. Citation checks do not prove factual support. 
 | ------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | Local macOS         | Full core, scoped adapters, optional map                                    | Local automated installation/core/browser checks pass             |
 | Local Windows       | Same Node setup and core                                                    | Node 22/24 CI passed; fresh interactive host checks pending       |
-| Codex / Claude Code | 12 operational skills and installer                                         | Package/setup verified; fresh user-session acceptance pending     |
+| Codex / Claude Code | 14 operational skills and installer                                         | Package/setup verified; fresh user-session acceptance pending     |
 | ChatGPT             | Installation guide where skills are supported; Markdown attachment fallback | Guidance package verified; account-specific UI acceptance pending |
 | Claude chat         | Installer ZIP upload; guided local setup                                    | ZIP structure verified; account-specific UI acceptance pending    |
 

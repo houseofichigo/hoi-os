@@ -124,3 +124,51 @@ Copy the workspace's capabilities/meeting-prep.yaml, choose a distinct ID, and k
 ```
 
 If policy requires drafting approval, first inspect the run's awaiting-approval response, approve its plan/hash, then rerun with the approval ID. Evaluation does not bypass policy; run it in a test workspace whose policy permits local drafts.
+
+## Wiki pages
+
+Wiki pages are synthesized current views backed by immutable passage evidence. They require database schema 2; run `upgrade BACKUP_DIR` on an existing workspace first (a verified backup is taken before migration).
+
+```
+hoi wiki propose --workspace WS --host claude --input page.json
+hoi wiki list --workspace WS --host claude --json
+hoi wiki get house-of-ichigo --workspace WS --host claude
+hoi wiki review WIKI_ID --state reviewed --workspace WS --host claude
+hoi wiki canonical WIKI_ID --workspace WS --host claude
+hoi wiki contradictions --workspace WS --host claude --json
+```
+
+Example `page.json`:
+
+```json
+{
+  "slug": "house-of-ichigo",
+  "title": "House of Ichigo",
+  "type": "company",
+  "content": "## Positioning\n\nTraining and advisory.",
+  "entities": [],
+  "effectiveDate": null,
+  "evidence": [
+    {
+      "revisionId": "revision_x",
+      "passageId": "passage_y",
+      "quote": "exact text present in the passage",
+      "relation": "supports"
+    }
+  ]
+}
+```
+
+Every page starts as a draft. `review` records the human decision, `canonical` promotes a reviewed page and marks the superseded page. A canonical page is never replaced silently: propose the successor with `supersedes` set to the canonical page ID. `contradictions` is a mechanical report (duplicate active pages, stale evidence, recorded contradiction relations); semantic conflicts between sources require human review.
+
+## Registries
+
+Capability step tools, hosts, and connector providers validate against runtime registries (`src/tools.ts`, `src/hosts.ts`, `src/connectors.ts`) instead of fixed lists. Built-ins register at load: tools `context`, `retrieve`, `meeting-brief`; hosts `codex`, `claude`, `local`; connectors `gmail`, `calendar`, `drive`, `github`, `files`. New entries are added with `registerTool`, `registerHost`, and `registerConnector` — no schema edit required. Tool constraints (required preceding step, minimum autonomy, citation production) are declared by each tool and enforced when a capability is saved, activated, or run.
+
+## Workspace App
+
+```
+hoi app --workspace WS --host claude [--port 0]
+```
+
+Serves the local Workspace App on 127.0.0.1 with a bearer token (default port 4641). Exposes read endpoints plus exactly four reviewable mutations: wiki propose/review/canonical and memory review. Holds the workspace write lock while running. See docs/APP.md.

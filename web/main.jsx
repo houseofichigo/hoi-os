@@ -74,6 +74,7 @@ function App() {
     [tab, setTab] = useState("list"),
     [graphFailed, setGraphFailed] = useState(false),
     [passage, setPassage] = useState(null),
+    [wiki, setWiki] = useState(null),
     [paused, setPaused] = useState(
       matchMedia("(prefers-reduced-motion: reduce)").matches,
     ),
@@ -88,10 +89,12 @@ function App() {
       setData(r);
       setSelected(null);
       setPassage(null);
+      setWiki(null);
     } catch (e) {
       setData({ nodes: [], links: [] });
       setSelected(null);
       setPassage(null);
+      setWiki(null);
       setError(e.message);
     } finally {
       setLoading(false);
@@ -145,9 +148,16 @@ function App() {
         (l) => l.source === selected.id || l.target === selected.id,
       )
     : [];
-  function choose(n) {
+  async function choose(n) {
     setSelected(n);
     setPassage(null);
+    setWiki(null);
+    if (n?.type === "wiki")
+      try {
+        setWiki(await (await api(`wiki/${n.id}`)).json());
+      } catch (e) {
+        setError(e.message);
+      }
   }
   function switchView(value) {
     setView(value);
@@ -217,6 +227,7 @@ function App() {
             ["all", "Overview"],
             ["project", "Projects"],
             ["client", "Clients"],
+            ["wiki", "Wiki"],
             ["memory", "Memory"],
             ["temporal", "Timeline"],
           ].map(([id, label]) => (
@@ -440,12 +451,22 @@ function App() {
                     nodeColor={(n) =>
                       n.id === selected?.id
                         ? "#1231D6"
-                        : n.type === "document"
-                          ? "#5A6478"
-                          : "#0A0E27"
+                        : n.type === "wiki"
+                          ? n.status === "canonical"
+                            ? "#1231D6"
+                            : n.status === "reviewed"
+                              ? "#0A0E27"
+                              : "#5A6478"
+                          : n.type === "document"
+                            ? "#5A6478"
+                            : "#0A0E27"
                     }
                     nodeVal={(n) =>
-                      n.type === "client" || n.type === "project" ? 5 : 2
+                      n.type === "client" || n.type === "project"
+                        ? 5
+                        : n.type === "wiki"
+                          ? 4
+                          : 2
                     }
                     linkColor={(l) =>
                       l.basis === "inferred"
@@ -553,6 +574,37 @@ function App() {
                   </button>
                 )}
               </div>
+              {selected.type === "wiki" && wiki && (
+                <div className="wiki-page">
+                  <p className="mono">
+                    {wiki.slug} · {wiki.pageType ?? wiki.type} ·{" "}
+                    {wiki.status.toUpperCase()}
+                    {wiki.reviewedAt
+                      ? ` · reviewed ${wiki.reviewedAt.slice(0, 10)}`
+                      : ""}
+                    {" · "}
+                    {wiki.evidenceCount} source
+                    {wiki.evidenceCount === 1 ? "" : "s"}
+                    {wiki.evidenceCurrent ? "" : " · evidence needs review"}
+                  </p>
+                  {wiki.content.split(/\n{2,}/).map((block, i) => (
+                    <p key={i}>{block.replace(/^#+\s*/, "")}</p>
+                  ))}
+                  <h3>Sources</h3>
+                  {wiki.evidence.map((e) => (
+                    <button
+                      key={e.passageId}
+                      className="text-button"
+                      onClick={() => showPassage(e.passageId)}
+                    >
+                      {e.relation === "contradicts"
+                        ? "Contradicting source: "
+                        : "Read evidence: "}
+                      {e.quote.slice(0, 80)}
+                    </button>
+                  ))}
+                </div>
+              )}
               <h3>Relationships</h3>
               {relations.length ? (
                 <ul>

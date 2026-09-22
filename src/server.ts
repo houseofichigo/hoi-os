@@ -4,19 +4,59 @@ import { resolve, extname } from "node:path";
 import { randomBytes, timingSafeEqual } from "node:crypto";
 import { Store } from "./store.js";
 import { graph } from "./graph.js";
+import {
+  listWiki,
+  getWiki,
+  proposeWiki,
+  reviewWiki,
+  canonicalWiki,
+  wikiContradictions,
+} from "./wiki.js";
+import { retrieve } from "./intake.js";
+import { connect, reviewMemory } from "./knowledge.js";
 import { safePath, atomic } from "./files.js";
 import type { Host } from "./schema.js";
+
+const APP_POST_ROUTES = new Set([
+  "/api/wiki/propose",
+  "/api/wiki/review",
+  "/api/wiki/canonical",
+  "/api/memory/review",
+]);
+
+function readBody(req: any): Promise<any> {
+  return new Promise((ok, bad) => {
+    let size = 0;
+    const chunks: Buffer[] = [];
+    req.on("data", (c: Buffer) => {
+      size += c.length;
+      if (size > 1_000_000) bad(Error("Request body too large"));
+      else chunks.push(c);
+    });
+    req.on("end", () => {
+      try {
+        ok(chunks.length ? JSON.parse(Buffer.concat(chunks).toString()) : {});
+      } catch {
+        bad(Error("Invalid JSON body"));
+      }
+    });
+    req.on("error", bad);
+  });
+}
+
 export async function serve(
   s: Store,
   host: Host,
   webRoot: string,
   port = 4640,
+  options: { app?: boolean } = {},
 ) {
   s.assertHost(host);
-  if (!existsSync(resolve(webRoot, "index.html")))
+  const entry = options.app ? "app.html" : "index.html";
+  if (!existsSync(resolve(webRoot, entry)))
     throw Error("Map not built. Run npm run build.");
   const token = randomBytes(32).toString("hex");
-  const server = createServer((req, res) => {
+  const server = createServer(async (req, res) => {
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Referrer-Policy", "no-referrer");
@@ -32,13 +72,19 @@ export async function serve(
         (req.headers.origin && req.headers.origin !== origin)
       )
         throw Error("Untrusted origin");
-      if (req.method !== "GET") {
-        res.writeHead(405);
-        res.end("Read-only service");
-        return;
-      }
       const url = new URL(req.url ?? "/", origin),
         pathname = decodeURIComponent(url.pathname);
+      const mutation =
+        options.app && req.method === "POST" && APP_POST_ROUTES.has(pathname);
+      if (req.method !== "GET" && !mutation) {
+        res.writeHead(405);
+        res.end(
+          options.app
+            ? "Unsupported mutation; only reviewable app actions are exposed."
+            : "Read-only service",
+        );
+        return;
+      }
       if (pathname.startsWith("/api/")) {
         const bearer = Buffer.from(
           (req.headers.authorization ?? "").replace(/^Bearer /, ""),
@@ -48,11 +94,82 @@ export async function serve(
           !timingSafeEqual(bearer, Buffer.from(token))
         ) {
           res.writeHead(401);
-          res.end("Open the map URL printed by the CLI.");
+          res.end("Open the URL printed by the CLI.");
           return;
         }
         let result: any;
-        if (pathname === "/api/graph") result = graph(s, host);
+        if (mutation) {
+          const body = await readBody(req);
+          if (pathname === "/api/wiki/propose")
+            result = proposeWiki(s, body, host);
+          else if (pathname === "/api/wiki/review")
+            result = reviewWiki(s, String(body.id), body.state, host);
+          else if (pathname === "/api/wiki/canonical")
+            result = canonicalWiki(s, String(body.id), host);
+          else result = reviewMemory(s, String(body.id), body.state, host);
+        } else if (pathname === "/api/graph") result = graph(s, host);
+        else if (pathname === "/api/wiki") result = listWiki(s, host);
+        else if (pathname.startsWith("/api/wiki/"))
+          result = getWiki(s, pathname.split("/").pop() ?? "", host);
+        else if (options.app && pathname === "/api/workspace")
+          result = {
+            schemaVersion: s.schemaVersion,
+            host,
+            counts: {
+              sources: s.one("SELECT COUNT(*) c FROM sources").c,
+              entities: s.one("SELECT COUNT(*) c FROM entities").c,
+              memories: s
+                .memories()
+                .filter((m) => m.allowedHosts?.includes(host)).length,
+              wikiPages:
+                s.schemaVersion >= 2
+                  ? s.one("SELECT COUNT(*) c FROM wiki_pages").c
+                  : 0,
+            },
+          };
+        else if (options.app && pathname === "/api/retrieve")
+          result = retrieve(s, url.searchParams.get("q") ?? "", host, {
+            limit: 8,
+          });
+        else if (options.app && pathname === "/api/memory")
+          result = s
+            .memories()
+            .filter((m) => m.allowedHosts?.includes(host))
+            .map((m) => ({
+              id: m.id,
+              type: m.type,
+              content: m.content,
+              state: m.state,
+              createdAt: m.createdAt,
+              durability: m.durability,
+              stale: !s.evidenceVisible(m.evidence ?? [], host),
+              evidence: m.evidence ?? [],
+            }));
+        else if (options.app && pathname === "/api/connections")
+          result = connect(s);
+        else if (options.app && pathname === "/api/sources")
+          result = s
+            .all(
+              "SELECT s.*,r.status extraction_status FROM sources s LEFT JOIN revisions r ON r.id=s.current_revision",
+            )
+            .filter((r) => s.allowed(r, host))
+            .map((r) => {
+              const m = JSON.parse(r.metadata);
+              return {
+                id: r.id,
+                title: r.title,
+                documentType: m.documentType,
+                authority: m.authority,
+                status: m.status,
+                effectiveDate: m.effectiveDate,
+                client: m.client,
+                extractionStatus: r.extraction_status,
+                sourceKey: r.source_key,
+                lastChecked: r.last_checked,
+              };
+            });
+        else if (options.app && pathname === "/api/contradictions")
+          result = wikiContradictions(s, host);
         else if (pathname.startsWith("/api/passage/")) {
           const id = pathname.split("/").pop();
           const p = s.one(
@@ -98,7 +215,11 @@ export async function serve(
       }
       const file = safePath(
         webRoot,
-        pathname === "/" ? "index.html" : pathname.slice(1),
+        pathname === "/"
+          ? "index.html"
+          : pathname === "/app"
+            ? "app.html"
+            : pathname.slice(1),
       );
       if (!existsSync(file) || !statSync(file).isFile()) {
         res.writeHead(404);
@@ -137,7 +258,11 @@ export async function serve(
   });
   const address = server.address() as any;
   const reader = s.path(`.hoi/readers/${process.pid}-${address.port}`);
-  atomic(reader, "map server");
+  atomic(reader, options.app ? "app server" : "map server");
   server.on("close", () => rmSync(reader, { force: true }));
-  return { server, token, url: `http://127.0.0.1:${address.port}/#${token}` };
+  return {
+    server,
+    token,
+    url: `http://127.0.0.1:${address.port}/${options.app ? "app" : ""}#${token}`,
+  };
 }

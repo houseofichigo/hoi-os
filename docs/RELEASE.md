@@ -2,7 +2,7 @@
 
 Public evaluation prerelease for macOS and Windows, with local Codex and Claude Code adapters.
 
-- 12 operational skills and a new `hoi-install` guide.
+- 14 operational skills and a new `hoi-install` guide.
 - Downloadable installer ZIP, self-contained chat guide, operational collection and SHA-256 checksums.
 - MIT-licensed code and skill instructions; separate HOI trademark terms.
 - Version-pinned installation, a generated skill catalog, and complete runtime packages.

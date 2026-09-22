@@ -1,7 +1,8 @@
-import { existsSync, readFileSync, copyFileSync } from "node:fs";
+import { existsSync, readFileSync, mkdirSync } from "node:fs";
 import { basename, join } from "node:path";
 import { Store } from "./store.js";
-import { uid, now, sha, atomic, contained } from "./files.js";
+import { uid, now, sha, atomic, contained, readYaml } from "./files.js";
+import { isRegisteredConnector } from "./connectors.js";
 import type { Host } from "./schema.js";
 function slug(s: string) {
   return (
@@ -10,6 +11,12 @@ function slug(s: string) {
       .replace(/[^a-z0-9_-]/g, "-")
       .slice(0, 80) || "unclassified"
   );
+}
+function connectorOf(sourceKey: string | null): string | null {
+  const provider = String(sourceKey ?? "").split(":")[0];
+  return provider !== "files" && isRegisteredConnector(provider)
+    ? provider
+    : null;
 }
 export function organize(s: Store, host: Host) {
   s.assertHost(host);
@@ -20,22 +27,44 @@ export function organize(s: Store, host: Host) {
     .filter((r) => s.allowed(r, host))
     .map((r) => {
       const m = JSON.parse(r.metadata);
+      const provider = connectorOf(r.source_key);
       return {
         sourceId: r.id,
         revisionId: r.current_revision,
         from: r.original_path,
-        to: join(
-          "working",
-          slug(m.client ?? "general"),
-          slug(m.documentType),
-          `${r.id}-${basename(r.original_path)}`,
-        ),
+        to: provider
+          ? join(
+              "working",
+              "connections",
+              provider,
+              slug(m.documentType),
+              `${r.id}-${basename(r.original_path)}`,
+            )
+          : join(
+              "working",
+              slug(m.client ?? "general"),
+              slug(m.documentType),
+              `${r.id}-${basename(r.original_path)}`,
+            ),
         checksum: r.checksum,
       };
     });
+  const registry = readYaml(s.path("connections/registry.yaml")) as any;
+  const scaffold = [
+    join("working", "files"),
+    ...(registry?.connections ?? [])
+      .filter(
+        (c: any) =>
+          c.host === host &&
+          ["available", "export-only"].includes(c.status) &&
+          isRegisteredConnector(c.provider),
+      )
+      .map((c: any) => join("working", "connections", c.provider)),
+  ].filter((dir, index, all) => all.indexOf(dir) === index);
   const payload = {
       host,
       entries,
+      scaffold,
       mode: "copy-working-files; originals retained",
     },
     id = uid("plan"),
@@ -110,6 +139,11 @@ export function applyOrganization(
     )
       throw Error("Destination contains different content");
   }
+  for (const dir of payload.scaffold ?? []) {
+    if (!contained(s.path("working"), s.path(dir)))
+      throw Error("Invalid scaffold directory");
+    mkdirSync(s.path(dir), { recursive: true, mode: 0o700 });
+  }
   for (const e of payload.entries)
     if (!existsSync(s.path(e.to)))
       atomic(s.path(e.to), readFileSync(s.path(e.from)));
@@ -117,6 +151,15 @@ export function applyOrganization(
     s.exec("UPDATE plans SET state=? WHERE id=?", "applied", planId);
     s.exec("UPDATE approvals SET consumed_at=? WHERE id=?", now(), approvalId);
   });
-  s.log("organize.applied", { planId, count: payload.entries.length });
-  return { planId, count: payload.entries.length, originalsPreserved: true };
+  s.log("organize.applied", {
+    planId,
+    count: payload.entries.length,
+    scaffolded: (payload.scaffold ?? []).length,
+  });
+  return {
+    planId,
+    count: payload.entries.length,
+    scaffolded: (payload.scaffold ?? []).length,
+    originalsPreserved: true,
+  };
 }

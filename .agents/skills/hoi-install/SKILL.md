@@ -5,7 +5,7 @@ description: Install or update HOI OS from its official GitHub release in a loca
 
 # Install HOI OS
 
-Install the full HOI OS alpha and its 12 operational skills, then hand off to onboarding. Installing this guide alone does not install the core, connect accounts, or grant access to a local database.
+Install the full HOI OS alpha and its 14 operational skills, then hand off to onboarding. Installing this guide alone does not install the core, connect accounts, or grant access to a local database.
 
 ## Choose the execution path
 

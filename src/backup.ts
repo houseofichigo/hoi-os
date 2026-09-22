@@ -11,7 +11,11 @@ import {
 import { join, relative, resolve, dirname } from "node:path";
 import { hostname } from "node:os";
 import Database from "better-sqlite3";
-import { Store, workspaceDirectories } from "./store.js";
+import {
+  Store,
+  workspaceDirectories,
+  CURRENT_SCHEMA_VERSION,
+} from "./store.js";
 import { walk, sha, atomic, safePath, contained, uid, now } from "./files.js";
 export function backup(s: Store, destination: string) {
   const target = resolve(destination);
@@ -166,7 +170,13 @@ export function verifyBackup(backupPath: string) {
       "ok"
     )
       throw Error("Backup database is corrupt");
-    if ((check.prepare("PRAGMA user_version").get() as any).user_version !== 1)
+    if (
+      ![1, CURRENT_SCHEMA_VERSION].includes(
+        Number(
+          (check.prepare("PRAGMA user_version").get() as any).user_version,
+        ),
+      )
+    )
       throw Error("Unsupported backup schema");
     const originals = check
       .prepare(

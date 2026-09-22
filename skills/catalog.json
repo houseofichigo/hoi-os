@@ -181,6 +181,34 @@
       "files": [
         "SKILL.md"
       ]
+    },
+    {
+      "name": "hoi-session-capture",
+      "description": "Propose reviewable HOI memories and wiki updates from decisions made in the current working session.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "hoi-wiki",
+      "description": "Turn ingested evidence into reviewable current-view wiki pages with cited sources in HOI OS.",
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md"
+      ]
     }
   ]
 }

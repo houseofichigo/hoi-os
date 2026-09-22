@@ -25,9 +25,15 @@ import {
   type Evidence,
 } from "./schema.js";
 
+export const CURRENT_SCHEMA_VERSION = 2;
+export const WIKI_SCHEMA_SQL = `CREATE TABLE IF NOT EXISTS wiki_pages(id TEXT PRIMARY KEY,slug TEXT NOT NULL,title TEXT NOT NULL,type TEXT NOT NULL,status TEXT NOT NULL,owner TEXT,entities TEXT NOT NULL,allowed_hosts TEXT NOT NULL,content_path TEXT NOT NULL,effective_date TEXT,reviewed_at TEXT,supersedes TEXT,created_at TEXT NOT NULL,updated_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS wiki_evidence(id TEXT PRIMARY KEY,page_id TEXT NOT NULL REFERENCES wiki_pages(id),revision_id TEXT NOT NULL,passage_id TEXT NOT NULL,quote TEXT NOT NULL,relation TEXT NOT NULL,created_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS wiki_pages_slug ON wiki_pages(slug);`;
+
 export class Store {
   readonly root: string;
   readonly db: Database.Database;
+  readonly schemaVersion: number;
   constructor(root: string) {
     this.root = resolve(root);
     if (existsSync(`${this.root}.hoi-restore`))
@@ -44,12 +50,19 @@ export class Store {
     const version = Number(
       (this.db.prepare("PRAGMA user_version").get() as any).user_version,
     );
-    if (version !== 1) {
+    if (![1, CURRENT_SCHEMA_VERSION].includes(version)) {
       this.db.close();
       throw Error(
         `Unsupported schema ${version}; run a compatible release or restore backup`,
       );
     }
+    this.schemaVersion = version;
+  }
+  assertSchema(minimum: number, feature: string) {
+    if (this.schemaVersion < minimum)
+      throw Error(
+        `${feature} requires schema ${minimum}. Take a verified backup, then run: hoi upgrade BACKUP_DIR --workspace <workspace>`,
+      );
   }
   path(p: string) {
     return safePath(this.root, p);
@@ -165,6 +178,7 @@ export const workspaceDirectories = [
   "connections",
   "models",
   "information-architecture",
+  "wiki",
 ];
 
 export function initialize(root: string) {
@@ -191,7 +205,8 @@ export function initialize(root: string) {
  CREATE TABLE plans(id TEXT PRIMARY KEY,kind TEXT NOT NULL,payload TEXT NOT NULL,hash TEXT NOT NULL,state TEXT NOT NULL,created_at TEXT NOT NULL);
  CREATE TABLE evaluations(id TEXT PRIMARY KEY,capability TEXT NOT NULL,digest TEXT NOT NULL,passed INTEGER NOT NULL,report TEXT NOT NULL,created_at TEXT NOT NULL);
  CREATE TABLE audit(id TEXT PRIMARY KEY,at TEXT NOT NULL,kind TEXT NOT NULL,details TEXT NOT NULL);
- PRAGMA user_version=1;`);
+ ${WIKI_SCHEMA_SQL}
+ PRAGMA user_version=${CURRENT_SCHEMA_VERSION};`);
   db.close();
   chmodSync(join(root, ".hoi/os.sqlite"), 0o600);
   writeYaml(join(root, "policies/actions.yaml"), defaultPolicy);

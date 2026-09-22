@@ -102,6 +102,57 @@ export function graph(s: Store, host: Host) {
         date: m.validFrom,
       });
   }
+  if (s.schemaVersion >= 2)
+    for (const w of s
+      .all(
+        "SELECT * FROM wiki_pages WHERE status IN ('draft','reviewed','canonical')",
+      )
+      .filter((row) => JSON.parse(row.allowed_hosts).includes(host))) {
+      nodes.push({
+        id: w.id,
+        type: "wiki",
+        name: w.title,
+        slug: w.slug,
+        pageType: w.type,
+        status: w.status,
+        date: w.effective_date,
+        recordedAt: w.created_at,
+      });
+      for (const entityId of JSON.parse(w.entities))
+        links.push({
+          id: `${w.id}-${entityId}`,
+          source: w.id,
+          target: entityId,
+          type: "DESCRIBES",
+          basis: "manual",
+          evidence: [],
+          date: w.effective_date,
+        });
+      for (const e of s.all(
+        "SELECT * FROM wiki_evidence WHERE page_id=?",
+        w.id,
+      )) {
+        const evidence = {
+          revisionId: e.revision_id,
+          passageId: e.passage_id,
+          quote: e.quote,
+        };
+        if (!s.evidenceVisible([evidence], host, false)) continue;
+        const r = s.one(
+          "SELECT source_id FROM revisions WHERE id=?",
+          e.revision_id,
+        );
+        links.push({
+          id: `${w.id}-${e.passage_id}`,
+          source: r.source_id,
+          target: w.id,
+          type: w.status === "canonical" ? "SUPPORTS" : "REFERENCES",
+          basis: w.status === "canonical" ? "supported" : "inferred",
+          evidence: [evidence],
+          date: w.effective_date,
+        });
+      }
+    }
   for (const r of s.all("SELECT * FROM relationships")) {
     const evidence = JSON.parse(r.evidence);
     if (!s.evidenceVisible(evidence, host, false)) continue;

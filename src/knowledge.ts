@@ -17,6 +17,7 @@ import {
   readYaml,
   writeYaml,
 } from "./files.js";
+import { isRegisteredConnector } from "./connectors.js";
 
 export function context(
   s: Store,
@@ -80,6 +81,8 @@ export function onboard(s: Store, answers: Record<string, unknown>) {
     "recurringWork",
     "tools",
     "restrictions",
+    "sourcesFolder",
+    "folderMode",
   ];
   for (const key of Object.keys(answers))
     if (!allowed.includes(key)) throw Error(`Unknown onboarding field ${key}`);
@@ -271,9 +274,7 @@ export function connect(s: Store, input?: any) {
   const path = s.path("connections/registry.yaml");
   const registry = readYaml(path) as any;
   if (!input) return registry;
-  if (
-    !["gmail", "calendar", "drive", "github", "files"].includes(input.provider)
-  )
+  if (!isRegisteredConnector(input.provider))
     throw Error("Unsupported connector");
   const host = hostSchema.parse(input.host);
   if (!["unavailable", "available", "export-only"].includes(input.status))

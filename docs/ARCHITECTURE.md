@@ -13,8 +13,11 @@ The Git checkout holds source code, runtime skills, tests, documentation, and fi
 | Entities and relationships               | SQLite                               | Map nodes and edges             |
 | Typed CSV rows                           | SQLite, scoped to immutable revision | Aggregate results               |
 | Workflow state and approvals             | SQLite                               | Markdown evidence briefs        |
+| Wiki pages and evidence                  | Markdown content plus SQLite index   | Cited current-view pages        |
 
-The SQLite driver includes FTS5. Node's built-in SQLite is not used because its compiled features differ by Node release. Schemas validate external input; public object contracts live in `src/objects.ts`. The database schema is version 1. Unsupported schema versions fail closed.
+Capability step tools, hosts, and connector providers are validated against runtime registries (`src/tools.ts`, `src/hosts.ts`, `src/connectors.ts`); built-ins self-register and new entries are registrations, not schema edits. Tool constraints are declared per tool and enforced at capability save, activation, and run. The database schema is version 2; version 1 workspaces open read-compatibly and migrate through `upgrade`, which takes a verified backup first. Wiki commands require schema 2.
+
+The SQLite driver includes FTS5. Node's built-in SQLite is not used because its compiled features differ by Node release. Schemas validate external input; public object contracts live in `src/objects.ts`. Unsupported schema versions fail closed.
 
 ## Data flow
 

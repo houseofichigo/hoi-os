@@ -3,12 +3,15 @@ import { Store } from "./store.js";
 import { ingest } from "./intake.js";
 import { metadata, type Host } from "./schema.js";
 import { atomic, uid, now, sha, readYaml } from "./files.js";
+import { isImportableConnector } from "./connectors.js";
 import { mkdtempSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 const bridge = z
   .object({
-    provider: z.enum(["gmail", "calendar", "drive", "github"]),
+    provider: z
+      .string()
+      .refine(isImportableConnector, { message: "Unsupported connector" }),
     account: z.string().min(1),
     remoteId: z.string().min(1),
     title: z.string().min(1),

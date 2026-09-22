@@ -66,6 +66,7 @@ export function filterGraph(
           .includes(query.toLowerCase())) &&
       (!type || n.type === type) &&
       (view !== "memory" || n.type === "memory") &&
+      (view !== "wiki" || n.type === "wiki") &&
       (!scoped || selected.has(n.id)) &&
       (!source || sourceIds.has(n.id)) &&
       (!focus || neighbors.has(n.id)) &&

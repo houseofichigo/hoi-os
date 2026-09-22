@@ -1,6 +1,5 @@
 import { readFileSync } from "node:fs";
 import { Store } from "./store.js";
-import { retrieve } from "./intake.js";
 import { context } from "./knowledge.js";
 import {
   capabilitySchema,
@@ -9,9 +8,12 @@ import {
   type MeetingInput,
 } from "./schema.js";
 import { uid, sha, now, writeYaml, atomic } from "./files.js";
+import { getTool, assertCapabilityTools } from "./tools.js";
+import "./tools-builtin.js";
 
 export function saveCapability(s: Store, input: unknown) {
   const c = capabilitySchema.parse(input);
+  assertCapabilityTools(c);
   c.state = "draft";
   if (
     s.one("SELECT id FROM executions WHERE capability=? LIMIT 1", c.id) &&
@@ -58,6 +60,7 @@ export async function run(
 ): Promise<any> {
   s.assertHost(host);
   const capability = s.capability(capabilityId);
+  assertCapabilityTools(capability);
   if (capability.state !== "active" && !options.evaluate)
     throw Error("Capability is draft; evaluate and activate it first");
   const policy = s.policy();
@@ -178,20 +181,10 @@ export async function run(
   try {
     for (const step of capability.steps) {
       if (checkpoint.steps[step.id]) continue;
-      let result: any;
-      if (step.tool === "context") result = context(s, host, contextOptions);
-      else if (step.tool === "retrieve")
-        result = retrieve(s, parsed.query || parsed.title, host, {
-          client: parsed.client,
-          project: parsed.project,
-          limit: 12,
-        });
-      else {
-        const retrieval = Object.values(checkpoint.steps).find(
-          (x: any) => x?.results,
-        ) as any;
-        result = brief(parsed, retrieval?.results ?? []);
-      }
+      const result: any = await getTool(step.tool).run(s, host, parsed, {
+        contextOptions,
+        checkpoint,
+      });
       checkpoint.steps[step.id] = result;
       s.exec(
         "UPDATE executions SET checkpoint=? WHERE id=?",
@@ -243,41 +236,6 @@ export async function run(
     );
     throw e;
   }
-}
-function brief(input: MeetingInput, evidence: any[]) {
-  const escape = (text: string) => text.replace(/[\\`*_[\]<>#!|]/g, "\\$&");
-  const cite = (e: any) =>
-    `[Open source](../${e.originalPath.replaceAll("\\", "/").split("/").map(encodeURIComponent).join("/")}) · Passage: ${e.passageId} · Revision: ${e.revisionId}`;
-  const markdown = [
-    `# ${escape(input.title)}`,
-    `Time: ${input.start}`,
-    `Participants: ${escape(input.participants.join(", ")) || "Not supplied"}`,
-    "## Objectives",
-    ...(input.objectives.length
-      ? input.objectives.map((x) => `- ${escape(x)}`)
-      : ["No confirmed objectives supplied."]),
-    "## Source evidence",
-    ...evidence.map(
-      (e) =>
-        `### ${escape(e.title)} · ${escape(e.location)}\n\n${escape(e.quote)}\n\n${cite(e)} · ${e.authority} · ${e.status} · effective date: ${e.effectiveDate ?? "unknown"}`,
-    ),
-    "## Open questions",
-    "- Which outcomes need a decision in this meeting?",
-    "- Which commitments require confirmation against the latest source?",
-    "## Information gaps",
-    ...(!input.client ? ["- Client identity has not been resolved."] : []),
-    ...(!input.project ? ["- No project has been selected."] : []),
-    ...(!input.eventEvidence.length
-      ? [
-          "- Event details were supplied by the user; live calendar state was not verified.",
-        ]
-      : []),
-    ...(!evidence.length
-      ? ["- No permitted matching evidence was found."]
-      : []),
-    "\nThis is a draft evidence brief. Dates and commitments must not be inferred from missing sources.",
-  ].join("\n\n");
-  return { markdown, evidence };
 }
 export async function evaluate(
   s: Store,
@@ -335,6 +293,7 @@ export async function evaluate(
 export function activate(s: Store, id: string) {
   const c = s.capability(id),
     digest = sha(JSON.stringify(c));
+  assertCapabilityTools(c);
   if (
     !s.one(
       "SELECT id FROM evaluations WHERE capability=? AND digest=? AND passed=1",

@@ -34,7 +34,7 @@ async function zip(names, name, operational = false) {
   if (operational)
     z.file(
       "README.md",
-      "These 12 operational skills require the matching HOI OS core and private workspace. This is a collection archive, not a single skill upload. Use https://github.com/houseofichigo/hoi-os for setup.\n",
+      "These 14 operational skills require the matching HOI OS core and private workspace. This is a collection archive, not a single skill upload. Use https://github.com/houseofichigo/hoi-os for setup.\n",
       { date: fixed },
     );
   const bytes = await z.generateAsync({

@@ -13,7 +13,20 @@ import { diagnostics, supportReport } from "./diagnostics.js";
 import { doctorOcr, ocr } from "./ocr.js";
 import { importConnection } from "./bridge.js";
 import { queryData } from "./structured.js";
-import { Store, initialize } from "./store.js";
+import {
+  Store,
+  initialize,
+  CURRENT_SCHEMA_VERSION,
+  WIKI_SCHEMA_SQL,
+} from "./store.js";
+import {
+  proposeWiki,
+  listWiki,
+  getWiki,
+  reviewWiki,
+  canonicalWiki,
+  wikiContradictions,
+} from "./wiki.js";
 import { ingest, retrieve } from "./intake.js";
 import {
   onboard,
@@ -73,7 +86,7 @@ export async function main(args = process.argv.slice(2)) {
     );
   if (command === "help" || v.help) {
     print(
-      "HOI OS\n\nhoi <command> --workspace <private directory> --host codex|claude|local [--json]\n\nCommands: init, doctor, onboard, connect, ingest, organize, approve, retrieve, context, capture, review-memory, consolidate, entity, relate, build-capability, run, evaluate, audit, map, backup, restore, upgrade, diagnostics, recover-lock, recover-restore\n\nUse --input file.json for structured inputs. See docs/CLI.md for examples.",
+      "HOI OS\n\nhoi <command> --workspace <private directory> --host codex|claude|local [--json]\n\nCommands: init, doctor, onboard, connect, ingest, organize, approve, retrieve, context, capture, review-memory, consolidate, entity, relate, wiki, build-capability, run, evaluate, audit, map, app, backup, restore, upgrade, diagnostics, recover-lock, recover-restore\n\nWiki: wiki list | wiki get REF | wiki propose --input page.json | wiki review ID --state reviewed|rejected | wiki canonical ID | wiki contradictions\n\nUse --input file.json for structured inputs. See docs/CLI.md for examples.",
     );
     return;
   }
@@ -284,15 +297,54 @@ export async function main(args = process.argv.slice(2)) {
         if (!p[1]) throw Error("backup requires a new destination directory");
         result = backup(s, p[1]);
         break;
-      case "upgrade":
+      case "upgrade": {
         if (!p[1]) throw Error("upgrade requires a backup destination");
-        result = {
-          backup: backup(s, p[1]),
-          schemaVersion: 1,
-          status:
-            "Already at current schema; backup verified by checksum manifest.",
-        };
+        const verified = backup(s, p[1]);
+        if (s.schemaVersion < CURRENT_SCHEMA_VERSION) {
+          mkdirSync(s.path("wiki"), { recursive: true, mode: 0o700 });
+          s.db.exec(
+            `${WIKI_SCHEMA_SQL}\nPRAGMA user_version=${CURRENT_SCHEMA_VERSION};`,
+          );
+          s.log("schema.migrated", {
+            from: s.schemaVersion,
+            to: CURRENT_SCHEMA_VERSION,
+          });
+          result = {
+            backup: verified,
+            schemaVersion: CURRENT_SCHEMA_VERSION,
+            status: `Migrated schema ${s.schemaVersion} -> ${CURRENT_SCHEMA_VERSION} after verified backup.`,
+          };
+        } else
+          result = {
+            backup: verified,
+            schemaVersion: s.schemaVersion,
+            status:
+              "Already at current schema; backup verified by checksum manifest.",
+          };
         break;
+      }
+      case "wiki": {
+        const sub = p[1] ?? "list";
+        if (sub === "list") result = listWiki(s, host);
+        else if (sub === "get") {
+          if (!p[2]) throw Error("wiki get requires a page ID or slug");
+          result = getWiki(s, p[2], host);
+        } else if (sub === "propose") result = proposeWiki(s, input(), host);
+        else if (sub === "review") {
+          if (!p[2] || !["reviewed", "rejected"].includes(String(v.state)))
+            throw Error(
+              "wiki review requires an ID and --state reviewed|rejected",
+            );
+          result = reviewWiki(s, p[2], v.state as any, host);
+        } else if (sub === "canonical") {
+          if (!p[2]) throw Error("wiki canonical requires a page ID");
+          result = canonicalWiki(s, p[2], host);
+        } else if (sub === "contradictions")
+          result = wikiContradictions(s, host);
+        else throw Error(`Unknown wiki subcommand: ${sub}`);
+        break;
+      }
+      case "app":
       case "map": {
         const webRoot = resolve(
           dirname(fileURLToPath(import.meta.url)),
@@ -302,11 +354,15 @@ export async function main(args = process.argv.slice(2)) {
           s,
           host,
           webRoot,
-          v.port ? Number(v.port) : 4640,
+          v.port ? Number(v.port) : command === "app" ? 4641 : 4640,
+          { app: command === "app" },
         );
         print({
           url: running.url,
-          note: "Read-only, localhost only. Stop with Ctrl+C.",
+          note:
+            command === "app"
+              ? "Local workspace app. Reviewable actions only; holds the workspace lock while running. Stop with Ctrl+C."
+              : "Read-only, localhost only. Stop with Ctrl+C.",
         });
         keepOpen = true;
         for (const signal of ["SIGINT", "SIGTERM"] as const)

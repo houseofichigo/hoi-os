@@ -60,10 +60,10 @@ test("release packages are reproducible, complete and extractable without local 
       readFileSync(join(dir, "hoi-os-skills.zip")),
     ),
     data = catalog(root, version);
-  assert.equal(data.skills.filter((s) => s.kind === "operational").length, 12);
+  assert.equal(data.skills.filter((s) => s.kind === "operational").length, 14);
   assert.equal(
     Object.keys(collection.files).filter((p) => p.endsWith("/SKILL.md")).length,
-    12,
+    14,
   );
   assert.equal(collection.file("hoi-install/SKILL.md"), null);
   for (const s of data.skills.filter((s) => s.kind === "operational"))

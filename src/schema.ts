@@ -1,6 +1,9 @@
 import { z } from "zod";
+import { isRegisteredHost } from "./hosts.js";
 export const id = z.string().regex(/^[a-z][a-z0-9_-]{2,100}$/);
-export const host = z.enum(["codex", "claude", "local"]);
+export const host = z
+  .string()
+  .refine(isRegisteredHost, { message: "Unregistered host" });
 export type Host = z.infer<typeof host>;
 export const evidence = z
   .object({ revisionId: id, passageId: id, quote: z.string().min(1) })
@@ -109,7 +112,10 @@ export const defaultPolicy = {
     external: "deny",
   },
 };
-export const tools = ["retrieve", "context", "meeting-brief"] as const;
+// Step tools are validated against the runtime registry (src/tools.ts) when a
+// capability is saved, activated, or run — not in this structural schema, so
+// parsing stored capabilities never depends on registration order.
+export const toolName = z.string().regex(/^[a-z][a-z0-9-]{1,40}$/);
 export const capabilitySchema = z
   .object({
     schemaVersion: z.literal(1),
@@ -122,7 +128,7 @@ export const capabilitySchema = z
     state: z.enum(["draft", "active"]).default("draft"),
     autonomy: z.enum(["A0", "A1", "A2"]).default("A2"),
     steps: z
-      .array(z.object({ id, tool: z.enum(tools) }).strict())
+      .array(z.object({ id, tool: toolName }).strict())
       .min(1)
       .max(12),
     evaluation: z
@@ -136,23 +142,33 @@ export const capabilitySchema = z
   .superRefine((v, ctx) => {
     if (new Set(v.steps.map((s) => s.id)).size !== v.steps.length)
       ctx.addIssue({ code: "custom", message: "Step IDs must be unique" });
-    const briefIndex = v.steps.findIndex((s) => s.tool === "meeting-brief");
-    if (
-      briefIndex >= 0 &&
-      (v.autonomy !== "A2" ||
-        !v.steps.slice(0, briefIndex).some((s) => s.tool === "retrieve"))
-    )
-      ctx.addIssue({
-        code: "custom",
-        message: "Meeting drafting requires A2 and a preceding retrieval step",
-      });
-    if (v.evaluation.requireCitations && briefIndex < 0)
-      ctx.addIssue({
-        code: "custom",
-        message: "A cited output requires a meeting-brief step",
-      });
   });
 export type Capability = z.infer<typeof capabilitySchema>;
+export const wikiEvidenceInput = z
+  .object({
+    revisionId: id,
+    passageId: id,
+    quote: z.string().min(1),
+    relation: z
+      .enum(["supports", "mentions", "contradicts"])
+      .default("supports"),
+  })
+  .strict();
+export const wikiPageInput = z
+  .object({
+    slug: z.string().regex(/^[a-z0-9][a-z0-9-]{1,80}$/),
+    title: z.string().min(1),
+    type: z.string().regex(/^[a-z][a-z0-9-]{1,30}$/),
+    content: z.string().min(1).max(200_000),
+    entities: z.array(id).default([]),
+    effectiveDate: z.string().date().nullable().default(null),
+    owner: z.string().nullable().default(null),
+    allowedHosts: z.array(host).default(["codex", "claude", "local"]),
+    supersedes: id.optional(),
+    evidence: z.array(wikiEvidenceInput).min(1),
+  })
+  .strict();
+export type WikiPageInput = z.infer<typeof wikiPageInput>;
 export const meetingInput = z
   .object({
     title: z.string().min(1),

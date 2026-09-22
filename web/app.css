@@ -1,0 +1,237 @@
+/* House of Ichigo — Workspace App. White ground, Ink text, Cobalt actions.
+   Rules, not boxes. No gradients, no shadows, radius ≤ 2px. */
+.app-shell {
+  display: grid;
+  grid-template-columns: 232px 1fr;
+  min-height: 100vh;
+}
+.app-nav {
+  border-right: 1px solid var(--line);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.app-nav .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.app-nav .brand img {
+  width: 28px;
+}
+.app-nav .subbrand {
+  display: block;
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--slate);
+}
+.app-nav button {
+  background: none;
+  color: var(--ink);
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: 500;
+  border-left: 2px solid transparent;
+  border-radius: 0;
+  min-height: 40px;
+}
+.app-nav button:hover {
+  opacity: 1;
+  color: var(--cobalt);
+}
+.app-nav button.active {
+  border-left-color: var(--cobalt);
+  color: var(--cobalt);
+  font-weight: 600;
+  background: var(--cobalt-8);
+}
+.app-nav .nav-foot {
+  margin-top: auto;
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--slate);
+}
+.app-main {
+  padding: 40px 48px 64px;
+  max-width: 1040px;
+}
+.app-main h1 {
+  font-size: var(--text-heading-lg);
+  margin: 0 0 8px;
+}
+.app-main .lede {
+  color: var(--slate);
+  margin: 0 0 32px;
+}
+.ask {
+  display: flex;
+  gap: 12px;
+  border-top: var(--rule-heavy) solid var(--ink);
+  padding-top: 24px;
+  margin-bottom: 40px;
+}
+.ask input {
+  flex: 1;
+  font-size: var(--text-body-lg);
+  padding: 14px;
+}
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.stat-row .stat-block {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+.stat-row .stat-value {
+  font-size: 42px;
+  line-height: 1.1;
+}
+.suggest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+.suggest button {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+.row-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.row-list li {
+  border-top: 1px solid var(--line);
+  padding: 14px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: baseline;
+}
+.row-list li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.row-list .grow {
+  flex: 1;
+  min-width: 0;
+}
+.row-list small {
+  display: block;
+  color: var(--slate);
+  font-size: var(--text-caption);
+}
+.chip {
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid var(--slate);
+  color: var(--slate);
+  white-space: nowrap;
+}
+.chip.canonical,
+.chip.approved,
+.chip.available {
+  border-color: var(--cobalt);
+  color: var(--cobalt);
+}
+.chip.reviewed {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.chip.rejected,
+.chip.unavailable,
+.chip.stale {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.detail {
+  border-top: var(--rule-heavy) solid var(--ink);
+  padding-top: 24px;
+  margin-top: 40px;
+}
+.detail .actions {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.detail .actions .secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+.detail .actions .danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+.evidence-quote {
+  border-left: var(--rule-heavy) solid var(--cobalt);
+  padding-left: 20px;
+  margin: 16px 0;
+}
+.evidence-quote .mono {
+  font-size: 12px;
+  color: var(--slate);
+}
+.text-link {
+  background: none;
+  border: none;
+  color: var(--cobalt);
+  padding: 0;
+  min-height: 0;
+  font-weight: 500;
+  text-align: left;
+}
+.group-head {
+  font-family: var(--m);
+  font-size: var(--text-eyebrow);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cobalt);
+  margin: 32px 0 8px;
+}
+.group-head:first-of-type {
+  margin-top: 0;
+}
+.app-error {
+  border-left: var(--rule-heavy) solid var(--danger);
+  padding-left: 20px;
+  color: var(--danger);
+}
+.app-note {
+  color: var(--slate);
+  font-size: var(--text-caption);
+}
+@media (max-width: 760px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+  .app-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .app-nav .nav-foot {
+    display: none;
+  }
+  .app-main {
+    padding: 24px 16px 48px;
+  }
+  .stat-row {
+    grid-template-columns: 1fr;
+  }
+}
