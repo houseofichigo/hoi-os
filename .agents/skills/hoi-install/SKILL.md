@@ -24,4 +24,4 @@ Never overwrite a nonempty destination or discard uncommitted changes. For updat
 
 Report the installed version, product and workspace locations, selected adapters, diagnostic outcome, and any warnings. Confirm these from command results when available; in chat-only mode identify them as user-reported and keep unverified steps explicit. Operational skills are workspace-scoped by default.
 
-Open the private workspace in the chosen local assistant. Invoke `$hoi-onboard` in Codex or `/hoi-onboard` in Claude Code. The optional map starts through `npm start`; opening `web/index.html` does not run the app. No model API key is required for local setup; users bring their own assistant access.
+Open the private workspace in the chosen local assistant. Invoke `$hoi-onboard` in Codex or `/hoi-onboard` in Claude Code, then follow the product's `docs/USER_SOP.md` for bounded ingestion, organization, wiki, second-brain review and the Workspace App. The app starts with `hoi app` or the documented npm launcher; opening `web/index.html` does not run it. No model API key is required for local setup; users bring their own assistant access.

@@ -4,6 +4,8 @@ A local operating layer for knowledge, decisions, and meeting preparation. Bring
 
 **v0.1.0-alpha.2 · Public evaluation prerelease.** See [validation](docs/VALIDATION.md) and [stable-release gates](docs/ACCEPTANCE.md).
 
+**New user:** follow the [visual user SOP](docs/USER_SOP.md) for the complete install → onboard → bounded ingest → organise → wiki → second brain → Workspace App operating flow.
+
 ## Download installation skill
 
 [Download hoi-install.zip](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-install.zip) · [Download chat guide](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-install.md) · [Download all 14 operational skills](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-os-skills.zip) · [Checksums](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/SHA256SUMS)
@@ -78,22 +80,22 @@ Read [the app guide](docs/APP.md). Reviewable actions only; ingestion and connec
 
 <!-- skills:start -->
 
-| Skill                  | Purpose                                                                                              |
-| ---------------------- | ---------------------------------------------------------------------------------------------------- |
-| `hoi-3d-map`           | Open the local HOI knowledge map with source-backed relationships and temporal views.                |
-| `hoi-audit`            | Inspect evidence health, extraction gaps, connections, and memory freshness in HOI OS.               |
-| `hoi-build-capability` | Define, evaluate, and activate a bounded HOI workflow using registered tools.                        |
-| `hoi-capture`          | Record user-supplied decisions, preferences, or experience as reviewable HOI memory.                 |
-| `hoi-connect`          | Check available Gmail, Calendar, Drive, or GitHub host tools for a selected HOI workspace.           |
-| `hoi-consolidate`      | Find duplicate, stale, and proposed HOI memories for review.                                         |
-| `hoi-evaluate`         | Run reproducible evidence retrieval checks for a HOI capability.                                     |
-| `hoi-ingest`           | Preserve and register selected local files or host-exported sources in HOI OS.                       |
-| `hoi-meeting-prep`     | Prepare a cited client meeting brief using HOI knowledge and available read-only host connections.   |
-| `hoi-onboard`          | Build or update a personal HOI OS profile through a short, resumable conversation.                   |
-| `hoi-organize`         | Propose and apply a reviewable working-folder organization while preserving originals.               |
-| `hoi-retrieve`         | Find source-backed information and bounded context in HOI OS.                                        |
-| `hoi-session-capture`  | Propose reviewable HOI memories and wiki updates from decisions made in the current working session. |
-| `hoi-wiki`             | Turn ingested evidence into reviewable current-view wiki pages with cited sources in HOI OS.         |
+| Skill                  | Purpose                                                                                                                                                       |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hoi-3d-map`           | Open the local HOI Workspace App or its optional 3D knowledge map to inspect source-backed search, wiki, memory, entities, relationships, and temporal views. |
+| `hoi-audit`            | Inspect an HOI OS workspace for schema, database, extraction, backup, adapter, connection, workflow, and memory health without changing it.                   |
+| `hoi-build-capability` | Define, evaluate, and activate a bounded HOI workflow using registered tools.                                                                                 |
+| `hoi-capture`          | Record user-supplied decisions, preferences, or experience as reviewable HOI memory.                                                                          |
+| `hoi-connect`          | Check available Gmail, Calendar, Drive, or GitHub host tools for a selected HOI workspace.                                                                    |
+| `hoi-consolidate`      | Find duplicate, stale, and proposed HOI memories for review.                                                                                                  |
+| `hoi-evaluate`         | Run reproducible evidence retrieval checks for a HOI capability.                                                                                              |
+| `hoi-ingest`           | Plan and ingest selected local files or authorized host exports into HOI OS with bounded scope, preserved originals, provenance, and visible failures.        |
+| `hoi-meeting-prep`     | Prepare a cited client meeting brief using HOI knowledge and available read-only host connections.                                                            |
+| `hoi-onboard`          | Onboard a user into HOI OS, capture their operating context, select a bounded source scope, and reach a first useful result without uncontrolled ingestion.   |
+| `hoi-organize`         | Propose and apply an exact, approval-bound organization of HOI OS working copies while preserving every original.                                             |
+| `hoi-retrieve`         | Find source-backed information and bounded context in HOI OS.                                                                                                 |
+| `hoi-session-capture`  | Propose reviewable HOI memories and wiki updates from decisions made in the current working session.                                                          |
+| `hoi-wiki`             | Build and maintain cited, reviewable current-view wiki pages from HOI OS evidence without replacing original sources or history.                              |
 
 <!-- skills:end -->
 

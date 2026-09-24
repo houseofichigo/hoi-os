@@ -12,7 +12,7 @@ import { hostname } from "node:os";
 import { join, resolve } from "node:path";
 import { fixture } from "./helpers.mjs";
 import { acquireLock, inspectLock, recoverLock } from "../dist/core/locks.js";
-import { supportReport } from "../dist/core/diagnostics.js";
+import { health, supportReport } from "../dist/core/diagnostics.js";
 import { backup, restore, verifyBackup } from "../dist/core/backup.js";
 import { ingest, retrieve } from "../dist/core/intake.js";
 import { Store } from "../dist/core/store.js";
@@ -61,6 +61,17 @@ test("support diagnostics export only allowlisted aggregate fields and verify ba
   assert.ok(
     supportReport(s, "codex").checks.some((c) => c.code === "BACKUP_INVALID"),
   );
+});
+test("health reports current schema and privacy-safe operational counts", async (t) => {
+  const { s, file } = fixture(t);
+  await ingest(s, file("private-title.md", "private content"));
+  const report = health(s, "codex");
+  assert.equal(report.schemaCurrent, true);
+  assert.equal(report.schemaVersion, report.currentSchemaVersion);
+  assert.equal(report.counts.sources, 1);
+  assert.equal(report.counts.revisions, 1);
+  assert.equal(report.revisionOutcomes.ready, 1);
+  assert.doesNotMatch(JSON.stringify(report), /private-title|private content/);
 });
 test("failed disk write retains old atomic file and cleans temp files", (t) => {
   const { file, root } = fixture(t);

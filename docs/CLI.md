@@ -6,11 +6,14 @@ Run `node <product>/bin/hoi.mjs COMMAND --workspace <private-directory> --host c
 | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `init`                                                                                | Create an empty private workspace. Refuses a nonempty uninitialized directory.                                        |
 | `doctor`, `audit`                                                                     | Database integrity, permitted source counts, extraction gaps, memory issues and connection attestations.              |
+| `health`                                                                              | Privacy-safe schema, database size, knowledge counts, revision outcomes, workflow counts and diagnostic checks.       |
 | `onboard --input FILE`                                                                | Merge supplied name, role, organization, offering, goals, recurringWork, tools, restrictions. Each value is a string. |
 | `context`                                                                             | Return bounded context and current approved memory permitted for the actual host.                                     |
 | `connect [--input FILE]`                                                              | Inspect or record host connection status after a real tool check.                                                     |
 | `import-connection --input FILE`                                                      | Preserve a normalized provider export; register stable account/object identity.                                       |
-| `ingest PATH [--metadata FILE]`                                                       | Preserve originals and extract supported file/folder contents.                                                        |
+| `ingest-plan PATH [--max-files 150] [--max-bytes 1073741824]`                         | Read-only inventory for a file/folder. Returns limits, warnings and a plan hash.                                      |
+| `ingest PATH [--metadata FILE]`                                                       | Preserve and extract one explicitly selected file.                                                                    |
+| `ingest FOLDER --plan-hash HASH [--max-files N] [--max-bytes N]`                      | Import the exact reviewed, bounded directory plan. Refuses stale or blocked plans.                                    |
 | `ingest PATH --source-id ID`                                                          | Import a version or moved file under an existing source identity.                                                     |
 | `retrieve QUERY [--client ID] [--project ID] [--source-id ID] [--latest] [--limit 8]` | Return bounded evidence with authority, revision and freshness. A source-only query can omit QUERY.                   |
 | `query-data --source-id ID --column amount --operation sum`                           | Typed CSV aggregate: count, sum, min, max, avg. Mixed text/numeric cells fail; units are not inferred.                |
@@ -32,7 +35,25 @@ Run `node <product>/bin/hoi.mjs COMMAND --workspace <private-directory> --host c
 | `map [--port 4640]`                                                                   | Start the optional read-only localhost map.                                                                           |
 | `backup DESTINATION`                                                                  | Create a new backup outside the workspace with checksums and a consistent SQLite snapshot.                            |
 | `restore BACKUP`                                                                      | Verify, stage and restore; retain the previous workspace beside the restored one. Stop active commands/map first.     |
-| `upgrade BACKUP_DESTINATION`                                                          | Preserve the current schema-1 workspace before checking compatibility; no later-schema migration exists yet.          |
+| `upgrade BACKUP_DESTINATION`                                                          | Take a verified backup, then migrate a supported schema-1 workspace to current schema 2.                              |
+
+## Bounded directory ingestion
+
+Plan first:
+
+```sh
+hoi ingest-plan "SOURCE_FOLDER" --workspace WS --host codex \
+  --max-files 150 --max-bytes 1073741824 --json
+```
+
+Review `fileCount`, `totalBytes`, `extensions`, `existingLocations`, `warnings`, `blocked` and `planHash`. Then import the unchanged selection with the exact same limits:
+
+```sh
+hoi ingest "SOURCE_FOLDER" --workspace WS --host codex \
+  --plan-hash "PLAN_HASH" --max-files 150 --max-bytes 1073741824 --json
+```
+
+The default directory limits are 150 files and 1 GiB. Disk roots and the current user's home directory are blocked. A changed file list, size or modification time changes the hash and requires a new plan. Excluded paths and symlinks remain excluded. Single explicitly selected files retain the shorter `ingest FILE` route.
 
 ## Example metadata
 

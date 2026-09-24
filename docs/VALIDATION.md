@@ -4,13 +4,13 @@ Release status: **0.1.0-alpha.2 — implemented, locally verified, not a stable 
 
 ## Downloadable release packages
 
-The alpha.2 distribution adds `hoi-install`, a self-contained chat guide, a 12-skill collection and checksums. Thirteen skill folders pass format validation. Packaging tests verify reproducible bytes, complete resources, extraction, mirrors, and repair of interrupted adapter installation. Local command paths and chat-only limitations were reviewed; this is not a claim of completed fresh-session testing in all four assistant interfaces.
+The alpha.2 distribution includes `hoi-install`, a self-contained chat guide, 14 operational skills and checksums. All 15 skill folders, including the installer, pass package validation. Packaging tests verify reproducible bytes, complete resources, extraction, mirrors, and repair of interrupted adapter installation. Local command paths and chat-only limitations were reviewed; this is not a claim of completed fresh-session testing in all four assistant interfaces.
 
 The GitHub workflows gate prerelease publication on the macOS/Windows/Linux × Node 22/24 matrix and Chromium checks. Read the actual workflow results for remote verification. Public release packaging does not close real-client acceptance gates.
 
 ## Stabilization verification — September 18
 
-- Full verification: **37 Node tests passed**, production build passed, runtime mirrors matched, formatting passed.
+- Full verification covers the core, integration, recovery, stabilization, wiki, app and release suites; production build, runtime mirrors and formatting must pass together. Use the current CI run rather than a hard-coded historical test count.
 - **Four automated Chromium checks passed**: all views and source evidence, keyboard/narrow-screen access, unavailable WebGL, actual reduced-motion preference, 3D rendering, expired sessions, and unavailable-server handling.
 - Map benchmark on Apple M5, macOS, Node 22: **235 ms** to the list and **1,278 ms** from requesting 3D to a visible canvas and responsive pause control, with 1,001 synthetic document records. This is a local smoke benchmark, not a cross-machine service guarantee or proof that every graph layout has settled.
 - Launcher successfully serves the selected workspace and returns actionable errors for missing arguments, missing workspace, and occupied port without stopping the other server.
@@ -18,7 +18,7 @@ The GitHub workflows gate prerelease publication on the macOS/Windows/Linux × N
 - A real private HOI workspace copy was restored, its two original revisions checksum-verified, both adapters reinstalled, index rebuilt, and a same-release manual change rolled back. The live workspace's knowledge was not replaced. This does not validate a future schema migration or switching between released product versions.
 - Fresh verified backup created privately before the rehearsal. Diagnostic exports use an explicit allowlist of aggregate fields.
 - Pilot import and bilingual-label evaluation tools pass synthetic end-to-end tests. Actual project selection, 30 human-labeled questions, five real meeting reviews, fresh interactive host sessions and ten working days remain **pending**.
-- Browser CI is configured but has not run on GitHub. Playwright is a development dependency only.
+- Browser CI runs on GitHub and gates prerelease publication. Playwright remains a development dependency only.
 
 ## Initial alpha verification — September 17
 

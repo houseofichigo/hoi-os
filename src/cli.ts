@@ -1,15 +1,9 @@
 import { parseArgs } from "node:util";
-import {
-  readFileSync,
-  existsSync,
-  mkdirSync,
-  rmSync,
-  readdirSync,
-} from "node:fs";
-import { resolve, join, dirname } from "node:path";
+import { existsSync, mkdirSync } from "node:fs";
+import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { acquireLock, recoverLock } from "./locks.js";
-import { diagnostics, supportReport } from "./diagnostics.js";
+import { diagnostics, health, supportReport } from "./diagnostics.js";
 import { doctorOcr, ocr } from "./ocr.js";
 import { importConnection } from "./bridge.js";
 import { queryData } from "./structured.js";
@@ -27,7 +21,7 @@ import {
   canonicalWiki,
   wikiContradictions,
 } from "./wiki.js";
-import { ingest, retrieve } from "./intake.js";
+import { ingest, planIngest, retrieve } from "./intake.js";
 import {
   onboard,
   context,
@@ -43,7 +37,7 @@ import { organize, approve, applyOrganization } from "./organize.js";
 import { backup, restore, recoverRestore } from "./backup.js";
 import { serve } from "./server.js";
 import { host as hostSchema } from "./schema.js";
-import { readYaml, atomic, now, sha, walk } from "./files.js";
+import { readYaml, atomic } from "./files.js";
 const strings = [
   "workspace",
   "host",
@@ -63,6 +57,9 @@ const strings = [
   "column",
   "operation",
   "language",
+  "plan-hash",
+  "max-files",
+  "max-bytes",
 ];
 const booleans = ["json", "latest", "apply", "activate", "help"];
 export async function main(args = process.argv.slice(2)) {
@@ -86,7 +83,7 @@ export async function main(args = process.argv.slice(2)) {
     );
   if (command === "help" || v.help) {
     print(
-      "HOI OS\n\nhoi <command> --workspace <private directory> --host codex|claude|local [--json]\n\nCommands: init, doctor, onboard, connect, ingest, organize, approve, retrieve, context, capture, review-memory, consolidate, entity, relate, wiki, build-capability, run, evaluate, audit, map, app, backup, restore, upgrade, diagnostics, recover-lock, recover-restore\n\nWiki: wiki list | wiki get REF | wiki propose --input page.json | wiki review ID --state reviewed|rejected | wiki canonical ID | wiki contradictions\n\nUse --input file.json for structured inputs. See docs/CLI.md for examples.",
+      "HOI OS\n\nhoi <command> --workspace <private directory> --host codex|claude|local [--json]\n\nCommands: init, doctor, health, onboard, connect, ingest-plan, ingest, organize, approve, retrieve, context, capture, review-memory, consolidate, entity, relate, wiki, build-capability, run, evaluate, audit, map, app, backup, restore, upgrade, diagnostics, recover-lock, recover-restore\n\nWiki: wiki list | wiki get REF | wiki propose --input page.json | wiki review ID --state reviewed|rejected | wiki canonical ID | wiki contradictions\n\nUse --input file.json for structured inputs. See docs/CLI.md for examples.",
     );
     return;
   }
@@ -125,7 +122,7 @@ export async function main(args = process.argv.slice(2)) {
   try {
     s = new Store(root);
   } catch (e) {
-    if (["doctor", "diagnostics"].includes(command)) {
+    if (["doctor", "health", "diagnostics"].includes(command)) {
       const report = {
         schemaVersion: 1,
         checks: [{ code: "DATABASE_UNAVAILABLE", severity: "error" }],
@@ -145,7 +142,9 @@ export async function main(args = process.argv.slice(2)) {
     "retrieve",
     "context",
     "doctor",
+    "health",
     "audit",
+    "ingest-plan",
     "diagnostics",
     "consolidate",
     "map",
@@ -156,6 +155,9 @@ export async function main(args = process.argv.slice(2)) {
     if (!readOnly.includes(command)) release = acquireLock(root, command);
     let result: any;
     switch (command) {
+      case "health":
+        result = health(s, host);
+        break;
       case "doctor":
       case "audit": {
         const sources = s
@@ -165,7 +167,7 @@ export async function main(args = process.argv.slice(2)) {
           .filter((x) => s.allowed(x, host));
         result = {
           diagnostics: diagnostics(s, host),
-          schemaVersion: 1,
+          schemaVersion: s.schemaVersion,
           node: process.version,
           integrity: s.one("PRAGMA integrity_check"),
           sources: sources.length,
@@ -208,6 +210,13 @@ export async function main(args = process.argv.slice(2)) {
       case "import-connection":
         result = await importConnection(s, input(), host);
         break;
+      case "ingest-plan":
+        if (!p[1]) throw Error("ingest-plan requires a file or directory");
+        result = planIngest(s, p[1], {
+          maxFiles: v["max-files"] ? Number(v["max-files"]) : undefined,
+          maxBytes: v["max-bytes"] ? Number(v["max-bytes"]) : undefined,
+        });
+        break;
       case "ingest":
         if (!p[1]) throw Error("ingest requires a file or directory");
         result = await ingest(s, p[1], {
@@ -216,6 +225,9 @@ export async function main(args = process.argv.slice(2)) {
             : undefined,
           sourceId: v["source-id"] as string,
           sourceKey: v["source-key"] as string,
+          planHash: v["plan-hash"] as string,
+          maxFiles: v["max-files"] ? Number(v["max-files"]) : undefined,
+          maxBytes: v["max-bytes"] ? Number(v["max-bytes"]) : undefined,
         });
         break;
       case "retrieve":

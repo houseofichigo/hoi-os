@@ -1,5 +1,5 @@
-import { existsSync, readFileSync } from "node:fs";
-import { Store } from "./store.js";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { CURRENT_SCHEMA_VERSION, Store } from "./store.js";
 import { inspectLock } from "./locks.js";
 import { verifyBackup } from "./backup.js";
 import type { Host } from "./schema.js";
@@ -70,13 +70,65 @@ export function diagnostics(s: Store, host: Host) {
     severity: backupCode === "BACKUP_VERIFIED" ? "ok" : "warning",
   });
   return {
-    schemaVersion: 1,
+    schemaVersion: s.schemaVersion,
     checks,
     counts: {
       sources: sources.length,
       ready: sources.length - gaps,
       extractionGaps: gaps,
     },
+  };
+}
+
+// Privacy-safe workspace health. Keep paths, titles, content and raw errors out.
+export function health(s: Store, host: Host) {
+  s.assertHost(host);
+  const visibleSources = s
+    .all("SELECT * FROM sources")
+    .filter((source) => s.allowed(source, host));
+  const visibleIds = new Set(visibleSources.map((source) => source.id));
+  const revisions = s
+    .all("SELECT source_id,status FROM revisions")
+    .filter((revision) => visibleIds.has(revision.source_id));
+  const revisionOutcomes: Record<string, number> = {};
+  for (const revision of revisions)
+    revisionOutcomes[revision.status] =
+      (revisionOutcomes[revision.status] ?? 0) + 1;
+  const count = (table: string) =>
+    Number(s.one(`SELECT COUNT(*) count FROM ${table}`).count);
+  const countVisible = (table: "occurrences" | "passages") => {
+    const ids = [...visibleIds];
+    let total = 0;
+    for (let index = 0; index < ids.length; index += 500) {
+      const batch = ids.slice(index, index + 500);
+      const placeholders = batch.map(() => "?").join(",");
+      const query =
+        table === "occurrences"
+          ? `SELECT COUNT(*) count FROM occurrences WHERE source_id IN (${placeholders})`
+          : `SELECT COUNT(*) count FROM passages p JOIN revisions r ON r.id=p.revision_id WHERE r.source_id IN (${placeholders})`;
+      total += Number(s.one(query, ...batch).count);
+    }
+    return total;
+  };
+  return {
+    generatedAt: new Date().toISOString(),
+    schemaVersion: s.schemaVersion,
+    currentSchemaVersion: CURRENT_SCHEMA_VERSION,
+    schemaCurrent: s.schemaVersion === CURRENT_SCHEMA_VERSION,
+    databaseBytes: statSync(s.path(".hoi/os.sqlite")).size,
+    counts: {
+      sources: visibleSources.length,
+      revisions: revisions.length,
+      passages: countVisible("passages"),
+      occurrences: countVisible("occurrences"),
+      executions: count("executions"),
+      evaluations: count("evaluations"),
+      approvals: count("approvals"),
+    },
+    revisionOutcomes: Object.fromEntries(
+      Object.entries(revisionOutcomes).sort(([a], [b]) => a.localeCompare(b)),
+    ),
+    diagnostics: diagnostics(s, host),
   };
 }
 // Explicit allowlist: never serialize exceptions, configuration or record objects.

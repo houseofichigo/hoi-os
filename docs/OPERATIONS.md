@@ -4,7 +4,7 @@
 
 Stop active commands and the map. Back up the private workspace to a new directory outside it. Update product code using a reviewed release, run npm ci, then rerun setup against the existing private workspace. Setup rebuilds the product and refreshes its managed skill/manual blocks, preserving previous copies in workspace archives.
 
-The current database version is 1. `upgrade BACKUP_DESTINATION` creates a backup and confirms this version. Future migrations must be transactional, take a verified pre-migration backup, and ship a restore test. This alpha does not claim an unimplemented migration path from a future schema or from Personal Workspace.
+The current database version is 2. Schema-1 workspaces open for compatible operations; `upgrade BACKUP_DESTINATION` creates and verifies a backup before applying the supported schema 1→2 wiki migration. Future migrations must be transactional, take a verified pre-migration backup, and ship a restore test. This alpha does not claim a migration path from future schemas or from Personal Workspace.
 
 ## Backups
 
@@ -59,4 +59,4 @@ The record list opens first. Choose **3D map** when needed. A failed refresh cle
 
 `recover-restore --workspace "<private workspace>"` handles a killed restore. After verifying the restoring process has stopped, it uses the journal to recover the previous workspace if the directory swap was interrupted. Completed swaps retain the prior workspace. Incomplete staging directories are never treated as successful backups and may be inspected before manual cleanup.
 
-Setup against an existing workspace now takes a verified sibling backup before updating adapters. Keep backup directories private and include them in your own encrypted storage policy. No schema migration is introduced in this stabilization; version 1 remains unchanged.
+Setup against an existing workspace takes a verified sibling backup before updating adapters. Keep backup directories private and include them in your own encrypted storage policy. Setup does not silently change the database schema; run the explicit backup-first `upgrade` command when a supported schema-1 workspace needs schema 2.

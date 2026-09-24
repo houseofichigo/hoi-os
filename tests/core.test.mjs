@@ -11,7 +11,7 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { initialize, Store } from "../dist/core/store.js";
-import { ingest, retrieve } from "../dist/core/intake.js";
+import { ingest, planIngest, retrieve } from "../dist/core/intake.js";
 import {
   capture,
   reviewMemory,
@@ -108,6 +108,36 @@ test("unsupported input retained and reported, credential paths excluded", async
   await assert.rejects(
     ingest(s, join(root, ".secrets", "key.txt")),
     /Excluded/,
+  );
+});
+test("directory ingestion requires a current bounded plan", async (t) => {
+  const { root, s } = fixture(t);
+  const folder = join(root, "selected-sources");
+  mkdirSync(folder);
+  writeFileSync(join(folder, "a.md"), "Atlas evidence one");
+  writeFileSync(join(folder, "b.txt"), "Atlas evidence two");
+  const plan = planIngest(s, folder);
+  assert.equal(plan.fileCount, 2);
+  assert.equal(plan.blocked, false);
+  await assert.rejects(ingest(s, folder), /reviewed plan/);
+  const result = await ingest(s, folder, { planHash: plan.planHash });
+  assert.equal(result.imported, 2);
+  assert.equal(result.failed, 0);
+  writeFileSync(join(folder, "c.md"), "changed after approval");
+  await assert.rejects(ingest(s, folder, { planHash: plan.planHash }), /stale/);
+});
+test("ingest plan blocks selections above the reviewed file budget", async (t) => {
+  const { root, s } = fixture(t);
+  const folder = join(root, "too-many");
+  mkdirSync(folder);
+  writeFileSync(join(folder, "a.md"), "one");
+  writeFileSync(join(folder, "b.md"), "two");
+  const plan = planIngest(s, folder, { maxFiles: 1 });
+  assert.equal(plan.blocked, true);
+  assert.ok(plan.warnings.includes("FILE_LIMIT_EXCEEDED"));
+  await assert.rejects(
+    ingest(s, folder, { planHash: plan.planHash, maxFiles: 1 }),
+    /blocked/,
   );
 });
 test("approval binds exact plan, policy and revision; conflicting destination is preserved", async (t) => {

@@ -4,7 +4,7 @@
   "skills": [
     {
       "name": "hoi-3d-map",
-      "description": "Open the local HOI knowledge map with source-backed relationships and temporal views.",
+      "description": "Open the local HOI Workspace App or its optional 3D knowledge map to inspect source-backed search, wiki, memory, entities, relationships, and temporal views.",
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -18,7 +18,7 @@
     },
     {
       "name": "hoi-audit",
-      "description": "Inspect evidence health, extraction gaps, connections, and memory freshness in HOI OS.",
+      "description": "Inspect an HOI OS workspace for schema, database, extraction, backup, adapter, connection, workflow, and memory health without changing it.",
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -102,7 +102,7 @@
     },
     {
       "name": "hoi-ingest",
-      "description": "Preserve and register selected local files or host-exported sources in HOI OS.",
+      "description": "Plan and ingest selected local files or authorized host exports into HOI OS with bounded scope, preserved originals, provenance, and visible failures.",
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -142,7 +142,7 @@
     },
     {
       "name": "hoi-onboard",
-      "description": "Build or update a personal HOI OS profile through a short, resumable conversation.",
+      "description": "Onboard a user into HOI OS, capture their operating context, select a bounded source scope, and reach a first useful result without uncontrolled ingestion.",
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -156,7 +156,7 @@
     },
     {
       "name": "hoi-organize",
-      "description": "Propose and apply a reviewable working-folder organization while preserving originals.",
+      "description": "Propose and apply an exact, approval-bound organization of HOI OS working copies while preserving every original.",
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -198,7 +198,7 @@
     },
     {
       "name": "hoi-wiki",
-      "description": "Turn ingested evidence into reviewable current-view wiki pages with cited sources in HOI OS.",
+      "description": "Build and maintain cited, reviewable current-view wiki pages from HOI OS evidence without replacing original sources or history.",
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [

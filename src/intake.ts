@@ -1,5 +1,6 @@
 import { readFileSync, statSync, existsSync } from "node:fs";
-import { basename, join, resolve } from "node:path";
+import { homedir } from "node:os";
+import { basename, extname, join, parse, relative, resolve } from "node:path";
 import { Store } from "./store.js";
 import { metadata, type Host } from "./schema.js";
 import {
@@ -14,10 +15,100 @@ import {
 import { extractSafe as extract } from "./extract-safe.js";
 import { parseCsv } from "./structured.js";
 
+export const DEFAULT_INGEST_MAX_FILES = 150;
+export const DEFAULT_INGEST_MAX_BYTES = 1024 * 1024 * 1024;
+
+type IngestLimits = { maxFiles?: number; maxBytes?: number };
+
+function positiveLimit(value: number | undefined, fallback: number) {
+  if (value === undefined) return fallback;
+  if (!Number.isSafeInteger(value) || value < 1)
+    throw Error("Ingest limits must be positive integers");
+  return value;
+}
+
+export function planIngest(
+  s: Store,
+  input: string,
+  options: IngestLimits = {},
+) {
+  const path = assertInput(input);
+  if (contained(s.root, path))
+    throw Error("Do not re-ingest workspace storage");
+  const directory = statSync(path).isDirectory();
+  const root = directory ? path : resolve(path, "..");
+  const selected = directory ? walk(path) : [path];
+  const files = selected
+    .map((file) => {
+      const stat = statSync(file);
+      return {
+        path: relative(root, file).replaceAll("\\", "/"),
+        bytes: stat.size,
+        modifiedMs: Math.trunc(stat.mtimeMs),
+      };
+    })
+    .sort((a, b) => a.path.localeCompare(b.path));
+  const maxFiles = positiveLimit(options.maxFiles, DEFAULT_INGEST_MAX_FILES);
+  const maxBytes = positiveLimit(options.maxBytes, DEFAULT_INGEST_MAX_BYTES);
+  const totalBytes = files.reduce((sum, file) => sum + file.bytes, 0);
+  const oversizedFiles = files.filter(
+    (file) => file.bytes > 50 * 1024 * 1024,
+  ).length;
+  const extensions: Record<string, number> = {};
+  for (const file of files) {
+    const extension = extname(file.path).toLowerCase() || "[none]";
+    extensions[extension] = (extensions[extension] ?? 0) + 1;
+  }
+  const resolved = resolve(path);
+  const broadRoot =
+    resolved === parse(resolved).root || resolved === resolve(homedir());
+  const warnings = [
+    ...(broadRoot ? ["BROAD_IMPORT_ROOT"] : []),
+    ...(files.length > maxFiles ? ["FILE_LIMIT_EXCEEDED"] : []),
+    ...(totalBytes > maxBytes ? ["BYTE_LIMIT_EXCEEDED"] : []),
+    ...(oversizedFiles ? ["FILE_SIZE_LIMIT_EXCEEDED"] : []),
+    ...(files.length === 0 ? ["NO_FILES_SELECTED"] : []),
+  ];
+  const manifest = {
+    root,
+    target: directory ? "." : relative(root, path).replaceAll("\\", "/"),
+    files,
+    limits: { maxFiles, maxBytes },
+  };
+  const existingLocations = new Set(
+    s.all("SELECT location FROM sources").map((source) => source.location),
+  );
+  return {
+    planHash: sha(JSON.stringify(manifest)),
+    root,
+    target: manifest.target,
+    fileCount: files.length,
+    totalBytes,
+    extensions: Object.fromEntries(
+      Object.entries(extensions).sort(([a], [b]) => a.localeCompare(b)),
+    ),
+    existingLocations: files.filter((file) =>
+      existingLocations.has(resolve(root, file.path)),
+    ).length,
+    oversizedFiles,
+    limits: manifest.limits,
+    blocked: warnings.length > 0,
+    warnings,
+    files,
+  };
+}
+
 export async function ingest(
   s: Store,
   input: string,
-  options: { metadata?: unknown; sourceId?: string; sourceKey?: string } = {},
+  options: {
+    metadata?: unknown;
+    sourceId?: string;
+    sourceKey?: string;
+    planHash?: string;
+    maxFiles?: number;
+    maxBytes?: number;
+  } = {},
 ): Promise<any> {
   const path = assertInput(input);
   if (contained(s.root, path))
@@ -25,15 +116,33 @@ export async function ingest(
   if (statSync(path).isDirectory()) {
     if (options.sourceId || options.sourceKey)
       throw Error("Source identity options require a single file");
+    const plan = planIngest(s, path, options);
+    if (!options.planHash)
+      throw Error(
+        `Directory ingestion requires a reviewed plan. Run ingest-plan first and pass --plan-hash ${plan.planHash}`,
+      );
+    if (options.planHash !== plan.planHash)
+      throw Error("Ingest plan is stale or does not match this directory");
+    if (plan.blocked)
+      throw Error(`Ingest plan is blocked: ${plan.warnings.join(", ")}`);
     const results = [];
-    for (const f of walk(path)) {
+    for (const item of plan.files) {
+      const f = resolve(plan.root, item.path);
       try {
         results.push(await ingest(s, f, { metadata: options.metadata }));
       } catch (e) {
         results.push({ file: f, error: (e as Error).message });
       }
     }
-    return results;
+    const failures = results.filter((result) => result.error);
+    return {
+      planHash: plan.planHash,
+      fileCount: plan.fileCount,
+      totalBytes: plan.totalBytes,
+      imported: results.length - failures.length,
+      failed: failures.length,
+      outcomes: results,
+    };
   }
   if (statSync(path).size > 50 * 1024 * 1024)
     throw Error("File exceeds 50 MB import limit");
