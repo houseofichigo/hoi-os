@@ -1,0 +1,198 @@
+{
+  "hoi-3d-map": {
+    "displayName": "Knowledge map",
+    "shortDescription": "Explore the connections behind your documents.",
+    "category": "Knowledge",
+    "icon": "knowledge",
+    "examples": [
+      "Show the knowledge map."
+    ]
+  },
+  "hoi-audit": {
+    "displayName": "Workspace audit",
+    "shortDescription": "Check source health, backups and workspace readiness.",
+    "category": "Governance",
+    "icon": "governance",
+    "examples": [
+      "Audit this workspace and explain the gaps."
+    ]
+  },
+  "hoi-build-capability": {
+    "displayName": "Capability builder",
+    "shortDescription": "Define a bounded workflow for review.",
+    "category": "Setup",
+    "icon": "setup",
+    "examples": [
+      "Help draft a capability using registered tools."
+    ]
+  },
+  "hoi-capture": {
+    "displayName": "Capture a decision",
+    "shortDescription": "Save confirmed decisions as reviewable memory.",
+    "category": "Knowledge",
+    "icon": "knowledge",
+    "examples": [
+      "Capture a decision from my selected notes."
+    ]
+  },
+  "hoi-chief-of-staff": {
+    "displayName": "Chief of Staff",
+    "shortDescription": "Review priorities, promises and upcoming work.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Review consulting priorities.",
+      "What should I focus on today?"
+    ]
+  },
+  "hoi-connect": {
+    "displayName": "Connections",
+    "shortDescription": "Check which information sources are available.",
+    "category": "Setup",
+    "icon": "setup",
+    "examples": [
+      "Check my available connections."
+    ]
+  },
+  "hoi-consolidate": {
+    "displayName": "Memory consolidation",
+    "shortDescription": "Review duplicate and outdated memories.",
+    "category": "Knowledge",
+    "icon": "knowledge",
+    "examples": [
+      "Find memories that need consolidation."
+    ]
+  },
+  "hoi-evaluate": {
+    "displayName": "Retrieval evaluation",
+    "shortDescription": "Measure whether evidence retrieval answers your questions.",
+    "category": "Governance",
+    "icon": "governance",
+    "examples": [
+      "Evaluate retrieval against my selected questions."
+    ]
+  },
+  "hoi-ingest": {
+    "displayName": "Document intake",
+    "shortDescription": "Preserve and index selected documents.",
+    "category": "Knowledge",
+    "icon": "knowledge",
+    "examples": [
+      "Review these documents for ingestion."
+    ]
+  },
+  "hoi-install": {
+    "displayName": "Installation guide",
+    "shortDescription": "Verify the app and optional assistant adapters.",
+    "category": "Setup",
+    "icon": "setup",
+    "examples": [
+      "Check my installation prerequisites."
+    ]
+  },
+  "hoi-knowledge-review": {
+    "displayName": "Knowledge review",
+    "shortDescription": "Review outdated evidence and proposed knowledge changes.",
+    "category": "Knowledge",
+    "icon": "knowledge",
+    "examples": [
+      "Review knowledge that needs verification.",
+      "Find outdated project information."
+    ]
+  },
+  "hoi-meeting-prep": {
+    "displayName": "Meeting preparation",
+    "shortDescription": "Go into your next meeting with the right evidence.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Prepare my next meeting.",
+      "Find open commitments for this project."
+    ]
+  },
+  "hoi-onboard": {
+    "displayName": "Workspace onboarding",
+    "shortDescription": "Set up goals, context and a bounded source collection.",
+    "category": "Setup",
+    "icon": "setup",
+    "examples": [
+      "Help me set up this workspace."
+    ]
+  },
+  "hoi-organize": {
+    "displayName": "Organize knowledge",
+    "shortDescription": "Review a proposed structure while keeping originals.",
+    "category": "Knowledge",
+    "icon": "knowledge",
+    "examples": [
+      "Suggest a structure for my selected sources."
+    ]
+  },
+  "hoi-project-intake": {
+    "displayName": "Project brief",
+    "shortDescription": "Turn a transcript or brief into a complete project.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Extract a project brief from my selected transcript.",
+      "Check which project fields are still missing."
+    ]
+  },
+  "hoi-retrieve": {
+    "displayName": "Evidence search",
+    "shortDescription": "Find passages that support an answer.",
+    "category": "Knowledge",
+    "icon": "knowledge",
+    "examples": [
+      "Find related evidence for this project."
+    ]
+  },
+  "hoi-security": {
+    "displayName": "Security review",
+    "shortDescription": "Inspect security checks and their coverage.",
+    "category": "Governance",
+    "icon": "governance",
+    "examples": [
+      "Review workspace security findings.",
+      "Explain what security checks remain untested."
+    ]
+  },
+  "hoi-session-capture": {
+    "displayName": "Session capture",
+    "shortDescription": "Turn supplied session notes into reviewed knowledge.",
+    "category": "Knowledge",
+    "icon": "knowledge",
+    "examples": [
+      "Capture decisions from these session notes."
+    ]
+  },
+  "hoi-task-intake": {
+    "displayName": "Extract to-dos",
+    "shortDescription": "Find commitments and prepare tasks for review.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Extract to-dos from these documents.",
+      "Check these action items for duplicates."
+    ]
+  },
+  "hoi-wiki": {
+    "displayName": "Wiki editor",
+    "shortDescription": "Prepare cited wiki updates for review.",
+    "category": "Knowledge",
+    "icon": "knowledge",
+    "examples": [
+      "Propose a wiki update from these documents."
+    ]
+  },
+  "hoi-wiki-author": {
+    "displayName": "Wiki author",
+    "shortDescription": "Prepare cited wiki drafts with explicit attribution and review.",
+    "category": "Knowledge",
+    "icon": "knowledge",
+    "examples": [
+      "Draft a project wiki from selected evidence",
+      "Update this wiki while preserving its source history"
+    ]
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "date": "2026-09-29",
+  "tool": "skill-repo-forge static audit",
+  "results": [
+    {
+      "skill": "hoi-3d-map",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-audit",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-build-capability",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-capture",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-chief-of-staff",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-connect",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-consolidate",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-evaluate",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-ingest",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-install",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-knowledge-review",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-meeting-prep",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-onboard",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-organize",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-project-intake",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-retrieve",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-security",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-session-capture",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-task-intake",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-wiki",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    },
+    {
+      "skill": "hoi-wiki-author",
+      "status": "pass",
+      "counts": {
+        "blocker": 0,
+        "warning": 0,
+        "note": 0
+      }
+    }
+  ],
+  "runtimeVerified": false
+}

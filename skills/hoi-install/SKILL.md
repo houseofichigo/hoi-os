@@ -1,27 +1,28 @@
 ---
 name: hoi-install
-description: Install or update HOI OS from its official GitHub release in a local Codex or Claude Code workspace, or guide a ChatGPT or Claude chat user through local installation.
+description: "Use when requested to locate, install or verify the existing HOI OS product and optional workspace adapters, or guide chat-only users through a documented local installation. Does not generate an app."
+license: MIT
 ---
 
-# Install HOI OS
+# Install or verify HOI OS
 
-Install the full HOI OS alpha and its 14 operational skills, then hand off to onboarding. Installing this guide alone does not install the core, connect accounts, or grant access to a local database.
+HOI OS is an existing product whose engine runs ingestion, retrieval, audits, projects and map data. Skills are optional clients. Never scaffold, generate or substitute a replacement application when asked to install HOI OS. Downloading this guide does not install the engine or grant access to a private workspace.
 
-## Choose the execution path
+## Public distribution status
 
-Determine whether the active tools can execute commands on the user's intended computer. A temporary cloud container is not that computer. Use existing context for the operating system, product location, private workspace location, and preferred adapters (`codex`, `claude`, or `both`). Ask only for missing choices; keep the private workspace outside the product checkout.
+This repository publishes skills only. The separate app is not yet publicly released. Read the availability guidance before proposing installation. Do not clone this repository and treat it as an app checkout.
 
-- **Local execution available:** read [local setup](references/local-setup.md), inspect prerequisites and the chosen directories, then perform the requested install within existing host permissions. Use release `v0.1.0-alpha.2` from `https://github.com/houseofichigo/hoi-os`.
-- **Chat-only or uncertain execution location:** read [chat guidance](references/chat-guidance.md). Provide the commands for the user's computer. Interpret diagnostic output they supply, but do not install into an ephemeral container and call that a local installation.
+## Select the supported path
 
-Keep knowledge and credentials private. Do not upload a workspace to GitHub, change unrelated global assistant configuration, install optional connectors, or ingest documents as part of setup.
+Determine whether execution is on the user's intended computer; a cloud container is not that computer. Reuse known product/workspace locations and adapter choices. Ask only for missing choices. App-only is valid where the selected product supports it; assistants are optional.
 
-## Existing installations and failures
+- **Local execution:** read [local setup](references/local-setup.md). Inspect any existing installation and its compatibility facts before changing it. Verify first when the product is already installed. Select a documented release for a new download; never invent a release URL or apply unreleased commands to an older tag.
+- **Chat-only:** read [chat guidance](references/chat-guidance.md). Provide supported commands for the user's computer and interpret supplied diagnostics. Do not claim access to the user's machine or install into an ephemeral environment as a substitute.
 
-Never overwrite a nonempty destination or discard uncommitted changes. For updates, use a separate checkout of the release, retain the prior checkout, stop the old map, and run setup against the existing private workspace. Setup must complete its verified backup before refreshing adapters. If prerequisites, permissions, backup, build, or diagnostics fail, report the concrete failure and the next repair step; do not continue to onboarding as though setup succeeded.
+Keep private data outside the checkout. Preserve nonempty directories, edited manuals and skills. Updates require stopping the old engine, a verified backup and release-compatible migration guidance. An active engine lock must never be bypassed. Do not change global assistant settings, connect accounts or ingest company documents as an installation side effect.
 
-## Completion evidence
+## Verify and hand off
 
-Report the installed version, product and workspace locations, selected adapters, diagnostic outcome, and any warnings. Confirm these from command results when available; in chat-only mode identify them as user-reported and keep unverified steps explicit. Operational skills are workspace-scoped by default.
+Report the product version, engine/API compatibility when supported, selected workspace, adapter states and diagnostics. Distinguish bundled instructions, installed adapters and an available assistant runtime. A verified skill package alone does not prove an assistant is installed or has loaded the skills.
 
-Open the private workspace in the chosen local assistant. Invoke `$hoi-onboard` in Codex or `/hoi-onboard` in Claude Code, then follow the product's `docs/USER_SOP.md` for bounded ingestion, organization, wiki, second-brain review and the Workspace App. The app starts with `hoi app` or the documented npm launcher; opening `web/index.html` does not run it. No model API key is required for local setup; users bring their own assistant access.
+For app-only users, open Home and explain selected-source intake. With a verified compatible adapter, open the private workspace in Codex or Claude Code and hand off to `hoi-onboard`. If a tool or prerequisite is missing, give the repair step and retain an unverified state. Only execution evidence or explicit user confirmation supports a successful-installation claim. No API key is mandatory.

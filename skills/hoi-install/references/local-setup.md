@@ -1,33 +1,21 @@
-# Local installation — v0.1.0-alpha.2
+# Separate app availability and setup
 
-Prerequisites: Git, Node.js 22.14+ (tested release lines: 22 and 24), npm, and the user's own Codex or Claude Code access. Check `git --version`, `node --version`, and `npm --version`. If missing, direct the user to https://git-scm.com/downloads and https://nodejs.org/en/download. Do not silently install system software or require administrator access.
+This repository now distributes skill instructions only. The separate HOI OS app is still in development and is not published here. Cloning this repository does not install an engine. Do not run npm setup commands in this skills-only checkout or generate a substitute app.
 
-Run the following in macOS Terminal or Windows PowerShell. Substitute the selected locations as individual quoted arguments; do not interpolate untrusted text into shell code. `HOI Workspace` is a sibling of the product folder here, not a folder inside it.
+## Existing compatible app
 
-```sh
-git clone --branch v0.1.0-alpha.2 --depth 1 https://github.com/houseofichigo/hoi-os.git hoi-os
-cd hoi-os
-npm ci
-npm run setup -- --workspace "../HOI Workspace" --hosts both --non-interactive
-node bin/hoi.mjs doctor --workspace "../HOI Workspace" --host codex --json
-```
+If the user already has a compatible HOI OS app, inspect its documented runtime and compatibility before installing any operational skill. The current instructions target engine API 1 and workspace schema 17, plus each skill's required operations in `skills/contracts.json`. Do not infer compatibility from a product name or version string alone.
 
-Use `--hosts codex` or `--hosts claude` when only one adapter is wanted. Match `doctor --host` to an installed adapter. An existing/nonempty `hoi-os` directory is not a clone destination: inspect it or choose a new release-specific directory. Do not reset, clean or remove existing files to make the command work.
+Select the user's private workspace explicitly. Follow that app's own onboarding and managed adapter installation instructions for Codex, Claude Code or both. App-only use remains valid. Keep user-edited manuals and skill revisions; report conflicts rather than overwriting them. Verify runtime availability and discovery separately from copying instructions.
 
-Verify the checkout tag with `git describe --tags --exact-match`. Read the version with `node -p "require('./package.json').version"`. Successful setup installs scoped skills and managed manual additions in the private workspace. Read diagnostic codes and warnings; `DATABASE_OK` and the chosen adapter's `*_ADAPTER_OK` must be present. A new empty workspace may report `BACKUP_MISSING`; explain that a backup is taken before pilot intake and future updates.
+## No compatible app available
 
-Open the private workspace in the local assistant, not just this product directory. If the assistant does not discover its new skills, reload the workspace/session and inspect its `.agents/skills` (Codex) or `.claude/skills` (Claude Code) directory.
+Explain that these operational skills are a preview for inspection, adaptation and contributions. Do not claim a working engine connection or fabricate an installer URL. The separate app will be published after its release checks. No model subscription or account connection is included with this package.
 
-Optional map:
+## Historical version
 
-```sh
-npm start -- --workspace "../HOI Workspace" --host codex
-```
+The historical `v0.1.0-alpha.2` release at https://github.com/houseofichigo/hoi-os contains the earlier assistant-led engine. It is preserved for history, not the compatible runtime for this skills preview. Never install these new skills against that release without a verified compatibility check. Do not downgrade or migrate a private workspace as an installation side effect.
 
-For Claude Code, use `--host claude`. Follow the printed authenticated localhost URL. For a busy port use `--port 0`.
+## Recovery
 
-## Update and rollback
-
-Stop active commands and the map. Clone the desired documented release into a new sibling product directory, retaining the old checkout. Run `npm ci`, then setup against the same private workspace. Existing-workspace setup takes and verifies a sibling backup before refreshing adapters. If backup verification fails, stop. Do not claim support for a future schema transition without that release's migration instructions.
-
-If an update fails, preserve its output and use the retained checkout and verified backup as described in that release's `docs/OPERATIONS.md`. Re-run setup from the retained compatible checkout to repair runtime paths. Never copy a client workspace into a Git repository.
+Before any future app upgrade, verify a backup and restore it into a separate directory using the matching app documentation. Keep original data and backups out of this repository. Never bypass an active engine lock or silently impersonate the local app from an assistant host.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Workspace onboarding"
+  short_description: "Set up goals, context and a bounded source collection."
+  default_prompt: "Use $hoi-onboard for this request, respecting HOI review and source permissions."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project brief"
+  short_description: "Turn a transcript or brief into a complete project."
+  default_prompt: "Use $hoi-project-intake for this request, respecting HOI review and source permissions."

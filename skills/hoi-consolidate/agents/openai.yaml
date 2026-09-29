@@ -1,0 +1,4 @@
+interface:
+  display_name: "Memory consolidation"
+  short_description: "Review duplicate and outdated memories."
+  default_prompt: "Use $hoi-consolidate for this request, respecting HOI review and source permissions."
