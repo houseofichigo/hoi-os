@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "createdAt": "2026-10-09T12:54:22.759Z",
+  "buildId": "6cc384195ed56873e2051ae6d03edcc6b96b5043683d2a0861dc92e4a8bb4b63",
+  "hardware": {
+    "cpu": "Apple M5",
+    "logicalCpus": 10,
+    "ramBytes": 34359738368,
+    "platform": "darwin",
+    "arch": "arm64",
+    "node": "22.14.0"
+  },
+  "variant": "unified-lexical",
+  "broadQueries": {
+    "count": 20,
+    "warmP50Ms": 767.4771249999994,
+    "warmP95Ms": 1679.7501670000001,
+    "quality": "unlabelled workload; no relevance claim"
+  },
+  "units": 10000,
+  "sources": 100,
+  "queries": 50,
+  "firstQueryMs": 3.9636669999999867,
+  "warmP50Ms": 1.9777500000000146,
+  "warmP95Ms": 2.5913750000001983,
+  "processPeakRssKiB": 319136,
+  "databaseBytes": 4743168,
+  "walBytes": 4194192,
+  "exactIdentifierHitsAt5": 50,
+  "exactReferencesResolved": 50,
+  "providerCostUSD": 0,
+  "modelBytes": 0,
+  "limitations": [
+    "Generated exact-identifier workload, not the human-labelled bilingual quality corpus.",
+    "First query follows fixture creation and is not a cold filesystem measurement.",
+    "Semantic indexing, model worker memory, concurrent requests and multi-domain scaling are not measured.",
+    "Not a clean-machine or Windows certification."
+  ]
+}

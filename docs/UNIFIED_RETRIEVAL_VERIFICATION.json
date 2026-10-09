@@ -4,11 +4,6 @@
   "scope": "fictional workspaces; local developer and staged macOS arm64",
   "suites": [
     {
-      "suite": "core",
-      "passed": true,
-      "tests": 248
-    },
-    {
       "suite": "browser",
       "passed": true,
       "tests": 43
@@ -17,14 +12,20 @@
       "suite": "desktop",
       "passed": true,
       "tests": 2
+    },
+    {
+      "suite": "core",
+      "passed": true,
+      "tests": 251
     }
   ],
-  "coreNote": "248 total: 246 passed, 2 opt-in model tests skipped. Separately, all 3 model-suite tests passed with a verified offline model.",
+  "coreNote": "251 total: 249 passed, 2 opt-in model tests skipped. Evaluation tooling adds three deterministic metric tests. Runtime build unchanged; browser, desktop and offline-model results retained from the preceding batch.",
   "localModel": "Verified offline bilingual retrieval, changed-input rebuild, interrupted-generation recovery and preserved cancellation.",
   "limitations": [
     "Full eligible-set rebuild, not incremental vector reuse.",
-    "No human-labelled quality gate or 10000-unit performance claim.",
     "No clean-machine, Windows or live paid-provider certification.",
-    "Historical search remains lexical."
-  ]
+    "Historical search remains lexical.",
+    "No human-labelled quality certification; synthetic lexical measurements do not establish hybrid or multi-domain performance."
+  ],
+  "evaluation": "Synthetic 10000-passage benchmark measured exact-ID and broad lexical workloads on Apple M5. Human-labelled bilingual quality and factual-support gates remain unverified."
 }
