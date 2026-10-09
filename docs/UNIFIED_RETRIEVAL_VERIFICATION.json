@@ -4,11 +4,6 @@
   "scope": "fictional workspaces; local developer and staged macOS arm64",
   "suites": [
     {
-      "suite": "core",
-      "passed": true,
-      "tests": 254
-    },
-    {
       "suite": "browser",
       "passed": true,
       "tests": 43
@@ -17,9 +12,14 @@
       "suite": "desktop",
       "passed": true,
       "tests": 2
+    },
+    {
+      "suite": "core",
+      "passed": true,
+      "tests": 256
     }
   ],
-  "coreNote": "254 total: 251 passed, 3 opt-in model tests skipped. All four offline-model tests separately passed.",
+  "coreNote": "256 total: 253 passed, 3 opt-in model tests skipped. Draft corpus validation adds two tests. Runtime unchanged; prior matching-build browser, Electron and offline-model results retained.",
   "localModel": "Offline tests confirm bilingual retrieval, restart recovery, unchanged embedding reuse, changed-unit recomputation, corrupt-vector repair and revoked-source exclusion.",
   "limitations": [
     "No clean-machine, Windows or live paid-provider certification.",
@@ -27,5 +27,6 @@
     "No human-labelled quality certification; synthetic lexical measurements do not establish hybrid or multi-domain performance.",
     "Incremental reuse is functionally verified on small fictional fixtures; no large hybrid-corpus latency or memory guarantee."
   ],
-  "evaluation": "Synthetic 10000-passage benchmark measured exact-ID and broad lexical workloads on Apple M5. Human-labelled bilingual quality and factual-support gates remain unverified."
+  "evaluation": "Synthetic 10000-passage benchmark measured exact-ID and broad lexical workloads on Apple M5. Human-labelled bilingual quality and factual-support gates remain unverified.",
+  "candidateCorpus": "120 assistant-authored questions, 40 proposed development / 80 proposed held-out; all human labels and engine-reference materialization pending. No retrieval acceptance claimed."
 }

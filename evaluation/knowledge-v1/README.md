@@ -30,3 +30,19 @@ It rejects cross-split scenario families, duplicate question IDs and inconsisten
 ## Recorded local measurement
 
 [October 9 lexical measurement](measurements/2026-10-09-lexical-10000.json): Apple M5, 10 logical CPUs, 32 GiB RAM, macOS arm64, Node 22.14.0. Exact-ID retrieval found the expected passage for 50/50 queries; all 50 returned primary references resolved. Warm p95 was 2.59 ms for exact IDs and 1,679.75 ms for broad queries. Process peak RSS was approximately 312 MiB, including fixture creation and both workloads. This is one synthetic local run, not a cross-platform performance guarantee or a semantic-quality result. The first query follows fixture creation, so no true cold-filesystem latency is claimed.
+
+## Candidate review pack (not ground truth)
+
+The [human-readable review pack](candidates/REVIEW.md) and [structured draft](candidates/review-pack.json) contain 120 assistant-authored fictional questions: 40 proposed development, 80 proposed held-out, with 60 English and 60 French questions. Paired translations stay within their scenario family. The 12 families cover identifiers, bilingual wording, mixed sources/wiki/memory, attribution, dates, contradictions, missing information, incomplete threads, duplicates, restricted/archived evidence and ambiguous names.
+
+These are **candidate labels**, not human labels. No retrieval quality score is claimed. The held-out split is proposed, not sealed: this coding process has seen the cases, so independent reviewers must assess contamination, add unseen scenarios where needed and freeze the final set before tuning. Several setup requirements are intentionally explicit review work rather than encoded by descriptive text: restricted sources require real policy denial, archived sources require actual archive state, temporal fixtures require exact recorded/effective dates, memory requires governed approval, and wiki requires publication. Words such as “approved” in a fixture document do not establish engine authority.
+
+Review sequence:
+
+1. Inspect each original fictional record and its proposed facts. Correct ambiguous questions and labels; do not approve from the proposed answer alone.
+2. Check whole-family split independence and create a genuinely sealed held-out set outside tuning access.
+3. Materialize each scenario in an isolated fixture through engine operations. Resolve logical record IDs to exact revision/passage/block references and record the fixture hash. `exactEngineReferences: null` explicitly marks this pending step.
+4. Record reviewer identity, timestamp and corpus hash in a new reviewed artifact; preserve this draft unchanged. Do not mutate the draft’s status to bypass validation.
+5. Run variants against the frozen fixtures, validate exact citations with current permissions, then independently review generated answers for factual support and abstention.
+
+`node scripts/validate-review-pack.mjs evaluation/knowledge-v1/candidates/review-pack.json` validates draft counts, references and split structure. It explicitly refuses purported human approval and never issues acceptance certification. The manifest pins the draft content checksum.

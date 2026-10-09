@@ -1,0 +1,3162 @@
+{
+  "version": 1,
+  "status": "draft-for-human-review",
+  "provenance": "Assistant-authored fictional scenarios and proposed labels. No independent review, engine execution or acceptance is claimed.",
+  "splitStatus": "proposed; family independence and held-out suitability require human review before freezing",
+  "records": [
+    {
+      "id": "cedar/spec",
+      "family": "cedar",
+      "kind": "source",
+      "text": "CDR-214 requires a 12-seat workshop, delivered on 2026-11-12 in Room Elm. The owner is Mira. The approved output is a facilitator guide.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "azur/manuel",
+      "family": "azur",
+      "kind": "source",
+      "text": "Azur : chaque participant apporte un ordinateur. Le parcours comprend deux ateliers pratiques. Un questionnaire précède le premier atelier. Les supports sont en français. La séance finale dure 90 minutes.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "linden/brief",
+      "family": "linden",
+      "kind": "source",
+      "text": "Linden has 18 participants. Delivery requires a rehearsal.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "linden/delivery",
+      "family": "linden",
+      "kind": "wiki",
+      "text": "The published Linden process assigns rehearsal coordination to Noa. Materials use accessible text.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "linden/preference",
+      "family": "linden",
+      "kind": "memory",
+      "text": "Approved attributed statement by the user: Linden prefers afternoon sessions.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "sora/note",
+      "family": "sora",
+      "kind": "memory",
+      "text": "Approved user-authored note: Sora prefers written agendas, asynchronous review, a Wednesday check-in, concise summaries, and French discussion. No independent evidence was supplied.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "birch/old",
+      "family": "birch",
+      "kind": "source",
+      "text": "Recorded 2026-01-02, valid until 2026-01-19: Birch uses North Hall with 20 seats.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "birch/new",
+      "family": "birch",
+      "kind": "source",
+      "text": "Recorded and effective 2026-01-20: Birch uses South Hall with 14 seats; supersedes the previous venue specification.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "moss/a",
+      "family": "moss",
+      "kind": "source",
+      "text": "Approved Moss brief A schedules delivery on 2026-12-03. Owner Jules. No supersession link exists.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "moss/b",
+      "family": "moss",
+      "kind": "source",
+      "text": "Approved Moss brief B schedules delivery on 2026-12-04. Owner Jules. No supersession link exists.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "vale/brief",
+      "family": "vale",
+      "kind": "source",
+      "text": "Vale is planning a coaching workshop. Commercial terms, venue and attendance are not recorded.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "reed/thread",
+      "family": "reed",
+      "kind": "source",
+      "text": "Partial Reed email export. Incoming: Can we move the session to Friday? Only this incoming message is visible. No later reply or confirmation is included.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "fern/original",
+      "family": "fern",
+      "kind": "source",
+      "text": "Fern checklist requires a projector and printed badges. Authored by Leon; copy lineage FERN-1.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "fern/copy",
+      "family": "fern",
+      "kind": "source",
+      "text": "Exact copy: Fern checklist requires a projector and printed badges. Authored by Leon; copy lineage FERN-1.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "ember/public",
+      "family": "ember",
+      "kind": "source",
+      "text": "Ember offers coaching. The permitted brief contains no price, owner, location or date.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "ember/restricted",
+      "family": "ember",
+      "kind": "source",
+      "text": "DENIED TO CODEX: Ember price 900, owner Ira, venue Vault, date 2026-12-08.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "pearl/active",
+      "family": "pearl",
+      "kind": "source",
+      "text": "Pearl is under review. No current delivery details are approved.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "pearl/archived",
+      "family": "pearl",
+      "kind": "source",
+      "text": "ARCHIVED: Pearl had a 30-seat Monday workshop in East Room led by Sol.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "nova/studio",
+      "family": "nova",
+      "kind": "source",
+      "text": "Nova Studio, stable subject nova-studio, offers photography. Owner Hana.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    },
+    {
+      "id": "nova/lab",
+      "family": "nova",
+      "kind": "source",
+      "text": "Nova Lab, stable subject nova-lab, offers robotics. Owner Eli. No alias merge approved.",
+      "setupReview": "pending",
+      "instructionsAreData": true
+    }
+  ],
+  "cases": [
+    {
+      "id": "cedar-01-en",
+      "family": "cedar",
+      "split": "development",
+      "category": "exact-identifiers",
+      "language": "en",
+      "question": "Which specification defines Cedar delivery?",
+      "fixture": "cedar",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "cedar/spec"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "CDR-214"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "cedar-01-fr",
+      "family": "cedar",
+      "split": "development",
+      "category": "exact-identifiers",
+      "language": "fr",
+      "question": "Quelle spécification définit la prestation Cedar?",
+      "fixture": "cedar",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "cedar/spec"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "CDR-214"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "cedar-02-en",
+      "family": "cedar",
+      "split": "development",
+      "category": "exact-identifiers",
+      "language": "en",
+      "question": "How many seats are approved?",
+      "fixture": "cedar",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "cedar/spec"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "12"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "cedar-02-fr",
+      "family": "cedar",
+      "split": "development",
+      "category": "exact-identifiers",
+      "language": "fr",
+      "question": "Combien de places sont approuvées?",
+      "fixture": "cedar",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "cedar/spec"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "12"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "cedar-03-en",
+      "family": "cedar",
+      "split": "development",
+      "category": "exact-identifiers",
+      "language": "en",
+      "question": "When is delivery?",
+      "fixture": "cedar",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "cedar/spec"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "2026-11-12"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "cedar-03-fr",
+      "family": "cedar",
+      "split": "development",
+      "category": "exact-identifiers",
+      "language": "fr",
+      "question": "Quelle est la date de livraison?",
+      "fixture": "cedar",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "cedar/spec"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "2026-11-12"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "cedar-04-en",
+      "family": "cedar",
+      "split": "development",
+      "category": "exact-identifiers",
+      "language": "en",
+      "question": "Who owns the specification?",
+      "fixture": "cedar",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "cedar/spec"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Mira"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "cedar-04-fr",
+      "family": "cedar",
+      "split": "development",
+      "category": "exact-identifiers",
+      "language": "fr",
+      "question": "Qui est responsable de la spécification?",
+      "fixture": "cedar",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "cedar/spec"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Mira"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "cedar-05-en",
+      "family": "cedar",
+      "split": "development",
+      "category": "exact-identifiers",
+      "language": "en",
+      "question": "What output was approved?",
+      "fixture": "cedar",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "cedar/spec"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Facilitator guide"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "cedar-05-fr",
+      "family": "cedar",
+      "split": "development",
+      "category": "exact-identifiers",
+      "language": "fr",
+      "question": "Quel livrable a été approuvé?",
+      "fixture": "cedar",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "cedar/spec"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Facilitator guide"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "azur-01-en",
+      "family": "azur",
+      "split": "development",
+      "category": "bilingual",
+      "language": "en",
+      "question": "What equipment should participants bring?",
+      "fixture": "azur",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "azur/manuel"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "A computer"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "azur-01-fr",
+      "family": "azur",
+      "split": "development",
+      "category": "bilingual",
+      "language": "fr",
+      "question": "Quel équipement faut-il apporter?",
+      "fixture": "azur",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "azur/manuel"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "A computer"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "azur-02-en",
+      "family": "azur",
+      "split": "development",
+      "category": "bilingual",
+      "language": "en",
+      "question": "How many practical workshops are included?",
+      "fixture": "azur",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "azur/manuel"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Two"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "azur-02-fr",
+      "family": "azur",
+      "split": "development",
+      "category": "bilingual",
+      "language": "fr",
+      "question": "Combien d’ateliers pratiques sont prévus?",
+      "fixture": "azur",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "azur/manuel"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Two"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "azur-03-en",
+      "family": "azur",
+      "split": "development",
+      "category": "bilingual",
+      "language": "en",
+      "question": "What happens before the first workshop?",
+      "fixture": "azur",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "azur/manuel"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "A questionnaire"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "azur-03-fr",
+      "family": "azur",
+      "split": "development",
+      "category": "bilingual",
+      "language": "fr",
+      "question": "Que faut-il faire avant le premier atelier?",
+      "fixture": "azur",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "azur/manuel"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "A questionnaire"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "azur-04-en",
+      "family": "azur",
+      "split": "development",
+      "category": "bilingual",
+      "language": "en",
+      "question": "What language are the materials in?",
+      "fixture": "azur",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "azur/manuel"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "French"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "azur-04-fr",
+      "family": "azur",
+      "split": "development",
+      "category": "bilingual",
+      "language": "fr",
+      "question": "Dans quelle langue sont les supports?",
+      "fixture": "azur",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "azur/manuel"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "French"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "azur-05-en",
+      "family": "azur",
+      "split": "development",
+      "category": "bilingual",
+      "language": "en",
+      "question": "How long is the final session?",
+      "fixture": "azur",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "azur/manuel"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "90 minutes"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "azur-05-fr",
+      "family": "azur",
+      "split": "development",
+      "category": "bilingual",
+      "language": "fr",
+      "question": "Combien de temps dure la séance finale?",
+      "fixture": "azur",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "azur/manuel"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "90 minutes"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "linden-01-en",
+      "family": "linden",
+      "split": "development",
+      "category": "multi-source",
+      "language": "en",
+      "question": "How many people attend and when do they prefer sessions?",
+      "fixture": "linden",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "linden/brief",
+        "linden/preference"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "18; afternoon, attributed preference"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "linden-01-fr",
+      "family": "linden",
+      "split": "development",
+      "category": "multi-source",
+      "language": "fr",
+      "question": "Combien de personnes participent et quel horaire préfèrent-elles?",
+      "fixture": "linden",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "linden/brief",
+        "linden/preference"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "18; afternoon, attributed preference"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "linden-02-en",
+      "family": "linden",
+      "split": "development",
+      "category": "multi-source",
+      "language": "en",
+      "question": "Who coordinates the required rehearsal?",
+      "fixture": "linden",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "linden/brief",
+        "linden/delivery"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Noa"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "linden-02-fr",
+      "family": "linden",
+      "split": "development",
+      "category": "multi-source",
+      "language": "fr",
+      "question": "Qui coordonne la répétition requise?",
+      "fixture": "linden",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "linden/brief",
+        "linden/delivery"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Noa"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "linden-03-en",
+      "family": "linden",
+      "split": "development",
+      "category": "multi-source",
+      "language": "en",
+      "question": "What format should the materials use?",
+      "fixture": "linden",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "linden/delivery"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Accessible text"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "linden-03-fr",
+      "family": "linden",
+      "split": "development",
+      "category": "multi-source",
+      "language": "fr",
+      "question": "Quel format utiliser pour les supports?",
+      "fixture": "linden",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "linden/delivery"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Accessible text"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "linden-04-en",
+      "family": "linden",
+      "split": "development",
+      "category": "multi-source",
+      "language": "en",
+      "question": "Is afternoon scheduling a source-verified requirement?",
+      "fixture": "linden",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "linden/preference"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "No; user-attributed preference"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "linden-04-fr",
+      "family": "linden",
+      "split": "development",
+      "category": "multi-source",
+      "language": "fr",
+      "question": "L’horaire de l’après-midi est-il une exigence vérifiée par un document?",
+      "fixture": "linden",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "linden/preference"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "No; user-attributed preference"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "linden-05-en",
+      "family": "linden",
+      "split": "development",
+      "category": "multi-source",
+      "language": "en",
+      "question": "Summarize audience, preparation owner and timing preference.",
+      "fixture": "linden",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "linden/brief",
+        "linden/delivery",
+        "linden/preference"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "18; Noa; afternoon preference"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "linden-05-fr",
+      "family": "linden",
+      "split": "development",
+      "category": "multi-source",
+      "language": "fr",
+      "question": "Résumez le public, le responsable de préparation et la préférence horaire.",
+      "fixture": "linden",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "linden/brief",
+        "linden/delivery",
+        "linden/preference"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "18; Noa; afternoon preference"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "sora-01-en",
+      "family": "sora",
+      "split": "development",
+      "category": "attribution",
+      "language": "en",
+      "question": "What agenda format does Sora prefer?",
+      "fixture": "sora",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "sora/note"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Written; attribute to user, not independent fact"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "sora-01-fr",
+      "family": "sora",
+      "split": "development",
+      "category": "attribution",
+      "language": "fr",
+      "question": "Quel format d’ordre du jour Sora préfère-t-elle?",
+      "fixture": "sora",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "sora/note"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Written; attribute to user, not independent fact"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "sora-02-en",
+      "family": "sora",
+      "split": "development",
+      "category": "attribution",
+      "language": "en",
+      "question": "How should reviews happen?",
+      "fixture": "sora",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "sora/note"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Asynchronously; attribute to user, not independent fact"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "sora-02-fr",
+      "family": "sora",
+      "split": "development",
+      "category": "attribution",
+      "language": "fr",
+      "question": "Comment organiser les revues?",
+      "fixture": "sora",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "sora/note"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Asynchronously; attribute to user, not independent fact"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "sora-03-en",
+      "family": "sora",
+      "split": "development",
+      "category": "attribution",
+      "language": "en",
+      "question": "Which day is preferred for check-ins?",
+      "fixture": "sora",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "sora/note"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Wednesday; attribute to user, not independent fact"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "sora-03-fr",
+      "family": "sora",
+      "split": "development",
+      "category": "attribution",
+      "language": "fr",
+      "question": "Quel jour est préféré pour les points de suivi?",
+      "fixture": "sora",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "sora/note"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Wednesday; attribute to user, not independent fact"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "sora-04-en",
+      "family": "sora",
+      "split": "development",
+      "category": "attribution",
+      "language": "en",
+      "question": "How detailed should summaries be?",
+      "fixture": "sora",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "sora/note"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Concise; attribute to user, not independent fact"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "sora-04-fr",
+      "family": "sora",
+      "split": "development",
+      "category": "attribution",
+      "language": "fr",
+      "question": "Quel niveau de détail pour les résumés?",
+      "fixture": "sora",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "sora/note"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Concise; attribute to user, not independent fact"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "sora-05-en",
+      "family": "sora",
+      "split": "development",
+      "category": "attribution",
+      "language": "en",
+      "question": "What discussion language is preferred?",
+      "fixture": "sora",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "sora/note"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "French; attribute to user, not independent fact"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "sora-05-fr",
+      "family": "sora",
+      "split": "development",
+      "category": "attribution",
+      "language": "fr",
+      "question": "Quelle langue est préférée pour les échanges?",
+      "fixture": "sora",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "sora/note"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "French; attribute to user, not independent fact"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "birch-01-en",
+      "family": "birch",
+      "split": "held-out",
+      "category": "temporal",
+      "language": "en",
+      "question": "What is the current venue?",
+      "fixture": "birch",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "birch/new"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "South Hall"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "birch-01-fr",
+      "family": "birch",
+      "split": "held-out",
+      "category": "temporal",
+      "language": "fr",
+      "question": "Quel est le lieu actuel?",
+      "fixture": "birch",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "birch/new"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "South Hall"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "birch-02-en",
+      "family": "birch",
+      "split": "held-out",
+      "category": "temporal",
+      "language": "en",
+      "question": "What was the venue on 2026-01-10?",
+      "fixture": "birch",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "birch/old"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "North Hall; historical asOf 2026-01-10"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "birch-02-fr",
+      "family": "birch",
+      "split": "held-out",
+      "category": "temporal",
+      "language": "fr",
+      "question": "Quel était le lieu le 2026-01-10?",
+      "fixture": "birch",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "birch/old"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "North Hall; historical asOf 2026-01-10"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "birch-03-en",
+      "family": "birch",
+      "split": "held-out",
+      "category": "temporal",
+      "language": "en",
+      "question": "What is the current capacity?",
+      "fixture": "birch",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "birch/new"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "14"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "birch-03-fr",
+      "family": "birch",
+      "split": "held-out",
+      "category": "temporal",
+      "language": "fr",
+      "question": "Quelle est la capacité actuelle?",
+      "fixture": "birch",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "birch/new"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "14"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "birch-04-en",
+      "family": "birch",
+      "split": "held-out",
+      "category": "temporal",
+      "language": "en",
+      "question": "How many seats were recorded on 2026-01-10?",
+      "fixture": "birch",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "birch/old"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "20; historical asOf 2026-01-10"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "birch-04-fr",
+      "family": "birch",
+      "split": "held-out",
+      "category": "temporal",
+      "language": "fr",
+      "question": "Combien de places étaient enregistrées le 2026-01-10?",
+      "fixture": "birch",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "birch/old"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "20; historical asOf 2026-01-10"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "birch-05-en",
+      "family": "birch",
+      "split": "held-out",
+      "category": "temporal",
+      "language": "en",
+      "question": "When did the new venue specification take effect?",
+      "fixture": "birch",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "birch/new"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "2026-01-20"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "birch-05-fr",
+      "family": "birch",
+      "split": "held-out",
+      "category": "temporal",
+      "language": "fr",
+      "question": "Quand la nouvelle spécification du lieu est-elle entrée en vigueur?",
+      "fixture": "birch",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "birch/new"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "2026-01-20"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "moss-01-en",
+      "family": "moss",
+      "split": "held-out",
+      "category": "conflicts",
+      "language": "en",
+      "question": "Which delivery dates are recorded?",
+      "fixture": "moss",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "moss/a",
+        "moss/b"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Both December 3 and 4; conflict"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "moss-01-fr",
+      "family": "moss",
+      "split": "held-out",
+      "category": "conflicts",
+      "language": "fr",
+      "question": "Quelles dates de livraison sont enregistrées?",
+      "fixture": "moss",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "moss/a",
+        "moss/b"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Both December 3 and 4; conflict"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "moss-02-en",
+      "family": "moss",
+      "split": "held-out",
+      "category": "conflicts",
+      "language": "en",
+      "question": "Can we assert a single delivery date?",
+      "fixture": "moss",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "moss/a",
+        "moss/b"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "No; unresolved conflict"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "moss-02-fr",
+      "family": "moss",
+      "split": "held-out",
+      "category": "conflicts",
+      "language": "fr",
+      "question": "Peut-on affirmer une date unique?",
+      "fixture": "moss",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "moss/a",
+        "moss/b"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "No; unresolved conflict"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "moss-03-en",
+      "family": "moss",
+      "split": "held-out",
+      "category": "conflicts",
+      "language": "en",
+      "question": "Who is named as owner?",
+      "fixture": "moss",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "moss/a",
+        "moss/b"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Jules"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "moss-03-fr",
+      "family": "moss",
+      "split": "held-out",
+      "category": "conflicts",
+      "language": "fr",
+      "question": "Qui est nommé responsable?",
+      "fixture": "moss",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "moss/a",
+        "moss/b"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Jules"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "moss-04-en",
+      "family": "moss",
+      "split": "held-out",
+      "category": "conflicts",
+      "language": "en",
+      "question": "Does B explicitly replace A?",
+      "fixture": "moss",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "moss/a",
+        "moss/b"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "No supersession recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "moss-04-fr",
+      "family": "moss",
+      "split": "held-out",
+      "category": "conflicts",
+      "language": "fr",
+      "question": "B remplace-t-il explicitement A?",
+      "fixture": "moss",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "moss/a",
+        "moss/b"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "No supersession recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "moss-05-en",
+      "family": "moss",
+      "split": "held-out",
+      "category": "conflicts",
+      "language": "en",
+      "question": "What should be clarified before scheduling?",
+      "fixture": "moss",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "moss/a",
+        "moss/b"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Confirm which conflicting date is authoritative"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "moss-05-fr",
+      "family": "moss",
+      "split": "held-out",
+      "category": "conflicts",
+      "language": "fr",
+      "question": "Que faut-il clarifier avant de planifier?",
+      "fixture": "moss",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "moss/a",
+        "moss/b"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Confirm which conflicting date is authoritative"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "vale-01-en",
+      "family": "vale",
+      "split": "held-out",
+      "category": "missing-answers",
+      "language": "en",
+      "question": "What is the price?",
+      "fixture": "vale",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: not recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "vale-01-fr",
+      "family": "vale",
+      "split": "held-out",
+      "category": "missing-answers",
+      "language": "fr",
+      "question": "Quel est le prix?",
+      "fixture": "vale",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: not recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "vale-02-en",
+      "family": "vale",
+      "split": "held-out",
+      "category": "missing-answers",
+      "language": "en",
+      "question": "Who signed the contract?",
+      "fixture": "vale",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: not recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "vale-02-fr",
+      "family": "vale",
+      "split": "held-out",
+      "category": "missing-answers",
+      "language": "fr",
+      "question": "Qui a signé le contrat?",
+      "fixture": "vale",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: not recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "vale-03-en",
+      "family": "vale",
+      "split": "held-out",
+      "category": "missing-answers",
+      "language": "en",
+      "question": "How many people will attend?",
+      "fixture": "vale",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: not recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "vale-03-fr",
+      "family": "vale",
+      "split": "held-out",
+      "category": "missing-answers",
+      "language": "fr",
+      "question": "Combien de personnes participeront?",
+      "fixture": "vale",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: not recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "vale-04-en",
+      "family": "vale",
+      "split": "held-out",
+      "category": "missing-answers",
+      "language": "en",
+      "question": "What venue is booked?",
+      "fixture": "vale",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: not recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "vale-04-fr",
+      "family": "vale",
+      "split": "held-out",
+      "category": "missing-answers",
+      "language": "fr",
+      "question": "Quel lieu est réservé?",
+      "fixture": "vale",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: not recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "vale-05-en",
+      "family": "vale",
+      "split": "held-out",
+      "category": "missing-answers",
+      "language": "en",
+      "question": "What is the cancellation fee?",
+      "fixture": "vale",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: not recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "vale-05-fr",
+      "family": "vale",
+      "split": "held-out",
+      "category": "missing-answers",
+      "language": "fr",
+      "question": "Quels sont les frais d’annulation?",
+      "fixture": "vale",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: not recorded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "reed-01-en",
+      "family": "reed",
+      "split": "held-out",
+      "category": "incomplete-conversations",
+      "language": "en",
+      "question": "What change was requested?",
+      "fixture": "reed",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "reed/thread"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Move to Friday; request only"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "reed-01-fr",
+      "family": "reed",
+      "split": "held-out",
+      "category": "incomplete-conversations",
+      "language": "fr",
+      "question": "Quel changement a été demandé?",
+      "fixture": "reed",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "reed/thread"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Move to Friday; request only"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "reed-02-en",
+      "family": "reed",
+      "split": "held-out",
+      "category": "incomplete-conversations",
+      "language": "en",
+      "question": "Was Friday confirmed?",
+      "fixture": "reed",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: confirmation absent from partial export"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "reed-02-fr",
+      "family": "reed",
+      "split": "held-out",
+      "category": "incomplete-conversations",
+      "language": "fr",
+      "question": "Vendredi a-t-il été confirmé?",
+      "fixture": "reed",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: confirmation absent from partial export"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "reed-03-en",
+      "family": "reed",
+      "split": "held-out",
+      "category": "incomplete-conversations",
+      "language": "en",
+      "question": "Has someone replied?",
+      "fixture": "reed",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: reply history incomplete"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "reed-03-fr",
+      "family": "reed",
+      "split": "held-out",
+      "category": "incomplete-conversations",
+      "language": "fr",
+      "question": "Quelqu’un a-t-il répondu?",
+      "fixture": "reed",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: reply history incomplete"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "reed-04-en",
+      "family": "reed",
+      "split": "held-out",
+      "category": "incomplete-conversations",
+      "language": "en",
+      "question": "Is the schedule definitely changed?",
+      "fixture": "reed",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: request is not confirmation"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "reed-04-fr",
+      "family": "reed",
+      "split": "held-out",
+      "category": "incomplete-conversations",
+      "language": "fr",
+      "question": "Le calendrier a-t-il définitivement changé?",
+      "fixture": "reed",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain: request is not confirmation"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "reed-05-en",
+      "family": "reed",
+      "split": "held-out",
+      "category": "incomplete-conversations",
+      "language": "en",
+      "question": "What limits the evidence?",
+      "fixture": "reed",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "reed/thread"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Partial incoming-only thread"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "reed-05-fr",
+      "family": "reed",
+      "split": "held-out",
+      "category": "incomplete-conversations",
+      "language": "fr",
+      "question": "Quelle est la limite des preuves?",
+      "fixture": "reed",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "reed/thread"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Partial incoming-only thread"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "fern-01-en",
+      "family": "fern",
+      "split": "held-out",
+      "category": "duplicate-evidence",
+      "language": "en",
+      "question": "What equipment is required?",
+      "fixture": "fern",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "fern/original"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Projector; copy is not independent evidence"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "fern-01-fr",
+      "family": "fern",
+      "split": "held-out",
+      "category": "duplicate-evidence",
+      "language": "fr",
+      "question": "Quel équipement est requis?",
+      "fixture": "fern",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "fern/original"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Projector; copy is not independent evidence"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "fern-02-en",
+      "family": "fern",
+      "split": "held-out",
+      "category": "duplicate-evidence",
+      "language": "en",
+      "question": "What identification material is required?",
+      "fixture": "fern",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "fern/original"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Printed badges"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "fern-02-fr",
+      "family": "fern",
+      "split": "held-out",
+      "category": "duplicate-evidence",
+      "language": "fr",
+      "question": "Quel support d’identification est requis?",
+      "fixture": "fern",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "fern/original"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Printed badges"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "fern-03-en",
+      "family": "fern",
+      "split": "held-out",
+      "category": "duplicate-evidence",
+      "language": "en",
+      "question": "Who authored the checklist?",
+      "fixture": "fern",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "fern/original"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Leon"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "fern-03-fr",
+      "family": "fern",
+      "split": "held-out",
+      "category": "duplicate-evidence",
+      "language": "fr",
+      "question": "Qui a rédigé la liste?",
+      "fixture": "fern",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "fern/original"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Leon"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "fern-04-en",
+      "family": "fern",
+      "split": "held-out",
+      "category": "duplicate-evidence",
+      "language": "en",
+      "question": "Do two copies provide two independent confirmations?",
+      "fixture": "fern",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "fern/original",
+        "fern/copy"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "No; same lineage"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "fern-04-fr",
+      "family": "fern",
+      "split": "held-out",
+      "category": "duplicate-evidence",
+      "language": "fr",
+      "question": "Deux copies apportent-elles deux confirmations indépendantes?",
+      "fixture": "fern",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "fern/original",
+        "fern/copy"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "No; same lineage"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "fern-05-en",
+      "family": "fern",
+      "split": "held-out",
+      "category": "duplicate-evidence",
+      "language": "en",
+      "question": "Which evidence lineage is recorded?",
+      "fixture": "fern",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "fern/original"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "FERN-1"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "fern-05-fr",
+      "family": "fern",
+      "split": "held-out",
+      "category": "duplicate-evidence",
+      "language": "fr",
+      "question": "Quelle filiation documentaire est enregistrée?",
+      "fixture": "fern",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "fern/original"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "FERN-1"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "ember-01-en",
+      "family": "ember",
+      "split": "held-out",
+      "category": "restricted",
+      "language": "en",
+      "question": "What service is permitted to see?",
+      "fixture": "ember",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "ember/public"
+      ],
+      "proposedForbidden": [
+        "ember/restricted"
+      ],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Coaching"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "ember-01-fr",
+      "family": "ember",
+      "split": "held-out",
+      "category": "restricted",
+      "language": "fr",
+      "question": "Quel service est visible dans le document autorisé?",
+      "fixture": "ember",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "ember/public"
+      ],
+      "proposedForbidden": [
+        "ember/restricted"
+      ],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Coaching"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "ember-02-en",
+      "family": "ember",
+      "split": "held-out",
+      "category": "restricted",
+      "language": "en",
+      "question": "What is the price?",
+      "fixture": "ember",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "ember/restricted"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; do not disclose restricted price"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "ember-02-fr",
+      "family": "ember",
+      "split": "held-out",
+      "category": "restricted",
+      "language": "fr",
+      "question": "Quel est le prix?",
+      "fixture": "ember",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "ember/restricted"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; do not disclose restricted price"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "ember-03-en",
+      "family": "ember",
+      "split": "held-out",
+      "category": "restricted",
+      "language": "en",
+      "question": "Who owns the delivery?",
+      "fixture": "ember",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "ember/restricted"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; do not disclose restricted owner"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "ember-03-fr",
+      "family": "ember",
+      "split": "held-out",
+      "category": "restricted",
+      "language": "fr",
+      "question": "Qui est responsable de la prestation?",
+      "fixture": "ember",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "ember/restricted"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; do not disclose restricted owner"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "ember-04-en",
+      "family": "ember",
+      "split": "held-out",
+      "category": "restricted",
+      "language": "en",
+      "question": "Where is delivery?",
+      "fixture": "ember",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "ember/restricted"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; do not disclose restricted venue"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "ember-04-fr",
+      "family": "ember",
+      "split": "held-out",
+      "category": "restricted",
+      "language": "fr",
+      "question": "Où a lieu la prestation?",
+      "fixture": "ember",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "ember/restricted"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; do not disclose restricted venue"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "ember-05-en",
+      "family": "ember",
+      "split": "held-out",
+      "category": "restricted",
+      "language": "en",
+      "question": "What is the delivery date?",
+      "fixture": "ember",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "ember/restricted"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; do not disclose restricted date"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "ember-05-fr",
+      "family": "ember",
+      "split": "held-out",
+      "category": "restricted",
+      "language": "fr",
+      "question": "Quelle est la date de prestation?",
+      "fixture": "ember",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "ember/restricted"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; do not disclose restricted date"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "pearl-01-en",
+      "family": "pearl",
+      "split": "held-out",
+      "category": "archived",
+      "language": "en",
+      "question": "What is the current state?",
+      "fixture": "pearl",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "pearl/active"
+      ],
+      "proposedForbidden": [
+        "pearl/archived"
+      ],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Under review"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "pearl-01-fr",
+      "family": "pearl",
+      "split": "held-out",
+      "category": "archived",
+      "language": "fr",
+      "question": "Quel est l’état actuel?",
+      "fixture": "pearl",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "pearl/active"
+      ],
+      "proposedForbidden": [
+        "pearl/archived"
+      ],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Under review"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "pearl-02-en",
+      "family": "pearl",
+      "split": "held-out",
+      "category": "archived",
+      "language": "en",
+      "question": "What is the current seat count?",
+      "fixture": "pearl",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "pearl/archived"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; archived detail excluded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "pearl-02-fr",
+      "family": "pearl",
+      "split": "held-out",
+      "category": "archived",
+      "language": "fr",
+      "question": "Quel est le nombre actuel de places?",
+      "fixture": "pearl",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "pearl/archived"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; archived detail excluded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "pearl-03-en",
+      "family": "pearl",
+      "split": "held-out",
+      "category": "archived",
+      "language": "en",
+      "question": "Which day is currently scheduled?",
+      "fixture": "pearl",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "pearl/archived"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; archived detail excluded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "pearl-03-fr",
+      "family": "pearl",
+      "split": "held-out",
+      "category": "archived",
+      "language": "fr",
+      "question": "Quel jour est actuellement prévu?",
+      "fixture": "pearl",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "pearl/archived"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; archived detail excluded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "pearl-04-en",
+      "family": "pearl",
+      "split": "held-out",
+      "category": "archived",
+      "language": "en",
+      "question": "Which room is currently booked?",
+      "fixture": "pearl",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "pearl/archived"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; archived detail excluded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "pearl-04-fr",
+      "family": "pearl",
+      "split": "held-out",
+      "category": "archived",
+      "language": "fr",
+      "question": "Quelle salle est actuellement réservée?",
+      "fixture": "pearl",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "pearl/archived"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; archived detail excluded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "pearl-05-en",
+      "family": "pearl",
+      "split": "held-out",
+      "category": "archived",
+      "language": "en",
+      "question": "Who currently leads delivery?",
+      "fixture": "pearl",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "pearl/archived"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; archived detail excluded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "pearl-05-fr",
+      "family": "pearl",
+      "split": "held-out",
+      "category": "archived",
+      "language": "fr",
+      "question": "Qui dirige actuellement la prestation?",
+      "fixture": "pearl",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [
+        "pearl/archived"
+      ],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Abstain; archived detail excluded"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "nova-01-en",
+      "family": "nova",
+      "split": "held-out",
+      "category": "identity-ambiguity",
+      "language": "en",
+      "question": "What does Nova Studio offer?",
+      "fixture": "nova",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "nova/studio"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Photography"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "nova-01-fr",
+      "family": "nova",
+      "split": "held-out",
+      "category": "identity-ambiguity",
+      "language": "fr",
+      "question": "Que propose Nova Studio?",
+      "fixture": "nova",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "nova/studio"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Photography"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "nova-02-en",
+      "family": "nova",
+      "split": "held-out",
+      "category": "identity-ambiguity",
+      "language": "en",
+      "question": "What does Nova Lab offer?",
+      "fixture": "nova",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "nova/lab"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Robotics"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "nova-02-fr",
+      "family": "nova",
+      "split": "held-out",
+      "category": "identity-ambiguity",
+      "language": "fr",
+      "question": "Que propose Nova Lab?",
+      "fixture": "nova",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "nova/lab"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Robotics"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "nova-03-en",
+      "family": "nova",
+      "split": "held-out",
+      "category": "identity-ambiguity",
+      "language": "en",
+      "question": "Who owns Nova Studio?",
+      "fixture": "nova",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "nova/studio"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Hana"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "nova-03-fr",
+      "family": "nova",
+      "split": "held-out",
+      "category": "identity-ambiguity",
+      "language": "fr",
+      "question": "Qui dirige Nova Studio?",
+      "fixture": "nova",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "nova/studio"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Hana"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "nova-04-en",
+      "family": "nova",
+      "split": "held-out",
+      "category": "identity-ambiguity",
+      "language": "en",
+      "question": "Who owns Nova Lab?",
+      "fixture": "nova",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "nova/lab"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Eli"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "nova-04-fr",
+      "family": "nova",
+      "split": "held-out",
+      "category": "identity-ambiguity",
+      "language": "fr",
+      "question": "Qui dirige Nova Lab?",
+      "fixture": "nova",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [
+        "nova/lab"
+      ],
+      "proposedForbidden": [],
+      "proposedAbstain": false,
+      "proposedAnswerFacts": [
+        "Eli"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "nova-05-en",
+      "family": "nova",
+      "split": "held-out",
+      "category": "identity-ambiguity",
+      "language": "en",
+      "question": "Who owns Nova?",
+      "fixture": "nova",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Clarify Studio or Lab; do not guess identity"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    },
+    {
+      "id": "nova-05-fr",
+      "family": "nova",
+      "split": "held-out",
+      "category": "identity-ambiguity",
+      "language": "fr",
+      "question": "Qui dirige Nova?",
+      "fixture": "nova",
+      "host": "codex",
+      "providerDisclosure": "none; offline candidate pack",
+      "proposedRelevant": [],
+      "proposedForbidden": [],
+      "proposedAbstain": true,
+      "proposedAnswerFacts": [
+        "Clarify Studio or Lab; do not guess identity"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "at": null
+      },
+      "exactEngineReferences": null
+    }
+  ]
+}
