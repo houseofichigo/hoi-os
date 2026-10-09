@@ -1,3 +1,5 @@
+import { intakeList, intakeDetail } from "./work-intake.js";
+import { connections } from "./sync.js";
 import { z } from "zod";
 import { type Store } from "./store.js";
 import { type Host } from "./schema.js";
@@ -9,7 +11,7 @@ import { type EvidenceItem } from "./retrieval.js";
 export const recordReference = z
   .object({
     kind: z.literal("record"),
-    recordKind: z.enum(["project", "client", "task"]),
+    recordKind: z.enum(["project", "client", "task", "event", "connection"]),
     recordId: z.string(),
     recordVersion: z.string().regex(/^\d+$/),
     recordRevision: z.string().regex(/^[a-f0-9]{64}$/),
@@ -35,6 +37,21 @@ const fields = [
   "outcome",
   "description",
   "waitingFor",
+  "start",
+  "end",
+  "timezone",
+  "recurrenceId",
+  "cancelled",
+  "allDay",
+  "checkedAt",
+  "updatedAt",
+  "provider",
+  "state",
+  "selectedScope",
+  "lastSuccess",
+  "freshness",
+  "from",
+  "to",
 ];
 /** Live properties come only from existing permitted read models. Never interpret wiki prose as status. */
 export function operationalEvidence(
@@ -68,24 +85,106 @@ export function operationalEvidence(
       (!filter.client || r.clientIds.includes(filter.client)),
   );
   const scopedIds = new Set(scoped.map((r) => r.id));
-  const rows: ["project" | "client" | "task", any][] = [
-    ...scoped.map((r) => ["project", r] as ["project", any]),
-    ...clients
-      .filter(
-        (r) =>
-          (!filter.client || r.id === filter.client) &&
-          (!project || scoped.some((p) => p.clientIds.includes(r.id))),
+  const rows: ["project" | "client" | "task" | "event" | "connection", any][] =
+    [
+      ...scoped.map((r) => ["project", r] as ["project", any]),
+      ...clients
+        .filter(
+          (r) =>
+            (!filter.client || r.id === filter.client) &&
+            (!project || scoped.some((p) => p.clientIds.includes(r.id))),
+        )
+        .map((r) => ["client", r] as ["client", any]),
+      ...listTasks(s, h)
+        .filter(
+          (r) =>
+            s.evidenceVisible(r.evidence ?? [], h, true) &&
+            (!r.projectId || projectIds.has(r.projectId)) &&
+            (!(project || filter.client) || scopedIds.has(r.projectId)),
+        )
+        .map((r) => ["task", r] as ["task", any]),
+    ];
+  for (const event of intakeList(s, h).filter(
+    (e) =>
+      e.kind === "calendar" &&
+      (!e.projectId || projectIds.has(e.projectId)) &&
+      (!(project || filter.client) || scopedIds.has(e.projectId)),
+  )) {
+    const detail = intakeDetail(s, event.id, h),
+      item = detail.item;
+    if (
+      !item.calendar ||
+      !event.sourceId ||
+      !s.allowed(
+        s.one("SELECT * FROM sources WHERE id=?", event.sourceId),
+        h,
+        true,
       )
-      .map((r) => ["client", r] as ["client", any]),
-    ...listTasks(s, h)
-      .filter(
-        (r) =>
-          s.evidenceVisible(r.evidence ?? [], h, true) &&
-          (!r.projectId || projectIds.has(r.projectId)) &&
-          (!(project || filter.client) || scopedIds.has(r.projectId)),
-      )
-      .map((r) => ["task", r] as ["task", any]),
-  ];
+    )
+      continue;
+    const evidence = detail.passages.slice(0, 5).map((p) => ({
+      revisionId: event.revisionId,
+      passageId: p.id,
+      quote: p.text.slice(0, 2000),
+    }));
+    if (!s.evidenceVisible(evidence, h, true)) continue;
+    rows.push([
+      "event",
+      {
+        id: event.id,
+        version: s.one(
+          "SELECT count(*) n FROM revisions WHERE source_id=? AND rowid <= (SELECT rowid FROM revisions WHERE id=?)",
+          event.sourceId,
+          event.revisionId,
+        ).n,
+        title: event.title,
+        ...item.calendar,
+        timezone: item.timezone,
+        recurrenceId: item.recurrenceId,
+        cancelled: item.cancelled,
+        checkedAt: item.checkedAt,
+        updatedAt: item.updatedAt,
+        projectId: event.projectId,
+        evidence,
+        sourceRevision: event.revisionId,
+        freshness:
+          Date.now() - Date.parse(item.checkedAt) > 86400000
+            ? "stale"
+            : "current",
+        coverage: "Preserved calendar occurrence only; not live availability",
+      },
+    ]);
+  }
+  // Connection health has no inferred project association. Never copy raw configuration or errors.
+  if (!filter.project && !filter.client && s.schemaVersion >= 10)
+    for (const c of connections(s, h)) {
+      const freshness =
+        c.state !== "active"
+          ? "partial"
+          : !c.lastSuccess
+            ? "unknown"
+            : Date.now() - Date.parse(c.lastSuccess) > 86400000
+              ? "stale"
+              : c.coverage.state;
+      rows.push([
+        "connection",
+        {
+          id: c.id,
+          version: c.version,
+          title: `${c.provider} connection`,
+          provider: c.provider,
+          state: c.state,
+          lastSuccess: c.lastSuccess,
+          freshness,
+          selectedScope: c.coverage.mode,
+          from: c.coverage.from,
+          to: c.coverage.to,
+          coverage:
+            "Selected configured scope only; no live synchronization performed",
+          evidence: [],
+        },
+      ]);
+    }
   return rows.map(([kind, r]) => {
     const properties = Object.fromEntries(
       fields.filter((k) => r[k] !== undefined).map((k) => [k, r[k]]),
@@ -93,7 +192,7 @@ export function operationalEvidence(
     const relatedRecords =
       kind === "project"
         ? r.clientIds
-        : kind === "task" && r.projectId
+        : (kind === "task" || kind === "event") && r.projectId
           ? [r.projectId]
           : [];
     const revision = sha(
@@ -102,6 +201,7 @@ export function operationalEvidence(
         id: r.id,
         version: r.version,
         properties,
+        sourceRevision: r.sourceRevision ?? null,
         relatedRecords,
         evidence: r.evidence ?? [],
       }),
@@ -122,7 +222,12 @@ export function operationalEvidence(
       revision,
       title: r.name ?? r.title ?? "Recorded item",
       excerpt,
-      provenance: "authoritative-operational-record",
+      provenance:
+        kind === "event"
+          ? "synchronized-calendar-occurrence"
+          : kind === "connection"
+            ? "connector-health-snapshot"
+            : "authoritative-operational-record",
       attribution: r.owner ?? null,
       effectiveDate: null,
       relatedRecords,
@@ -137,7 +242,9 @@ export function operationalEvidence(
         title: r.name ?? r.title ?? "Recorded item",
         quote: excerpt,
         authority: "live-record",
-        coverage: "Current recorded properties; no external refresh",
+        coverage:
+          r.coverage ?? "Current recorded properties; no external refresh",
+        ...(r.freshness ? { freshness: r.freshness } : {}),
         evidence: r.evidence ?? [],
       },
     };

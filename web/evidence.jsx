@@ -156,7 +156,13 @@ export default function Evidence({
               {data.liveRecords.map((r) => (
                 <article key={r.kind + r.id}>
                   <a
-                    href={`/app?view=${r.kind === "client" ? "clients" : r.kind === "source" ? "knowledge" : r.kind === "event" ? "home" : "projects"}&${r.kind}=${encodeURIComponent(r.id)}`}
+                    href={
+                      r.kind === "connection"
+                        ? "/app?view=configuration&section=Connections"
+                        : r.kind === "event"
+                          ? `/app?view=inbox&section=Calendar&event=${encodeURIComponent(r.id)}`
+                          : `/app?view=${r.kind === "client" ? "clients" : r.kind === "source" ? "knowledge" : "projects"}&${r.kind}=${encodeURIComponent(r.id)}`
+                    }
                   >
                     {r.title}
                   </a>
@@ -166,6 +172,7 @@ export default function Evidence({
                   </p>
                   {r.quote && <p>{r.quote}</p>}
                   {r.coverage && <small>{r.coverage}</small>}
+                  {r.freshness && <p>Freshness: {r.freshness}</p>}
                   {r.reason && <p>Why included: {r.reason}</p>}
                 </article>
               ))}

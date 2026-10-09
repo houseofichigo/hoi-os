@@ -37,14 +37,14 @@ export function connectedRead(
           : projects.some((p) => p.clientIds.includes(r.id)),
       );
     }
-  } else if (v.kind === "connections") {
-    rows = connections(s, h).map((c) => ({
-      id: c.id,
-      provider: c.provider,
-      state: c.state,
-      coverage: c.coverage,
-      lastSuccess: c.lastSuccess,
-    }));
+  } else if (v.kind === "connections" || v.kind === "calendar") {
+    rows = operationalEvidence(s, h, { project: projectId })
+      .filter(
+        (e) =>
+          e.reference.recordKind ===
+          (v.kind === "calendar" ? "event" : "connection"),
+      )
+      .map((e) => ({ id: e.recordId, ...e.data }));
   } else {
     const kind =
       v.kind === "calendar"
@@ -67,7 +67,7 @@ export function connectedRead(
     );
   const total = rows.length;
   rows = rows.slice(v.offset || 0, (v.offset || 0) + 5);
-  if (v.id && ["email", "calendar", "transcripts"].includes(v.kind))
+  if (v.id && ["email", "transcripts"].includes(v.kind))
     rows = rows.map((r) => {
       const detail = intakeDetail(s, r.id, h);
       return {
@@ -86,7 +86,7 @@ export function connectedRead(
       ...r,
       recordKind:
         v.kind === "connections"
-          ? undefined
+          ? "connection"
           : v.kind === "projects"
             ? "project"
             : v.kind === "clients"

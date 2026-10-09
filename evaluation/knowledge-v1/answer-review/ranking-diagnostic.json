@@ -1,0 +1,709 @@
+{
+  "version": 1,
+  "packetHash": "0df2e5f5fda5ff47697e711288fffdff3fdacc6102e6084b558f152281fd77a0",
+  "status": "unreviewed-diagnostic",
+  "rankingChanged": false,
+  "cases": [
+    {
+      "id": "cedar-01-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "cedar-01-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "cedar-02-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "cedar-02-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "cedar-03-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "cedar-03-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "cedar-04-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "cedar-04-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "cedar-05-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "cedar-05-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "azur-01-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "azur-01-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "azur-02-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "azur-02-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "azur-03-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "azur-03-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "azur-04-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "azur-04-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "azur-05-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "azur-05-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "linden-01-en",
+      "language": "en",
+      "split": "development",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "linden-01-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "linden-02-en",
+      "language": "en",
+      "split": "development",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "linden-02-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "linden-03-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "linden-03-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "linden-04-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "linden-04-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "linden-05-en",
+      "language": "en",
+      "split": "development",
+      "expected": 3,
+      "topFive": 3,
+      "missed": []
+    },
+    {
+      "id": "linden-05-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 3,
+      "topFive": 3,
+      "missed": []
+    },
+    {
+      "id": "sora-01-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "sora-01-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "sora-02-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "sora-02-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "sora-03-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "sora-03-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "sora-04-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "sora-04-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "sora-05-en",
+      "language": "en",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "sora-05-fr",
+      "language": "fr",
+      "split": "development",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "birch-01-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "birch-01-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "birch-02-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "birch-02-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "birch-03-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "birch-03-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "birch-04-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "birch-04-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "birch-05-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "birch-05-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "moss-01-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "moss-01-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "moss-02-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "moss-02-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 1,
+      "missed": [
+        {
+          "reference": {
+            "kind": "source",
+            "passageId": "passage_e38c17287b974d09880d4aa4d39c88d2",
+            "revisionId": "revision_17d1816443bd4fd4837bcbbfd3055ff9"
+          },
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "id": "moss-03-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "moss-03-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "moss-04-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "moss-04-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "moss-05-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "moss-05-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "reed-01-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "reed-01-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "reed-05-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "reed-05-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "fern-01-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "fern-01-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "fern-02-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "fern-02-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "fern-03-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "fern-03-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "fern-04-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "fern-04-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 2,
+      "topFive": 2,
+      "missed": []
+    },
+    {
+      "id": "fern-05-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "fern-05-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "ember-01-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "ember-01-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "pearl-01-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "pearl-01-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "nova-01-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "nova-01-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "nova-02-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "nova-02-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "nova-03-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "nova-03-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "nova-04-en",
+      "language": "en",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    },
+    {
+      "id": "nova-04-fr",
+      "language": "fr",
+      "split": "held-out",
+      "expected": 1,
+      "topFive": 1,
+      "missed": []
+    }
+  ],
+  "limitations": [
+    "Proposed labels are not independent human judgments.",
+    "Ranks describe the frozen packet, not current runtime performance. No ranking weights or labels were changed."
+  ]
+}

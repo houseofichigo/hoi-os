@@ -124,7 +124,14 @@ const response = z.discriminatedUnion("type", [
         .array(
           z
             .object({
-              kind: z.enum(["project", "client", "task", "event", "source"]),
+              kind: z.enum([
+                "project",
+                "client",
+                "task",
+                "event",
+                "source",
+                "connection",
+              ]),
               id,
               version: z.number().int().nonnegative().optional(),
             })
@@ -206,6 +213,19 @@ function row(s: Store, runId: string, h: Host) {
     );
   if (s.schemaVersion >= 15)
     for (const e of wikiRefs(p.outputs)) validateWikiRef(s, e, r.host);
+  for (const ref of liveRecords(p.outputs))
+    if (ref.recordRevision)
+      knowledgeEvidence(
+        s,
+        {
+          kind: "record",
+          recordKind: ref.kind,
+          recordId: ref.id,
+          recordVersion: String(ref.version),
+          recordRevision: ref.recordRevision,
+        },
+        r.host,
+      );
   return { ...r, p };
 }
 function save(s: Store, r: any, state: string) {
@@ -989,6 +1009,7 @@ function liveRecords(value: any, found: any[] = []): any[] {
             quote: value.quote,
             coverage: value.coverage,
             reason: value.retrieval?.reason,
+            freshness: value.freshness,
           }
         : {}),
       ...(typeof value.version === "number" ? { version: value.version } : {}),

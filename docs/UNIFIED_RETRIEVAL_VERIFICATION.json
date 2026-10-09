@@ -1,12 +1,12 @@
 {
   "date": "2026-10-09",
-  "buildId": "5f2bd647de091af9296718f0d9d32a6cdbd872a8c66c5d609af6ac315ced7bdf",
+  "buildId": "95d7f29f0028f6517e5452eb9178bbeb558599682ec476e97dea55baef891a1e",
   "scope": "fictional workspaces; local developer and staged macOS arm64",
   "suites": [
     {
       "suite": "core",
       "passed": true,
-      "tests": 272
+      "tests": 274
     },
     {
       "suite": "browser",
@@ -19,7 +19,7 @@
       "tests": 2
     }
   ],
-  "coreNote": "272 total: 269 passed, 3 opt-in model tests skipped. Browser 44 and staged macOS arm64 Electron 2 passed on the operational-evidence build. No model-specific or quality evaluation was rerun.",
+  "coreNote": "274 total: 271 passed, 3 opt-in model tests skipped. Browser 44 and staged macOS arm64 Electron 2 passed on the calendar/connector-evidence build. No live connector, model-specific or quality evaluation was rerun.",
   "localModel": "Prior offline tests cover bilingual retrieval and index recovery. Model-specific tests were not rerun for the memory-draft build.",
   "limitations": [
     "No clean-machine, Windows or live paid-provider certification.",
@@ -107,7 +107,9 @@
     "kinds": [
       "project",
       "client",
-      "task"
+      "task",
+      "event",
+      "connection"
     ],
     "defaultScope": "knowledge",
     "workspaceScope": "explicit",
@@ -121,8 +123,21 @@
     "limitations": [
       "Operational ranking is lexical",
       "Historical operational references are unavailable",
-      "Calendar occurrence and connector summary unification remain separate",
       "No current performance or human quality certification for operational portfolios"
     ]
+  },
+  "calendarConnectorEvidence": {
+    "status": "implemented-and-synthetically-verified",
+    "checks": [
+      "Recurring occurrences retain distinct identities",
+      "Cancellation and changed imports invalidate previous references",
+      "Archive excludes dependent calendar evidence",
+      "Connector summaries exclude raw configuration, labels and error text",
+      "Connector visibility remains host-scoped",
+      "Disconnect invalidates saved Chat snapshot evidence"
+    ],
+    "freshness": "24-hour recency threshold, explicitly limited to saved/synchronized scope",
+    "privateWorkspaceMigrated": false,
+    "liveConnectorVerified": false
   }
 }

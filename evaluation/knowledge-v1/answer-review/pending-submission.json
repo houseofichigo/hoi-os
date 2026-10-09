@@ -1,0 +1,607 @@
+{
+  "version": 1,
+  "packetHash": "0df2e5f5fda5ff47697e711288fffdff3fdacc6102e6084b558f152281fd77a0",
+  "acceptance": "not-certified",
+  "cases": [
+    {
+      "id": "cedar-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "cedar-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "cedar-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "cedar-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "cedar-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "cedar-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "cedar-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "cedar-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "cedar-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "cedar-05-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "azur-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "azur-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "azur-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "azur-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "azur-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "azur-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "azur-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "azur-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "azur-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "azur-05-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "linden-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "linden-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "linden-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "linden-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "linden-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "linden-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "linden-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "linden-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "linden-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "linden-05-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "sora-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "sora-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "sora-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "sora-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "sora-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "sora-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "sora-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "sora-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "sora-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "sora-05-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "birch-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "birch-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "birch-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "birch-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "birch-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "birch-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "birch-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "birch-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "birch-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "birch-05-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "moss-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "moss-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "moss-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "moss-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "moss-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "moss-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "moss-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "moss-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "moss-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "moss-05-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "vale-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "vale-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "vale-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "vale-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "vale-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "vale-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "vale-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "vale-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "vale-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "vale-05-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "reed-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "reed-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "reed-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "reed-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "reed-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "reed-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "reed-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "reed-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "reed-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "reed-05-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "fern-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "fern-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "fern-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "fern-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "fern-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "fern-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "fern-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "fern-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "fern-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "fern-05-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "ember-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "ember-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "ember-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "ember-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "ember-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "ember-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "ember-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "ember-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "ember-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "ember-05-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "pearl-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "pearl-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "pearl-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "pearl-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "pearl-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "pearl-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "pearl-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "pearl-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "pearl-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "pearl-05-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "nova-01-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "nova-01-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "nova-02-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "nova-02-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "nova-03-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "nova-03-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "nova-04-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "nova-04-fr",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "nova-05-en",
+      "answer": null,
+      "review": null
+    },
+    {
+      "id": "nova-05-fr",
+      "answer": null,
+      "review": null
+    }
+  ]
+}

@@ -27,7 +27,7 @@ Focused synthetic tests cover unified allocation, late matching memories, curren
 Still required before the full requested upgrade can be accepted:
 
 - Human-labelled 120-question corpus (40 development / 80 held-out), scenario-family separation, independently reviewed answers and recall/abstention/support measurements. No generated dataset is represented as human-labelled ground truth.
-- Calendar occurrence and connector-summary EvidenceItem unification; historical operational-record, semantic retrieval and relationship expansion remain unavailable.
+- Historical operational-record and semantic retrieval, and historical relationship expansion remain unavailable.
 - Representative-corpus/platform performance and detailed extraction/model fault coverage. The named synthetic 10,000-unit benchmark now meets its warm latency target after policy parsing optimization.
 - Optional budgeted reranker: not implemented or enabled. No extra paid model call is introduced by retrieval.
 - Broader accessibility/visual baselines beyond the tested Memory workflow remain a separate gate.
@@ -113,7 +113,7 @@ Verification for the memory-draft build: 268 core tests (265 passed, three optio
 
 ## Operational evidence (2026-10-09)
 
-Unified retrieval profile v3 adds an explicit `scope: workspace` option. Current permitted project, client and accepted-task properties compete with source/wiki/memory evidence before the same bounded allocation. The default remains knowledge-only. Operational records use lexical matching; they are not added to the local embedding index. Pending proposals are not represented as accepted tasks. Connected email/transcript/file passages remain preserved source evidence; calendar occurrence and connection summary normalization are still separate work.
+Unified retrieval profile v3 adds an explicit `scope: workspace` option. Current permitted project, client and accepted-task properties compete with source/wiki/memory evidence before the same bounded allocation. The default remains knowledge-only. Operational records use lexical matching; they are not added to the local embedding index. Pending proposals are not represented as accepted tasks. Connected email/transcript/file passages remain preserved source evidence; calendar occurrence and connection summary normalization were completed in the following batch.
 
 Each record reference binds kind, stable ID, numeric version and a SHA-256 fingerprint of its displayed properties, relationships and supporting references. Exact resolution rechecks the current read models and current evidence eligibility. Edits, access loss or archived supporting evidence make an old reference unavailable; this batch does not invent operational historical snapshots. Historical search explicitly reports records as unavailable. Identical text from distinct records retains distinct identities.
 
@@ -122,3 +122,17 @@ Workspace Chat now receives ranked records through its initial search instead of
 No migration, paid provider call, model download or private workspace update is required. The former v2 performance measurements remain historical and do not certify performance for large operational portfolios.
 
 Operational-evidence matching-build verification: 272 core tests (269 passed, three optional model cases skipped), 44 browser tests and two staged macOS arm64 Electron tests passed. Four new engine cases cover unified record resolution, edits, explicit scopes, Chat citations and archive invalidation. No clean-machine, Windows, paid-provider or human quality acceptance is claimed.
+
+## Calendar and connector evidence
+
+Workspace retrieval and explicit read tools now supply calendar occurrences and connector health through the same exact record-reference contract. Calendar evidence includes saved start/end, timezone, recurrence identifier, cancellation, last check and supporting source revision. A changed import invalidates its old reference; it does not silently repoint a citation. Separate occurrences retain separate intake identities. Archived sources and inaccessible projects exclude dependent occurrences. Project/client filters use explicit relationships; connector summaries are omitted from project-restricted results because no association is inferred.
+
+Connector summaries allow only provider, state, scope mode/window, last successful refresh and freshness. Account credentials, paths, queries, labels, raw errors and configuration payloads are not copied. The owning host remains the access boundary. Never interpret a health summary as full mailbox/calendar coverage or live availability. Freshness uses a 24-hour recency threshold; inactive states are partial, while active connections without a successful refresh are unknown. Historical operational search remains unavailable.
+
+Chat accepts citations to supplied connection snapshots and rechecks fingerprinted record evidence when reopening a turn. Disconnects or refreshed snapshot properties invalidate the cached answer rather than showing obsolete connection status as current. Evidence links open Calendar in Inbox or Connections in Configuration. This adds no synchronization, connector scope change, external write or provider call, and requires no schema migration.
+
+Matching-build calendar/connector checks: 274 core tests (271 passed, three optional model cases skipped), 44 browser tests and two staged macOS arm64 Electron tests passed. The two new engine tests use fictional imports and connection records without OAuth, network synchronization or paid generation. This does not certify live connectors, clean installation or Windows.
+
+### Answer-quality evaluation tooling
+
+The local answer-evaluation batch adds `scripts/answer-evaluation.mjs` and `scripts/diagnose-review-ranking.mjs`; see `evaluation/knowledge-v1/answer-review/README.md`. Exact packet/answer hashes prevent stale reviews, cited references must belong to supplied retrieved evidence, and scoring reports supported claims, resolution observations, abstention and explicit denominators. Human attestations remain unauthenticated offline inputs; the scorer never certifies acceptance. The 120-case pending demonstration has no provider answers or human approvals. Frozen-packet diagnostics retain the French conflict miss at rank seven; no ranking settings changed. Genuine unseen-family evaluation and reviewed provider answers remain required.
