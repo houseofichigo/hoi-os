@@ -1,3 +1,4 @@
+import { embeddingUnitKey, validCachedSegments } from "./embedding-cache.js";
 import { Worker } from "node:worker_threads";
 import { existsSync, mkdirSync, renameSync, createWriteStream } from "node:fs";
 import { copyFile, stat, unlink } from "node:fs/promises";
@@ -442,6 +443,31 @@ export async function rebuildKnowledge(s: Store, h: Host, input: unknown) {
         jobId,
       );
     });
+  const previous = s.one(
+    "SELECT id FROM knowledge_index_generations WHERE state='active' AND model_fingerprint=?",
+    MODEL_FINGERPRINT,
+  );
+  const caches = new Map<string, any[]>();
+  for (const sourceGeneration of [
+    ...new Set([generation, previous?.id].filter(Boolean)),
+  ]) {
+    for (const row of s.all(
+      "SELECT u.payload,u.checksum,v.embedding FROM knowledge_search_units u JOIN knowledge_vectors v ON v.id=u.id AND v.generation_id=u.generation_id WHERE u.generation_id=?",
+      sourceGeneration,
+    )) {
+      try {
+        const m = JSON.parse(row.payload);
+        if (!m.unitKey) continue;
+        const k = sourceGeneration + ":" + m.unitKey;
+        const group = caches.get(k) ?? [];
+        group.push(row);
+        caches.set(k, group);
+      } catch {}
+    }
+  }
+  let embeddedUnits = 0,
+    reusedUnits = 0,
+    resumedUnits = 0;
   try {
     for (const unit of units) {
       if (
@@ -457,10 +483,58 @@ export async function rebuildKnowledge(s: Store, h: Host, input: unknown) {
           generation,
         ]),
       );
-      if (s.one("SELECT 1 FROM knowledge_search_units WHERE id=?", base + ":0"))
+      const unitKey = embeddingUnitKey(
+        unit.reference,
+        unit.text,
+        MODEL_FINGERPRINT,
+      );
+      const resumed = validCachedSegments(
+        caches.get(generation + ":" + unitKey) ?? [],
+        unit.text,
+        unitKey,
+        LOCAL_MODEL.dimensions,
+      );
+      if (resumed) {
+        resumedUnits++;
         continue;
-      const segments = await embed(s, unit.text);
+      }
+      const cached =
+        previous?.id !== generation
+          ? validCachedSegments(
+              caches.get(previous?.id + ":" + unitKey) ?? [],
+              unit.text,
+              unitKey,
+              LOCAL_MODEL.dimensions,
+            )
+          : null;
+      const segments = cached
+        ? cached.map((r) => ({
+            text: unit.text.slice(r.meta.start, r.meta.end),
+            start: r.meta.start,
+            end: r.meta.end,
+            bytes: r.embedding,
+          }))
+        : (await embed(s, unit.text)).map((r) => ({
+            ...r,
+            bytes: Buffer.from(new Float32Array(r.vector).buffer),
+          }));
+      if (cached) reusedUnits++;
+      else embeddedUnits++;
       s.tx(() => {
+        // Repair partial/corrupt checkpoints for this exact unit before committing all segments together.
+        const obsolete = s.all(
+          "SELECT id FROM knowledge_search_units WHERE generation_id=? AND id LIKE ?",
+          generation,
+          base + ":%",
+        );
+        for (const r of obsolete) {
+          s.exec(
+            "DELETE FROM knowledge_vectors WHERE id=? AND generation_id=?",
+            r.id,
+            generation,
+          );
+          s.exec("DELETE FROM knowledge_search_units WHERE id=?", r.id);
+        }
         segments.forEach((segment, index) => {
           const id = base + ":" + index;
           s.exec(
@@ -472,6 +546,10 @@ export async function rebuildKnowledge(s: Store, h: Host, input: unknown) {
             sha(segment.text),
             JSON.stringify({
               reference: unit.reference,
+              unitKey,
+              segmentIndex: index,
+              segmentCount: segments.length,
+              vectorChecksum: sha(segment.bytes),
               start: segment.start,
               end: segment.end,
             }),
@@ -481,7 +559,7 @@ export async function rebuildKnowledge(s: Store, h: Host, input: unknown) {
             "INSERT OR REPLACE INTO knowledge_vectors VALUES(?,?,?)",
             id,
             generation,
-            Buffer.from(new Float32Array(segment.vector).buffer),
+            segment.bytes,
           );
         });
       });
@@ -498,6 +576,9 @@ export async function rebuildKnowledge(s: Store, h: Host, input: unknown) {
       state: "completed",
       generation,
       units: units.length,
+      embeddedUnits,
+      reusedUnits,
+      resumedUnits,
       fingerprint,
     };
     s.tx(() => {

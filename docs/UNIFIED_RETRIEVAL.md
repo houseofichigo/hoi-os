@@ -28,7 +28,7 @@ Still required before the full requested upgrade can be accepted:
 
 - Human-labelled 120-question corpus (40 development / 80 held-out), scenario-family separation, independently reviewed answers and recall/abstention/support measurements. No generated dataset is represented as human-labelled ground truth.
 - Complete operational-record EvidenceItem unification; historical semantic retrieval and historical relationship expansion remain unavailable.
-- Performance testing at 10,000 units, incremental vector reuse and detailed extraction/model fault coverage.
+- Hybrid performance testing at 10,000 units and detailed extraction/model fault coverage.
 - Optional budgeted reranker: not implemented or enabled. No extra paid model call is introduced by retrieval.
 - Dedicated memory draft editing/restoration and broader accessibility/visual baselines. The new Memory flow has keyboard/focus and 390/768/1280/1440px checks.
 - Clean Mac/Windows verification, live automatic-analysis verification and real-use pilot. A developer machine test is not a clean-install result.
@@ -49,8 +49,14 @@ Current search expands one hop over explicit permitted source/memory relationshi
 
 The app server schedules maintenance through the existing engine queue, only for local opt-in semantic search. It does not download models, call providers or run after shutdown. Sources, published wiki blocks and approved memories have permission-filtered eligible/indexed/pending counts. A cancelled automatic rebuild remains paused for the same input until a manual rebuild or changed knowledge; failed attempts use persisted backoff and pause after three attempts. Missing models wait for explicit installation.
 
-Index jobs retain checkpoints across restart. Changed inputs invalidate an interrupted generation’s checkpoints; a generation is activated only if its input fingerprint still matches. The previous active generation remains available during rebuilding. This currently rebuilds the complete eligible set rather than incrementally reusing unchanged embeddings; large-workspace latency and queue contention remain unmeasured.
+Index jobs retain checkpoints across restart. Changed inputs invalidate an interrupted generation’s checkpoints; a generation is activated only if its input fingerprint still matches. The previous active generation remains available during rebuilding. A replacement generation still covers the complete eligible set, but validated unchanged embeddings are reused. Large-workspace semantic rebuild latency and queue contention remain unmeasured.
 
 ## Evaluation tooling continuation
 
 The evaluation directory now includes a reproducible 10,000-passage lexical benchmark and a standalone relevance scorer with scenario-family split validation. The measured Apple M5 run is recorded with build identity and hardware. Broad-query p95 was approximately 1.68 seconds; exact-ID p95 was 2.59 ms. These generated workloads do not establish bilingual recall, semantic performance or factual support. The 120 human-labelled questions and reviewed answer gate remain outstanding. See `evaluation/knowledge-v1/README.md` for the report and input contract.
+
+## Incremental embedding reuse
+
+Replacement generations reuse unchanged units only from the current active generation with the same model fingerprint. Keys bind exact revision/passage identity, source-text checksum and embedding recipe version (chunking, prefixes, pooling and normalization). All segments must be present, contiguous and checksum-valid; vectors must have the expected dimensions, finite normalized values and matching byte checksums. Partial or corrupt checkpoints are reprocessed. Legacy units without cache metadata are embedded once to upgrade their rebuildable projection.
+
+Permission filtering occurs before reuse. Old generations are not independently trusted as evidence. New generations still activate atomically, and rebuild results separately report embedded, reused and resumed unit counts. No original, wiki or memory record is changed by reuse; there is no database migration. Retired index cleanup and large hybrid-corpus memory/latency measurements remain future work.

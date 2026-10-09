@@ -1,8 +1,13 @@
 {
   "date": "2026-10-09",
-  "buildId": "6cc384195ed56873e2051ae6d03edcc6b96b5043683d2a0861dc92e4a8bb4b63",
+  "buildId": "f284c5e942cd2bae723583c3c3cbaa7eebd5a4dacb9c05f1b91e78762d49cfb3",
   "scope": "fictional workspaces; local developer and staged macOS arm64",
   "suites": [
+    {
+      "suite": "core",
+      "passed": true,
+      "tests": 254
+    },
     {
       "suite": "browser",
       "passed": true,
@@ -12,20 +17,15 @@
       "suite": "desktop",
       "passed": true,
       "tests": 2
-    },
-    {
-      "suite": "core",
-      "passed": true,
-      "tests": 251
     }
   ],
-  "coreNote": "251 total: 249 passed, 2 opt-in model tests skipped. Evaluation tooling adds three deterministic metric tests. Runtime build unchanged; browser, desktop and offline-model results retained from the preceding batch.",
-  "localModel": "Verified offline bilingual retrieval, changed-input rebuild, interrupted-generation recovery and preserved cancellation.",
+  "coreNote": "254 total: 251 passed, 3 opt-in model tests skipped. All four offline-model tests separately passed.",
+  "localModel": "Offline tests confirm bilingual retrieval, restart recovery, unchanged embedding reuse, changed-unit recomputation, corrupt-vector repair and revoked-source exclusion.",
   "limitations": [
-    "Full eligible-set rebuild, not incremental vector reuse.",
     "No clean-machine, Windows or live paid-provider certification.",
     "Historical search remains lexical.",
-    "No human-labelled quality certification; synthetic lexical measurements do not establish hybrid or multi-domain performance."
+    "No human-labelled quality certification; synthetic lexical measurements do not establish hybrid or multi-domain performance.",
+    "Incremental reuse is functionally verified on small fictional fixtures; no large hybrid-corpus latency or memory guarantee."
   ],
   "evaluation": "Synthetic 10000-passage benchmark measured exact-ID and broad lexical workloads on Apple M5. Human-labelled bilingual quality and factual-support gates remain unverified."
 }

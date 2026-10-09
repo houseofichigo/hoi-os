@@ -146,3 +146,77 @@ test(
     assert.equal(indexStatus(s, "local").generation, first);
   },
 );
+
+test(
+  "incremental generations reuse only unchanged valid embeddings and exclude revoked sources",
+  { skip: !process.env.HOI_TEST_MODEL_DIRECTORY },
+  async (t) => {
+    const { s, file } = fixture(t);
+    configureSemantic(s, "local", { enabled: true, confirm: true });
+    t.after(() => {
+      try {
+        configureSemantic(s, "local", { enabled: false, confirm: true });
+      } catch {}
+    });
+    await installLocalModel(s, "local", {
+      confirm: true,
+      directory: process.env.HOI_TEST_MODEL_DIRECTORY,
+    });
+    const a = await ingest(s, file("one.md", "Orchard morning delivery."), {
+      host: "local",
+    });
+    await ingest(s, file("two.md", "Cedar coaching workshop."), {
+      host: "local",
+    });
+    const first = await rebuildKnowledge(s, "local", {
+      requestKey: "incremental-first",
+    });
+    assert.equal(first.embeddedUnits, 2);
+    assert.equal(first.reusedUnits, 0);
+    const same = await rebuildKnowledge(s, "local", {
+      requestKey: "incremental-same",
+    });
+    assert.equal(same.embeddedUnits, 0);
+    assert.equal(same.reusedUnits, 2);
+    await ingest(s, file("one.md", "Orchard afternoon delivery."), {
+      host: "local",
+    });
+    const changed = await rebuildKnowledge(s, "local", {
+      requestKey: "incremental-changed",
+    });
+    assert.equal(changed.embeddedUnits, 1);
+    assert.equal(changed.reusedUnits, 1);
+    const row = s.one(
+      "SELECT id FROM knowledge_search_units WHERE generation_id=? AND record_id=?",
+      changed.generation,
+      a.sourceId,
+    );
+    s.exec(
+      "UPDATE knowledge_vectors SET embedding=X'00' WHERE id=? AND generation_id=?",
+      row.id,
+      changed.generation,
+    );
+    const repaired = await rebuildKnowledge(s, "local", {
+      requestKey: "incremental-repair",
+    });
+    assert.equal(repaired.embeddedUnits, 1);
+    assert.equal(repaired.reusedUnits, 1);
+    writeYaml(s.path("policies/actions.yaml"), {
+      ...s.policy(),
+      deniedSources: [a.sourceId],
+    });
+    const restricted = await rebuildKnowledge(s, "local", {
+      requestKey: "incremental-denied",
+    });
+    assert.equal(restricted.units, 1);
+    assert.equal(restricted.reusedUnits, 1);
+    assert.equal(
+      s.one(
+        "SELECT count(*) n FROM knowledge_search_units WHERE generation_id=? AND record_id=?",
+        restricted.generation,
+        a.sourceId,
+      ).n,
+      0,
+    );
+  },
+);
