@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "date": "2026-10-09",
+  "buildId": "95d7f29f0028f6517e5452eb9178bbeb558599682ec476e97dea55baef891a1e",
+  "platform": "darwin",
+  "arch": "arm64",
+  "environment": "development Mac; fictional isolated workspaces",
+  "stagedDesktop": {
+    "passed": 3
+  },
+  "packagedDesktop": {
+    "passed": 3,
+    "emptyPath": true
+  },
+  "packagedRemoval": {
+    "passed": 1,
+    "copyMethod": "macOS ditto",
+    "workspaceChecksumsPreserved": true,
+    "reinstallRetrieval": true
+  },
+  "focusedCore": {
+    "passed": 13
+  },
+  "zipSha256": "18e480fd4630a4872b913a780243e8d63d91a468053a132f0f9a4c7a93ec4bc4",
+  "cleanMachineVerified": false,
+  "windowsVerified": false,
+  "liveProvidersVerified": false,
+  "signed": false,
+  "limitations": [
+    "Initial generic-copy removal test crashed; ditto retry passed.",
+    "Older schema markers are simulations, not authentic historical release fixtures.",
+    "No UI/core runtime changes; broader suites were not rerun."
+  ]
+}

@@ -105,3 +105,49 @@ remain **not tested**. No remote workflow or publication occurred. The shared
 `.desktop-stage` now targets Windows; run `npm run desktop:stage -- darwin arm64`
 before using the development desktop launcher on an Apple Silicon Mac. Packaged
 Mac apps do not depend on this staging directory.
+
+## App-only and removal rehearsal — 2026-10-09
+
+Runtime build `95d7f29f0028f6517e5452eb9178bbeb558599682ec476e97dea55baef891a1e`, version `0.1.0-alpha.2`, Electron `42.11.8`, macOS arm64, development machine. Local ZIP SHA-256: `18e480fd4630a4872b913a780243e8d63d91a468053a132f0f9a4c7a93ec4bc4`.
+
+| Requested check | Observed result | Boundary |
+| --- | --- | --- |
+| Onboarding without skills or AI | Passed in staged and packaged Electron; chose no assistant, skipped optional setup; no workspace manuals/adapters or provider rows created | Bundled skill instructions still ship with the product; they need no installation |
+| Fictional import, restart and retrieval | Reviewed Markdown import, full quit/relaunch, unchanged exact retrieved evidence | No provider call; lexical retrieval |
+| Separate backup/restore/upgrade | Verified backup; restored two separate copies; original and copied retrieval identities preserved | New schema-18 test uses a current fixture with an older schema marker, not an authentic old release database; existing desktop schema-11 upgrade-copy test also passed |
+| App removal and reinstall | Removed only a disposable installed `.app`; every separate workspace file retained its SHA-256; reinstalled and retrieved unchanged evidence | Direct bundle removal on this development Mac, not Finder/Trash interaction or clean-machine acceptance |
+
+Verification: three staged Electron tests passed; the same three passed in the packaged app with empty PATH; the additional packaged removal/reinstall test passed separately. Thirteen focused onboarding/recovery core tests passed, including interrupted memory replacement recovery into a separate restored copy. No product runtime behavior changed in this batch.
+
+The first removal harness used a generic recursive bundle copy and the copied app crashed. Repeating with macOS `/usr/bin/ditto` passed; the harness now uses that bundle-preserving tool. This is a harness correction, not a claim that all third-party copy utilities are supported. The release artifact and user workspace were never removed. All test workspaces were fictional and disposable.
+
+Reproduce after staging and packaging a matching build:
+
+```sh
+npm run test:desktop
+HOI_DESKTOP_TEST_EXECUTABLE="/path/to/HOI OS.app/Contents/MacOS/HOI OS" HOI_DESKTOP_TEST_NO_SYSTEM_TOOLS=1 npm run test:desktop
+HOI_DESKTOP_TEST_BUNDLE="/path/to/HOI OS.app" npx playwright test --config playwright.desktop.config.mjs tests/desktop/removal.spec.mjs
+node --test tests/onboarding.test.mjs tests/recovery.test.mjs tests/memory-recovery-hardening.test.mjs
+```
+
+The removal test skips when no explicit macOS bundle is provided. It copies the bundle into its own temporary directory, removes only that copy, and retains the separately located workspace until assertions finish. Never point a test cleanup operation at a real workspace.
+
+### Installing and using the local candidate without AI
+
+1. Verify the ZIP checksum, extract it, and place `HOI OS.app` in your chosen applications directory. This candidate is unsigned/unnotarized; record any OS block rather than disabling protections globally.
+2. Open the app and choose **Create workspace**. Choose a directory outside the app bundle; keep this location for recovery.
+3. Complete the profile/timezone steps. Keep **Preferred experience: none** and skip optional sources/adapters/recovery setup as appropriate. Skipping recovery is allowed for onboarding, but make a verified backup before a real upgrade.
+4. In **Knowledge Hub → Ingestion**, select a fictional file, review its manifest, then import. Sources and retrieval work without an AI key. Generative Chat remains unavailable until configured.
+5. Quit normally, reopen the same workspace, and confirm the document remains available. Closing the app stops its engine; it does not delete the workspace.
+6. Before upgrading, verify a backup and restore it into a separate directory. Use **Create upgraded copy** when prompted; retain the original for compatible rollback. Never open a newer schema with an older engine.
+7. To remove the app, quit it and remove only the application bundle. Keep your workspace and backups. Reinstall and use **Open workspace** to reconnect. Optional adapters may still reference the previous app location and need reviewed repair after relocation.
+
+### Remaining release blockers
+
+- Clean Mac/user installation, Gatekeeper behavior, signing/notarization and secure keychain verification.
+- Genuine historical-release database upgrade fixtures beyond schema-marker simulations, plus platform-specific rollback acceptance.
+- Intel Mac and native Windows install/update/uninstall and credential-store verification. NSIS preservation settings are configuration evidence only.
+- Independent answer-quality review, explicitly scoped live-provider/Google tests and real-use pilot. Live OpenAI evaluation is paused; no part of its authorized $5 budget was used here.
+- Distribution polish and security review, including the default Electron icon and unpacked resources noted by the packager.
+
+No private migration, external connection, AI configuration, GitHub update or publication was performed.

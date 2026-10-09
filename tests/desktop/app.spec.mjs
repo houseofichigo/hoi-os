@@ -12,8 +12,10 @@ import { join, resolve } from "node:path";
 import { createRequire } from "node:module";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { initialize, Store } from "../../dist/core/store.js";
+import { initialize, Store, migrate } from "../../dist/core/store.js";
 import JSZip from "jszip";
+import { backup, restore, verifyBackup } from "../../dist/core/backup.js";
+import { retrieve } from "../../dist/core/intake.js";
 import { inspectLock } from "../../dist/core/locks.js";
 const require = createRequire(import.meta.url),
   executable = process.env.HOI_DESKTOP_TEST_EXECUTABLE || require("electron"),
@@ -289,4 +291,118 @@ test("older workspace needs an explicit verified upgraded copy", async () => {
   expect(
     JSON.parse(readFileSync(join(root, "profile/desktop.json"))).workspace,
   ).toBe(copy);
+});
+
+test("app-only onboarding, full relaunch and separate recovery copies retain evidence", async () => {
+  const workspace = join(root, "app-only workspace");
+  let page = await launch();
+  await app.evaluate(({ dialog }, path) => {
+    dialog.showSaveDialog = async () => ({ canceled: false, filePath: path });
+  }, workspace);
+  await page
+    .getByRole("button", { name: "Create workspace", exact: true })
+    .click();
+  await expect(page).toHaveURL(/127\.0\.0\.1.*\/app/);
+  await page
+    .getByRole("button", { name: "Continue setup", exact: true })
+    .click();
+  await page.getByLabel("Your name", { exact: true }).fill("Fictional Rowan");
+  await page
+    .getByRole("button", { name: "Save and continue", exact: true })
+    .click();
+  await page.getByLabel("Timezone (IANA name)").fill("Europe/Paris");
+  await page
+    .getByRole("button", { name: "Save and continue", exact: true })
+    .click();
+  await expect(page.getByLabel("Preferred experience")).toHaveValue("none");
+  await page
+    .getByRole("button", { name: "Save and continue", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Skip for now", exact: true }).click();
+  await page.getByRole("button", { name: "Skip for now", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Save and finish", exact: true })
+    .click();
+  await expect(
+    page.getByText(
+      "Setup checklist complete. Skipped features remain unconfigured.",
+    ),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Knowledge Hub", exact: true })
+    .click();
+  await page.getByRole("tab", { name: "Ingestion", exact: true }).click();
+  await page.getByLabel("Choose documents", { exact: true }).setInputFiles({
+    name: "rowan.md",
+    mimeType: "text/markdown",
+    buffer: Buffer.from(
+      "# Rowan\nFictional Rowan workshop reference ROW-409 uses a blue notebook.",
+    ),
+  });
+  await page.getByRole("button", { name: "Review import manifest" }).click();
+  await page.getByRole("button", { name: "Import reviewed files" }).click();
+  await expect(page.getByText("rowan.md · indexed")).toBeVisible();
+  await app.close();
+  app = null;
+  const noAdapters = () => {
+    for (const file of [
+      "AGENTS.md",
+      "CLAUDE.md",
+      ".agents",
+      ".claude",
+      ".hoi/runtime.json",
+    ])
+      expect(existsSync(join(workspace, file))).toBe(false);
+  };
+  noAdapters();
+  let s = new Store(workspace);
+  let original;
+  try {
+    expect(s.one("SELECT COUNT(*) n FROM ai_providers").n).toBe(0);
+    original = retrieve(s, "ROW-409", "local").results;
+    expect(original.length).toBeGreaterThan(0);
+  } finally {
+    s.close();
+  }
+  page = await launch(workspace);
+  await expect(page).toHaveURL(/127\.0\.0\.1.*\/app/);
+  await app.close();
+  app = null;
+  noAdapters();
+  s = new Store(workspace);
+  const snapshot = join(root, "verified backup"),
+    restored = join(root, "restored copy"),
+    upgraded = join(root, "upgraded copy");
+  try {
+    expect(retrieve(s, "ROW-409", "local").results).toEqual(original);
+    expect(backup(s, snapshot).verified).toBe(true);
+    verifyBackup(snapshot);
+  } finally {
+    s.close();
+  }
+  restore(snapshot, restored);
+  restore(snapshot, upgraded);
+  for (const path of [restored, upgraded]) {
+    const copy = new Store(path);
+    try {
+      // Exercises the sequential migration entrypoint on an isolated copy.
+      // This is a schema marker fixture, not a genuine historical release database.
+      if (path === upgraded) {
+        copy.db.pragma("user_version = 18");
+        migrate(copy);
+      }
+      expect(copy.schemaVersion).toBe(19);
+      expect(retrieve(copy, "ROW-409", "local").results).toEqual(original);
+      expect(copy.one("SELECT COUNT(*) n FROM ai_providers").n).toBe(0);
+    } finally {
+      copy.close();
+    }
+  }
+  s = new Store(workspace);
+  try {
+    expect(retrieve(s, "ROW-409", "local").results).toEqual(original);
+  } finally {
+    s.close();
+  }
+  expect(inspectLock(workspace).state).toBe("clear");
 });
