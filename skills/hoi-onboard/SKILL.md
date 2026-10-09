@@ -44,10 +44,7 @@ still merges profile answers; the app reads those same answers.
 The app can create a verified backup locally. Assistant hosts must not impersonate
 local to invoke `onboard backup`. A recorded acknowledgement or skipped step is
 not proof of a successful import, first result or restore rehearsal.
-<<<<<<< HEAD
 
 ## Workspace guidance
 
 When the installed adapter provides guide metadata, follow its managed manual links to governance, filesystem ownership and tool conventions under `.hoi/guides/`. A missing or modified guide requires a reviewed adapter update; never overwrite custom instructions to repair it. Older releases may not provide guides. Markdown cannot grant permissions, enable tools or approve proposals. Keep goals in onboarding context and memory in reviewed records rather than creating competing root state files.
-=======
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052

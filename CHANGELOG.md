@@ -1,6 +1,5 @@
 # Changelog
 
-<<<<<<< HEAD
 ## Unreleased
 
 The package base remains `0.1.0-alpha.2`; no new release is implied.
@@ -19,12 +18,3 @@ and the real-use pilot remain open. See [readiness](docs/PUBLICATION_READINESS.m
 Published evaluation baseline. Its downloads retain their original contents;
 current local features are not retroactively added to that tag. Historical
 [validation](docs/VALIDATION.md) and [release notes](docs/RELEASE.md) describe it.
-=======
-## Skills 0.2.0-alpha.1 — 2026-09-29
-
-- Publish 21 community skills with individual packages and compatibility metadata.
-- Separate the skills repository experience from the forthcoming app.
-- Add generic onboarding, reuse/fork guidance, static validation and checksums.
-- Preserve MIT attribution and historical application commits/releases.
-- No new app publication, private data or connected accounts included.
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052

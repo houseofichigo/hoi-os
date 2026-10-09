@@ -1,0 +1,317 @@
+/* House of Ichigo — design tokens · v3.1 · September 2026
+   Mirrors references/tokens.json. Do not edit by hand. */
+
+:root {
+  /* Core */
+  --white: #ffffff;
+  --ink: #0a0e27;
+  --cobalt: #1231d6;
+  --slate: #5a6478;
+  --grey: #f2f5f8;
+  --line: #e3e8ef;
+  --cobalt-light: #7fa0ff; /* accent word on Ink only */
+
+  /* Pillars */
+  --learn: #0089a8;
+  --build: #008558;
+  --lead: #e2006d;
+  --govern: #0a0e27;
+  --learn-8: #e6f3f6;
+  --build-8: #e6f3ee;
+  --lead-8: #fce6f0;
+  --cobalt-8: #e7eafb;
+
+  /* Semantic — warning is a FILL, Ink text on it */
+  --warn: #ffc411;
+  --danger: #e51919;
+  --success: #008558;
+
+  /* Type */
+  --d: "Fraunces", Georgia, serif;
+  --s: "Inter Tight", system-ui, -apple-system, sans-serif;
+  --m: "JetBrains Mono", "Courier New", monospace;
+
+  --text-display-xl: 88px;
+  --text-display-lg: 64px;
+  --text-display-md: 42px;
+  --text-heading-lg: 36px;
+  --text-heading-md: 24px;
+  --text-heading-sm: 18px;
+  --text-body-lg: 18px;
+  --text-body: 16px;
+  --text-caption: 14px;
+  --text-eyebrow: 12px;
+
+  /* Space & shape */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 16px;
+  --sp-4: 24px;
+  --sp-5: 40px;
+  --sp-6: 64px;
+  --sp-7: 96px;
+  --sp-8: 128px;
+  --radius: 0; /* panels, tables, images */
+  --radius-btn: 2px; /* buttons and inputs only */
+  --rule-heavy: 1.6px;
+  --rule-hair: 1px;
+  --rule-pillar: 2.4px;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   LOGO — this block is not optional.
+   Logo images are flex children on most surfaces, and
+   align-items:stretch overrides width:auto. Without align-self and
+   aspect-ratio the mark distorts into an oval.
+   ─────────────────────────────────────────────────────────────── */
+img {
+  width: auto;
+  max-width: 100%;
+  align-self: flex-start;
+  flex: 0 0 auto;
+}
+.logo-lockup {
+  aspect-ratio: 670/790;
+}
+.logo-mark {
+  aspect-ratio: 1/1;
+}
+.logo-centred {
+  align-self: center;
+}
+
+/* Base */
+body {
+  font-family: var(--s);
+  color: var(--ink);
+  background: var(--white);
+  font-size: var(--text-body);
+  line-height: 1.55;
+}
+h1,
+h2,
+.display {
+  font-family: var(--d);
+  font-variation-settings: "opsz" 144;
+  font-weight: 400;
+  letter-spacing: 0;
+  word-spacing: 0.04em;
+} /* never negative tracking */
+h3,
+h4,
+h5 {
+  font-family: var(--s);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+a {
+  color: var(--cobalt);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
+}
+
+.accent {
+  font-family: var(--d);
+  font-style: italic;
+  color: var(--cobalt);
+}
+.on-ink .accent,
+.dark .accent {
+  color: var(--cobalt-light);
+}
+
+.eyebrow {
+  font-family: var(--m);
+  font-size: var(--text-eyebrow);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cobalt);
+}
+.pillar-learn .eyebrow {
+  color: var(--learn);
+}
+.pillar-build .eyebrow {
+  color: var(--build);
+}
+.pillar-lead .eyebrow {
+  color: var(--lead);
+}
+.pillar-govern .eyebrow {
+  color: var(--govern);
+}
+
+.num,
+td.num,
+.stat {
+  font-family: var(--m);
+  font-variant-numeric: tabular-nums;
+}
+.stat-value {
+  font-family: var(--d);
+  font-variation-settings: "opsz" 144;
+  font-weight: 600;
+  color: var(--cobalt);
+}
+.stat-label {
+  font-family: var(--m);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+/* Structure — rules, not boxes */
+.rule-heavy {
+  border-top: var(--rule-heavy) solid var(--ink);
+  padding-top: var(--sp-3);
+}
+.rule-hair {
+  border-top: var(--rule-hair) solid var(--line);
+  padding-top: var(--sp-3);
+}
+.rule-pillar {
+  border-top: var(--rule-pillar) solid var(--cobalt);
+  padding-top: var(--sp-3);
+}
+.pillar-learn .rule-pillar {
+  border-top-color: var(--learn);
+}
+.pillar-build .rule-pillar {
+  border-top-color: var(--build);
+}
+.pillar-lead .rule-pillar {
+  border-top-color: var(--lead);
+}
+.note {
+  border-left: var(--rule-heavy) solid var(--cobalt);
+  padding-left: var(--sp-4);
+}
+
+/* The rail */
+.rail {
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  gap: var(--sp-4);
+}
+.rail > .side {
+  font-size: var(--text-caption);
+  color: var(--slate);
+}
+
+/* Vertical structure — head fixed, body flexes, foot one line */
+.surface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.surface > .head {
+  flex: 0 0 auto;
+}
+.surface > .body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.surface > .body.top {
+  justify-content: flex-start;
+}
+.surface > .body.spread {
+  justify-content: space-between;
+}
+.surface > .foot {
+  flex: 0 0 auto;
+}
+
+/* Buttons — primary is ALWAYS Cobalt, on every surface */
+.btn {
+  display: inline-block;
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  padding: 14px 30px;
+  transition: opacity 0.15s ease;
+}
+.btn:hover {
+  opacity: 0.88;
+}
+.btn:active {
+  transform: scale(0.99);
+}
+.btn--primary {
+  background: var(--cobalt);
+  color: var(--white);
+  border: none;
+}
+.btn--secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+.btn--tertiary {
+  background: none;
+  border: none;
+  color: var(--cobalt);
+  padding: 14px 0;
+}
+
+/* Dark surfaces — flat. No gradient, no glow. */
+.on-ink {
+  background: var(--ink);
+  color: var(--white);
+}
+.on-ink .secondary {
+  color: rgba(255, 255, 255, 0.6);
+} /* never --slate on Ink: 2.59:1 */
+
+/* Images */
+.img-bleed {
+  position: relative;
+  overflow: hidden;
+}
+.img-bleed .scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 14, 39, 0.78);
+}
+.img-split {
+  display: grid;
+  grid-template-columns: 46fr 54fr;
+}
+.img-frame {
+  border: 1px solid var(--line);
+}
+.img-caption {
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-top: 12px;
+}
+
+/* Icons */
+.icon {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.on-ink .icon {
+  stroke: var(--white);
+}
+
+/* ── PROHIBITED — measured, not advisory ──────────────────────────
+   white on --warn ......... 1.60:1  → Ink text only
+   --slate on --ink ........ 2.59:1  → white at 55-60% opacity
+   body copy in --cobalt or a pillar colour → use --ink
+   a pillar colour on a button → use --cobalt
+   gradients, box-shadow, border-radius > 2px, card grids
+   ─────────────────────────────────────────────────────────────── */

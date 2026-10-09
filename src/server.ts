@@ -1,3 +1,4 @@
+import { startIndexMaintenance } from "./index-maintenance.js";
 import { stopAI, startAutomaticAnalysis } from "./ai.js";
 import { randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
 import { existsSync, readFileSync, rmSync, statSync } from "node:fs";
@@ -287,6 +288,7 @@ export async function serve(
   const stopSync = options.app
     ? startSync(s, host, (fn) => engine!.enqueue(fn))
     : () => {};
+  const stopIndex = options.app ? startIndexMaintenance(s,host,fn=>engine!.enqueue(fn)) : ()=>{};
   const close = server.close.bind(server);
   let closing = false;
   server.close = ((callback?: (error?: Error) => void) => {
@@ -297,6 +299,7 @@ export async function serve(
     closing = true;
     stopSync();
     stopAnalysis();
+    stopIndex();
     // Close sockets only after durable work finishes; keep ownership until then.
     void stopAI(s)
       .then(() => engine?.stop())

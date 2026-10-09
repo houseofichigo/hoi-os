@@ -2,11 +2,7 @@
   "schemaVersion": 2,
   "compatibility": {
     "engineApiVersion": 1,
-<<<<<<< HEAD
     "workspaceSchema": 19,
-=======
-    "workspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
     "supportedSchemas": [
       1,
       2,
@@ -24,7 +20,6 @@
       14,
       15,
       16,
-<<<<<<< HEAD
       17,
       18,
       19
@@ -33,27 +28,13 @@
     "channel": "unreleased-local"
   },
   "version": "0.1.0-alpha.2",
-=======
-      17
-    ],
-    "node": ">=22.14.0",
-    "channel": "skills-preview-app-unreleased"
-  },
-  "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
   "skills": [
     {
       "name": "hoi-3d-map",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -72,11 +53,7 @@
           "Show the knowledge map."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -91,15 +68,9 @@
     {
       "name": "hoi-audit",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -119,11 +90,7 @@
           "Audit this workspace and explain the gaps."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -138,15 +105,9 @@
     {
       "name": "hoi-build-capability",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -166,11 +127,7 @@
           "Help draft a capability using registered tools."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -185,15 +142,9 @@
     {
       "name": "hoi-capture",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -213,11 +164,7 @@
           "Capture a decision from my selected notes."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -232,15 +179,9 @@
     {
       "name": "hoi-chief-of-staff",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -265,11 +206,7 @@
           "What should I focus on today?"
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -285,15 +222,9 @@
     {
       "name": "hoi-connect",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -316,11 +247,7 @@
           "Check my available connections."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -335,15 +262,9 @@
     {
       "name": "hoi-consolidate",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -362,11 +283,7 @@
           "Find memories that need consolidation."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -381,15 +298,9 @@
     {
       "name": "hoi-evaluate",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -408,11 +319,7 @@
           "Evaluate retrieval against my selected questions."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -427,15 +334,9 @@
     {
       "name": "hoi-ingest",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -457,11 +358,7 @@
           "Review these documents for ingestion."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -476,15 +373,9 @@
     {
       "name": "hoi-install",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -501,11 +392,7 @@
           "Check my installation prerequisites."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "installer",
       "requires": [],
       "files": [
@@ -518,15 +405,9 @@
     {
       "name": "hoi-knowledge-review",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -547,11 +428,7 @@
           "Find outdated project information."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -567,15 +444,9 @@
     {
       "name": "hoi-meeting-prep",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -600,11 +471,7 @@
           "Find open commitments for this project."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -619,15 +486,9 @@
     {
       "name": "hoi-onboard",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -647,11 +508,7 @@
           "Help me set up this workspace."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -666,15 +523,9 @@
     {
       "name": "hoi-organize",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -694,11 +545,7 @@
           "Suggest a structure for my selected sources."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -713,15 +560,9 @@
     {
       "name": "hoi-project-intake",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -742,11 +583,7 @@
           "Check which project fields are still missing."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -765,15 +602,9 @@
     {
       "name": "hoi-retrieve",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -792,11 +623,7 @@
           "Find related evidence for this project."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -811,15 +638,9 @@
     {
       "name": "hoi-security",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -839,11 +660,7 @@
           "Explain what security checks remain untested."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -858,15 +675,9 @@
     {
       "name": "hoi-session-capture",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -887,11 +698,7 @@
           "Capture decisions from these session notes."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -906,15 +713,9 @@
     {
       "name": "hoi-task-intake",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -939,11 +740,7 @@
           "Check these action items for duplicates."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -958,15 +755,9 @@
     {
       "name": "hoi-wiki",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -988,11 +779,7 @@
           "Propose a wiki update from these documents."
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
@@ -1007,15 +794,9 @@
     {
       "name": "hoi-wiki-author",
       "compatibility": {
-<<<<<<< HEAD
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
         "verifiedWorkspaceSchema": 19,
-=======
-        "engineVersion": "compatible separate app required; not publicly released",
-        "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 17,
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -1038,11 +819,7 @@
           "Update this wiki while preserving its source history"
         ]
       },
-<<<<<<< HEAD
       "version": "0.1.0-alpha.2",
-=======
-      "version": "0.2.0-alpha.1",
->>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
       "kind": "operational",
       "requires": [
         "HOI OS core",
