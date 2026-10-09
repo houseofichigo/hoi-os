@@ -10,7 +10,7 @@ Audience: maintainers and alpha testers. Authoritative code: `src/retrieval.ts`,
 - Memory proposals, local exact-version review, replacement and retirement; immutable revision files and restart recovery journals. Replacement approval checks the predecessor fingerprint and updates both records recoverably. History is explicit; assistants cannot mark inferred facts as user-authored or approve through the new review operation.
 - Current/Proposed/History Memory views, attributed-note proposals, correction comparison, review and retirement. A corrected memory preserves the predecessor.
 - Opt-in local CPU embedding worker with remote runtime loading disabled. Pinned upstream E5 ONNX artifacts, bounded verified download/offline directory import, tokenizer-sized segments and sqlite-vec adapter. Index generations switch atomically; jobs support interruption/resume and cancellation. Read-time access checks precede vector ranking.
-- Knowledge Hub search-coverage controls. Missing/corrupt runtime or model falls back to lexical search. New records make existing generation coverage partial until rebuilt. Indexes are explicitly rebuilt, not continuously updated yet.
+- Knowledge Hub search-coverage controls. Missing/corrupt runtime or model falls back to lexical search. New records make existing generation coverage partial until rebuilt. With semantic search enabled and the verified model installed, the running app checks eligible knowledge every 30 seconds and rebuilds changed generations through the engine queue.
 - Existing automatic-analysis jobs may return validated conversation discovery artifacts. Original passage references are mandatory. Summaries are derived/unreviewed and only locate original evidence; they do not become independent factual context, accepted tasks or approved memory. Existing analysis scopes and cost controls remain.
 - Six existing skills updated; runtime mirrors and canonical local collection retain provenance and previous versions. No new overlapping memory skill.
 
@@ -28,7 +28,7 @@ Still required before the full requested upgrade can be accepted:
 
 - Human-labelled 120-question corpus (40 development / 80 held-out), scenario-family separation, independently reviewed answers and recall/abstention/support measurements. No generated dataset is represented as human-labelled ground truth.
 - Complete operational-record EvidenceItem unification; historical semantic retrieval and historical relationship expansion remain unavailable.
-- Automated index invalidation/rebuild scheduling, complete per-domain coverage and fault/performance testing at 10,000 units.
+- Performance testing at 10,000 units, incremental vector reuse and detailed extraction/model fault coverage.
 - Optional budgeted reranker: not implemented or enabled. No extra paid model call is introduced by retrieval.
 - Dedicated memory draft editing/restoration and broader accessibility/visual baselines. The new Memory flow has keyboard/focus and 390/768/1280/1440px checks.
 - Clean Mac/Windows verification, live automatic-analysis verification and real-use pilot. A developer machine test is not a clean-install result.
@@ -44,3 +44,9 @@ Staged macOS arm64 native check: Electron 42.11.8 loaded the verified offline mo
 Search accepts an explicit `asOf` date. It selects the state recorded by the end of that day in the workspace timezone, applies known effective dates and checks current permissions. This is not a claim about facts the workspace had not recorded then. Legacy memories without a review timestamp are excluded. Historical search is lexical; it does not reuse a current semantic index. Chat search can request this mode and must retain the date on exact citations. Evidence inspection labels historical material.
 
 Current search expands one hop over explicit permitted source/memory relationships, capped at 20 candidates. Inferred similarity and second-hop links are excluded. Contradiction links preserve their label, without claiming automatic contradiction detection. Selected source passages may include up to two adjacent passages from the same revision, inside the shared character budget and three-passage source limit. These retain separately resolvable references.
+
+## Automatic index maintenance
+
+The app server schedules maintenance through the existing engine queue, only for local opt-in semantic search. It does not download models, call providers or run after shutdown. Sources, published wiki blocks and approved memories have permission-filtered eligible/indexed/pending counts. A cancelled automatic rebuild remains paused for the same input until a manual rebuild or changed knowledge; failed attempts use persisted backoff and pause after three attempts. Missing models wait for explicit installation.
+
+Index jobs retain checkpoints across restart. Changed inputs invalidate an interrupted generation’s checkpoints; a generation is activated only if its input fingerprint still matches. The previous active generation remains available during rebuilding. This currently rebuilds the complete eligible set rather than incrementally reusing unchanged embeddings; large-workspace latency and queue contention remain unmeasured.

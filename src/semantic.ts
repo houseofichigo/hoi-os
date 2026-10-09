@@ -46,21 +46,56 @@ export function indexStatus(s: Store, h: Host) {
   const generation =
     s.schemaVersion >= 19
       ? s.one(
-          "SELECT id,model_fingerprint FROM knowledge_index_generations WHERE state='active'",
+          "SELECT id,model_fingerprint FROM knowledge_index_generations WHERE state='active' AND model_fingerprint=?",
+          MODEL_FINGERPRINT,
         )
       : null;
-  const units=s.schemaVersion>=19?collectUnits(s,h):[];
-  const indexed=new Set(generation?s.all("SELECT payload FROM knowledge_search_units WHERE generation_id=?",generation.id).map(r=>JSON.stringify(JSON.parse(r.payload).reference)):[]);
-  const domains=Object.fromEntries(["source","wiki","memory"].map(kind=>{
-    const eligible=units.filter(u=>u.kind===kind), missing=eligible.filter(u=>!indexed.has(JSON.stringify(u.reference))).length;
-    return [kind,{eligible:eligible.length,indexed:eligible.length-missing,pending:missing}];
-  }));
-  const coverage=units.filter(u=>!indexed.has(JSON.stringify(u.reference))).length;
-  const maintenance=s.schemaVersion>=19?JSON.parse(s.one("SELECT payload FROM knowledge_retrieval_config WHERE id='maintenance'")?.payload??"{}"):{};
+  const units = s.schemaVersion >= 19 ? collectUnits(s, h) : [];
+  const indexed = new Set(
+    generation
+      ? s
+          .all(
+            "SELECT payload FROM knowledge_search_units WHERE generation_id=?",
+            generation.id,
+          )
+          .map((r) => JSON.stringify(JSON.parse(r.payload).reference))
+      : [],
+  );
+  const domains = Object.fromEntries(
+    ["source", "wiki", "memory"].map((kind) => {
+      const eligible = units.filter((u) => u.kind === kind),
+        missing = eligible.filter(
+          (u) => !indexed.has(JSON.stringify(u.reference)),
+        ).length;
+      return [
+        kind,
+        {
+          eligible: eligible.length,
+          indexed: eligible.length - missing,
+          pending: missing,
+        },
+      ];
+    }),
+  );
+  const coverage = units.filter(
+    (u) => !indexed.has(JSON.stringify(u.reference)),
+  ).length;
+  const maintenance =
+    s.schemaVersion >= 19
+      ? JSON.parse(
+          s.one(
+            "SELECT payload FROM knowledge_retrieval_config WHERE id='maintenance'",
+          )?.payload ?? "{}",
+        )
+      : {};
   return {
     lexical: "available",
     domains,
-    maintenance: {state:maintenance.state??"idle",reason:maintenance.reason??null,updatedAt:maintenance.updatedAt??null},
+    maintenance: {
+      state: maintenance.state ?? "idle",
+      reason: maintenance.reason ?? null,
+      updatedAt: maintenance.updatedAt ?? null,
+    },
     semantic: !enabled(s)
       ? "disabled"
       : generation
@@ -389,7 +424,24 @@ export async function rebuildKnowledge(s: Store, h: Host, input: unknown) {
         now(),
       );
     });
-  const units = collectUnits(s, h);
+  const units = collectUnits(s, h),
+    fingerprint = knowledgeFingerprint(s, h);
+  const payload = JSON.parse(
+    s.one("SELECT payload FROM intake_jobs WHERE id=?", jobId).payload,
+  );
+  if (payload.inputFingerprint !== fingerprint)
+    s.tx(() => {
+      s.exec("DELETE FROM knowledge_vectors WHERE generation_id=?", generation);
+      s.exec(
+        "DELETE FROM knowledge_search_units WHERE generation_id=?",
+        generation,
+      );
+      s.exec(
+        "UPDATE intake_jobs SET payload=? WHERE id=?",
+        JSON.stringify({ ...payload, inputFingerprint: fingerprint }),
+        jobId,
+      );
+    });
   try {
     for (const unit of units) {
       if (
@@ -439,12 +491,14 @@ export async function rebuildKnowledge(s: Store, h: Host, input: unknown) {
       "cancelled"
     )
       throw Error("JOB_CANCELLED");
+    if (knowledgeFingerprint(s, h) !== fingerprint)
+      throw Error("INDEX_INPUT_CHANGED");
     const result = {
       id: jobId,
       state: "completed",
       generation,
       units: units.length,
-      fingerprint: knowledgeFingerprint(s,h),
+      fingerprint,
     };
     s.tx(() => {
       s.exec(
@@ -475,9 +529,15 @@ export async function rebuildKnowledge(s: Store, h: Host, input: unknown) {
   }
 }
 
-export function knowledgeFingerprint(s:Store,h:Host) {
-  return sha(JSON.stringify(collectUnits(s,h).map(u=>[JSON.stringify(u.reference),sha(u.text)]).sort((a,b)=>a[0].localeCompare(b[0]))));
+export function knowledgeFingerprint(s: Store, h: Host) {
+  return sha(
+    JSON.stringify(
+      collectUnits(s, h)
+        .map((u) => [JSON.stringify(u.reference), sha(u.text)])
+        .sort((a, b) => a[0].localeCompare(b[0])),
+    ),
+  );
 }
-export function localModelPresent(s:Store) {
-  return LOCAL_MODEL.files.every(f=>existsSync(safePath(root(s),f.path)));
+export function localModelPresent(s: Store) {
+  return LOCAL_MODEL.files.every((f) => existsSync(safePath(root(s), f.path)));
 }

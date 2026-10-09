@@ -288,7 +288,9 @@ export async function serve(
   const stopSync = options.app
     ? startSync(s, host, (fn) => engine!.enqueue(fn))
     : () => {};
-  const stopIndex = options.app ? startIndexMaintenance(s,host,fn=>engine!.enqueue(fn)) : ()=>{};
+  const stopIndex = options.app
+    ? startIndexMaintenance(s, host, (fn) => engine!.enqueue(fn))
+    : () => {};
   const close = server.close.bind(server);
   let closing = false;
   server.close = ((callback?: (error?: Error) => void) => {

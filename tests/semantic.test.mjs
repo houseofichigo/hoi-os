@@ -80,3 +80,69 @@ test(
     assert.equal(knowledgeSearch(s, { query }, "local").evidence.length, 0);
   },
 );
+
+test(
+  "automatic index maintenance rebuilds changed evidence, resumes interruptions and preserves cancellation",
+  { skip: !process.env.HOI_TEST_MODEL_DIRECTORY },
+  async (t) => {
+    const { maintainKnowledgeIndex } =
+      await import("../dist/core/index-maintenance.js");
+    const { s, file } = fixture(t);
+    configureSemantic(s, "local", { enabled: true, confirm: true });
+    t.after(() => {
+      try {
+        configureSemantic(s, "local", { enabled: false, confirm: true });
+      } catch {}
+    });
+    await installLocalModel(s, "local", {
+      confirm: true,
+      directory: process.env.HOI_TEST_MODEL_DIRECTORY,
+    });
+    await ingest(s, file("automatic.md", "Orchard uses morning workshops."), {
+      host: "local",
+    });
+    assert.equal((await maintainKnowledgeIndex(s, "local")).state, "current");
+    const first = indexStatus(s, "local").generation;
+    await maintainKnowledgeIndex(s, "local");
+    assert.equal(indexStatus(s, "local").generation, first);
+    await ingest(s, file("automatic.md", "Orchard uses afternoon workshops."), {
+      host: "local",
+    });
+    assert.equal(indexStatus(s, "local").semantic, "partial");
+    await maintainKnowledgeIndex(s, "local");
+    const second = indexStatus(s, "local").generation;
+    assert.notEqual(first, second);
+    assert.equal(indexStatus(s, "local").semantic, "ready");
+    // Simulate interrupted activation: old generation remains active, building generation and checkpoint survive.
+    s.exec(
+      "UPDATE knowledge_index_generations SET state='building' WHERE id=?",
+      second,
+    );
+    s.exec(
+      "UPDATE knowledge_index_generations SET state='active' WHERE id=?",
+      first,
+    );
+    const job = s
+      .all("SELECT * FROM intake_jobs WHERE id LIKE 'index_%'")
+      .find((j) => JSON.parse(j.payload).generation === second);
+    s.exec(
+      "UPDATE intake_jobs SET state='processing',result=NULL WHERE id=?",
+      job.id,
+    );
+    s.exec("DELETE FROM knowledge_retrieval_config WHERE id='maintenance'");
+    await maintainKnowledgeIndex(s, "local");
+    assert.equal(indexStatus(s, "local").generation, second);
+    // An explicitly cancelled rebuild is not automatically restarted.
+    s.exec(
+      "UPDATE knowledge_index_generations SET state='building' WHERE id=?",
+      second,
+    );
+    s.exec(
+      "UPDATE knowledge_index_generations SET state='active' WHERE id=?",
+      first,
+    );
+    s.exec("UPDATE intake_jobs SET state='cancelled' WHERE id=?", job.id);
+    assert.equal((await maintainKnowledgeIndex(s, "local")).state, "paused");
+    assert.equal(indexStatus(s, "local").generation, first);
+  },
+);

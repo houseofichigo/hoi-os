@@ -34,8 +34,29 @@ export default function RetrievalStatus({ api }) {
           <p>
             Model package: {Math.ceil(status.modelBytes / 1024 / 1024)} MiB.
             Allow additional disk space for temporary downloads and the index.
-            Rebuild after knowledge changes.
+            Changes are checked every 30 seconds while the app server runs,
+            after you enable search and install the model.
           </p>
+          <p>
+            Index maintenance: {status.maintenance?.state ?? "idle"}
+            {status.maintenance?.reason
+              ? ` · ${status.maintenance.reason.replaceAll("_", " ").toLowerCase()}`
+              : ""}
+          </p>
+          <ul>
+            {Object.entries(status.domains ?? {}).map(([domain, counts]) => (
+              <li key={domain}>
+                {domain}: {counts.indexed} of {counts.eligible} eligible
+                passages indexed; {counts.pending} pending
+              </li>
+            ))}
+          </ul>
+          <button
+            disabled={busy}
+            onClick={() => load().catch((e) => setError(e.message))}
+          >
+            Refresh coverage
+          </button>
           <div className="toolbar">
             <button
               disabled={busy}
