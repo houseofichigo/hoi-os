@@ -45,7 +45,9 @@ test("handoff streams validated answers, resumes saved chats, cites sources and 
   const request = JSON.parse(
     await page.getByLabel("Chat request", { exact: true }).inputValue(),
   );
-  const e = request.context[0].tasks[0].evidence[0];
+  const e = request.context[0].search.recordResults.find(
+    (r) => r.recordKind === "task",
+  ).evidence[0];
   const url = new URL(running.url),
     token = url.hash.slice(1);
   const result = await page.request.post(`${url.origin}/api/chat/submit`, {
@@ -70,6 +72,12 @@ test("handoff streams validated answers, resumes saved chats, cites sources and 
   await expect(
     page.getByRole("region", { name: "Chat source passage" }),
   ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Live records", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("complementary", { name: "Evidence", exact: true }),
+  ).toContainText("Current recorded properties");
   await page.reload();
   await expect(page).toHaveURL(/conversation=/);
   await expect(

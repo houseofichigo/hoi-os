@@ -321,6 +321,7 @@ export function retrieve(
     latest?: boolean;
     sourceId?: string;
     asOf?: string;
+    scope?: "knowledge" | "workspace";
   } = {},
 ) {
   const result = knowledgeSearch(s, { query, ...opts }, host);
@@ -338,6 +339,13 @@ export function retrieve(
     results,
     wikiResults,
     memoryResults,
+    ...(opts.scope === "workspace"
+      ? {
+          recordResults: result.evidence
+            .filter((e) => e.kind === "record")
+            .map((e) => ({ ...e.data, quote: e.excerpt })),
+        }
+      : {}),
     retrievalProfile: result.profile,
     coverage: {
       ...result.coverage,

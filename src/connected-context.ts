@@ -1,3 +1,4 @@
+import { operationalEvidence } from "./record-evidence.js";
 import { Store } from "./store.js";
 import { type Host } from "./schema.js";
 import { records } from "./workspace.js";
@@ -16,7 +17,16 @@ export function connectedRead(
 ) {
   let rows: any[];
   if (v.kind === "projects" || v.kind === "clients") {
-    rows = records(s, v.kind === "projects" ? "project" : "client", h);
+    const kind = v.kind === "projects" ? "project" : "client";
+    const evidence = operationalEvidence(s, h, { project: projectId }).filter(
+      (e) => e.reference.recordKind === kind,
+    );
+    rows = records(s, kind, h)
+      .filter((r) => evidence.some((e) => e.recordId === r.id))
+      .map((r) => ({
+        ...r,
+        ...evidence.find((e) => e.recordId === r.id)!.data,
+      }));
     if (projectId) {
       const projects = records(s, "project", h).filter(
         (p) => p.id === projectId,
@@ -107,15 +117,35 @@ export function workspaceChatContext(
   query: string,
   projectId?: string,
 ) {
-  const entity = projectId ? s.one("SELECT entity_id FROM projects WHERE id=?", projectId)?.entity_id : undefined;
-  const memories = knowledgeSearch(s, {query, project: entity, limit:10}, h).evidence
-    .filter(e => e.kind === "memory").map(e => e.data);
+  const entity = projectId
+    ? s.one("SELECT entity_id FROM projects WHERE id=?", projectId)?.entity_id
+    : undefined;
+  const memories =
+    s.schemaVersion < 19
+      ? knowledgeSearch(s, { query, project: entity, limit: 10 }, h)
+          .evidence.filter((e) => e.kind === "memory")
+          .map((e) => e.data)
+      : [];
   return {
-    memories,
+    ...(s.schemaVersion < 19 ? { memories } : {}),
     ...(scope === "workspace"
       ? {
-          projects: connectedRead(s, h, { kind: "projects", query }, projectId),
-          clients: connectedRead(s, h, { kind: "clients", query }, projectId),
+          ...(s.schemaVersion < 19
+            ? {
+                projects: connectedRead(
+                  s,
+                  h,
+                  { kind: "projects", query },
+                  projectId,
+                ),
+                clients: connectedRead(
+                  s,
+                  h,
+                  { kind: "clients", query },
+                  projectId,
+                ),
+              }
+            : {}),
           connectors: connectedRead(s, h, { kind: "connections" }, projectId),
         }
       : {}),

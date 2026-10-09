@@ -27,7 +27,7 @@ Focused synthetic tests cover unified allocation, late matching memories, curren
 Still required before the full requested upgrade can be accepted:
 
 - Human-labelled 120-question corpus (40 development / 80 held-out), scenario-family separation, independently reviewed answers and recall/abstention/support measurements. No generated dataset is represented as human-labelled ground truth.
-- Complete operational-record EvidenceItem unification; historical semantic retrieval and historical relationship expansion remain unavailable.
+- Calendar occurrence and connector-summary EvidenceItem unification; historical operational-record, semantic retrieval and relationship expansion remain unavailable.
 - Representative-corpus/platform performance and detailed extraction/model fault coverage. The named synthetic 10,000-unit benchmark now meets its warm latency target after policy parsing optimization.
 - Optional budgeted reranker: not implemented or enabled. No extra paid model call is introduced by retrieval.
 - Broader accessibility/visual baselines beyond the tested Memory workflow remain a separate gate.
@@ -110,3 +110,15 @@ Memory supports persistent draft editing, field comparison and restoring an exac
 The shared registry exposes `memory draft`, `memory save-draft` and read-only `memory compare`, also through authenticated app operations. No schema migration is required. The app editor preserves evidence and subject links while editing content, type, durability and effective dates; changing supporting evidence or subject links currently uses the typed engine operation. Retired records can produce new proposals; superseded records direct users to their replacement. No automatic publication or private upgrade is performed.
 
 Verification for the memory-draft build: 268 core tests (265 passed, three optional model tests skipped), 44 browser tests and two staged macOS arm64 Electron tests passed. Model-specific suites were not rerun for this editor/lifecycle change. These are fictional-workspace regressions, not clean-machine or live-provider certification. See `UNIFIED_RETRIEVAL_VERIFICATION.json` for the build identity.
+
+## Operational evidence (2026-10-09)
+
+Unified retrieval profile v3 adds an explicit `scope: workspace` option. Current permitted project, client and accepted-task properties compete with source/wiki/memory evidence before the same bounded allocation. The default remains knowledge-only. Operational records use lexical matching; they are not added to the local embedding index. Pending proposals are not represented as accepted tasks. Connected email/transcript/file passages remain preserved source evidence; calendar occurrence and connection summary normalization are still separate work.
+
+Each record reference binds kind, stable ID, numeric version and a SHA-256 fingerprint of its displayed properties, relationships and supporting references. Exact resolution rechecks the current read models and current evidence eligibility. Edits, access loss or archived supporting evidence make an old reference unavailable; this batch does not invent operational historical snapshots. Historical search explicitly reports records as unavailable. Identical text from distinct records retains distinct identities.
+
+Workspace Chat now receives ranked records through its initial search instead of an additional unranked project/client/task list. Explicit project/client and task tools preserve their current reference metadata. Knowledge-only conversations remain isolated. The evidence panel displays supplied/cited state, operational properties, version, coverage and inclusion reason. Existing broad Chat context invalidation remains conservative: changed workspace context requires a new chat.
+
+No migration, paid provider call, model download or private workspace update is required. The former v2 performance measurements remain historical and do not certify performance for large operational portfolios.
+
+Operational-evidence matching-build verification: 272 core tests (269 passed, three optional model cases skipped), 44 browser tests and two staged macOS arm64 Electron tests passed. Four new engine cases cover unified record resolution, edits, explicit scopes, Chat citations and archive invalidation. No clean-machine, Windows, paid-provider or human quality acceptance is claimed.

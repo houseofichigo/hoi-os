@@ -1,3 +1,8 @@
+import {
+  operationalEvidence,
+  resolveOperationalEvidence,
+  recordReference,
+} from "./record-evidence.js";
 import { historicalEvidence, historyCutoff } from "./historical-retrieval.js";
 import { artifactEvidence } from "./conversation-artifacts.js";
 import { semanticReferences } from "./semantic.js";
@@ -8,7 +13,7 @@ import { now, sha } from "./files.js";
 import { searchWiki, wikiDetail, wikiSubjects } from "./wiki-core.js";
 
 export const RETRIEVAL_PROFILE = Object.freeze({
-  version: "unified-retrieval-v2",
+  version: "unified-retrieval-v3",
   channelLimit: 50,
   candidateLimit: 100,
   resultLimit: 10,
@@ -18,6 +23,7 @@ export const RETRIEVAL_PROFILE = Object.freeze({
 const optionsSchema = z
   .object({
     query: z.string().trim().max(8000),
+    scope: z.enum(["knowledge", "workspace"]).default("knowledge"),
     project: z.string().optional(),
     client: z.string().optional(),
     sourceId: z.string().optional(),
@@ -29,7 +35,7 @@ const optionsSchema = z
   })
   .strict();
 export type EvidenceItem = {
-  kind: "source" | "wiki" | "memory";
+  kind: "source" | "wiki" | "memory" | "record";
   id: string;
   recordId: string;
   revision: string;
@@ -268,6 +274,19 @@ function searchWithinRead(s: Store, input: unknown, h: Host) {
       }),
     );
   }
+  if (v.scope === "workspace" && !v.sourceId)
+    channels.push(
+      operationalEvidence(s, h, v)
+        .map((e) => ({
+          ...e,
+          score: tokens.filter((t) =>
+            terms(e.recordId + " " + e.title + " " + e.excerpt).includes(t),
+          ).length,
+        }))
+        .filter((e) => e.score > 0)
+        .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id))
+        .slice(0, 50),
+    );
   const resolved = new Map<string, EvidenceItem>();
   const semantic = semanticReferences(s, h, v.query, (ref) => {
     const data = knowledgeEvidence(s, ref, h) as any;
@@ -549,7 +568,8 @@ function finishSearch(
     selected: EvidenceItem[] = [];
   for (const item of candidates) {
     const fingerprint = sha(
-      normalize(item.excerpt).trim().replace(/\s+/g, " "),
+      (item.kind === "record" ? item.recordId + ":" : "") +
+        normalize(item.excerpt).trim().replace(/\s+/g, " "),
     );
     const parent = `${item.kind}:${item.recordId}`;
     if (
@@ -632,12 +652,19 @@ function finishSearch(
   }
   return {
     query: v.query,
+    scope: v.scope,
     profile: RETRIEVAL_PROFILE.version,
     retrievedAt: now(),
     ...(v.asOf ? { asOf: v.asOf, recordedThrough: cutoff } : {}),
     evidence,
     coverage: {
       mode: semanticUsed ? "hybrid" : "lexical",
+      records:
+        v.scope === "workspace"
+          ? v.asOf
+            ? "historical-records-unavailable"
+            : "current-lexical"
+          : "outside-scope",
       semantic: semanticUsed
         ? "used"
         : v.asOf
@@ -738,6 +765,7 @@ export function knowledgeEvidence(s: Store, input: unknown, h: Host) {
   }
   const ref = z
     .discriminatedUnion("kind", [
+      recordReference,
       z
         .object({
           kind: z.literal("source"),
@@ -762,6 +790,7 @@ export function knowledgeEvidence(s: Store, input: unknown, h: Host) {
         .strict(),
     ])
     .parse(input);
+  if (ref.kind === "record") return resolveOperationalEvidence(s, ref, h);
   if (ref.kind === "source") {
     const p = s.one(
       "SELECT * FROM passages WHERE id=? AND revision_id=?",

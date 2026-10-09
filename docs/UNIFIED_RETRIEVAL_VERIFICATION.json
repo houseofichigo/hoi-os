@@ -1,12 +1,12 @@
 {
   "date": "2026-10-09",
-  "buildId": "6f44e6ce7fa62022ca8fb48606f70ad8524cdb240c6dfb7a3217c9f2e1f7d84e",
+  "buildId": "5f2bd647de091af9296718f0d9d32a6cdbd872a8c66c5d609af6ac315ced7bdf",
   "scope": "fictional workspaces; local developer and staged macOS arm64",
   "suites": [
     {
       "suite": "core",
       "passed": true,
-      "tests": 268
+      "tests": 272
     },
     {
       "suite": "browser",
@@ -19,7 +19,7 @@
       "tests": 2
     }
   ],
-  "coreNote": "268 total: 265 passed, 3 opt-in model tests skipped. Browser 44 and staged macOS arm64 Electron 2 passed on the memory-draft build. Offline semantic checks were not repeated for this memory-editor change.",
+  "coreNote": "272 total: 269 passed, 3 opt-in model tests skipped. Browser 44 and staged macOS arm64 Electron 2 passed on the operational-evidence build. No model-specific or quality evaluation was rerun.",
   "localModel": "Prior offline tests cover bilingual retrieval and index recovery. Model-specific tests were not rerun for the memory-draft build.",
   "limitations": [
     "No clean-machine, Windows or live paid-provider certification.",
@@ -54,7 +54,7 @@
     "forbiddenReturnedReferences": 0,
     "independentQualityAcceptance": false,
     "measuredBuildId": "53c885bb29a703d550f4826acadbd6733510ca9a7549642664ae48252cfee9e7",
-    "note": "Historical measurement of the unchanged retrieval path; not rerun for the memory-draft/editor changes."
+    "note": "Historical v2 knowledge-only measurement. Not rerun or claimed as v3 operational portfolio performance."
   },
   "independentReviewPacket": {
     "path": "evaluation/knowledge-v1/review-packets/2026-10-09-shared-10000/README.md",
@@ -100,5 +100,29 @@
       "No human quality, clean-machine, Windows or live-provider certification"
     ],
     "privateWorkspaceMigrated": false
+  },
+  "operationalEvidence": {
+    "profile": "unified-retrieval-v3",
+    "status": "implemented-and-synthetically-verified",
+    "kinds": [
+      "project",
+      "client",
+      "task"
+    ],
+    "defaultScope": "knowledge",
+    "workspaceScope": "explicit",
+    "checks": [
+      "Current records compete before bounded context allocation",
+      "Exact versions and fingerprints resolve through permission-filtered reads",
+      "Record edits and archived evidence invalidate prior references",
+      "Knowledge-only Chat excludes operational records",
+      "Saved Chat record citations and Evidence display preserve exact versions"
+    ],
+    "limitations": [
+      "Operational ranking is lexical",
+      "Historical operational references are unavailable",
+      "Calendar occurrence and connector summary unification remain separate",
+      "No current performance or human quality certification for operational portfolios"
+    ]
   }
 }

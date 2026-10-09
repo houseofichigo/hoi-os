@@ -155,13 +155,18 @@ export default function Evidence({
               <h3>Live records</h3>
               {data.liveRecords.map((r) => (
                 <article key={r.kind + r.id}>
-                  <a href={`/app?${r.kind}=${encodeURIComponent(r.id)}`}>
+                  <a
+                    href={`/app?view=${r.kind === "client" ? "clients" : r.kind === "source" ? "knowledge" : r.kind === "event" ? "home" : "projects"}&${r.kind}=${encodeURIComponent(r.id)}`}
+                  >
                     {r.title}
                   </a>
                   <p>
                     {r.cited ? "Cited" : "Supplied"} · {r.kind}
                     {r.version !== undefined ? ` · revision ${r.version}` : ""}
                   </p>
+                  {r.quote && <p>{r.quote}</p>}
+                  {r.coverage && <small>{r.coverage}</small>}
+                  {r.reason && <p>Why included: {r.reason}</p>}
                 </article>
               ))}
             </section>
