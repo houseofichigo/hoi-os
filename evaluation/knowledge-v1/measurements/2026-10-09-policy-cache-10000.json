@@ -1,0 +1,779 @@
+{
+  "version": 1,
+  "createdAt": "2026-10-09T14:20:00.669Z",
+  "buildId": "1fc5cef79ed8cf1d7a2611c7845748bcaf02423a550ad8a89d0ab7ef77f1f531",
+  "baselineBuildId": "f284c5e942cd2bae723583c3c3cbaa7eebd5a4dacb9c05f1b91e78762d49cfb3",
+  "fixture": "same preserved 10000-unit fictional workspace; no reingestion or index rebuild",
+  "modelFingerprint": "32cbfcee1f9bf6e9e130eeda7c141c56984b008992be5fff325c3fa4d57470e0",
+  "eligibleUnits": 10000,
+  "hardware": {
+    "cpu": "Apple M5",
+    "logicalCpus": 10,
+    "ramBytes": 34359738368,
+    "platform": "darwin",
+    "arch": "arm64",
+    "node": "22.14.0"
+  },
+  "comparison": {
+    "status": "unreviewed-diagnostic-comparison",
+    "acceptance": "not-certified",
+    "baseline": {
+      "recallAt5": 0.9891304347826086,
+      "ndcgAt10": 0.9383910638198505,
+      "leaks": 0
+    },
+    "candidate": {
+      "recallAt5": 0.9891304347826086,
+      "ndcgAt10": 0.9383910638198505,
+      "leaks": 0
+    },
+    "improved": [],
+    "regressed": [],
+    "unanswerableCasesReturningEvidence": {
+      "baseline": 34,
+      "candidate": 34,
+      "total": 34
+    },
+    "limitations": [
+      "Returning evidence is not proof that a question is answerable.",
+      "No answers or independently approved labels are included; factual support and answer abstention remain unmeasured."
+    ]
+  },
+  "changedOrderedResults": [],
+  "queryTimings": [
+    {
+      "id": "cedar-01-en",
+      "ms": 1397.8053329999998,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "cedar-01-fr",
+      "ms": 1162.2785830000003,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "cedar-02-en",
+      "ms": 1320.2552910000004,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "cedar-02-fr",
+      "ms": 1233.1185839999998,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "cedar-03-en",
+      "ms": 1187.3819170000006,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "cedar-03-fr",
+      "ms": 1202.0687500000004,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "cedar-04-en",
+      "ms": 1421.5485829999998,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "cedar-04-fr",
+      "ms": 1238.927040999999,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "cedar-05-en",
+      "ms": 1181.3337080000001,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "cedar-05-fr",
+      "ms": 1145.4674999999988,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "azur-01-en",
+      "ms": 1234.5461670000004,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "azur-01-fr",
+      "ms": 1267.2097919999978,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "azur-02-en",
+      "ms": 1249.594000000001,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "azur-02-fr",
+      "ms": 1320.3248329999988,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "azur-03-en",
+      "ms": 1224.8335000000006,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "azur-03-fr",
+      "ms": 1302.4724170000009,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "azur-04-en",
+      "ms": 1243.7260829999977,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "azur-04-fr",
+      "ms": 1147.498125000002,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "azur-05-en",
+      "ms": 1151.3077909999993,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "azur-05-fr",
+      "ms": 1201.1712499999994,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "linden-01-en",
+      "ms": 1320.387416999998,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "linden-01-fr",
+      "ms": 1181.0283339999987,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "linden-02-en",
+      "ms": 1174.2701659999984,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "linden-02-fr",
+      "ms": 1221.3973750000005,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "linden-03-en",
+      "ms": 1416.737208999999,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "linden-03-fr",
+      "ms": 1223.7510830000028,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "linden-04-en",
+      "ms": 1150.3788330000025,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "linden-04-fr",
+      "ms": 1221.3399579999968,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "linden-05-en",
+      "ms": 1238.7877909999952,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "linden-05-fr",
+      "ms": 1216.8432919999977,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "sora-01-en",
+      "ms": 1157.1115840000057,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "sora-01-fr",
+      "ms": 1162.1546660000022,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "sora-02-en",
+      "ms": 1206.5915000000023,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "sora-02-fr",
+      "ms": 1244.8591670000023,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "sora-03-en",
+      "ms": 1138.139959,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "sora-03-fr",
+      "ms": 1192.9990839999955,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "sora-04-en",
+      "ms": 1593.554250000001,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "sora-04-fr",
+      "ms": 1374.4478329999984,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "sora-05-en",
+      "ms": 1336.560292000002,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "sora-05-fr",
+      "ms": 1393.7300420000029,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "birch-01-en",
+      "ms": 1921.3323339999988,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "birch-01-fr",
+      "ms": 1909.216333000004,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "birch-02-en",
+      "ms": 288.49129200000607,
+      "historical": true,
+      "mode": "lexical"
+    },
+    {
+      "id": "birch-02-fr",
+      "ms": 285.24204199999804,
+      "historical": true,
+      "mode": "lexical"
+    },
+    {
+      "id": "birch-03-en",
+      "ms": 1267.8778329999986,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "birch-03-fr",
+      "ms": 1371.0960410000043,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "birch-04-en",
+      "ms": 299.6134170000005,
+      "historical": true,
+      "mode": "lexical"
+    },
+    {
+      "id": "birch-04-fr",
+      "ms": 340.7739169999986,
+      "historical": true,
+      "mode": "lexical"
+    },
+    {
+      "id": "birch-05-en",
+      "ms": 1244.588125000002,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "birch-05-fr",
+      "ms": 1146.4509169999947,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "moss-01-en",
+      "ms": 1147.984958000001,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "moss-01-fr",
+      "ms": 1161.2312910000037,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "moss-02-en",
+      "ms": 1174.691666000006,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "moss-02-fr",
+      "ms": 1282.4674159999995,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "moss-03-en",
+      "ms": 1146.656124999994,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "moss-03-fr",
+      "ms": 1155.5030410000036,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "moss-04-en",
+      "ms": 1177.7852500000008,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "moss-04-fr",
+      "ms": 1143.6108330000134,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "moss-05-en",
+      "ms": 1181.2592080000031,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "moss-05-fr",
+      "ms": 1137.2170409999962,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "vale-01-en",
+      "ms": 1143.8480830000044,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "vale-01-fr",
+      "ms": 1141.8243329999968,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "vale-02-en",
+      "ms": 1129.6651669999992,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "vale-02-fr",
+      "ms": 1186.4199170000065,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "vale-03-en",
+      "ms": 1162.9686669999937,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "vale-03-fr",
+      "ms": 1166.2146659999999,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "vale-04-en",
+      "ms": 1155.5194170000032,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "vale-04-fr",
+      "ms": 1230.6211250000051,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "vale-05-en",
+      "ms": 1230.864625000002,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "vale-05-fr",
+      "ms": 1409.866790999993,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "reed-01-en",
+      "ms": 1414.8458329999994,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "reed-01-fr",
+      "ms": 1420.368208999993,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "reed-02-en",
+      "ms": 1192.8009170000005,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "reed-02-fr",
+      "ms": 1196.5878329999978,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "reed-03-en",
+      "ms": 1171.5963749999937,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "reed-03-fr",
+      "ms": 1178.7213750000083,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "reed-04-en",
+      "ms": 1193.8023749999993,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "reed-04-fr",
+      "ms": 1226.384665999998,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "reed-05-en",
+      "ms": 1174.7671669999982,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "reed-05-fr",
+      "ms": 1214.6025419999933,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "fern-01-en",
+      "ms": 1169.773874999999,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "fern-01-fr",
+      "ms": 1191.561916000006,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "fern-02-en",
+      "ms": 1167.1818330000096,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "fern-02-fr",
+      "ms": 1155.4810419999994,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "fern-03-en",
+      "ms": 1196.3002910000068,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "fern-03-fr",
+      "ms": 1172.9444589999912,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "fern-04-en",
+      "ms": 1159.9759579999954,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "fern-04-fr",
+      "ms": 1473.8779170000053,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "fern-05-en",
+      "ms": 1350.570000000007,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "fern-05-fr",
+      "ms": 1265.0276250000024,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "ember-01-en",
+      "ms": 1418.513957999996,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "ember-01-fr",
+      "ms": 1266.6507500000007,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "ember-02-en",
+      "ms": 1248.7257079999981,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "ember-02-fr",
+      "ms": 1205.1084169999958,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "ember-03-en",
+      "ms": 1171.9615420000046,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "ember-03-fr",
+      "ms": 1145.1697920000006,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "ember-04-en",
+      "ms": 1165.5779579999944,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "ember-04-fr",
+      "ms": 1224.175166000001,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "ember-05-en",
+      "ms": 1187.897708000004,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "ember-05-fr",
+      "ms": 1219.5055409999914,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "pearl-01-en",
+      "ms": 1194.1636249999865,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "pearl-01-fr",
+      "ms": 1181.2642090000008,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "pearl-02-en",
+      "ms": 1133.6086249999935,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "pearl-02-fr",
+      "ms": 1137.944583000004,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "pearl-03-en",
+      "ms": 1160.363750000004,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "pearl-03-fr",
+      "ms": 1137.8202090000123,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "pearl-04-en",
+      "ms": 1132.781416999991,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "pearl-04-fr",
+      "ms": 1116.229250000004,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "pearl-05-en",
+      "ms": 1132.895916999987,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "pearl-05-fr",
+      "ms": 1271.522708000004,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "nova-01-en",
+      "ms": 1150.0146669999813,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "nova-01-fr",
+      "ms": 1150.38491600001,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "nova-02-en",
+      "ms": 1202.4525830000057,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "nova-02-fr",
+      "ms": 1413.9899999999907,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "nova-03-en",
+      "ms": 1295.7595419999852,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "nova-03-fr",
+      "ms": 1199.199667000008,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "nova-04-en",
+      "ms": 1621.4635410000046,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "nova-04-fr",
+      "ms": 1526.5720410000067,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "nova-05-en",
+      "ms": 1526.4871250000142,
+      "historical": false,
+      "mode": "hybrid"
+    },
+    {
+      "id": "nova-05-fr",
+      "ms": 1645.2715000000026,
+      "historical": false,
+      "mode": "hybrid"
+    }
+  ],
+  "latency": {
+    "p50Ms": 1196.5878329999978,
+    "p95Ms": 1526.5720410000067,
+    "scope": "warm embedding plus retrieval, 116 current queries, model warmed; no concurrent test suite"
+  },
+  "processPeakRssKiB": 1774240,
+  "providerCalls": 0,
+  "acceptance": "not-certified",
+  "limitations": [
+    "Unreviewed fictional labels and templated distractors; explicit subject prefixes.",
+    "Historical queries excluded from latency percentiles.",
+    "Peak RSS excludes fixture creation and index construction in this repeat.",
+    "No human-reviewed answers, Windows or clean-machine verification."
+  ]
+}

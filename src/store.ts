@@ -23,6 +23,7 @@ import {
   readFileSync,
   readdirSync,
   chmodSync,
+  statSync,
 } from "node:fs";
 import { resolve, join } from "node:path";
 import {
@@ -52,6 +53,7 @@ CREATE TABLE IF NOT EXISTS wiki_evidence(id TEXT PRIMARY KEY,page_id TEXT NOT NU
 CREATE INDEX IF NOT EXISTS wiki_pages_slug ON wiki_pages(slug);`;
 
 export class Store {
+  private readPolicyCache?: ReturnType<typeof policySchema.parse>;
   readonly root: string;
   readonly db: Database.Database;
   readonly schemaVersion: number;
@@ -78,7 +80,12 @@ export class Store {
       );
     }
     this.schemaVersion = version;
-    try { recoverMemoryWrites(this); } catch(error) { this.db.close(); throw error; }
+    try {
+      recoverMemoryWrites(this);
+    } catch (error) {
+      this.db.close();
+      throw error;
+    }
   }
   assertSchema(minimum: number, feature: string) {
     if (this.schemaVersion < minimum)
@@ -116,7 +123,32 @@ export class Store {
     this.db.close();
   }
   policy() {
-    return policySchema.parse(readYaml(this.path("policies/actions.yaml")));
+    return (
+      this.readPolicyCache ??
+      policySchema.parse(readYaml(this.path("policies/actions.yaml")))
+    );
+  }
+  withReadPolicyCache<T>(read: () => T): T {
+    if (this.readPolicyCache) return read();
+    const stamp = () => {
+      // Resolve containment again at the end, including replaced parent paths.
+      const st = statSync(this.path("policies/actions.yaml"), { bigint: true });
+      return `${st.dev}:${st.ino}:${st.size}:${st.mtimeNs}:${st.ctimeNs}`;
+    };
+    const before = stamp();
+    this.readPolicyCache = this.policy();
+    try {
+      const result = read();
+      if (result instanceof Promise)
+        throw Error("READ_POLICY_CACHE_REQUIRES_SYNC");
+      // A synchronous search returns no data if policy changed during it.
+      // Do not retain this snapshot across requests or async work.
+      if (stamp() !== before)
+        throw Error("POLICY_CHANGED_DURING_READ: retry the search");
+      return result;
+    } finally {
+      this.readPolicyCache = undefined;
+    }
   }
   allowed(source: any, host: Host, history = false) {
     const p = this.policy();

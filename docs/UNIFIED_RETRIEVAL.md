@@ -28,7 +28,7 @@ Still required before the full requested upgrade can be accepted:
 
 - Human-labelled 120-question corpus (40 development / 80 held-out), scenario-family separation, independently reviewed answers and recall/abstention/support measurements. No generated dataset is represented as human-labelled ground truth.
 - Complete operational-record EvidenceItem unification; historical semantic retrieval and historical relationship expansion remain unavailable.
-- Hybrid performance testing at 10,000 units and detailed extraction/model fault coverage.
+- Representative-corpus/platform performance and detailed extraction/model fault coverage. The named synthetic 10,000-unit benchmark now meets its warm latency target after policy parsing optimization.
 - Optional budgeted reranker: not implemented or enabled. No extra paid model call is introduced by retrieval.
 - Dedicated memory draft editing/restoration and broader accessibility/visual baselines. The new Memory flow has keyboard/focus and 390/768/1280/1440px checks.
 - Clean Mac/Windows verification, live automatic-analysis verification and real-use pilot. A developer machine test is not a clean-install result.
@@ -49,7 +49,7 @@ Current search expands one hop over explicit permitted source/memory relationshi
 
 The app server schedules maintenance through the existing engine queue, only for local opt-in semantic search. It does not download models, call providers or run after shutdown. Sources, published wiki blocks and approved memories have permission-filtered eligible/indexed/pending counts. A cancelled automatic rebuild remains paused for the same input until a manual rebuild or changed knowledge; failed attempts use persisted backoff and pause after three attempts. Missing models wait for explicit installation.
 
-Index jobs retain checkpoints across restart. Changed inputs invalidate an interrupted generation’s checkpoints; a generation is activated only if its input fingerprint still matches. The previous active generation remains available during rebuilding. A replacement generation still covers the complete eligible set, but validated unchanged embeddings are reused. Large-workspace semantic rebuild latency and queue contention remain unmeasured.
+Index jobs retain checkpoints across restart. Changed inputs invalidate an interrupted generation’s checkpoints; a generation is activated only if its input fingerprint still matches. The previous active generation remains available during rebuilding. A replacement generation still covers the complete eligible set, but validated unchanged embeddings are reused. A synthetic 10,000-unit rebuild is measured below; representative-workspace queue contention remains unmeasured.
 
 ## Evaluation tooling continuation
 
@@ -59,7 +59,7 @@ The evaluation directory now includes a reproducible 10,000-passage lexical benc
 
 Replacement generations reuse unchanged units only from the current active generation with the same model fingerprint. Keys bind exact revision/passage identity, source-text checksum and embedding recipe version (chunking, prefixes, pooling and normalization). All segments must be present, contiguous and checksum-valid; vectors must have the expected dimensions, finite normalized values and matching byte checksums. Partial or corrupt checkpoints are reprocessed. Legacy units without cache metadata are embedded once to upgrade their rebuildable projection.
 
-Permission filtering occurs before reuse. Old generations are not independently trusted as evidence. New generations still activate atomically, and rebuild results separately report embedded, reused and resumed unit counts. No original, wiki or memory record is changed by reuse; there is no database migration. Retired index cleanup and large hybrid-corpus memory/latency measurements remain future work.
+Permission filtering occurs before reuse. Old generations are not independently trusted as evidence. New generations still activate atomically, and rebuild results separately report embedded, reused and resumed unit counts. No original, wiki or memory record is changed by reuse; there is no database migration. Retired index cleanup and representative-workspace memory/latency guarantees remain future work; synthetic scale measurements follow below.
 
 ## Candidate evaluation corpus
 
@@ -78,3 +78,11 @@ The corrected 1,018-unit run confirmed 116 hybrid / four historical lexical quer
 The shared offline hybrid run now covers exactly 10,000 eligible units on Apple M5 / 32 GiB. All 116 current queries used hybrid retrieval; four historical queries remained lexical. Warm p50/p95 were 3.38/5.24 seconds, so the ≤2-second p95 target is **not met**. Indexing took 59.14 seconds and whole-process peak RSS was about 1.62 GiB. No concurrent test suite ran; ordinary desktop activity remained. Provisional recall@5 was 98.91% with zero forbidden returned references, but labels remain unreviewed, one French conflict question regresses and answer support/abstention remain unmeasured.
 
 Prioritize profiling repeated permission/evidence resolution and lexical candidate materialization before release. Preserve access checks and verify any caching against revocation, archive and revision changes. See the evaluation README for exact measurements and the independent-review handoff. This batch changed evaluation documentation only, not engine behavior, schema or rollout defaults.
+
+## Retrieval performance fix
+
+The 10,000-unit bottleneck was repeated policy YAML parsing. `knowledgeSearch` now uses a synchronous, request-scoped parsed policy, checking file identity and nanosecond change timestamps before returning. A changed policy discards the entire result with a retry error; failure also clears the snapshot. Path containment, source archive/current revision checks and historical evidence checks remain active. There is no cache of authorization across requests and no schema change.
+
+Repeating the same preserved fixture reduced warm hybrid p95 from 5.24 seconds to **0.99 seconds**, with all 120 ordered evidence lists unchanged and zero forbidden references. The measured latency target now passes on this fictional Apple M5 workload. Human-reviewed answer quality, the existing French conflict ranking weakness, Windows/clean-machine checks and real-use pilot remain separate. Exact reports are linked in `evaluation/knowledge-v1/README.md`.
+
+Matching-build verification after the performance fix: core 260 passed / three optional model tests skipped; all four offline semantic tests separately passed; browser 43 passed; staged macOS arm64 Electron two passed. New tests cover policy replacement during a search (whole response rejected), invalid-policy cleanup, subsequent revocation, archive/restore and stale revisions. This remains developer/staged verification, not clean-install or Windows certification.

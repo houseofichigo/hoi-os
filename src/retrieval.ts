@@ -98,6 +98,9 @@ export function eligibleMemories(
 }
 
 export function knowledgeSearch(s: Store, input: unknown, h: Host) {
+  return s.withReadPolicyCache(() => searchWithinRead(s, input, h));
+}
+function searchWithinRead(s: Store, input: unknown, h: Host) {
   s.assertHost(h);
   const v = optionsSchema.parse(input),
     tokens = terms(v.query);
