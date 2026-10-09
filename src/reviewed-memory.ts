@@ -54,10 +54,15 @@ export function memoryHistory(s: Store, id: string, h: Host) {
     id,
   );
   const revisions = rows
-    .map((r) => ({ ...readNote(s.path(r.path)), version: r.version }))
+    .map((r) => {
+      const checksum = sha(readFileSync(s.path(r.path)));
+      if (checksum !== r.checksum) throw Error("MEMORY_HISTORY_CONFLICT");
+      return { ...readNote(s.path(r.path)), version: r.version, checksum };
+    })
     .filter((m) => visible(s, m, h));
-  if (!revisions.some((m) => m.version === current.version))
-    revisions.unshift(current);
+  const index = revisions.findIndex((m) => m.version === current.version);
+  if (index >= 0) revisions[index] = current;
+  else revisions.unshift(current);
   return { id, revisions };
 }
 /** Journals are engine-authored. Refuse an unexpected edit instead of overwriting it. */
@@ -339,4 +344,163 @@ export function reviewVersionedMemory(s: Store, input: unknown, h: Host) {
     });
   }
   return commit(s, h, v.requestKey, v, notes);
+}
+
+const editIdentity = z.object({
+  id: memoryId,
+  expectedVersion: z.number().int().positive(),
+  expectedChecksum: z.string().regex(/^[a-f0-9]{64}$/),
+});
+function checkedMemory(s: Store, v: z.infer<typeof editIdentity>, h: Host) {
+  const m = memoryGet(s, v.id, h);
+  if (m.version !== v.expectedVersion || m.checksum !== v.expectedChecksum)
+    throw Error("STALE_MEMORY_VERSION");
+  return m;
+}
+const editableFields = [
+  "type",
+  "content",
+  "evidence",
+  "entities",
+  "durability",
+  "validFrom",
+  "validUntil",
+  "allowedHosts",
+] as const;
+function editable(m: any) {
+  return Object.fromEntries(editableFields.map((k) => [k, m[k]]));
+}
+/** Copy an exact revision into a new proposal; never roll back approved files. */
+export function beginMemoryDraft(s: Store, input: unknown, h: Host) {
+  check(s, h, true);
+  const v = editIdentity
+    .extend({
+      requestKey: key,
+      restoreVersion: z.number().int().positive().optional(),
+    })
+    .strict()
+    .parse(input);
+  const current = memoryGet(s, v.id, h);
+  const prior = retry(s, h, v);
+  if (prior) return prior;
+  checkedMemory(s, v, h);
+  if (current.state === "superseded") throw Error("MEMORY_SUCCESSOR_REQUIRED");
+  const selected = v.restoreVersion
+    ? memoryHistory(s, v.id, h).revisions.find(
+        (m) => m.version === v.restoreVersion,
+      )
+    : current;
+  if (!selected) throw Error("MEMORY_REVISION_UNAVAILABLE");
+  s.validateEvidence(selected.evidence ?? [], h, true);
+  const note = {
+    ...editable(selected),
+    allowedHosts: selected.allowedHosts.filter((host: Host) =>
+      current.allowedHosts.includes(host),
+    ),
+    id: uid("memory"),
+    schemaVersion: 1,
+    version: 1,
+    state: "proposed",
+    author: selected.author ?? null,
+    createdBy: h,
+    createdAt: now(),
+    updatedAt: now(),
+    derivedFrom: {
+      id: current.id,
+      version: selected.version,
+      checksum: selected.checksum,
+    },
+    ...(current.state === "approved"
+      ? {
+          supersedes: current.id,
+          predecessor: { version: current.version, checksum: current.checksum },
+        }
+      : {}),
+  };
+  return commit(s, h, v.requestKey, v, [note]);
+}
+export function saveMemoryDraft(s: Store, input: unknown, h: Host) {
+  check(s, h, true);
+  const v = editIdentity
+    .extend({
+      requestKey: key,
+      changes: memoryInput
+        .pick({
+          type: true,
+          content: true,
+          evidence: true,
+          entities: true,
+          durability: true,
+          validFrom: true,
+          validUntil: true,
+        })
+        .partial()
+        .strict(),
+      attributedStatement: z.boolean().default(false),
+    })
+    .strict()
+    .parse(input);
+  memoryGet(s, v.id, h);
+  const prior = retry(s, h, v);
+  if (prior) return prior;
+  const current = checkedMemory(s, v, h);
+  if (current.state !== "proposed") throw Error("MEMORY_DRAFT_REQUIRED");
+  if (v.attributedStatement && h !== "local")
+    throw Error("USER_ATTRIBUTION_REQUIRED");
+  const next = { ...current, ...v.changes };
+  if (!next.content.trim()) throw Error("MEMORY_CONTENT_REQUIRED");
+  if (next.validFrom && next.validUntil && next.validFrom > next.validUntil)
+    throw Error("INVALID_VALIDITY_INTERVAL");
+  s.validateEvidence(next.evidence, h, true);
+  for (const id of next.entities) {
+    const e = s.one("SELECT * FROM entities WHERE id=?", id);
+    if (!e || !JSON.parse(e.allowed_hosts).includes(h))
+      throw Error("SUBJECT_UNAVAILABLE");
+  }
+  const changed =
+    JSON.stringify(editable(next)) !== JSON.stringify(editable(current));
+  const { checksum, ...note } = next;
+  return commit(s, h, v.requestKey, v, [
+    {
+      ...note,
+      author: v.attributedStatement
+        ? "workspace-user"
+        : changed
+          ? null
+          : current.author,
+      version: current.version + 1,
+      updatedAt: now(),
+    },
+  ]);
+}
+export function compareMemoryDraft(s: Store, id: string, h: Host) {
+  const draft = memoryGet(s, id, h);
+  if (draft.state !== "proposed") throw Error("MEMORY_DRAFT_REQUIRED");
+  const baseId = draft.supersedes ?? draft.derivedFrom?.id;
+  const base = baseId ? memoryGet(s, baseId, h) : null;
+  const history = memoryHistory(s, id, h).revisions;
+  const previous = history.find((m) => m.version < draft.version) ?? null;
+  return {
+    draft,
+    base,
+    previous,
+    stalePredecessor: !!(
+      draft.supersedes &&
+      (!base ||
+        base.state !== "approved" ||
+        base.version !== draft.predecessor?.version ||
+        base.checksum !== draft.predecessor?.checksum)
+    ),
+    changes: editableFields
+      .filter(
+        (k) =>
+          JSON.stringify(base?.[k] ?? null) !==
+          JSON.stringify(draft[k] ?? null),
+      )
+      .map((field) => ({
+        field,
+        before: base?.[field] ?? null,
+        after: draft[field] ?? null,
+      })),
+  };
 }

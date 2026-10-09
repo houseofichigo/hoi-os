@@ -6,6 +6,9 @@ import {
   rebuildKnowledge,
 } from "./semantic.js";
 import {
+  beginMemoryDraft,
+  saveMemoryDraft,
+  compareMemoryDraft,
   memoryList,
   memoryGet,
   memoryHistory,
@@ -294,7 +297,17 @@ const subcommands: Record<string, string[]> = {
     "append",
     "evidence",
   ],
-  memory: ["list", "get", "history", "propose", "review", "retire"],
+  memory: [
+    "list",
+    "get",
+    "history",
+    "propose",
+    "review",
+    "retire",
+    "draft",
+    "save-draft",
+    "compare",
+  ],
   knowledge: [
     "",
     "index-status",
@@ -367,7 +380,7 @@ const commands = new Set(
   ),
 );
 const reads = new Set(
-  "memory:list memory:get memory:history activity: activity:list activity:get suggestions: suggestions:list suggestions:get chat:results onboard:status google-policy: email-actions: email-actions:list ai: ai:status ai:job inbox: inbox:get inbox:email-candidates skills: skills:list skills:get views:client views:project views:training preferences: preferences:get processing: processing:list entity-merge: entity-merge:list jobs: jobs:list adapter: adapter:status engine: engine:status engine:operations app-read security configuration dashboard health doctor audit diagnostics context ingest-plan retrieve query-data consolidate calendar:list calendar: records:client records:project records:training source: source:list source:get source:impact sync: sync:list chat: chat:status chat:get chat:conversations chat:conversation chat:evidence knowledge:index-status knowledge:search knowledge:evidence knowledge:dates knowledge: knowledge:list knowledge:replacements daily: daily:view intake: intake:list intake:mentions intake:decisions project: project:list project:get task: task:list task:proposals task:get task:history wiki: wiki:list wiki:get wiki:contradictions wiki:pages wiki:page wiki:compare wiki:history wiki:node wiki:taxonomy wiki:search wiki:templates wiki:backlinks".split(
+  "memory:compare memory:list memory:get memory:history activity: activity:list activity:get suggestions: suggestions:list suggestions:get chat:results onboard:status google-policy: email-actions: email-actions:list ai: ai:status ai:job inbox: inbox:get inbox:email-candidates skills: skills:list skills:get views:client views:project views:training preferences: preferences:get processing: processing:list entity-merge: entity-merge:list jobs: jobs:list adapter: adapter:status engine: engine:status engine:operations app-read security configuration dashboard health doctor audit diagnostics context ingest-plan retrieve query-data consolidate calendar:list calendar: records:client records:project records:training source: source:list source:get source:impact sync: sync:list chat: chat:status chat:get chat:conversations chat:conversation chat:evidence knowledge:index-status knowledge:search knowledge:evidence knowledge:dates knowledge: knowledge:list knowledge:replacements daily: daily:view intake: intake:list intake:mentions intake:decisions project: project:list project:get task: task:list task:proposals task:get task:history wiki: wiki:list wiki:get wiki:contradictions wiki:pages wiki:page wiki:compare wiki:history wiki:node wiki:taxonomy wiki:search wiki:templates wiki:backlinks".split(
     " ",
   ),
 );
@@ -384,7 +397,7 @@ export function operationInfo(raw: unknown) {
   const key = subcommands[r.command] ? r.command + ":" + sub : r.command;
   const appReadAction =
     r.command === "app-action" &&
-    ["/api/dashboard", "/api/daily/view"].includes(sub);
+    ["/api/dashboard", "/api/daily/view", "/api/memory/compare"].includes(sub);
   const read =
     (reads.has(key) ||
       appReadAction ||
@@ -614,6 +627,10 @@ async function dispatch(s: Store, host: Host, request: OperationInput) {
       else if (p[1] === "get") result = memoryGet(s, p[2], host);
       else if (p[1] === "history") result = memoryHistory(s, p[2], host);
       else if (p[1] === "propose") result = proposeMemory(s, input(), host);
+      else if (p[1] === "draft") result = beginMemoryDraft(s, input(), host);
+      else if (p[1] === "save-draft")
+        result = saveMemoryDraft(s, input(), host);
+      else if (p[1] === "compare") result = compareMemoryDraft(s, p[2], host);
       else
         result = reviewVersionedMemory(
           s,

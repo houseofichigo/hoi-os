@@ -115,6 +115,9 @@ See [tool conventions](TOOL_CONVENTIONS.md), [governance](RULES.md) and [filesys
 | `memory:propose`             | draft    | draft      | request-receipt      | OperationInput/v1 plus domain validation | JSON/v1 | No        |
 | `memory:review`              | draft    | draft      | request-receipt      | OperationInput/v1 plus domain validation | JSON/v1 | No        |
 | `memory:retire`              | draft    | draft      | request-receipt      | OperationInput/v1 plus domain validation | JSON/v1 | No        |
+| `memory:draft`               | draft    | draft      | request-receipt      | OperationInput/v1 plus domain validation | JSON/v1 | No        |
+| `memory:save-draft`          | draft    | draft      | request-receipt      | OperationInput/v1 plus domain validation | JSON/v1 | No        |
+| `memory:compare`             | read     | read       | read-only            | OperationInput/v1 plus domain validation | JSON/v1 | No        |
 | `ocr`                        | draft    | draft      | request-receipt      | OperationInput/v1 plus domain validation | JSON/v1 | No        |
 | `onboard`                    | draft    | draft      | request-receipt      | OperationInput/v1 plus domain validation | JSON/v1 | No        |
 | `organize`                   | draft    | draft      | request-receipt      | OperationInput/v1 plus domain validation | JSON/v1 | No        |

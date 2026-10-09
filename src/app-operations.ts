@@ -1,5 +1,19 @@
-import {indexStatus,configureSemantic,installLocalModel,rebuildKnowledge} from "./semantic.js";
-import { memoryList, memoryGet, memoryHistory, proposeMemory, reviewVersionedMemory } from "./reviewed-memory.js";
+import {
+  indexStatus,
+  configureSemantic,
+  installLocalModel,
+  rebuildKnowledge,
+} from "./semantic.js";
+import {
+  beginMemoryDraft,
+  saveMemoryDraft,
+  compareMemoryDraft,
+  memoryList,
+  memoryGet,
+  memoryHistory,
+  proposeMemory,
+  reviewVersionedMemory,
+} from "./reviewed-memory.js";
 import {
   activity,
   activityDetail,
@@ -246,6 +260,9 @@ export const APP_POST_ROUTES = new Set([
   "/api/wiki/propose",
   "/api/wiki/review",
   "/api/wiki/canonical",
+  "/api/memory/draft",
+  "/api/memory/save-draft",
+  "/api/memory/compare",
   "/api/memory/review",
   "/api/memory/propose",
   "/api/memory/history",
@@ -406,12 +423,27 @@ export async function appMutation(
     result = reviewWiki(s, String(body.id), body.state, host);
   else if (pathname === "/api/wiki/canonical")
     result = canonicalWiki(s, String(body.id), host);
-  else if (pathname === "/api/knowledge/configure-search") result=configureSemantic(s,host,body);
-  else if (pathname === "/api/knowledge/install-model") result=await installLocalModel(s,host,body);
-  else if (pathname === "/api/knowledge/rebuild") result=await rebuildKnowledge(s,host,body);
-  else if (pathname === "/api/memory/propose") result = proposeMemory(s,body,host);
-  else if (pathname === "/api/memory/history") result = memoryHistory(s,String(body.id),host);
-  else result = s.schemaVersion>=19 ? reviewVersionedMemory(s,body,host) : reviewMemory(s, String(body.id), body.state, host);
+  else if (pathname === "/api/knowledge/configure-search")
+    result = configureSemantic(s, host, body);
+  else if (pathname === "/api/knowledge/install-model")
+    result = await installLocalModel(s, host, body);
+  else if (pathname === "/api/knowledge/rebuild")
+    result = await rebuildKnowledge(s, host, body);
+  else if (pathname === "/api/memory/draft")
+    result = beginMemoryDraft(s, body, host);
+  else if (pathname === "/api/memory/save-draft")
+    result = saveMemoryDraft(s, body, host);
+  else if (pathname === "/api/memory/compare")
+    result = compareMemoryDraft(s, String(body.id), host);
+  else if (pathname === "/api/memory/propose")
+    result = proposeMemory(s, body, host);
+  else if (pathname === "/api/memory/history")
+    result = memoryHistory(s, String(body.id), host);
+  else
+    result =
+      s.schemaVersion >= 19
+        ? reviewVersionedMemory(s, body, host)
+        : reviewMemory(s, String(body.id), body.state, host);
 
   return result;
 }
@@ -427,7 +459,8 @@ export function appRead(
   let result: any;
   if (options.app && pathname === "/api/onboarding")
     result = onboarding(s, host);
-  else if (pathname === "/api/knowledge/index-status") result=indexStatus(s,host);
+  else if (pathname === "/api/knowledge/index-status")
+    result = indexStatus(s, host);
   else if (pathname === "/api/wiki-core") result = wikiLibrary(s, host);
   else if (pathname === "/api/wiki-core/subjects")
     result = wikiSubjects(s, host);
@@ -579,23 +612,31 @@ export function appRead(
       limit: 8,
     });
   else if (options.app && pathname === "/api/memory")
-    result = s.schemaVersion>=19 ? (url.searchParams.get("view")==="history" ? memoryList(s,host,"history") : [...memoryList(s,host,"current"),...memoryList(s,host,"proposed")]) : s
-      .memories()
-      .filter(
-        (m) =>
-          m.allowedHosts?.includes(host) &&
-          s.evidenceVisible(m.evidence || [], host, false),
-      )
-      .map((m) => ({
-        id: m.id,
-        type: m.type,
-        content: m.content,
-        state: m.state,
-        createdAt: m.createdAt,
-        durability: m.durability,
-        stale: !s.evidenceVisible(m.evidence ?? [], host),
-        evidence: m.evidence ?? [],
-      }));
+    result =
+      s.schemaVersion >= 19
+        ? url.searchParams.get("view") === "history"
+          ? memoryList(s, host, "history")
+          : [
+              ...memoryList(s, host, "current"),
+              ...memoryList(s, host, "proposed"),
+            ]
+        : s
+            .memories()
+            .filter(
+              (m) =>
+                m.allowedHosts?.includes(host) &&
+                s.evidenceVisible(m.evidence || [], host, false),
+            )
+            .map((m) => ({
+              id: m.id,
+              type: m.type,
+              content: m.content,
+              state: m.state,
+              createdAt: m.createdAt,
+              durability: m.durability,
+              stale: !s.evidenceVisible(m.evidence ?? [], host),
+              evidence: m.evidence ?? [],
+            }));
   else if (options.app && pathname === "/api/connections") result = connect(s);
   else if (options.app && pathname === "/api/sources")
     result = s

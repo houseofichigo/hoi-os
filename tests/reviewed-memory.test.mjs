@@ -157,3 +157,148 @@ test("schema18 upgrade is additive and preserves memory bytes", (t) => {
   assert.deepEqual(readFileSync(current.path(`memory/${p.id}.md`)), original);
   current.close();
 });
+
+test("draft editing, comparison, restoration and backup preserve reviewed originals", async (t) => {
+  const { beginMemoryDraft, saveMemoryDraft, compareMemoryDraft } =
+    await import("../dist/core/reviewed-memory.js");
+  const { s, root } = fixture(t);
+  const p = propose(s, "Orchard prefers morning");
+  review(s, p.id);
+  const identity = (m) => ({
+    id: m.id,
+    expectedVersion: m.version,
+    expectedChecksum: m.checksum,
+  });
+  const original = memoryGet(s, p.id, "local");
+  assert.throws(
+    () =>
+      saveMemoryDraft(
+        s,
+        {
+          ...identity(original),
+          requestKey: "not-a-draft",
+          changes: { content: "Overwrite" },
+        },
+        "local",
+      ),
+    /DRAFT_REQUIRED/,
+  );
+  const d = beginMemoryDraft(
+    s,
+    { ...identity(original), requestKey: "begin-correction" },
+    "local",
+  );
+  let draft = memoryGet(s, d.id, "local");
+  const payload = {
+    ...identity(draft),
+    requestKey: "save-correction",
+    changes: { content: "Orchard prefers afternoon", validFrom: "2025-01-01" },
+    attributedStatement: true,
+  };
+  const saved = saveMemoryDraft(s, payload, "local");
+  assert.deepEqual(saveMemoryDraft(s, payload, "local"), saved);
+  assert.throws(
+    () =>
+      saveMemoryDraft(
+        s,
+        { ...payload, requestKey: "stale-correction" },
+        "local",
+      ),
+    /STALE/,
+  );
+  assert.equal(memoryGet(s, p.id, "local").state, "approved");
+  assert.equal(
+    compareMemoryDraft(s, d.id, "local").changes.some(
+      (c) => c.field === "content",
+    ),
+    true,
+  );
+  review(s, d.id);
+  assert.equal(memoryGet(s, p.id, "local").state, "superseded");
+  draft = memoryGet(s, d.id, "local");
+  const restored = beginMemoryDraft(
+    s,
+    { ...identity(draft), restoreVersion: 1, requestKey: "restore-original" },
+    "local",
+  );
+  assert.equal(
+    memoryGet(s, restored.id, "local").content,
+    "Orchard prefers morning",
+  );
+  assert.equal(memoryGet(s, restored.id, "local").state, "proposed");
+  assert.equal(memoryGet(s, d.id, "local").state, "approved");
+  assert.equal(memoryHistory(s, d.id, "local").revisions.length, 3);
+  const dir = join(root, "draft-backup"),
+    copy = join(root, "draft-restored");
+  backup(s, dir);
+  restore(dir, copy);
+  const other = new Store(copy);
+  assert.equal(memoryGet(other, restored.id, "local").derivedFrom.version, 1);
+  assert.equal(memoryHistory(other, d.id, "local").revisions.length, 3);
+  other.close();
+});
+
+test("draft mutations cannot inherit user attribution, bypass stale predecessors or reveal denied history", async (t) => {
+  const { beginMemoryDraft, saveMemoryDraft, compareMemoryDraft } =
+    await import("../dist/core/reviewed-memory.js");
+  const { s } = fixture(t);
+  const p = propose(s, "Original preference");
+  review(s, p.id);
+  const identity = (m) => ({
+    id: m.id,
+    expectedVersion: m.version,
+    expectedChecksum: m.checksum,
+  });
+  const d = beginMemoryDraft(
+    s,
+    {
+      ...identity(memoryGet(s, p.id, "local")),
+      requestKey: "correction-second",
+    },
+    "local",
+  );
+  const m = memoryGet(s, d.id, "local");
+  assert.throws(
+    () =>
+      saveMemoryDraft(
+        s,
+        {
+          ...identity(m),
+          requestKey: "false-attribution",
+          changes: { content: "Inference" },
+          attributedStatement: true,
+        },
+        "codex",
+      ),
+    /ATTRIBUTION/,
+  );
+  saveMemoryDraft(
+    s,
+    {
+      ...identity(m),
+      requestKey: "assistant-edit",
+      changes: { content: "Inference" },
+    },
+    "codex",
+  );
+  assert.equal(memoryGet(s, d.id, "local").author, null);
+  assert.throws(() => review(s, d.id), /EVIDENCE_REQUIRED/);
+  review(s, p.id, "retired");
+  assert.equal(compareMemoryDraft(s, d.id, "local").stalePredecessor, true);
+  const privateNote = propose(s, "Private statement", {
+    allowedHosts: ["local"],
+  });
+  assert.throws(
+    () =>
+      beginMemoryDraft(
+        s,
+        {
+          ...identity(memoryGet(s, privateNote.id, "local")),
+          requestKey: "unauthorized-copy",
+        },
+        "codex",
+      ),
+    /UNAVAILABLE/,
+  );
+  assert.throws(() => memoryHistory(s, privateNote.id, "codex"), /UNAVAILABLE/);
+});

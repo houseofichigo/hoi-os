@@ -30,7 +30,7 @@ Still required before the full requested upgrade can be accepted:
 - Complete operational-record EvidenceItem unification; historical semantic retrieval and historical relationship expansion remain unavailable.
 - Representative-corpus/platform performance and detailed extraction/model fault coverage. The named synthetic 10,000-unit benchmark now meets its warm latency target after policy parsing optimization.
 - Optional budgeted reranker: not implemented or enabled. No extra paid model call is introduced by retrieval.
-- Dedicated memory draft editing/restoration and broader accessibility/visual baselines. The new Memory flow has keyboard/focus and 390/768/1280/1440px checks.
+- Broader accessibility/visual baselines beyond the tested Memory workflow remain a separate gate.
 - Clean Mac/Windows verification, live automatic-analysis verification and real-use pilot. A developer machine test is not a clean-install result.
 
 No private workspace was migrated. Before any such upgrade, verify a backup and restore a separate compatible copy. Do not publish these app changes based on synthetic tests alone.
@@ -102,3 +102,11 @@ The recovery rehearsal uses fictional data only. It interrupts a reviewed replac
 If either recovery error occurs in a real workspace, stop using that copy and preserve it for diagnosis. Use a verified compatible backup in a separate directory to investigate; do not delete the journal, manually mark it complete or alter its checksums to force startup. No private workspace was upgraded or repaired in this batch. Storage remains schema 19.
 
 Matching-build checks for memory recovery hardening passed: core 263 passed / three optional model cases skipped; all four offline semantic cases separately passed; browser 43 passed; staged macOS arm64 Electron two passed. The earlier 0.99-second retrieval benchmark remains recorded under its original build identity; this journal-only change did not rerun the scale benchmark. Clean-machine, Windows and independent human answer-quality acceptance remain open.
+
+## Reviewed memory drafts (2026-10-09)
+
+Memory supports persistent draft editing, field comparison and restoring an exact historical version as a new proposal. Approved records remain unchanged until exact-version review; replacement approval supersedes the predecessor atomically. Stale predecessor changes require a fresh correction. Editing cannot broaden access or inherit user attribution for an assistant-modified statement. Historical copies retain checksums and backups include drafts and revisions.
+
+The shared registry exposes `memory draft`, `memory save-draft` and read-only `memory compare`, also through authenticated app operations. No schema migration is required. The app editor preserves evidence and subject links while editing content, type, durability and effective dates; changing supporting evidence or subject links currently uses the typed engine operation. Retired records can produce new proposals; superseded records direct users to their replacement. No automatic publication or private upgrade is performed.
+
+Verification for the memory-draft build: 268 core tests (265 passed, three optional model tests skipped), 44 browser tests and two staged macOS arm64 Electron tests passed. Model-specific suites were not rerun for this editor/lifecycle change. These are fictional-workspace regressions, not clean-machine or live-provider certification. See `UNIFIED_RETRIEVAL_VERIFICATION.json` for the build identity.
