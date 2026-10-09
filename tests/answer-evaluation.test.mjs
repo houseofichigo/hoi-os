@@ -120,3 +120,52 @@ test("ranking diagnostics retain missing and outside-top-five evidence without c
   assert.equal(result.cases[0].missed[0].rank, 7);
   assert.equal(JSON.stringify(p), before);
 });
+
+test("CLI preserves prior worksheets and scores the real pending packet without fabricating reviews", async (t) => {
+  const { mkdtempSync, writeFileSync, readFileSync, rmSync } =
+    await import("node:fs");
+  const { tmpdir } = await import("node:os");
+  const { join } = await import("node:path");
+  const { spawnSync } = await import("node:child_process");
+  const directory = mkdtempSync(join(tmpdir(), "hoi-answer-review-"));
+  t.after(() => rmSync(directory, { recursive: true, force: true }));
+  const input = join(directory, "packet.json"),
+    output = join(directory, "submission.json");
+  writeFileSync(input, JSON.stringify(packet));
+  const script = new URL("../scripts/answer-evaluation.mjs", import.meta.url);
+  const { fileURLToPath } = await import("node:url");
+  assert.equal(
+    spawnSync(process.execPath, [
+      fileURLToPath(script),
+      "prepare",
+      input,
+      output,
+    ]).status,
+    0,
+  );
+  const original = readFileSync(output, "utf8");
+  assert.notEqual(
+    spawnSync(process.execPath, [
+      fileURLToPath(script),
+      "prepare",
+      input,
+      output,
+    ]).status,
+    0,
+  );
+  assert.equal(readFileSync(output, "utf8"), original);
+  const actual = JSON.parse(
+    readFileSync(
+      new URL(
+        "../evaluation/knowledge-v1/review-packets/2026-10-09-shared-10000/packet.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  );
+  const result = scoreAnswers(actual, prepareAnswerEvaluation(actual));
+  assert.equal(result.cases, 120);
+  assert.equal(result.generated, 0);
+  assert.equal(result.reviewed, 0);
+  assert.equal(result.heldOut.complete, false);
+});

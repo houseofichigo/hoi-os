@@ -31,3 +31,7 @@ This is a review checklist, not approval evidence. All candidate labels are stil
 | Performance | Named hardware, measured corpus scale, p50/p95, memory and index/model sizes; disclose synthetic limitations |
 
 No rating in a diagnostic report closes these gates automatically. Keep reranking disabled and memory approval manual. Clean installations, Windows verification and real-use pilot remain separate release gates.
+
+## Submission and scoring tools
+
+Use [the answer-review worksheet and format](answer-review/README.md) to capture observed answers and independent reviews. The scorer binds reviews to the exact answer and packet, requires every declared citation to have a resolution observation, and reports denominators and incomplete review coverage. It cannot authenticate reviewers, detect omitted claims or replace current engine permission checks. The prepared worksheet intentionally has 120 null answers and reviews.
