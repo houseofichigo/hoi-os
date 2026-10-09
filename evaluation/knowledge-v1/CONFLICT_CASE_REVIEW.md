@@ -20,3 +20,9 @@ Evidence: `measurements/2026-10-09-shared-hybrid-1000-corrected.json` and the pr
 ## Larger-run follow-up
 
 The 10,000-unit report again flags `moss-02-fr`. Both relevant passages resolve and are returned: lexical positions three/four, hybrid positions five/seven. Thus one still falls outside the top five. Independently generated record IDs can change tie ordering, so this is corroboration of a top-five weakness, not a controlled estimate of distractor-count impact. No labels or ranking settings were changed.
+
+## Lexical channel inspection
+
+A direct read-only trace of the preserved 10,000-unit fixture confirms the lexical contribution. For `Subject moss. Peut-on affirmer une date unique?`, the source channel ranks the permitted Ember passage first (BM25 −9.678789; matches `date`), then the two Moss passages (BM25 −9.031804 each; match `moss`). Nova and distractor passages match `subject` at much weaker scores. The OR query treats `date` and `moss` as ordinary search terms; the textual prefix does not establish an authoritative subject restriction. Wiki/memory channels and semantic fusion subsequently change final positions.
+
+This is evidence of query ambiguity and generic lexical weighting, not proof that the engine should infer a client association or a contradiction edge. The next reviewed experiment should compare explicit engine project/client scope, unambiguous bilingual questions and free-text subject mentions as separate scenarios. Keep default ranking unchanged until that comparison has independent labels. The exported evidence packet contains both Moss passages and their exact references for human inspection.

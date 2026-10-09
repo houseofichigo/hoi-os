@@ -4,11 +4,6 @@
   "scope": "fictional workspaces; local developer and staged macOS arm64",
   "suites": [
     {
-      "suite": "core",
-      "passed": true,
-      "tests": 263
-    },
-    {
       "suite": "browser",
       "passed": true,
       "tests": 43
@@ -17,9 +12,14 @@
       "suite": "desktop",
       "passed": true,
       "tests": 2
+    },
+    {
+      "suite": "core",
+      "passed": true,
+      "tests": 264
     }
   ],
-  "coreNote": "263 total: 260 passed, 3 opt-in model tests skipped in core. All 4 semantic tests separately passed with the offline model. Browser 43 and staged macOS arm64 Electron 2 passed on this same build.",
+  "coreNote": "264 total: 261 passed, 3 opt-in model tests skipped. Review-export regression added. Runtime unchanged from the policy optimization; matching-build browser 43, Electron 2 and separately recorded offline model 4 results retained.",
   "localModel": "Offline tests confirm bilingual retrieval, restart recovery, unchanged embedding reuse, changed-unit recomputation, corrupt-vector repair and revoked-source exclusion.",
   "limitations": [
     "No clean-machine, Windows or live paid-provider certification.",
@@ -53,5 +53,14 @@
     "changedOrderedResults": [],
     "forbiddenReturnedReferences": 0,
     "independentQualityAcceptance": false
+  },
+  "independentReviewPacket": {
+    "path": "evaluation/knowledge-v1/review-packets/2026-10-09-shared-10000/README.md",
+    "cases": 120,
+    "families": 12,
+    "status": "pending-independent-review",
+    "generatedAnswers": 0,
+    "humanApprovals": 0,
+    "note": "Engine-resolved fictional evidence with empty decision fields. Exporter rejects mismatched labels/questions and revoked evidence; this does not close the human evaluation gate."
   }
 }

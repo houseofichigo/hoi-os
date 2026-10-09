@@ -122,3 +122,17 @@ Retrieval now parses policy once during a synchronous search and verifies the po
 The [final same-fixture repeat](measurements/2026-10-09-policy-snapshot-10000.json) used the exact preserved index and questions, without reingestion or index rebuilding. All 120 ordered reference lists were identical to the pre-optimization run; no forbidden reference was returned or resolvable. All 116 current queries used hybrid retrieval, while four historical queries remained lexical. Warm p50 was **543.79 ms**, p95 **987.23 ms**, versus 3,384.16 / 5,242.94 ms previously. The two-second p95 target is met on this named fictional workload; it is not a universal performance guarantee. No concurrent test suite ran. Peak process RSS was 1,773,360 KiB (~1.69 GiB), excluding fixture/index construction in this repeat.
 
 An intermediate implementation checked file metadata on every policy access and measured p95 1,526.57 ms; its [report](measurements/2026-10-09-policy-cache-10000.json) is retained with its distinct build identity. The final implementation instead rejects a whole read if policy changes at its boundary. Ranking, RRF weights, models and source eligibility did not change. The French conflict case remains at the same ranks; no human quality or answer-abstention gate is closed by this optimization.
+
+## Evidence-resolved human review packet
+
+The [review packet index](review-packets/2026-10-09-shared-10000/README.md) contains all 120 fictional cases, organized into 12 family documents. Each includes the actual question, proposed answer facts, exact authorized passages, retrieved ranks, proposed relevance and attribution where available. `review.csv` has blank reviewer/decision/date fields. No generated answer or human approval is supplied.
+
+Reproduce after building:
+
+```sh
+node scripts/export-retrieval-review.mjs evaluation/knowledge-v1/candidates/review-pack.json FICTIONAL_RUN_DIRECTORY NEW_OUTPUT_DIRECTORY
+```
+
+The parent output directory must exist; the final directory must not exist. Use a run created by `run-review-pack.mjs`. The exporter validates case identities, questions, proposed labels and forbidden-reference mappings, then re-resolves each evidence reference under that case's current host permissions. A revoked or stale required reference stops export. Forbidden passages are checked for denial and never copied. Source HTML/Markdown is escaped in the readable documents. Earlier runs and packets are never overwritten; failed output directories remain for inspection.
+
+`packet.json` records the candidate/input hashes, evaluated build and current resolution build separately. This is a static export of fictional evidence, not a live permission-aware view: a later revocation cannot erase an already exported document. Do not use the script to distribute private workspaces. Creating the packet does not approve labels or certify acceptance. Reviewers must still correct ambiguities and create genuinely unseen held-out families before tuning; see [the handoff](HUMAN_REVIEW_HANDOFF.md).

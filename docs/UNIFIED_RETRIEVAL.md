@@ -86,3 +86,9 @@ The 10,000-unit bottleneck was repeated policy YAML parsing. `knowledgeSearch` n
 Repeating the same preserved fixture reduced warm hybrid p95 from 5.24 seconds to **0.99 seconds**, with all 120 ordered evidence lists unchanged and zero forbidden references. The measured latency target now passes on this fictional Apple M5 workload. Human-reviewed answer quality, the existing French conflict ranking weakness, Windows/clean-machine checks and real-use pilot remain separate. Exact reports are linked in `evaluation/knowledge-v1/README.md`.
 
 Matching-build verification after the performance fix: core 260 passed / three optional model tests skipped; all four offline semantic tests separately passed; browser 43 passed; staged macOS arm64 Electron two passed. New tests cover policy replacement during a search (whole response rejected), invalid-policy cleanup, subsequent revocation, archive/restore and stale revisions. This remains developer/staged verification, not clean-install or Windows certification.
+
+## Independent-review preparation
+
+A reproducible exporter now prepares 120 evidence-resolved fictional review cases, with exact current references, ranked passages, proposed labels and blank reviewer fields. It rejects mismatched inputs and rechecks permissions at export time; no denied content is copied. Read `evaluation/knowledge-v1/review-packets/2026-10-09-shared-10000/README.md` to begin. This is preparation for human review, not completed human review or answer-quality certification.
+
+The remaining French conflict case has a documented lexical cause: an unrelated passage matching the rare word “date” outranks name-matching passages; a textual `Subject moss` prefix is not stable-ID scope. No special-case boost, inferred relationship or ranking-default change was introduced. Review explicit scopes and clearer bilingual questions independently before choosing a ranking change.
