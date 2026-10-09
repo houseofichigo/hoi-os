@@ -1,6 +1,13 @@
+import { cpus, totalmem, platform, arch } from "node:os";
 import { performance } from "node:perf_hooks";
 import { compareRetrieval } from "./compare-retrieval.mjs";
-import { mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
+import {
+  mkdirSync,
+  writeFileSync,
+  readFileSync,
+  rmSync,
+  statSync,
+} from "node:fs";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { initialize, Store } from "../dist/core/store.js";
@@ -37,6 +44,15 @@ export async function runReviewPack(pack, directory, options = {}) {
     throw Error("Unknown variant");
   if (hybrid && !options.modelDirectory)
     throw Error("Verified offline model directory required");
+  if (
+    options.distractors !== undefined &&
+    (!Number.isInteger(options.distractors) ||
+      options.distractors < 0 ||
+      options.distractors > 10000)
+  )
+    throw Error("Distractor count must be 0..10000");
+  if (options.distractors && !options.shared)
+    throw Error("Distractors require a shared fixture");
   validateReviewPack(pack);
   const root = resolve(directory);
   mkdirSync(root); // Exclusive new directory; never select an existing workspace.
@@ -46,13 +62,17 @@ export async function runReviewPack(pack, directory, options = {}) {
     baselineRows = [],
     timings = [];
   const families = [...new Set(pack.cases.map((c) => c.family))];
-  for (const [index, family] of families.entries()) {
+  const groups = options.shared ? ["shared"] : families;
+  const measurements = [];
+  for (const [index, family] of groups.entries()) {
     const workspace = join(root, `fixture-${index}`);
     initialize(workspace);
     const s = new Store(workspace),
       sourceIds = {};
     try {
-      const records = pack.records.filter((r) => r.family === family);
+      const records = pack.records.filter(
+        (r) => options.shared || r.family === family,
+      );
       for (const [i, r] of records.entries()) {
         if (r.kind === "source") {
           // The fixed fixture specification, not instructions in the source, controls state.
@@ -163,16 +183,30 @@ export async function runReviewPack(pack, directory, options = {}) {
           "local",
         );
       }
+      for (let i = 0; i < (options.distractors ?? 0); i++) {
+        const text = `Unrelated fictional account DISTRACTOR-${i}. ${["Coaching workshop venue and owner pending.", "Formation : horaire et capacité à confirmer.", "Written agenda, delivery materials and preparation checklist.", "Atelier pratique : participants et coordination."][i % 4]} This record does not describe any named evaluation subject.`;
+        const path = join(root, `distractor-${i}.md`);
+        writeFileSync(path, text, { flag: "wx" });
+        await ingest(s, path, { host: "local" });
+      }
+      const measurement = {
+        fixture: family,
+        eligibleUnits: collectUnits(s, "local").length,
+        sources: s.one("SELECT count(*) n FROM sources").n,
+        distractors: options.distractors ?? 0,
+      };
       const inputFor = (c) => ({
-        query: c.question,
+        query: options.shared
+          ? `Subject ${c.family}. ${c.question}`
+          : c.question,
         limit: 10,
-        ...(family === "birch" && c.question.includes("2026-01-10")
+        ...(c.family === "birch" && c.question.includes("2026-01-10")
           ? { asOf: "2026-01-10" }
           : {}),
       });
       const baseline = new Map(
         pack.cases
-          .filter((c) => c.family === family)
+          .filter((c) => options.shared || c.family === family)
           .map((c) => [c.id, knowledgeSearch(s, inputFor(c), c.host)]),
       );
       if (hybrid) {
@@ -181,14 +215,18 @@ export async function runReviewPack(pack, directory, options = {}) {
           confirm: true,
           directory: options.modelDirectory,
         });
+        const indexingStarted = performance.now();
         await rebuildKnowledge(s, "local", {
           requestKey: "diagnostic-" + family,
         });
+        measurement.indexingMs = performance.now() - indexingStarted;
       }
       let resolved = 0;
-      for (const c of pack.cases.filter((c) => c.family === family)) {
+      for (const c of pack.cases.filter(
+        (c) => options.shared || c.family === family,
+      )) {
         const asOf =
-          family === "birch" && c.question.includes("2026-01-10")
+          c.family === "birch" && c.question.includes("2026-01-10")
             ? "2026-01-10"
             : undefined;
         const dated = (ref) => ({ ...ref, ...(asOf ? { asOf } : {}) });
@@ -200,10 +238,12 @@ export async function runReviewPack(pack, directory, options = {}) {
           resolved++;
         }
         const start = performance.now();
-        if (hybrid && !asOf) await prepareSemanticQuery(s, c.host, c.question);
+        if (hybrid && !asOf) await prepareSemanticQuery(s, c.host, inputFor(c).query);
         const result = hybrid
           ? knowledgeSearch(s, inputFor(c), c.host)
           : baseline.get(c.id);
+        if (hybrid && !asOf && result.coverage.mode !== "hybrid")
+          throw Error(`Expected hybrid retrieval for ${c.id}, got ${result.coverage.mode}`);
         if (hybrid)
           timings.push({
             id: c.id,
@@ -219,7 +259,13 @@ export async function runReviewPack(pack, directory, options = {}) {
           knowledgeEvidence(s, ref, c.host);
           resolved++;
         }
-        const forbidden = c.proposedForbidden.flatMap((k) => mapping[k]);
+        const forbidden = [
+          ...new Set(
+            options.shared
+              ? pack.cases.flatMap((q) => q.proposedForbidden)
+              : c.proposedForbidden,
+          ),
+        ].flatMap((k) => mapping[k]);
         for (const ref of forbidden) {
           let denied = false;
           try {
@@ -234,7 +280,8 @@ export async function runReviewPack(pack, directory, options = {}) {
           family: c.family,
           split: c.split,
           language: c.language,
-          question: c.question,
+          question: inputFor(c).query,
+          originalQuestion: c.question,
           review: c.review,
           abstain: c.proposedAbstain,
           relevant: relevant.map(identity),
@@ -251,6 +298,9 @@ export async function runReviewPack(pack, directory, options = {}) {
           warnings: baseline.get(c.id).warnings,
         });
       }
+      measurement.databaseBytes = statSync(s.path(".hoi/os.sqlite")).size;
+      measurement.walBytes = statSync(s.path(".hoi/os.sqlite-wal")).size;
+      measurements.push(measurement);
       fixtures.push({
         family,
         directory: `fixture-${index}`,
@@ -291,9 +341,21 @@ export async function runReviewPack(pack, directory, options = {}) {
         }
       : {}),
     providerCalls: 0,
+    layout: options.shared ? "shared-with-explicit-subject" : "isolated",
+    hardware: {
+      cpu: cpus()[0].model,
+      logicalCpus: cpus().length,
+      ramBytes: totalmem(),
+      platform: platform(),
+      arch: arch(),
+      node: process.versions.node,
+    },
+    measurements,
+    processPeakRssKiB: process.resourceUsage().maxRSS,
     fixtures,
     metrics,
     limitations: [
+      ...(options.shared ? ["Shared queries include explicit subject-family context; they are not directly comparable with the isolated unqualified questions. Distractors are synthetic templates, not a representative company corpus."] : []),
       "Proposed labels were authored by an assistant and have not been independently approved.",
       "Scenario split is not sealed; this is not held-out acceptance evidence.",
       "Temporal fixture revision timestamps are seeded directly in the disposable database; originals and revision IDs are created by ingestion.",
@@ -324,15 +386,20 @@ if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(process.argv[1]).href
 ) {
-  const [input, directory, modelDirectory] = process.argv.slice(2);
+  const [input, directory, modelDirectory, distractors] = process.argv.slice(2);
   if (!input || !directory)
     throw Error(
-      "Usage: node scripts/run-review-pack.mjs review-pack.json NEW_DIRECTORY",
+      "Usage: node scripts/run-review-pack.mjs review-pack.json NEW_DIRECTORY [VERIFIED_MODEL_DIRECTORY [DISTRACTOR_COUNT]]",
     );
   const r = await runReviewPack(
     JSON.parse(readFileSync(input, "utf8")),
     directory,
-    modelDirectory ? { variant: "hybrid", modelDirectory } : {},
+    {
+      ...(modelDirectory ? { variant: "hybrid", modelDirectory } : {}),
+      ...(distractors !== undefined
+        ? { shared: true, distractors: Number(distractors) }
+        : {}),
+    },
   );
   console.log(
     JSON.stringify({

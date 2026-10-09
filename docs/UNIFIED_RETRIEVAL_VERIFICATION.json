@@ -16,10 +16,10 @@
     {
       "suite": "core",
       "passed": true,
-      "tests": 259
+      "tests": 260
     }
   ],
-  "coreNote": "259 total: 256 passed, 3 opt-in model tests skipped. Paired comparison tests added; runtime unchanged, previous matching-build browser and desktop results retained.",
+  "coreNote": "260 total: 257 passed, 3 opt-in model tests skipped. Shared-fixture regression added; runtime unchanged, prior matching-build browser and desktop evidence retained.",
   "localModel": "Offline tests confirm bilingual retrieval, restart recovery, unchanged embedding reuse, changed-unit recomputation, corrupt-vector repair and revoked-source exclusion.",
   "limitations": [
     "No clean-machine, Windows or live paid-provider certification.",
@@ -28,5 +28,6 @@
     "Incremental reuse is functionally verified on small fictional fixtures; no large hybrid-corpus latency or memory guarantee."
   ],
   "evaluation": "Synthetic 10000-passage benchmark measured exact-ID and broad lexical workloads on Apple M5. Human-labelled bilingual quality and factual-support gates remain unverified.",
-  "candidateCorpus": "120 paired diagnostic queries: 116 hybrid, 4 historical lexical. Draft-label recall@5 increased from 0.521739 to 0.934783, no observed recall regressions or forbidden returned references. All 34 unanswerable cases returned hybrid evidence. Tiny fixtures and unreviewed labels do not establish acceptance."
+  "candidateCorpus": "120 paired diagnostic queries: 116 hybrid, 4 historical lexical. Draft-label recall@5 increased from 0.521739 to 0.934783, no observed recall regressions or forbidden returned references. All 34 unanswerable cases returned hybrid evidence. Tiny fixtures and unreviewed labels do not establish acceptance.",
+  "sharedEvaluation": "Corrected 1018-unit run: 116 hybrid and 4 historical lexical queries; provisional recall@5 98.91%, nDCG@10 96.50%, one French conflict recall regression, zero forbidden returned references. Warm p95 505.48ms under partially overlapping core-test load. Initial query-key mismatch report preserved as invalid hybrid evidence. Labels unreviewed; no answer-quality certification."
 }

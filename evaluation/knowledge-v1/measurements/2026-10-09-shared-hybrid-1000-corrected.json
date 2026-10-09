@@ -1,0 +1,2124 @@
+{
+  "version": 1,
+  "createdAt": "2026-10-09T13:52:55.854Z",
+  "buildId": "f284c5e942cd2bae723583c3c3cbaa7eebd5a4dacb9c05f1b91e78762d49cfb3",
+  "candidatePackHash": "91625ae6fc7bb4b3669f8e17813adc5c6c3eec2cc96102344ea9f9c061703db5",
+  "status": "unreviewed-diagnostic-run",
+  "acceptance": "not-certified",
+  "humanApproved": 0,
+  "variant": "hybrid-local",
+  "modelFingerprint": "32cbfcee1f9bf6e9e130eeda7c141c56984b008992be5fff325c3fa4d57470e0",
+  "comparison": {
+    "status": "unreviewed-diagnostic-comparison",
+    "acceptance": "not-certified",
+    "baseline": {
+      "recallAt5": 1,
+      "ndcgAt10": 0.8217319259383274,
+      "leaks": 0
+    },
+    "candidate": {
+      "recallAt5": 0.9891304347826086,
+      "ndcgAt10": 0.9650351320990144,
+      "leaks": 0
+    },
+    "improved": [
+      "cedar-02-en",
+      "azur-03-en",
+      "azur-04-en",
+      "azur-05-en"
+    ],
+    "regressed": [
+      "moss-02-fr"
+    ],
+    "unanswerableCasesReturningEvidence": {
+      "baseline": 34,
+      "candidate": 34,
+      "total": 34
+    },
+    "limitations": [
+      "Returning evidence is not proof that a question is answerable.",
+      "No answers or independently approved labels are included; factual support and answer abstention remain unmeasured."
+    ]
+  },
+  "queryTimings": [
+    {
+      "id": "cedar-01-en",
+      "ms": 331.44549999999435,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "cedar-01-fr",
+      "ms": 322.34275000000343,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "cedar-02-en",
+      "ms": 321.35375000000204,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "cedar-02-fr",
+      "ms": 319.458083000005,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "cedar-03-en",
+      "ms": 323.26529100000334,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "cedar-03-fr",
+      "ms": 341.1134999999995,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "cedar-04-en",
+      "ms": 329.3650420000049,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "cedar-04-fr",
+      "ms": 325.11683300000004,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "cedar-05-en",
+      "ms": 327.31645800000115,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "cedar-05-fr",
+      "ms": 330.046875,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "azur-01-en",
+      "ms": 322.6358330000003,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "azur-01-fr",
+      "ms": 321.0046250000014,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "azur-02-en",
+      "ms": 333.4155000000028,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "azur-02-fr",
+      "ms": 329.77595799999835,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "azur-03-en",
+      "ms": 318.6288330000025,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "azur-03-fr",
+      "ms": 319.7190000000046,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "azur-04-en",
+      "ms": 325.3197500000024,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "azur-04-fr",
+      "ms": 314.90358299999934,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "azur-05-en",
+      "ms": 317.6182919999992,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "azur-05-fr",
+      "ms": 315.58050000000367,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "linden-01-en",
+      "ms": 582.4021250000005,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "linden-01-fr",
+      "ms": 377.3009170000005,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "linden-02-en",
+      "ms": 345.9659580000007,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "linden-02-fr",
+      "ms": 354.3752499999973,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "linden-03-en",
+      "ms": 401.6556669999991,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "linden-03-fr",
+      "ms": 358.52787499999977,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "linden-04-en",
+      "ms": 430.03933400000096,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "linden-04-fr",
+      "ms": 423.71774999999616,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "linden-05-en",
+      "ms": 361.1999579999974,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "linden-05-fr",
+      "ms": 429.62625000000116,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "sora-01-en",
+      "ms": 394.4939579999991,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "sora-01-fr",
+      "ms": 370.1041669999977,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "sora-02-en",
+      "ms": 412.4979999999996,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "sora-02-fr",
+      "ms": 589.8440830000036,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "sora-03-en",
+      "ms": 346.45579200000066,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "sora-03-fr",
+      "ms": 319.4784579999978,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "sora-04-en",
+      "ms": 338.5364580000023,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "sora-04-fr",
+      "ms": 336.7582079999993,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "sora-05-en",
+      "ms": 323.23241699999926,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "sora-05-fr",
+      "ms": 336.69312500000524,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "birch-01-en",
+      "ms": 331.18095899999753,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "birch-01-fr",
+      "ms": 320.81333299999824,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "birch-02-en",
+      "ms": 80.24879099999816,
+      "mode": "lexical",
+      "historical": true
+    },
+    {
+      "id": "birch-02-fr",
+      "ms": 80.5301660000041,
+      "mode": "lexical",
+      "historical": true
+    },
+    {
+      "id": "birch-03-en",
+      "ms": 336.5187920000026,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "birch-03-fr",
+      "ms": 320.4574169999978,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "birch-04-en",
+      "ms": 80.41983299999993,
+      "mode": "lexical",
+      "historical": true
+    },
+    {
+      "id": "birch-04-fr",
+      "ms": 80.77245799999946,
+      "mode": "lexical",
+      "historical": true
+    },
+    {
+      "id": "birch-05-en",
+      "ms": 337.9435830000002,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "birch-05-fr",
+      "ms": 367.8534579999978,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "moss-01-en",
+      "ms": 325.1811660000021,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "moss-01-fr",
+      "ms": 329.2764160000006,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "moss-02-en",
+      "ms": 320.9393330000021,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "moss-02-fr",
+      "ms": 327.54849999999715,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "moss-03-en",
+      "ms": 359.9926669999986,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "moss-03-fr",
+      "ms": 329.7237499999974,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "moss-04-en",
+      "ms": 315.6470830000035,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "moss-04-fr",
+      "ms": 321.18525000000227,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "moss-05-en",
+      "ms": 367.1354999999967,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "moss-05-fr",
+      "ms": 338.5352500000008,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "vale-01-en",
+      "ms": 347.71862499999406,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "vale-01-fr",
+      "ms": 399.3067499999961,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "vale-02-en",
+      "ms": 429.6596669999999,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "vale-02-fr",
+      "ms": 398.75679200000013,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "vale-03-en",
+      "ms": 694.6474170000001,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "vale-03-fr",
+      "ms": 413.6591249999983,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "vale-04-en",
+      "ms": 439.94204100000206,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "vale-04-fr",
+      "ms": 379.9883750000008,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "vale-05-en",
+      "ms": 397.39145799999824,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "vale-05-fr",
+      "ms": 361.06891700000415,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "reed-01-en",
+      "ms": 393.7929590000058,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "reed-01-fr",
+      "ms": 317.86383399999613,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "reed-02-en",
+      "ms": 461.64541699999245,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "reed-02-fr",
+      "ms": 354.71479099999124,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "reed-03-en",
+      "ms": 347.14191700000083,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "reed-03-fr",
+      "ms": 324.6664999999921,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "reed-04-en",
+      "ms": 318.51924999999756,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "reed-04-fr",
+      "ms": 323.61962500000664,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "reed-05-en",
+      "ms": 343.9257079999952,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "reed-05-fr",
+      "ms": 339.86500000000524,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "fern-01-en",
+      "ms": 342.9379159999953,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "fern-01-fr",
+      "ms": 336.8333330000023,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "fern-02-en",
+      "ms": 351.67241700000886,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "fern-02-fr",
+      "ms": 339.2037500000006,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "fern-03-en",
+      "ms": 418.388374999995,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "fern-03-fr",
+      "ms": 315.7327079999959,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "fern-04-en",
+      "ms": 322.82329200000095,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "fern-04-fr",
+      "ms": 342.25841700000456,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "fern-05-en",
+      "ms": 500.3231250000099,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "fern-05-fr",
+      "ms": 406.9595410000038,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "ember-01-en",
+      "ms": 352.48345800000243,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "ember-01-fr",
+      "ms": 505.47554200000013,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "ember-02-en",
+      "ms": 356.9527079999971,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "ember-02-fr",
+      "ms": 361.9840409999888,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "ember-03-en",
+      "ms": 470.336249999993,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "ember-03-fr",
+      "ms": 347.1629590000084,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "ember-04-en",
+      "ms": 343.6568330000009,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "ember-04-fr",
+      "ms": 445.0065830000094,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "ember-05-en",
+      "ms": 330.9291669999948,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "ember-05-fr",
+      "ms": 325.11558300000615,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "pearl-01-en",
+      "ms": 350.47833299999184,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "pearl-01-fr",
+      "ms": 808.3717919999908,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "pearl-02-en",
+      "ms": 567.3099999999977,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "pearl-02-fr",
+      "ms": 463.9297499999957,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "pearl-03-en",
+      "ms": 424.48016700000153,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "pearl-03-fr",
+      "ms": 406.7608340000006,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "pearl-04-en",
+      "ms": 356.99320799999987,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "pearl-04-fr",
+      "ms": 318.0843339999992,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "pearl-05-en",
+      "ms": 315.50479199999245,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "pearl-05-fr",
+      "ms": 375.3905000000086,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "nova-01-en",
+      "ms": 319.2295000000013,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "nova-01-fr",
+      "ms": 314.8095420000027,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "nova-02-en",
+      "ms": 331.596458,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "nova-02-fr",
+      "ms": 318.31658299999253,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "nova-03-en",
+      "ms": 323.6029589999962,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "nova-03-fr",
+      "ms": 316.3372079999972,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "nova-04-en",
+      "ms": 317.8038330000127,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "nova-04-fr",
+      "ms": 328.0101250000007,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "nova-05-en",
+      "ms": 326.87608299999556,
+      "mode": "hybrid",
+      "historical": false
+    },
+    {
+      "id": "nova-05-fr",
+      "ms": 319.23475000000326,
+      "mode": "hybrid",
+      "historical": false
+    }
+  ],
+  "providerCalls": 0,
+  "layout": "shared-with-explicit-subject",
+  "hardware": {
+    "cpu": "Apple M5",
+    "logicalCpus": 10,
+    "ramBytes": 34359738368,
+    "platform": "darwin",
+    "arch": "arm64",
+    "node": "22.14.0"
+  },
+  "measurements": [
+    {
+      "fixture": "shared",
+      "eligibleUnits": 1018,
+      "sources": 1016,
+      "distractors": 1000,
+      "indexingMs": 7007.437208000003,
+      "databaseBytes": 7675904,
+      "walBytes": 4161232
+    }
+  ],
+  "processPeakRssKiB": 1579168,
+  "fixtures": [
+    {
+      "family": "shared",
+      "directory": "fixture-0",
+      "referencesResolved": 1270,
+      "records": [
+        {
+          "logicalId": "cedar/spec",
+          "sha256": "ed2c0ced66de3de570ce352ae2785e485abe2960d6dc1e18b8d3b0c4e690c091",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_e76e1a33d55c4f04b4ca0629e12288f4",
+              "passageId": "passage_f8005c40dfc24764b30d66812f34a231"
+            }
+          ]
+        },
+        {
+          "logicalId": "azur/manuel",
+          "sha256": "383e45bdf5021d5efc6f75cc0b5eeece152227925a9cfa4ec305e20cdfe52d7a",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_da024bf0a1a54f4ebfa0b9fff8ea1ec5",
+              "passageId": "passage_3cd3b4c33d8346dfa7c0d1f143f06355"
+            }
+          ]
+        },
+        {
+          "logicalId": "linden/brief",
+          "sha256": "b4ed27810a5205b99df1616dc38a28d94f61699132cef93b8ca95613f0d12a78",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_1a78b4a1d177486fb933f793f682566b",
+              "passageId": "passage_a815bc3350714a96b43f2423c9c085d7"
+            }
+          ]
+        },
+        {
+          "logicalId": "linden/delivery",
+          "sha256": "81f8bcc04656e947b4aac71f89adbd4ef6d7feeb12ee481c34287b34b81f5970",
+          "references": [
+            {
+              "kind": "wiki",
+              "pageId": "page_81bfe777e5de48179bc88c0668820570",
+              "wikiRevisionId": "wiki_4e70325e608c4c4f84eed323b8fa8e6a",
+              "blockId": "body"
+            }
+          ]
+        },
+        {
+          "logicalId": "linden/preference",
+          "sha256": "ed7384f062cae004197b15905eca40c1ab32245662b62f49eb56d9a36ce63cef",
+          "references": [
+            {
+              "kind": "memory",
+              "memoryId": "memory_f83321d64bf84ed3bc885c139aa1b83b",
+              "memoryRevision": "8528a07dc5148cb26d95651f9a0248052ecd8f7d95f4de5dfbc7e10cca93b7c8"
+            }
+          ]
+        },
+        {
+          "logicalId": "sora/note",
+          "sha256": "5f68e76046ede725e58059819e1e9a5ff8af5be280fc9ef30a6068692154a727",
+          "references": [
+            {
+              "kind": "memory",
+              "memoryId": "memory_a6bcf27e56a3432986d9434faa8923f2",
+              "memoryRevision": "2a756eaa60cc0188c0d4a0ebb1c0d962055ebe2c7a5734e25d25943209c87128"
+            }
+          ]
+        },
+        {
+          "logicalId": "birch/old",
+          "sha256": "ce5c2b7d6b52442acd612b081397f866a31536adba25712fd295897ac8dad074",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_3ab778aeddae480987ecc41f7242fc16",
+              "passageId": "passage_9bc4f49d32c64dcda6db090a7b113825"
+            }
+          ]
+        },
+        {
+          "logicalId": "birch/new",
+          "sha256": "5920ccb96cb0c4adecb98a5de5e391492a2eb20a1694ac4c68d6bb7f6010550f",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_62ce93e7f5c2496795bb6a10f656fba3",
+              "passageId": "passage_c3661dfaae6b4d1aa972ee0c8b81e20e"
+            }
+          ]
+        },
+        {
+          "logicalId": "moss/a",
+          "sha256": "9c0c2533c0e481caa0330036522778f2680d7e9365543f68fe1c5af8dba9f9b7",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_dd538ba14d9f43f9a221767bbb6e02f4",
+              "passageId": "passage_53c6b3a7865b41d7a7220f19880f635f"
+            }
+          ]
+        },
+        {
+          "logicalId": "moss/b",
+          "sha256": "790e02c54495674f6aa7a0d92e3d081880167df9ef65b01b532881b01595b7bc",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_8918deac9e794f26affe73cdf4ee2344",
+              "passageId": "passage_bca0b98c580d425e8fc4cd344f3532e9"
+            }
+          ]
+        },
+        {
+          "logicalId": "vale/brief",
+          "sha256": "9557de358e2cf1c2aee350fb329e54729c31f15b41ddb0f6b4fdc02b2782a443",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_8c9e41737f4a46b88b51c1c9ae5a3bf5",
+              "passageId": "passage_3b914e98c06645e8b514b7b7d21787e2"
+            }
+          ]
+        },
+        {
+          "logicalId": "reed/thread",
+          "sha256": "7b16b5c1d64e9252e5484c33a34361f0fd84a805e708b82d92777a7fab427bae",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_6f7c7b6027924be4ad29b7e506da6012",
+              "passageId": "passage_51c2171524f54e94a50e62dbd9d93345"
+            }
+          ]
+        },
+        {
+          "logicalId": "fern/original",
+          "sha256": "cd237f53983dbf6d8ab4c164ca34d99e22358aface95f7eaa84e43fa3922f6a2",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_323bf3a16e2d48b9854ed9496483afa9",
+              "passageId": "passage_265740b460074cb584d5f02f14b3945f"
+            }
+          ]
+        },
+        {
+          "logicalId": "fern/copy",
+          "sha256": "3d19174ab5b19652fc8cc545e9f2387a0578cca1a77d5c63ba7d11c371a4cf3d",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_59f11d5e16704801bcda8572879d38be",
+              "passageId": "passage_84a73e554f024fee82892bd226fe05f5"
+            }
+          ]
+        },
+        {
+          "logicalId": "ember/public",
+          "sha256": "98824a9efe4e55e762ed629589241585c23f92aeba70a23c395f561749c20e6b",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_dd8c0043279a43babf6fa41091e36c18",
+              "passageId": "passage_e70394d20665416faeaf912d045ba9e6"
+            }
+          ]
+        },
+        {
+          "logicalId": "ember/restricted",
+          "sha256": "3b829621d9e3d78b504106ea9e7d52bd069dff4e8e2cf3a00057b9e810171bc7",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_b002a51c1e7544e0ad0c671a9e7307ac",
+              "passageId": "passage_e8998e1fd94b40c0ad13a3148535ad63"
+            }
+          ]
+        },
+        {
+          "logicalId": "pearl/active",
+          "sha256": "e1dc448874898842075f0eabad423b7d75435e07e9d9f7906385d7aeb1cf8293",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_ae6dddfe8fc14e549a01bc3b9ee0aa55",
+              "passageId": "passage_6666903d0d104d728ab4e1e6ba3571a7"
+            }
+          ]
+        },
+        {
+          "logicalId": "pearl/archived",
+          "sha256": "42b541d381256b3cec549c0f99d5d69756bc8a345be13b74a0eb94e8da291b3c",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_3bd14f712a1144ea84492030493e9f59",
+              "passageId": "passage_1e66052d6b2b4327af50395ab416960f"
+            }
+          ]
+        },
+        {
+          "logicalId": "nova/studio",
+          "sha256": "b7b5f429b8db6cd692fc7895b50737551e4e61c1219d2e164ad85c8ba0f89bb1",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_03ca806902aa4a4ab3df0f0cf196493b",
+              "passageId": "passage_09025786caa44a319790b90c07a0428f"
+            }
+          ]
+        },
+        {
+          "logicalId": "nova/lab",
+          "sha256": "51474f02917f978a4f9f17f196ce842749b07469dd0d047f7facdca395e5abef",
+          "references": [
+            {
+              "kind": "source",
+              "revisionId": "revision_b85a2cd73e7a4ba19ae23f7e02ea5e67",
+              "passageId": "passage_b7f8d43482bf470fac3cb7c45c9d1e53"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "version": 1,
+    "corpusHash": "87df9981365ef4c1ec1a8f1e5d7430d2f2e0d7388f9ade36a73991b44c186c05",
+    "cases": 120,
+    "heldOut": 80,
+    "reviewed": 0,
+    "recallAt5": 0.9891304347826086,
+    "ndcgAt10": 0.9650351320990144,
+    "correctAbstention": null,
+    "leakCount": 0,
+    "acceptance": "not-certified",
+    "limitations": [
+      "Metrics describe supplied run results; this scorer does not certify provenance, citation resolution or factual support.",
+      "Human-reviewed labels and reviewed generated answers are required for product acceptance."
+    ],
+    "rows": [
+      {
+        "id": "cedar-01-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-01-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0.3562071871080222,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-02-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-02-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-03-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-03-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0.31546487678572877,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-04-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-04-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-05-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-05-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-01-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-01-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-02-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-02-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-03-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-03-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-04-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-04-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-05-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.43067655807339306,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-05-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-01-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-01-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-02-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-02-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-03-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-03-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-04-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-04-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-05-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.9674679834891693,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-05-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.9674679834891693,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-01-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-01-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-02-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-02-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-03-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-03-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-04-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-04-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-05-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-05-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 0.5,
+        "ndcgAt10": 0.48247555939075504,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.9197207891481876,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.8772153153380493,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.8503449055347546,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      }
+    ]
+  },
+  "limitations": [
+    "Shared queries include explicit subject-family context; they are not directly comparable with the isolated unqualified questions. Distractors are synthetic templates, not a representative company corpus.",
+    "Proposed labels were authored by an assistant and have not been independently approved.",
+    "Scenario split is not sealed; this is not held-out acceptance evidence.",
+    "Temporal fixture revision timestamps are seeded directly in the disposable database; originals and revision IDs are created by ingestion.",
+    "Wiki and memory fixture statements are explicitly user-attributed, not independently verified.",
+    "Contradiction, duplicate lineage, alias and incomplete-thread expectations remain content-level review scenarios, not complete connector or relationship fixtures.",
+    "No answers were generated: factual support and answer abstention are unmeasured."
+  ]
+}

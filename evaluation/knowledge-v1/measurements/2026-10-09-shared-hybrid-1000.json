@@ -1,0 +1,1898 @@
+{
+  "version": 1,
+  "createdAt": "2026-10-09T13:49:17.436Z",
+  "buildId": "f284c5e942cd2bae723583c3c3cbaa7eebd5a4dacb9c05f1b91e78762d49cfb3",
+  "candidatePackHash": "91625ae6fc7bb4b3669f8e17813adc5c6c3eec2cc96102344ea9f9c061703db5",
+  "status": "unreviewed-diagnostic-run",
+  "acceptance": "not-certified",
+  "humanApproved": 0,
+  "variant": "hybrid-local",
+  "modelFingerprint": "32cbfcee1f9bf6e9e130eeda7c141c56984b008992be5fff325c3fa4d57470e0",
+  "comparison": {
+    "status": "unreviewed-diagnostic-comparison",
+    "acceptance": "not-certified",
+    "baseline": {
+      "recallAt5": 1,
+      "ndcgAt10": 0.8217319259383274,
+      "leaks": 0
+    },
+    "candidate": {
+      "recallAt5": 1,
+      "ndcgAt10": 0.8217319259383274,
+      "leaks": 0
+    },
+    "improved": [],
+    "regressed": [],
+    "unanswerableCasesReturningEvidence": {
+      "baseline": 34,
+      "candidate": 34,
+      "total": 34
+    },
+    "limitations": [
+      "Returning evidence is not proof that a question is answerable.",
+      "No answers or independently approved labels are included; factual support and answer abstention remain unmeasured."
+    ]
+  },
+  "queryTimings": [
+    {
+      "id": "cedar-01-en",
+      "ms": 82.83099999999831,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "cedar-01-fr",
+      "ms": 81.70129199999792,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "cedar-02-en",
+      "ms": 80.93841600000087,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "cedar-02-fr",
+      "ms": 79.16641600000003,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "cedar-03-en",
+      "ms": 79.4104159999988,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "cedar-03-fr",
+      "ms": 79.2722500000018,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "cedar-04-en",
+      "ms": 79.47775000000183,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "cedar-04-fr",
+      "ms": 79.16579199999978,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "cedar-05-en",
+      "ms": 78.76516699999775,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "cedar-05-fr",
+      "ms": 82.32341699999961,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "azur-01-en",
+      "ms": 148.93820799999958,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "azur-01-fr",
+      "ms": 99.71091700000034,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "azur-02-en",
+      "ms": 84.9597079999985,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "azur-02-fr",
+      "ms": 84.82991699999911,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "azur-03-en",
+      "ms": 89.47129199999836,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "azur-03-fr",
+      "ms": 81.33954200000153,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "azur-04-en",
+      "ms": 81.73004100000253,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "azur-04-fr",
+      "ms": 92.28933300000062,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "azur-05-en",
+      "ms": 79.30754199999865,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "azur-05-fr",
+      "ms": 110.04645799999707,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "linden-01-en",
+      "ms": 100.6921250000014,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "linden-01-fr",
+      "ms": 85.62516700000197,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "linden-02-en",
+      "ms": 84.08208299999751,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "linden-02-fr",
+      "ms": 79.50579199999993,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "linden-03-en",
+      "ms": 80.02012500000274,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "linden-03-fr",
+      "ms": 78.70595799999865,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "linden-04-en",
+      "ms": 79.19462500000009,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "linden-04-fr",
+      "ms": 81.85541699999885,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "linden-05-en",
+      "ms": 98.69404199999917,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "linden-05-fr",
+      "ms": 83.63429199999882,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "sora-01-en",
+      "ms": 78.95245799999975,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "sora-01-fr",
+      "ms": 79.11466700000165,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "sora-02-en",
+      "ms": 78.46491700000115,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "sora-02-fr",
+      "ms": 79.7280000000028,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "sora-03-en",
+      "ms": 105.44804099999965,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "sora-03-fr",
+      "ms": 98.46779199999946,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "sora-04-en",
+      "ms": 80.19383399999788,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "sora-04-fr",
+      "ms": 82.02141599999959,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "sora-05-en",
+      "ms": 88.67383399999744,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "sora-05-fr",
+      "ms": 113.93962499999907,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "birch-01-en",
+      "ms": 100.82429200000115,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "birch-01-fr",
+      "ms": 88.13970799999879,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "birch-02-en",
+      "ms": 98.42062500000247,
+      "mode": "lexical",
+      "historical": true
+    },
+    {
+      "id": "birch-02-fr",
+      "ms": 91.39849999999933,
+      "mode": "lexical",
+      "historical": true
+    },
+    {
+      "id": "birch-03-en",
+      "ms": 86.28429200000028,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "birch-03-fr",
+      "ms": 87.77649999999994,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "birch-04-en",
+      "ms": 104.8105420000029,
+      "mode": "lexical",
+      "historical": true
+    },
+    {
+      "id": "birch-04-fr",
+      "ms": 93.85404199999903,
+      "mode": "lexical",
+      "historical": true
+    },
+    {
+      "id": "birch-05-en",
+      "ms": 80.85479199999827,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "birch-05-fr",
+      "ms": 96.27562500000204,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "moss-01-en",
+      "ms": 94.52208400000018,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "moss-01-fr",
+      "ms": 105.66454199999862,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "moss-02-en",
+      "ms": 88.6286250000012,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "moss-02-fr",
+      "ms": 104.52279100000305,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "moss-03-en",
+      "ms": 103.8004170000022,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "moss-03-fr",
+      "ms": 86.10691700000098,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "moss-04-en",
+      "ms": 80.95141699999658,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "moss-04-fr",
+      "ms": 79.59862499999872,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "moss-05-en",
+      "ms": 79.94912499999919,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "moss-05-fr",
+      "ms": 83.34404200000426,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "vale-01-en",
+      "ms": 82.52304100000038,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "vale-01-fr",
+      "ms": 80.66033299999981,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "vale-02-en",
+      "ms": 79.82329200000095,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "vale-02-fr",
+      "ms": 80.79841700000543,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "vale-03-en",
+      "ms": 112.23066700000345,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "vale-03-fr",
+      "ms": 85.80274999999529,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "vale-04-en",
+      "ms": 81.0536659999998,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "vale-04-fr",
+      "ms": 79.70179199999984,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "vale-05-en",
+      "ms": 81.38295899999503,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "vale-05-fr",
+      "ms": 81.00374999999622,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "reed-01-en",
+      "ms": 81.64345899999898,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "reed-01-fr",
+      "ms": 84.92649999999412,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "reed-02-en",
+      "ms": 87.69145800000115,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "reed-02-fr",
+      "ms": 80.99808299999859,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "reed-03-en",
+      "ms": 78.67562500000349,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "reed-03-fr",
+      "ms": 83.1329160000023,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "reed-04-en",
+      "ms": 84.53187500000058,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "reed-04-fr",
+      "ms": 80.44825000000128,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "reed-05-en",
+      "ms": 83.7512080000015,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "reed-05-fr",
+      "ms": 78.56783300000097,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "fern-01-en",
+      "ms": 78.3317920000045,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "fern-01-fr",
+      "ms": 81.57145799999853,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "fern-02-en",
+      "ms": 85.02975000000151,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "fern-02-fr",
+      "ms": 105.3695000000007,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "fern-03-en",
+      "ms": 96.53850000000239,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "fern-03-fr",
+      "ms": 86.69462499999645,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "fern-04-en",
+      "ms": 82.31212500000402,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "fern-04-fr",
+      "ms": 84.72133400000166,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "fern-05-en",
+      "ms": 80.94016600000032,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "fern-05-fr",
+      "ms": 79.6407920000056,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "ember-01-en",
+      "ms": 78.75775000000431,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "ember-01-fr",
+      "ms": 80.29079199999978,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "ember-02-en",
+      "ms": 84.61895899999945,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "ember-02-fr",
+      "ms": 77.96545799999876,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "ember-03-en",
+      "ms": 91.72333300000173,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "ember-03-fr",
+      "ms": 81.64304200000333,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "ember-04-en",
+      "ms": 80.16312499999913,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "ember-04-fr",
+      "ms": 79.45920800000022,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "ember-05-en",
+      "ms": 80.0602080000026,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "ember-05-fr",
+      "ms": 80.94720799999777,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "pearl-01-en",
+      "ms": 79.13029200000165,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "pearl-01-fr",
+      "ms": 81.50704199999745,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "pearl-02-en",
+      "ms": 80.03724999999395,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "pearl-02-fr",
+      "ms": 81.63941599999816,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "pearl-03-en",
+      "ms": 95.22441699999763,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "pearl-03-fr",
+      "ms": 88.4163750000007,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "pearl-04-en",
+      "ms": 89.00574999999662,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "pearl-04-fr",
+      "ms": 85.4597500000018,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "pearl-05-en",
+      "ms": 81.85237500000221,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "pearl-05-fr",
+      "ms": 87.7308750000011,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "nova-01-en",
+      "ms": 81.14204199999949,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "nova-01-fr",
+      "ms": 85.14512500000274,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "nova-02-en",
+      "ms": 96.03870900000038,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "nova-02-fr",
+      "ms": 86.01120799999626,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "nova-03-en",
+      "ms": 80.50974999999744,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "nova-03-fr",
+      "ms": 81.5959159999984,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "nova-04-en",
+      "ms": 85.84379199999967,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "nova-04-fr",
+      "ms": 113.96687499999825,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "nova-05-en",
+      "ms": 93.8764580000061,
+      "mode": "lexical",
+      "historical": false
+    },
+    {
+      "id": "nova-05-fr",
+      "ms": 84.68812500000058,
+      "mode": "lexical",
+      "historical": false
+    }
+  ],
+  "providerCalls": 0,
+  "layout": "shared-with-explicit-subject",
+  "hardware": {
+    "cpu": "Apple M5",
+    "logicalCpus": 10,
+    "ramBytes": 34359738368,
+    "platform": "darwin",
+    "arch": "arm64",
+    "node": "22.14.0"
+  },
+  "measurements": [
+    {
+      "fixture": "shared",
+      "eligibleUnits": 1018,
+      "sources": 1016,
+      "distractors": 1000,
+      "indexingMs": 7984.353082999998,
+      "databaseBytes": 7892992,
+      "walBytes": 4152992
+    }
+  ],
+  "processPeakRssKiB": 1655488,
+  "fixtures": [
+    {
+      "family": "shared",
+      "referencesResolved": 1270,
+      "recordCount": 20
+    }
+  ],
+  "metrics": {
+    "version": 1,
+    "corpusHash": "e21a37947ab0c34c5f6ca676165d2b2d992d1cc05f63e4bbadf48525edc239cb",
+    "cases": 120,
+    "heldOut": 80,
+    "reviewed": 0,
+    "recallAt5": 1,
+    "ndcgAt10": 0.8217319259383274,
+    "correctAbstention": null,
+    "leakCount": 0,
+    "acceptance": "not-certified",
+    "limitations": [
+      "Metrics describe supplied run results; this scorer does not certify provenance, citation resolution or factual support.",
+      "Human-reviewed labels and reviewed generated answers are required for product acceptance."
+    ],
+    "rows": [
+      {
+        "id": "cedar-01-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-01-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-02-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0.3010299956639812,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-02-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-03-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.43067655807339306,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-03-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-04-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.43067655807339306,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-04-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-05-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "cedar-05-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.43067655807339306,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-01-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-01-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-02-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.43067655807339306,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-02-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-03-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0.3562071871080222,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-03-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-04-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0.31546487678572877,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-04-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-05-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 0,
+        "ndcgAt10": 0.3010299956639812,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "azur-05-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-01-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-01-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-02-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6934264036172708,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-02-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6934264036172708,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-03-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.5,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-03-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.5,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-04-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-04-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-05-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "linden-05-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.9060254355346823,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-01-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-01-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-02-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-02-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-03-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-03-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-04-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-04-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-05-en",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "sora-05-fr",
+        "split": "development",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.38685280723454163,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.5,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.38685280723454163,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "birch-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.5012658353418871,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.9197207891481876,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.5012658353418871,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.5706417189553201,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.5706417189553201,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6509209298071326,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6509209298071326,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "moss-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.9197207891481876,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "vale-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "reed-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6934264036172708,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "fern-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.5,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "ember-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 0.6309297535714575,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "pearl-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-01-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-01-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-02-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-02-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-03-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-03-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-04-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-04-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": 1,
+        "ndcgAt10": 1,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-05-en",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      },
+      {
+        "id": "nova-05-fr",
+        "split": "held-out",
+        "reviewed": false,
+        "recallAt5": null,
+        "ndcgAt10": null,
+        "leaks": [],
+        "abstentionCorrect": null
+      }
+    ]
+  },
+  "limitations": [
+    "Proposed labels were authored by an assistant and have not been independently approved.",
+    "Scenario split is not sealed; this is not held-out acceptance evidence.",
+    "Temporal fixture revision timestamps are seeded directly in the disposable database; originals and revision IDs are created by ingestion.",
+    "Wiki and memory fixture statements are explicitly user-attributed, not independently verified.",
+    "Contradiction, duplicate lineage, alias and incomplete-thread expectations remain content-level review scenarios, not complete connector or relationship fixtures.",
+    "No answers were generated: factual support and answer abstention are unmeasured."
+  ],
+  "latency": {
+    "scope": "query embedding plus retrieval, after index build; 116 non-historical queries",
+    "p50Ms": 82.02141599999959,
+    "p95Ms": 105.66454199999862
+  }
+}
