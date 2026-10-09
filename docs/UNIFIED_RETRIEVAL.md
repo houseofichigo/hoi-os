@@ -64,3 +64,5 @@ Permission filtering occurs before reuse. Old generations are not independently 
 ## Candidate evaluation corpus
 
 A 120-question fictional candidate pack is available at `evaluation/knowledge-v1/candidates/REVIEW.md`, with structured proposed labels and a checksum manifest. All labels remain pending independent human review; logical fixture references are not yet materialized engine citations. The proposed 40/80 split must be reviewed and sealed outside tuning access before it is used for acceptance. The structural validator rejects fake approval states, missing references and cross-split families. No measured recall or factual-support claim follows from generating the pack.
+
+The candidate pack now has a reproducible materialization runner. It creates separate fictional workspaces, maps proposed labels to actual engine evidence and tests access/history boundaries. Exact-reference checks pass in its diagnostic run. The draft is still unreviewed and unsealed; the runner does not generate answers or certify quality. See `evaluation/knowledge-v1/README.md` for setup exceptions and reproduction commands.

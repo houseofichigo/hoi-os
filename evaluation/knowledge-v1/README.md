@@ -46,3 +46,15 @@ Review sequence:
 5. Run variants against the frozen fixtures, validate exact citations with current permissions, then independently review generated answers for factual support and abstention.
 
 `node scripts/validate-review-pack.mjs evaluation/knowledge-v1/candidates/review-pack.json` validates draft counts, references and split structure. It explicitly refuses purported human approval and never issues acceptance certification. The manifest pins the draft content checksum.
+
+## Materialized diagnostic runs
+
+```sh
+node scripts/run-review-pack.mjs evaluation/knowledge-v1/candidates/review-pack.json NEW_DIRECTORY
+```
+
+The runner requires a directory that does not exist, creates 12 isolated fictional workspaces and preserves their originals, then runs all 120 questions through unified lexical search as Codex. It writes `run.json` (provenance, exact-reference mappings and diagnostic metrics) and `scoring-input.json`. An existing output directory is refused. A failed run is left intact for inspection, never overwritten on retry. No provider is called, no model is downloaded and no existing workspace is opened.
+
+Source ingestion, wiki publication, attributed-memory approval and source archiving use the engine. Restricted fixtures use real host permissions. For the explicitly named Birch temporal fixture only, recorded revision timestamps are seeded in its disposable database to represent January history; this is a fixture setup technique, not a supported user write operation. All proposed relevant references and every returned primary reference must resolve through the engine. Forbidden references must fail resolution before scoring. The source text never supplies execution authority.
+
+The [first diagnostic report](measurements/2026-10-09-draft-lexical-run.json) remains **unreviewed**. Logical labels resolve in a separate run artifact; the original draft pack and its checksum remain unchanged. Duplicate-lineage, alias, contradiction and partial-thread records currently test content retrieval, not full connector/relationship behavior. This limitation is recorded in every report. Answers are not generated, so correct answer abstention and factual support remain null/unmeasured. A provisional relevance score is useful for finding failures but must not be reported as product acceptance or as a sealed held-out result.
