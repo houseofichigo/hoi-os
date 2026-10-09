@@ -1,5 +1,6 @@
-# House of Ichigo OS
+# HOI OS — Community Skills
 
+<<<<<<< HEAD
 Local release preparation: [publication boundary and remaining gates](docs/PUBLICATION_READINESS.md). No publication in this batch.
 
 Local Knowledge Core development: [editable wikis, connected map and grounded retrieval](docs/KNOWLEDGE_CORE.md). Schema 16 is unreleased.
@@ -9,9 +10,15 @@ Local Knowledge Core development: [editable wikis, connected map and grounded re
 A local operating layer for knowledge, decisions, and meeting preparation. The core app runs independently; Claude Code and Codex skills are optional. Keep private information on your computer, separate from the product repository.
 
 **Unreleased local development.** The package base remains the historical `v0.1.0-alpha.2`; it does not identify a newly published release. See [validation](docs/VALIDATION.md) and [stable-release gates](docs/ACCEPTANCE.md).
+=======
+**Open instructions for a personal knowledge and work system. Reuse them, adapt them, and fork the repository.**
 
-**New user:** follow the [visual user SOP](docs/USER_SOP.md) for the complete install → onboard → bounded ingest → organise → wiki → second brain → Workspace App operating flow.
+HOI OS keeps its name, but your workspace, organization, sources and accounts are your own. This MIT-licensed package contains **21 skills: 20 operational skills and one installation/availability guide**.
+>>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
 
+> **Skills preview — 0.2.0-alpha.1.** The separate HOI OS app is still in development and will be published when ready. This repository does not currently distribute the new app. Operational skills need its compatible engine; importing a skill alone does not make ingestion, connectors or tools work.
+
+<<<<<<< HEAD
 Current local hardening: [Batch F audit](docs/ENGINE_BATCH_F.md) and [security evidence](docs/SECURITY_EVIDENCE.md). These describe unreleased code; live/provider/platform/pilot gates remain open.
 
 Current local UI update: [Consulting, focused chat and reviewed Skills](docs/CONSULTING_SKILLS.md) (schema 14; unreleased).
@@ -76,43 +83,53 @@ an older engine; use a compatible restored copy instead.
 ## Historical published release — installation skill
 
 [Download hoi-install.zip](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-install.zip) · [Download chat guide](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-install.md) · [Download historical 14 operational skills](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/hoi-os-skills.zip) · [Checksums](https://github.com/houseofichigo/hoi-os/releases/download/v0.1.0-alpha.2/SHA256SUMS)
+=======
+## Explore and download
 
-The installer skill guides setup. The operational skills require the installed core and a private workspace; downloading them alone does not install the OS. The collection ZIP is not a single-skill upload.
+- [Browse all 21 skills](docs/SKILLS.md)
+- [Download the complete collection](dist/hoi-os-skills-0.2.0-alpha.1.zip)
+- [Individual skill ZIPs](dist/individual/) — one skill per import
+- [Checksums](dist/SHA256SUMS)
+- [Getting started](docs/GETTING_STARTED.md) · [Compatibility](docs/COMPATIBILITY.md)
+>>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
 
-**Claude chat:** upload `hoi-install.zip` through **Customize → Skills → + → Create skill → Upload a skill**, enable it, and ask: “Use hoi-install to help me install HOI OS on my computer.” Account/organization settings must allow skills and code execution. [Official instructions](https://support.claude.com/en/articles/12512180-use-skills-in-claude).
+The collection ZIP is not a single-skill upload. Bundled scripts are not executed by downloading or inspecting it.
 
-**ChatGPT:** install the standalone guide where your interface supports skills. Otherwise attach `hoi-install.md` and ask: “Use this guide to help me install HOI OS on my computer. Ask for missing setup choices and check my diagnostic results.” An attachment provides conversation guidance, not a persistent skill installation. No plugin-directory submission is included. [Official skill documentation](https://learn.chatgpt.com/docs/build-skills).
+## What the skills cover
 
-Chat-only guidance cannot access your local database or install software on your computer. A cloud code-execution container is not your local workspace.
+| Area | Examples |
+| --- | --- |
+| Daily work | Chief of Staff, meeting preparation, project briefs, task extraction |
+| Knowledge | Bounded ingestion, evidence retrieval, wiki authoring, reviewed memory |
+| Organization | Source organization, consolidation, knowledge map |
+| Governance | Audit, security review, evaluation and knowledge review |
+| Setup | Availability guidance, onboarding and capability proposals |
 
-## Install with Codex
+Skills provide instructions. The engine owns storage, permissions, exact-action approvals and executable tools. Skills cannot grant themselves permissions or approve their own proposals.
 
-Paste into a local Codex session:
+## Start here
 
-```text
-Install HOI OS v0.1.0-alpha.2 from https://github.com/houseofichigo/hoi-os.
-Read skills/hoi-install/SKILL.md at that tag and follow its local setup guide.
-Use the Codex adapter. Ask only for missing product and private workspace locations.
-Preserve existing files, run diagnostics, then help me open the private workspace and use $hoi-onboard.
-```
+**Exploring or contributing?** Read a skill, adapt it for your system, or fork the repository. No account or API key is needed to read or fork it.
 
-If Codex cannot fetch the guide, download and attach `hoi-install.md`. Installation requires local execution on your intended computer.
+**Already using a compatible HOI OS app?** Follow [Getting started](docs/GETTING_STARTED.md) and that app's adapter workflow. Check API and required operations before activation.
 
-## Install with Claude Code
+**Waiting for the app?** The new app is not available from this repository yet. No installation or download link is implied. The old engine is historical and does not satisfy the current skill contracts.
 
-Paste into a local Claude Code session:
+## Open for reuse
 
-```text
-Install HOI OS v0.1.0-alpha.2 from https://github.com/houseofichigo/hoi-os.
-Read skills/hoi-install/SKILL.md at that tag and follow its local setup guide.
-Use the Claude adapter. Ask only for missing product and private workspace locations.
-Preserve existing files, run diagnostics, then help me open the private workspace and use /hoi-onboard.
-```
+The [MIT licence](LICENSE) permits use, modification, redistribution and commercial reuse, with its copyright and licence notices retained. Forks are welcome. Use your own data, credentials and organization profile. Do not imply official endorsement of a modified fork.
 
+See [Contributing](CONTRIBUTING.md) for changes and [Security](SECURITY.md) for reporting concerns without publishing sensitive data.
+
+<<<<<<< HEAD
 ## Historical published release — manual installation
+=======
+## What changed
+>>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
 
-Install [Git](https://git-scm.com/downloads) and [Node.js](https://nodejs.org/en/download) first. Node 22.14+ is required; Node 22 and 24 are the tested release lines. npm ships with Node. You need your own assistant access; a separate model API key is optional.
+The default branch now focuses on skills. The earlier application is preserved in [the previous source snapshot](https://github.com/houseofichigo/hoi-os/tree/9079c5c2a3d31fbae200933eff3c5fffbee4ab12) and [historical releases](https://github.com/houseofichigo/hoi-os/releases). Existing tags have not been replaced. The separate new app will have its own publication gate.
 
+<<<<<<< HEAD
 These commands work in macOS Terminal and Windows PowerShell. Use a new product directory and a private workspace outside it:
 
 ```sh
@@ -236,3 +253,6 @@ Local implementation note: [Interactive Chat results, Activity and Suggestions](
 Read [governance](docs/RULES.md), [filesystem ownership](docs/FILESYSTEM.md), [tool conventions](docs/TOOL_CONVENTIONS.md) and the [generated operation reference](docs/OPERATIONS_REFERENCE.md). The engine remains authoritative. Optional adapter updates install versioned guide copies and preserve customized manuals; app-only setup creates no assistant instructions. Run `npm run docs:sync` to regenerate references and `npm run docs:check` to detect drift. This documentation describes the unreleased app, not a new public skills release.
 
 Local schema-19 work: [Unified retrieval and reviewed memory](docs/UNIFIED_RETRIEVAL.md) records implementation, verification and remaining acceptance gates. Semantic search is optional; private migration and publication are separate.
+=======
+[Changelog](CHANGELOG.md) · [Validation limits](docs/VALIDATION.md)
+>>>>>>> 66fcc668b3a4e0085bdc3eb3d23209fadb2ba052
