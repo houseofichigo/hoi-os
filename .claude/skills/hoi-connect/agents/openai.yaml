@@ -1,0 +1,4 @@
+interface:
+  display_name: "Connections"
+  short_description: "Check which information sources are available."
+  default_prompt: "Use $hoi-connect for this request, respecting HOI review and source permissions."

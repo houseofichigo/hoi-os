@@ -1,3 +1,21 @@
+import { RETRIEVAL_SQL } from "./retrieval-schema.js";
+import { recoverMemoryWrites } from "./reviewed-memory.js";
+import { ACTIVITY_SQL } from "./activity-schema.js";
+import { CHAT_SEND_SQL } from "./chat-schema.js";
+import { GOOGLE_ACTION_SQL } from "./google-actions.js";
+import { AI_SQL, AUTO_AI_SQL } from "./ai.js";
+import { WIKI_CORE_SQL, migrateWikiIdentities } from "./wiki-core.js";
+import { SKILL_LIBRARY_SQL } from "./skill-library.js";
+import { DAILY_WORKSPACE_SQL } from "./daily-workspace.js";
+import { INTAKE_RELIABILITY_SQL } from "./intake-schema.js";
+import { SYNC_SQL } from "./sync.js";
+import { WORKSPACE_SQL } from "./workspace.js";
+import { HUB_SQL } from "./hub.js";
+import { CALENDAR_SQL } from "./calendar.js";
+import { CHAT_SCHEMA_SQL, CONVERSATION_SQL } from "./chat-schema.js";
+import { MAINTENANCE_SCHEMA_SQL } from "./maintenance-schema.js";
+import { INTAKE_SCHEMA_SQL } from "./work-intake-schema.js";
+import { TASK_SCHEMA_SQL } from "./task-schema.js";
 import Database from "better-sqlite3";
 import {
   existsSync,
@@ -25,7 +43,10 @@ import {
   type Evidence,
 } from "./schema.js";
 
-export const CURRENT_SCHEMA_VERSION = 2;
+export const CURRENT_SCHEMA_VERSION = 19;
+export const SUPPORTED_SCHEMA_VERSIONS = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+];
 export const WIKI_SCHEMA_SQL = `CREATE TABLE IF NOT EXISTS wiki_pages(id TEXT PRIMARY KEY,slug TEXT NOT NULL,title TEXT NOT NULL,type TEXT NOT NULL,status TEXT NOT NULL,owner TEXT,entities TEXT NOT NULL,allowed_hosts TEXT NOT NULL,content_path TEXT NOT NULL,effective_date TEXT,reviewed_at TEXT,supersedes TEXT,created_at TEXT NOT NULL,updated_at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS wiki_evidence(id TEXT PRIMARY KEY,page_id TEXT NOT NULL REFERENCES wiki_pages(id),revision_id TEXT NOT NULL,passage_id TEXT NOT NULL,quote TEXT NOT NULL,relation TEXT NOT NULL,created_at TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS wiki_pages_slug ON wiki_pages(slug);`;
@@ -50,13 +71,14 @@ export class Store {
     const version = Number(
       (this.db.prepare("PRAGMA user_version").get() as any).user_version,
     );
-    if (![1, CURRENT_SCHEMA_VERSION].includes(version)) {
+    if (!SUPPORTED_SCHEMA_VERSIONS.includes(version)) {
       this.db.close();
       throw Error(
         `Unsupported schema ${version}; run a compatible release or restore backup`,
       );
     }
     this.schemaVersion = version;
+    try { recoverMemoryWrites(this); } catch(error) { this.db.close(); throw error; }
   }
   assertSchema(minimum: number, feature: string) {
     if (this.schemaVersion < minimum)
@@ -77,13 +99,16 @@ export class Store {
     return this.db.prepare(sql).run(...args);
   }
   tx<T>(fn: () => T): T {
-    this.db.exec("BEGIN IMMEDIATE");
+    const nested = this.db.inTransaction;
+    const savepoint = uid("tx");
+    this.db.exec(nested ? `SAVEPOINT ${savepoint}` : "BEGIN IMMEDIATE");
     try {
       const v = fn();
-      this.db.exec("COMMIT");
+      this.db.exec(nested ? `RELEASE ${savepoint}` : "COMMIT");
       return v;
     } catch (e) {
-      this.db.exec("ROLLBACK");
+      this.db.exec(nested ? `ROLLBACK TO ${savepoint}` : "ROLLBACK");
+      if (nested) this.db.exec(`RELEASE ${savepoint}`);
       throw e;
     }
   }
@@ -93,13 +118,19 @@ export class Store {
   policy() {
     return policySchema.parse(readYaml(this.path("policies/actions.yaml")));
   }
-  allowed(source: any, host: Host) {
+  allowed(source: any, host: Host, history = false) {
     const p = this.policy();
     const m =
       typeof source.metadata === "string"
         ? JSON.parse(source.metadata)
         : source.metadata;
     return (
+      (history ||
+        this.schemaVersion < 8 ||
+        this.one(
+          "SELECT state FROM source_lifecycle WHERE source_id=?",
+          source.id,
+        )?.state !== "archived") &&
       p.actions.read === "allow" &&
       !p.deniedHosts.includes(host) &&
       !p.deniedSources.includes(source.id) &&
@@ -140,10 +171,20 @@ export class Store {
       return false;
     }
   }
-  memories() {
+  knowledgeActive(id: string) {
+    return (
+      this.schemaVersion < 5 ||
+      !this.one(
+        "SELECT target_id FROM knowledge_dispositions WHERE target_id=?",
+        id,
+      )
+    );
+  }
+  memories(includeRetired = false) {
     return readdirSync(this.path("memory"))
       .filter((f) => f.endsWith(".md"))
-      .map((f) => readNote(this.path(`memory/${f}`)));
+      .map((f) => readNote(this.path(`memory/${f}`)))
+      .filter((m) => includeRetired || this.knowledgeActive(m.id));
   }
   log(kind: string, details: unknown) {
     const id = uid("audit");
@@ -206,6 +247,25 @@ export function initialize(root: string) {
  CREATE TABLE evaluations(id TEXT PRIMARY KEY,capability TEXT NOT NULL,digest TEXT NOT NULL,passed INTEGER NOT NULL,report TEXT NOT NULL,created_at TEXT NOT NULL);
  CREATE TABLE audit(id TEXT PRIMARY KEY,at TEXT NOT NULL,kind TEXT NOT NULL,details TEXT NOT NULL);
  ${WIKI_SCHEMA_SQL}
+ ${GOOGLE_ACTION_SQL}
+ ${AUTO_AI_SQL}
+ ${AI_SQL}
+ ${CHAT_SEND_SQL}
+${ACTIVITY_SQL}
+${RETRIEVAL_SQL}
+ ${TASK_SCHEMA_SQL}
+ ${INTAKE_SCHEMA_SQL}
+ ${MAINTENANCE_SCHEMA_SQL}
+ ${CHAT_SCHEMA_SQL}
+ ${CONVERSATION_SQL}
+ ${CALENDAR_SQL}
+ ${HUB_SQL}
+ ${WORKSPACE_SQL}
+ ${SYNC_SQL}
+ ${INTAKE_RELIABILITY_SQL}
+ ${DAILY_WORKSPACE_SQL}
+ ${SKILL_LIBRARY_SQL}
+ ${WIKI_CORE_SQL}
  PRAGMA user_version=${CURRENT_SCHEMA_VERSION};`);
   db.close();
   chmodSync(join(root, ".hoi/os.sqlite"), 0o600);
@@ -264,4 +324,57 @@ export function initialize(root: string) {
     ),
   );
   return { root, created: true };
+}
+
+export function migrate(s: Store) {
+  s.tx(() => {
+    if (s.schemaVersion < 2) s.db.exec(WIKI_SCHEMA_SQL);
+    if (s.schemaVersion < 3) s.db.exec(TASK_SCHEMA_SQL);
+    if (s.schemaVersion < 4) s.db.exec(INTAKE_SCHEMA_SQL);
+    if (s.schemaVersion < 5) s.db.exec(MAINTENANCE_SCHEMA_SQL);
+    if (s.schemaVersion < 6) s.db.exec(CHAT_SCHEMA_SQL);
+    if (s.schemaVersion < 7) s.db.exec(CALENDAR_SQL);
+    if (s.schemaVersion < 8) s.db.exec(HUB_SQL);
+    if (s.schemaVersion < 9) s.db.exec(WORKSPACE_SQL);
+    if (s.schemaVersion < 10) s.db.exec(SYNC_SQL);
+    if (s.schemaVersion < 11) {
+      s.db.exec(INTAKE_RELIABILITY_SQL);
+      // Existing local sources retain a checksum/location baseline even when moved before upgrade.
+      s.db
+        .exec(`INSERT OR IGNORE INTO source_locations(source_id,path,fs_identity,checksum,recorded_at)
+        SELECT s.id,s.location,NULL,r.checksum,r.created_at FROM sources s JOIN revisions r ON r.id=s.current_revision
+        WHERE s.source_key=s.location OR s.source_key LIKE 'files:%'`);
+    }
+    if (s.schemaVersion < 12) s.db.exec(DAILY_WORKSPACE_SQL);
+    if (s.schemaVersion < 13) s.db.exec(CONVERSATION_SQL);
+    if (s.schemaVersion < 14) s.db.exec(SKILL_LIBRARY_SQL);
+    if (s.schemaVersion < 15) {
+      s.db.exec(WIKI_CORE_SQL);
+      migrateWikiIdentities(s);
+    }
+    if (s.schemaVersion < 16) {
+      s.db.exec(AI_SQL);
+      s.db.exec(AUTO_AI_SQL);
+      s.db.exec(GOOGLE_ACTION_SQL);
+      s.db
+        .exec(`CREATE TEMP TABLE preserved_task_history AS SELECT * FROM task_history;
+        DROP TABLE task_history;
+        CREATE TABLE tasks_v16(id TEXT PRIMARY KEY,project_id TEXT REFERENCES projects(id),proposal_id TEXT NOT NULL UNIQUE REFERENCES task_proposals(id),payload TEXT NOT NULL,status TEXT NOT NULL,version INTEGER NOT NULL,created_at TEXT NOT NULL,updated_at TEXT NOT NULL);
+        INSERT INTO tasks_v16 SELECT * FROM tasks;
+        DROP TABLE tasks;
+        ALTER TABLE tasks_v16 RENAME TO tasks;`);
+      s.db.exec(TASK_SCHEMA_SQL);
+      s.db.exec(
+        `INSERT INTO task_history SELECT * FROM preserved_task_history; DROP TABLE preserved_task_history;`,
+      );
+    }
+    if (s.schemaVersion < 17) s.db.exec(CHAT_SEND_SQL);
+    if (s.schemaVersion < 18) s.db.exec(ACTIVITY_SQL);
+    if (s.schemaVersion < 19) s.db.exec(RETRIEVAL_SQL);
+    s.db.exec(`PRAGMA user_version=${CURRENT_SCHEMA_VERSION}`);
+    s.log("schema.migrated", {
+      from: s.schemaVersion,
+      to: CURRENT_SCHEMA_VERSION,
+    });
+  });
 }

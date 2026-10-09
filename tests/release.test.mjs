@@ -60,10 +60,10 @@ test("release packages are reproducible, complete and extractable without local 
       readFileSync(join(dir, "hoi-os-skills.zip")),
     ),
     data = catalog(root, version);
-  assert.equal(data.skills.filter((s) => s.kind === "operational").length, 14);
+  assert.equal(data.skills.filter((s) => s.kind === "operational").length, 20);
   assert.equal(
     Object.keys(collection.files).filter((p) => p.endsWith("/SKILL.md")).length,
-    14,
+    data.skills.filter((s) => s.kind === "operational").length,
   );
   assert.equal(collection.file("hoi-install/SKILL.md"), null);
   for (const s of data.skills.filter((s) => s.kind === "operational"))
@@ -123,4 +123,21 @@ test("setup repairs interrupted adapter installation and rejects missing choices
   );
   assert.equal(missing.status, 1);
   assert.match(missing.stderr, /Supply --workspace/);
+});
+
+test("skill compatibility facts and required operations match the engine", async () => {
+  const { operationCatalog } = await import("../dist/core/operations.js");
+  const { CURRENT_SCHEMA_VERSION } = await import("../dist/core/store.js");
+  const available = new Set(operationCatalog().map((o) => o.name));
+  for (const skill of catalog(root, version).skills) {
+    assert.equal(
+      skill.compatibility.verifiedWorkspaceSchema,
+      CURRENT_SCHEMA_VERSION,
+    );
+    assert.equal(skill.compatibility.freshCodexSession, "pending");
+    assert.equal(skill.compatibility.freshClaudeCodeSession, "pending");
+    for (const operation of skill.requiredOperations)
+      assert.ok(available.has(operation), `${skill.name}: ${operation}`);
+    assert.ok(skill.files.includes("agents/openai.yaml"));
+  }
 });

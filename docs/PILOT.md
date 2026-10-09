@@ -1,6 +1,6 @@
 # Daily-use stabilization pilot
 
-Status: awaiting an explicitly selected project and 50–150 files. No real pilot imports or review scores have been fabricated. Keep all completed records in the private workspace, outside this product repository.
+Status: the full 50–150-file pilot remains separate from a smaller source walkthrough. Keep selections, real import results and review scores in the private workspace, outside this product repository. Never count walkthrough checks as completed pilot gates.
 
 ## Select and import
 
@@ -9,10 +9,12 @@ Create a project entity, then a private `selected-files.json` containing `projec
 Run from the product checkout:
 
 ```sh
-node scripts/import-pilot.mjs --workspace "<private workspace>" --input "<private selected-files.json>" --backup "<new private backup directory>"
+node scripts/import-pilot.mjs --workspace "<private workspace>" --input "<private selected-files.json>" --backup "<new private backup directory>" --rehearsal "<new separate recovery workspace>"
 ```
 
-The importer checks 50–150 distinct files, size and checksums, validates the project, takes and verifies a backup, then imports only those files. Import results are checkpointed privately under `.hoi/pilot/`. Review extraction gaps and authority before evaluating. If interrupted, rerunning preserves originals and records duplicate occurrences; review the checkpoint before resuming. Files must remain unchanged during the import.
+Stop the app before this offline recovery operation. The importer obtains exclusive ownership before opening the database; it refuses active or uncertain locks and does not migrate older schemas. It checks 50–150 distinct files, size and checksums, validates the project, takes and verifies a backup, restores it into the new rehearsal directory, opens the restored database and checks integrity, foreign keys and preserved file checksums before importing. Workspace, backup and rehearsal directories must be separate; existing recovery destinations are refused. Keep both recovery copies until reviewed. Import results are checkpointed privately under `.hoi/pilot/`. Review extraction gaps and authority before evaluating. If interrupted, rerunning preserves originals and records duplicate occurrences; review the checkpoint before resuming. Files must remain unchanged during the import. A retry requires new backup/rehearsal destinations; it is a new run rather than automatic checkpoint resumption.
+
+For a deliberately smaller first walkthrough, add `--walkthrough` (1–150 files). The output explicitly labels this mode. It does not relax the full pilot collection requirement, and successful intake is not evidence of retrieval quality or assistant reasoning.
 
 ## Label and measure retrieval
 

@@ -6,6 +6,8 @@ import {
   mkdirSync,
   existsSync,
   readdirSync,
+  renameSync,
+  rmSync,
 } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { hostname } from "node:os";
@@ -195,15 +197,19 @@ test("ingestion disk failure never publishes an unpreserved revision", async (t)
   const source = file("a.md", "Atlas preserved");
   const first = await ingest(s, source);
   writeFileSync(source, "changed content");
-  const script = `import fs from 'node:fs';import {syncBuiltinESMExports} from 'node:module';fs.writeFileSync=()=>{const e=Error('full');e.code='ENOSPC';throw e;};syncBuiltinESMExports();const {Store}=await import('./dist/core/store.js');const {ingest}=await import('./dist/core/intake.js');const s=new Store(process.argv[1]);try{await ingest(s,process.argv[2]);process.exitCode=2;}catch(e){if(e.code!=='ENOSPC')throw e;}finally{s.close();}`;
-  assert.equal(
-    spawnSync(
-      process.execPath,
-      ["--input-type=module", "-e", script, s.root, source],
-      { cwd: product },
-    ).status,
-    0,
-  );
+  // A real filesystem failure crosses the worker boundary; main-process mocks do not.
+  const originals = s.path("originals"),
+    preserved = join(root, "preserved-originals");
+  renameSync(originals, preserved);
+  writeFileSync(originals, "Not a writable directory");
+  try {
+    await assert.rejects(ingest(s, source), (e) =>
+      ["ENOTDIR", "EEXIST"].includes(e.code),
+    );
+  } finally {
+    rmSync(originals);
+    renameSync(preserved, originals);
+  }
   assert.equal(
     s.one("SELECT current_revision FROM sources WHERE id=?", first.sourceId)
       .current_revision,
@@ -278,6 +284,8 @@ test("private pilot importer takes verified backup and evaluator records bilingu
       manifest,
       "--backup",
       join(root, "pilot-backup"),
+      "--rehearsal",
+      join(root, "pilot-rehearsal"),
     ],
     { cwd: product, encoding: "utf8" },
   );

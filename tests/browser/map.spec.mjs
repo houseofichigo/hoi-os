@@ -148,6 +148,8 @@ test("reduced motion, real 3D, expired sessions and stopped server messages", as
 test("1000-document map performance on recorded machine", async ({
   page,
 }, info) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  // Benchmark animated rendering explicitly; reduced-motion behaviour has a separate test.
   // Use real source/revision/passage records, populated in one transaction for benchmark setup.
   s.tx(() => {
     for (let i = 0; i < 1000; i++) {

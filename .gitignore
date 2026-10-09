@@ -11,3 +11,14 @@ test-results/
 playwright-report/
 
 release/
+
+.desktop-stage/
+desktop-release/
+
+.verification/
+
+# Private local audits and build-specific evaluation records
+audits/
+docs/verification/
+workspaces/
+backups/

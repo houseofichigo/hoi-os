@@ -89,12 +89,16 @@ export const policySchema = z
     deniedHosts: z.array(host),
     allowRestrictedHosts: z.array(host),
     maxContextChars: z.number().int().min(100).max(100000),
+    calendar: z
+      .object({ allowedCalendars: z.array(z.string().min(1)) })
+      .strict()
+      .optional(),
     actions: z
       .object({
         read: z.enum(["allow", "deny"]),
         draft: z.enum(["allow", "approve", "deny"]),
         organize: z.enum(["approve", "deny"]),
-        external: z.literal("deny"),
+        external: z.enum(["deny", "approve"]),
       })
       .strict(),
   })

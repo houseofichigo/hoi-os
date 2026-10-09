@@ -1,0 +1,4 @@
+interface:
+  display_name: "Knowledge map"
+  short_description: "Explore the connections behind your documents."
+  default_prompt: "Use $hoi-3d-map for this request, respecting HOI review and source permissions."

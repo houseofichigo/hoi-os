@@ -1,0 +1,4 @@
+interface:
+  display_name: "Session capture"
+  short_description: "Turn supplied session notes into reviewed knowledge."
+  default_prompt: "Use $hoi-session-capture for this request, respecting HOI review and source permissions."

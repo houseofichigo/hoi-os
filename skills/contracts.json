@@ -1,0 +1,163 @@
+{
+  "hoi-install": {
+    "requiredOperations": [],
+    "optionalConnections": []
+  },
+  "hoi-3d-map": {
+    "requiredOperations": [
+      "configuration"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-audit": {
+    "requiredOperations": [
+      "audit",
+      "health"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-build-capability": {
+    "requiredOperations": [
+      "build-capability",
+      "evaluate"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-capture": {
+    "requiredOperations": [
+      "capture",
+      "review-memory"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-chief-of-staff": {
+    "requiredOperations": [
+      "daily:view",
+      "daily:meeting",
+      "task:list"
+    ],
+    "optionalConnections": [
+      "gmail",
+      "calendar"
+    ]
+  },
+  "hoi-connect": {
+    "requiredOperations": [
+      "connect"
+    ],
+    "optionalConnections": [
+      "gmail",
+      "calendar",
+      "drive"
+    ]
+  },
+  "hoi-consolidate": {
+    "requiredOperations": [
+      "consolidate"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-evaluate": {
+    "requiredOperations": [
+      "evaluate"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-ingest": {
+    "requiredOperations": [
+      "ingest-plan",
+      "ingest"
+    ],
+    "optionalConnections": [
+      "drive"
+    ]
+  },
+  "hoi-knowledge-review": {
+    "requiredOperations": [
+      "knowledge:scan",
+      "knowledge:review"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-meeting-prep": {
+    "requiredOperations": [
+      "run",
+      "retrieve"
+    ],
+    "optionalConnections": [
+      "calendar",
+      "gmail",
+      "drive"
+    ]
+  },
+  "hoi-onboard": {
+    "requiredOperations": [
+      "onboard",
+      "doctor"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-organize": {
+    "requiredOperations": [
+      "organize",
+      "approve"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-retrieve": {
+    "requiredOperations": [
+      "retrieve"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-security": {
+    "requiredOperations": [
+      "security"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-session-capture": {
+    "requiredOperations": [
+      "capture",
+      "review-memory",
+      "wiki:propose"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-wiki": {
+    "requiredOperations": [
+      "wiki:list",
+      "wiki:propose",
+      "wiki:review",
+      "wiki:canonical"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-project-intake": {
+    "requiredOperations": [
+      "intake:list",
+      "task:proposals"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-task-intake": {
+    "requiredOperations": [
+      "task:list",
+      "task:proposals",
+      "intake:list"
+    ],
+    "optionalConnections": [
+      "gmail",
+      "calendar"
+    ]
+  },
+  "hoi-wiki-author": {
+    "requiredOperations": [
+      "wiki:pages",
+      "wiki:save",
+      "wiki:compare",
+      "wiki:search"
+    ],
+    "optionalConnections": []
+  }
+}

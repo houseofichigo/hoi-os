@@ -1,0 +1,4 @@
+interface:
+  display_name: "Document intake"
+  short_description: "Preserve and index selected documents."
+  default_prompt: "Use $hoi-ingest for this request, respecting HOI review and source permissions."

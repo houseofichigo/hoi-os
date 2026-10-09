@@ -14,7 +14,7 @@ import Database from "better-sqlite3";
 import {
   Store,
   workspaceDirectories,
-  CURRENT_SCHEMA_VERSION,
+  SUPPORTED_SCHEMA_VERSIONS,
 } from "./store.js";
 import { walk, sha, atomic, safePath, contained, uid, now } from "./files.js";
 export function backup(s: Store, destination: string) {
@@ -30,6 +30,7 @@ export function backup(s: Store, destination: string) {
       const name = relative(s.root, file).replaceAll("\\", "/");
       if (
         name.startsWith(".hoi/lock") ||
+        name.startsWith(".hoi/engine-session/") ||
         name === ".hoi/last-backup.json" ||
         name.startsWith(".hoi/recovered-lock") ||
         name.startsWith(".hoi/recovery-lock") ||
@@ -171,7 +172,7 @@ export function verifyBackup(backupPath: string) {
     )
       throw Error("Backup database is corrupt");
     if (
-      ![1, CURRENT_SCHEMA_VERSION].includes(
+      !SUPPORTED_SCHEMA_VERSIONS.includes(
         Number(
           (check.prepare("PRAGMA user_version").get() as any).user_version,
         ),

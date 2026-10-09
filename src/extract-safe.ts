@@ -1,3 +1,4 @@
+import { extractTextFile } from "./file-work.js";
 import { fork } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { extname } from "node:path";
@@ -6,7 +7,7 @@ export async function extractSafe(path: string): Promise<Extracted[]> {
   if (
     ![".pdf", ".docx", ".pptx", ".xlsx"].includes(extname(path).toLowerCase())
   )
-    return extract(path);
+    return (await extractTextFile(path)).passages;
   return new Promise((resolve, reject) => {
     const child = fork(
       fileURLToPath(new URL("./extract-worker.js", import.meta.url)),

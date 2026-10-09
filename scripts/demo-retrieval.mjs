@@ -1,0 +1,23 @@
+// Fictional, isolated demonstration; never upgrades or selects a private workspace.
+import {mkdtempSync,writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join,resolve} from 'node:path';
+import {initialize,Store} from '../dist/core/store.js';
+import {ingest} from '../dist/core/intake.js';
+import {saveWikiDraft,publishWiki} from '../dist/core/wiki-core.js';
+import {proposeMemory,memoryGet,reviewVersionedMemory} from '../dist/core/reviewed-memory.js';
+import {serve} from '../dist/core/server.js';
+const root=mkdtempSync(join(tmpdir(),'HOI-fictional-retrieval-'));
+const workspace=join(root,'Fictional-demo');initialize(workspace);
+const s=new Store(workspace);
+const file=join(root,'fictional-training.md');
+writeFileSync(file,'# Fictional Orchard training\n\nLa formation des dirigeants comprend un atelier pratique sur les agents IA.\n\nThe facilitator will share the preparation agenda before the workshop.');
+await ingest(s,file,{host:'local'});
+const d=saveWikiDraft(s,{title:'Orchard workshop delivery',type:'topic',blocks:[{id:'delivery',heading:'Delivery',text:'Orchard workshops include a practical rehearsal.',kind:'user-authored',evidence:[]}]},'local');
+publishWiki(s,{pageId:d.pageId,revisionId:d.id,expectedVersion:d.version,confirm:true},'local');
+const p=proposeMemory(s,{requestKey:'fictional-memory-proposal',attributedStatement:true,memory:{type:'preference',content:'Orchard prefers afternoon workshops.'}},'local');
+const m=memoryGet(s,p.id,'local');
+reviewVersionedMemory(s,{id:m.id,expectedVersion:m.version,expectedChecksum:m.checksum,requestKey:'fictional-memory-review',state:'approved',confirm:true},'local');
+const app=await serve(s,'local',resolve('dist/web'),0,{app:true});
+console.log(JSON.stringify({label:'Fictional retrieval and reviewed memory demo',workspace,url:app.url}));
+for(const signal of ['SIGTERM','SIGINT'])process.once(signal,()=>app.server.close(()=>{s.close();process.exit(0);}));

@@ -1,3 +1,4 @@
+import { projectMeetingContext } from "./daily.js";
 import { readFileSync } from "node:fs";
 import { Store } from "./store.js";
 import { context } from "./knowledge.js";
@@ -74,7 +75,14 @@ export async function run(
     files: capability.requiredContext,
     entities: [parsed.client, parsed.project].filter(Boolean) as string[],
   };
-  const contextDigest = sha(JSON.stringify(context(s, host, contextOptions)));
+  const contextDigest = sha(
+    JSON.stringify({
+      context: context(s, host, contextOptions),
+      work: parsed.project
+        ? projectMeetingContext(s, parsed.project, host)
+        : null,
+    }),
+  );
   const sourceDigest = sha(
     JSON.stringify(
       s.all("SELECT id,current_revision,metadata FROM sources ORDER BY id"),

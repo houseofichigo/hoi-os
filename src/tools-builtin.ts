@@ -1,3 +1,4 @@
+import { projectMeetingContext } from "./daily.js";
 import { registerTool } from "./tools.js";
 import { context } from "./knowledge.js";
 import { retrieve } from "./intake.js";
@@ -59,6 +60,30 @@ registerTool({
     const retrieval = Object.values(ctx.checkpoint.steps).find(
       (x: any) => x?.results,
     ) as any;
-    return brief(input, retrieval?.results ?? []);
+    const result = brief(input, retrieval?.results ?? []);
+    const work = input.project
+      ? projectMeetingContext(_s, input.project, _host)
+      : { tasks: [], decisions: [] };
+    const safe = (x: string) => x.replace(/[\\`*_[\]<>#!|]/g, "\\$&");
+    const refs = (items: any[]) =>
+      items
+        .map((e) => `Passage: ${e.passageId} · Revision: ${e.revisionId}`)
+        .join("; ");
+    result.markdown +=
+      "\n\n## Current project tasks\n" +
+      work.tasks
+        .map(
+          (t) =>
+            `- ${safe(t.title)} · ${t.status} · owner: ${safe(t.owner ?? "unknown")} · deadline: ${t.dueDate ?? "unknown"} ${t.dueTime ?? ""} ${t.timezone ?? ""} · ${t.evidenceCurrent ? "current evidence" : "evidence needs review"} · ${refs(t.evidence)}`,
+        )
+        .join("\n");
+    result.markdown +=
+      "\n\n## Approved decisions\n" +
+      work.decisions
+        .map((m: any) => `- ${safe(m.content)} · ${refs(m.evidence)}`)
+        .join("\n");
+    if (result.markdown.length > _s.policy().maxContextChars)
+      throw Error("Meeting brief exceeds context budget; narrow the project");
+    return { ...result, ...work };
   },
 });

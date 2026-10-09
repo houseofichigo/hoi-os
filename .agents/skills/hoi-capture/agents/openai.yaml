@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capture a decision"
+  short_description: "Save confirmed decisions as reviewable memory."
+  default_prompt: "Use $hoi-capture for this request, respecting HOI review and source permissions."

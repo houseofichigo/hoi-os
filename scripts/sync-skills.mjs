@@ -53,6 +53,12 @@ for (const runtime of [".claude", ".agents"]) {
     if (!data.skills.some((s) => s.name === name))
       mismatches.push(`Unexpected generated skill: ${runtime}/${name}`);
 }
+const factsPath = join(root, "docs/COMPATIBILITY.md");
+const facts = `# Current local compatibility\n\nGenerated from package, protocol, schema and skill manifests. Do not edit by hand.\n\n- Status: **unreleased local checkout**; tagged downloads keep their historical contents.\n- Package base version: ${version} (not a new release).\n- Engine API: ${data.compatibility.engineApiVersion}.\n- Current workspace schema: ${data.compatibility.workspaceSchema}.\n- Readable/upgradeable schemas: ${data.compatibility.supportedSchemas.join(", ")}.\n- Node: ${data.compatibility.node} (developer/browser installation).\n- Bundled instructions: ${data.skills.length} skills, including ${data.skills.filter((s) => s.kind === "operational").length} operational skills and one installer guide.\n- Adapters: optional Codex and Claude Code, scoped to the private workspace.\n- Desktop: local Electron staging and packaging are available; released installers and clean-platform verification remain separate gates.\n\nCompatibility is checked using API version and operation requirements; a matching base package version alone does not prove a compatible unreleased checkout. Native Windows execution and real assistant-session discovery still require verification.\n`;
+if (check) {
+  if (!existsSync(factsPath) || readFileSync(factsPath, "utf8") !== facts)
+    mismatches.push("compatibility facts");
+} else writeFileSync(factsPath, facts);
 const serialized = JSON.stringify(data, null, 2) + "\n",
   catalogPath = join(root, "skills/catalog.json");
 if (check) {

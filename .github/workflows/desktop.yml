@@ -1,0 +1,31 @@
+name: Desktop verification (manual)
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-15-intel, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run desktop:stage
+      - run: npm run test:desktop
+      - run: npm run desktop:package
+      - run: npm run desktop:checksums
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-${{ matrix.os }}
+          path: |
+            desktop-release/**/*.zip
+            desktop-release/**/*.exe
+            desktop-release/SHA256SUMS
+            desktop-release/**/BUILD.json

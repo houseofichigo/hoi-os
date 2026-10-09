@@ -1,0 +1,4 @@
+interface:
+  display_name: "Wiki editor"
+  short_description: "Prepare cited wiki updates for review."
+  default_prompt: "Use $hoi-wiki for this request, respecting HOI review and source permissions."

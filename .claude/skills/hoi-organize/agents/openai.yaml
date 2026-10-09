@@ -1,0 +1,4 @@
+interface:
+  display_name: "Organize knowledge"
+  short_description: "Review a proposed structure while keeping originals."
+  default_prompt: "Use $hoi-organize for this request, respecting HOI review and source permissions."

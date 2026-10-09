@@ -273,7 +273,7 @@ test("launcher serves authenticated workspace and reports occupied port without 
       reject(Error(`Launcher exited ${code}: ${launcherErrors}`));
     });
   });
-  const url = output.match(/http:\/\/127\.0\.0\.1:\d+\/#\w+/)[0],
+  const url = output.match(/http:\/\/127\.0\.0\.1:\d+\/app#\w+/)[0],
     parsed = new URL(url);
   assert.equal(
     (
@@ -283,12 +283,14 @@ test("launcher serves authenticated workspace and reports occupied port without 
     ).status,
     200,
   );
+  assert.equal(parsed.pathname, "/app");
+  const other = fixture(t);
   const conflict = spawnSync(
     process.execPath,
     [
       "scripts/start.mjs",
       "--workspace",
-      s.root,
+      other.s.root,
       "--host",
       "codex",
       "--port",

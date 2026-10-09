@@ -3,6 +3,7 @@ import { CURRENT_SCHEMA_VERSION, Store } from "./store.js";
 import { inspectLock } from "./locks.js";
 import { verifyBackup } from "./backup.js";
 import type { Host } from "./schema.js";
+import { adapterStatus } from "./adapters.js";
 export function diagnostics(s: Store, host: Host) {
   const checks: { code: string; severity: string }[] = [];
   try {
@@ -34,23 +35,16 @@ export function diagnostics(s: Store, host: Host) {
     code: lock.code,
     severity: lock.state === "clear" ? "ok" : "warning",
   });
-  for (const runtime of ["codex", "claude"]) {
-    const folder = runtime === "codex" ? ".agents" : ".claude";
-    let valid = false;
-    try {
-      const config = JSON.parse(
-        readFileSync(s.path(".hoi/runtime.json"), "utf8"),
-      );
-      valid =
-        config.hosts.includes(runtime) &&
-        existsSync(config.entrypoint) &&
-        existsSync(s.path(`${folder}/skills/hoi-meeting-prep/SKILL.md`));
-    } catch {}
+  for (const adapter of adapterStatus(s))
     checks.push({
-      code: `${runtime.toUpperCase()}_ADAPTER_${valid ? "OK" : "MISSING"}`,
-      severity: valid ? "ok" : "warning",
+      code: `${adapter.host.toUpperCase()}_ADAPTER_${adapter.status === "verified" ? "OK" : adapter.status.replaceAll("-", "_").toUpperCase()}`,
+      severity:
+        adapter.status === "verified"
+          ? "ok"
+          : adapter.status === "not-installed"
+            ? "info"
+            : "warning",
     });
-  }
   let backupCode = "BACKUP_MISSING";
   try {
     const marker = JSON.parse(

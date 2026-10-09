@@ -13,8 +13,30 @@ export function files(root) {
     });
 }
 export function catalog(root, version) {
+  const contracts = JSON.parse(
+    readFileSync(join(root, "skills/contracts.json"), "utf8"),
+  );
+  const schema = readFileSync(join(root, "src/store.ts"), "utf8");
+  const api = Number(
+    readFileSync(join(root, "src/protocol.ts"), "utf8").match(
+      /ENGINE_API_VERSION = (\d+)/,
+    )[1],
+  );
+  const compatibility = {
+    engineApiVersion: api,
+    workspaceSchema: Number(schema.match(/CURRENT_SCHEMA_VERSION = (\d+)/)[1]),
+    supportedSchemas: JSON.parse(
+      schema
+        .match(/SUPPORTED_SCHEMA_VERSIONS = (\[[^;]+\])/)[1]
+        .replace(/,\s*\]/g, "]"),
+    ),
+    node: JSON.parse(readFileSync(join(root, "package.json"), "utf8")).engines
+      .node,
+    channel: "unreleased-local",
+  };
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
+    compatibility,
     version,
     skills: readdirSync(join(root, "skills"))
       .filter((name) => lstatSync(join(root, "skills", name)).isDirectory())
@@ -37,7 +59,22 @@ export function catalog(root, version) {
           readFileSync(join(path, match[1]));
         return {
           name,
+          compatibility: {
+            engineVersion: version,
+            engineApiVersion: api,
+            verifiedWorkspaceSchema: compatibility.workspaceSchema,
+            runtimeVerification: "synthetic-package-checks-only",
+            freshCodexSession: "pending",
+            freshClaudeCodeSession: "pending",
+          },
+          ...(contracts[name] ||
+            (() => {
+              throw Error(`Missing skill contract ${name}`);
+            })()),
           description: meta.description,
+          presentation: JSON.parse(
+            readFileSync(join(root, "skills/presentation.json"), "utf8"),
+          )[name],
           version,
           kind: name === "hoi-install" ? "installer" : "operational",
           requires:

@@ -1,13 +1,37 @@
-import { Store, CURRENT_SCHEMA_VERSION } from "./store.js";
+import { migrateWikiIdentities, wikiDetail } from "./wiki-core.js";
+import { readFileSync } from "node:fs";
+import { Store } from "./store.js";
 import { wikiPageInput, type Host } from "./schema.js";
-import { uid, now, readNote, writeNote } from "./files.js";
+import { uid, now, readNote, writeNote, atomic } from "./files.js";
 
 const ACTIVE = ["draft", "reviewed", "canonical"];
 function assertWiki(s: Store) {
-  s.assertSchema(CURRENT_SCHEMA_VERSION, "The wiki");
+  s.assertSchema(2, "The wiki");
 }
 function visible(s: Store, row: any, host: Host) {
-  return JSON.parse(row.allowed_hosts).includes(host);
+  if (
+    s.schemaVersion >= 15 &&
+    s.one("SELECT 1 FROM wiki_revision_data WHERE revision_id=?", row.id)
+  ) {
+    try {
+      wikiDetail(s, row.id, host);
+    } catch {
+      return false;
+    }
+  }
+  return (
+    s.knowledgeActive(row.id) &&
+    JSON.parse(row.allowed_hosts).includes(host) &&
+    s.evidenceVisible(
+      evidenceRows(s, row.id).map((e) => ({
+        revisionId: e.revision_id,
+        passageId: e.passage_id,
+        quote: e.quote,
+      })),
+      host,
+      false,
+    )
+  );
 }
 function evidenceRows(s: Store, pageId: string) {
   return s.all(
@@ -60,7 +84,14 @@ export function proposeWiki(s: Store, input: unknown, host: Host) {
     );
   if (page.supersedes) {
     const prior = s.one("SELECT * FROM wiki_pages WHERE id=?", page.supersedes);
-    if (!prior) throw Error("Unknown superseded page");
+    if (!prior || !visible(s, prior, host))
+      throw Error("Superseded page unavailable");
+    if (
+      page.allowedHosts.some(
+        (h) => !JSON.parse(prior.allowed_hosts).includes(h),
+      )
+    )
+      throw Error("Replacement cannot broaden host access");
     if (prior.slug !== page.slug)
       throw Error("A page may only supersede a page with the same slug");
   }
@@ -111,6 +142,7 @@ export function proposeWiki(s: Store, input: unknown, host: Host) {
         now(),
       );
   });
+  if (s.schemaVersion >= 15) migrateWikiIdentities(s);
   s.log("wiki.proposed", { id, slug: page.slug });
   return { id, slug: page.slug, status: "draft", contentPath };
 }
@@ -136,7 +168,36 @@ export function getWiki(s: Store, ref: string, host: Host) {
     );
   if (!row || !visible(s, row, host)) throw Error("Wiki page unavailable");
   const note = readNote(s.path(row.content_path));
-  return { ...summarize(s, row, host), content: note.content };
+  const d =
+    s.schemaVersion >= 15
+      ? s.one(
+          "SELECT page_id,payload FROM wiki_revision_data WHERE revision_id=?",
+          row.id,
+        )
+      : null;
+  const extra = d ? JSON.parse(d.payload) : {};
+  const content = extra.blocks
+    ? extra.blocks
+        .filter((b: any) => !["question", "unverified"].includes(b.kind))
+        .map(
+          (b: any) =>
+            `## ${b.heading}\n${b.kind === "user-authored" ? "[Attributed statement by " + b.author + "]\n" : ""}${b.text}`,
+        )
+        .join("\n\n")
+    : note.content;
+  return {
+    ...summarize(s, row, host),
+    ...(d
+      ? {
+          pageId: d.page_id,
+          blocks: extra.blocks?.filter(
+            (b: any) => !["question", "unverified"].includes(b.kind),
+          ),
+          legacy: extra.legacy,
+        }
+      : {}),
+    content,
+  };
 }
 export function reviewWiki(
   s: Store,
@@ -147,7 +208,16 @@ export function reviewWiki(
   assertWiki(s);
   s.assertHost(host);
   const row = s.one("SELECT * FROM wiki_pages WHERE id=?", id);
+  if (s.schemaVersion >= 15) {
+    const d = s.one(
+      "SELECT payload FROM wiki_revision_data WHERE revision_id=?",
+      id,
+    );
+    if (d && !JSON.parse(d.payload).legacy)
+      throw Error("Use version-checked Knowledge Core publication");
+  }
   if (!row || !visible(s, row, host)) throw Error("Wiki page unavailable");
+  s.validateEvidence(summarize(s, row, host).evidence, host, true);
   if (row.status !== "draft") throw Error("Only draft pages can be reviewed");
   s.exec(
     "UPDATE wiki_pages SET status=?,reviewed_at=?,updated_at=? WHERE id=?",
@@ -157,6 +227,10 @@ export function reviewWiki(
     id,
   );
   const note = readNote(s.path(row.content_path));
+  atomic(
+    s.path(`archives/${now().slice(0, 10)}/${uid("wiki-review")}.md`),
+    readFileSync(s.path(row.content_path)),
+  );
   writeNote(s.path(row.content_path), {
     ...note,
     status: state,
@@ -169,7 +243,16 @@ export function canonicalWiki(s: Store, id: string, host: Host) {
   assertWiki(s);
   s.assertHost(host);
   const row = s.one("SELECT * FROM wiki_pages WHERE id=?", id);
+  if (s.schemaVersion >= 15) {
+    const d = s.one(
+      "SELECT payload FROM wiki_revision_data WHERE revision_id=?",
+      id,
+    );
+    if (d && !JSON.parse(d.payload).legacy)
+      throw Error("Use version-checked Knowledge Core publication");
+  }
   if (!row || !visible(s, row, host)) throw Error("Wiki page unavailable");
+  s.validateEvidence(summarize(s, row, host).evidence, host, true);
   if (row.status !== "reviewed")
     throw Error("Review the page before marking it canonical");
   s.tx(() => {
@@ -191,7 +274,23 @@ export function canonicalWiki(s: Store, id: string, host: Host) {
     );
   });
   const note = readNote(s.path(row.content_path));
+  atomic(
+    s.path(`archives/${now().slice(0, 10)}/${uid("wiki-review")}.md`),
+    readFileSync(s.path(row.content_path)),
+  );
   writeNote(s.path(row.content_path), { ...note, status: "canonical" });
+  if (s.schemaVersion >= 15) {
+    const d = s.one(
+      "SELECT page_id FROM wiki_revision_data WHERE revision_id=?",
+      id,
+    );
+    if (d)
+      s.exec(
+        "UPDATE wiki_identities SET published_id=?,draft_id=NULL,version=version+1 WHERE id=?",
+        id,
+        d.page_id,
+      );
+  }
   s.log("wiki.canonical", { id, slug: row.slug });
   return { id, slug: row.slug, status: "canonical" };
 }

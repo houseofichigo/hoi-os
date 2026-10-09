@@ -1,0 +1,4 @@
+interface:
+  display_name: "Meeting preparation"
+  short_description: "Go into your next meeting with the right evidence."
+  default_prompt: "Use $hoi-meeting-prep for this request, respecting HOI review and source permissions."

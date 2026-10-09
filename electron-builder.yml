@@ -1,0 +1,44 @@
+appId: com.houseofichigo.hoios
+productName: HOI OS
+asar: false
+artifactName: "${productName}-${version}-local-f-${os}-${arch}.${ext}"
+directories:
+  app: .desktop-stage
+  output: desktop-release
+files:
+  - desktop/**
+  - .verification/security.json
+  - dist/**
+  - bin/**
+  - skills/**
+  - docs/RULES.md
+  - docs/FILESYSTEM.md
+  - docs/TOOL_CONVENTIONS.md
+  - docs/OPERATIONS_REFERENCE.md
+  - docs/GUIDES.json
+  - .agents/**
+  - .claude/**
+  - scripts/skill-packages.mjs
+  - package.json
+  - LICENSE
+  - licenses/**
+  - TRADEMARKS.md
+  - THIRD_PARTY_NOTICES.md
+  - node_modules/**
+  - "!**/.env*"
+  - "!**/.secrets/**"
+  - "!**/*.log"
+mac:
+  category: public.app-category.productivity
+  target:
+    - target: zip
+  identity: null
+win:
+  target:
+    - target: nsis
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  deleteAppDataOnUninstall: false
+npmRebuild: false
+publish: null

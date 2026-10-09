@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-09",
+  "buildId": "a5a9555a34a526d27e7b6dcc6a3db2690f531dd4548d66e9ea989afe7ad036de",
+  "scope": "fictional workspaces; local developer and staged macOS arm64",
+  "suites": [
+    {
+      "suite": "core",
+      "passed": true,
+      "tests": 244
+    },
+    {
+      "suite": "browser",
+      "passed": true,
+      "tests": 43
+    },
+    {
+      "suite": "desktop",
+      "passed": true,
+      "tests": 2
+    }
+  ],
+  "coreNote": "244 total: 243 passed, one opt-in model test skipped. Historical dates, relationship expansion, neighbor context and exact historical Chat citations covered.",
+  "focusNote": "Memory history read no longer refreshes its opener while loading. Five repeated focused browser tests passed, followed by the full browser suite.",
+  "localModel": "Prior build e2f97fca6236611e0679e9ae718eb4c5740f7e45640e41ca7183c568ead38792 passed offline and staged native model checks; model-specific tests were not rerun for this continuation.",
+  "limitations": [
+    "Historical search is lexical; no historical semantic index or relationship expansion.",
+    "No human-labelled quality gate or 10000-unit performance claim.",
+    "No clean-machine, Windows or live paid-provider certification.",
+    "An initial browser verification could not be recorded during concurrent builds. Final core, browser and desktop verification ran sequentially against the same build."
+  ]
+}

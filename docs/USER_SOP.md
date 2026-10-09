@@ -31,12 +31,12 @@ You need:
 - macOS or Windows;
 - Git;
 - Node.js 22.14 or later;
-- local Codex or Claude Code access;
+- optional local Codex or Claude Code access for the assistant-led steps;
 - a product directory;
 - a separate empty private-workspace directory;
 - enough private storage for originals, the database and backups.
 
-Use one host name consistently:
+The app-only path uses `--host local` from your own terminal. Assistant clients must use their actual host and must never elevate to `local`. Use one assistant host name consistently:
 
 | Assistant   | Skill invocation | CLI host        |
 | ----------- | ---------------- | --------------- |
@@ -61,17 +61,19 @@ After installation, verify the workspace:
 ```sh
 node "PRODUCT/bin/hoi.mjs" doctor \
   --workspace "WORKSPACE" \
-  --host codex \
+  --host local \
   --json
 ```
 
-Replace `codex` with `claude` when appropriate.
+When operating through an assistant, use `codex` or `claude` instead of `local`.
 
-Continue only when the database is available and the intended adapter is present. A new empty workspace may report that no backup exists. Take a backup before importing valuable information.
+Continue when the database is healthy. An adapter is required only for assistant-led steps. A new empty workspace may report that no backup exists. Take a backup before importing valuable information.
 
 ## 2. Onboard
 
-Open the private workspace in the chosen assistant and invoke `hoi-onboard`.
+App-only: open Home, choose a bounded source selection in Knowledge Hub and review its import manifest. Configuration → Onboarding provides the shared resumable setup checklist. See [Onboarding](ONBOARDING.md).
+
+Optional assistant flow: open the private workspace in the chosen assistant and invoke `hoi-onboard`.
 
 Confirm:
 
@@ -204,7 +206,7 @@ Use client/project filters where relevant. Preserve source, revision and passage
 
 ## 8. Build the wiki
 
-Wiki pages require schema 2. If the workspace reports schema 1, stop and follow the backup-first upgrade procedure in `docs/OPERATIONS.md`.
+The commands below describe the retained legacy wiki workflow. Prefer `hoi-wiki-author` and the app’s Save draft → Compare → Publish flow for canonical pages. See [Compatibility](COMPATIBILITY.md) for the current schema; follow the backup-first upgrade procedure before upgrading old workspaces.
 
 Invoke `hoi-wiki`:
 

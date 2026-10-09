@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "heldOut": false,
+  "extraction": {
+    "labeled": 0,
+    "proposals": { "total": 0, "correct": 0 },
+    "explicitCommitments": { "total": 0, "correct": 0 }
+  },
+  "duplicates": {
+    "labeled": 0,
+    "candidates": { "total": 0, "correct": 0 },
+    "incorrectAutomaticMerges": 0
+  },
+  "retrieval": {
+    "labeled": 0,
+    "answerable": { "total": 0, "correct": 0 },
+    "unanswerable": { "total": 0, "correct": 0 }
+  },
+  "meetings": [],
+  "days": [],
+  "unresolvedCriticalDefects": 0,
+  "checks": {
+    "scopeApproved": false,
+    "backupVerified": false,
+    "recoveryRehearsed": false,
+    "citationsResolve": false,
+    "permissionsVerified": false,
+    "codexFreshSession": false,
+    "claudeFreshSession": false,
+    "calendarAdapterVerified": false,
+    "core": false,
+    "browser": false,
+    "platformCI": false,
+    "packages": false,
+    "publicationScan": false
+  }
+}

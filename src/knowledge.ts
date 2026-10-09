@@ -178,6 +178,16 @@ export function capture(s: Store, input: unknown, host: Host) {
     if (!nodeExists(s, id)) throw Error(`Unknown entity ${id}`);
   if (m.supersedes && !existsSync(s.path(`memory/${m.supersedes}.md`)))
     throw Error("Unknown superseded memory");
+  if (m.supersedes) {
+    const prior = readNote(s.path(`memory/${m.supersedes}.md`));
+    if (
+      !prior.allowedHosts.includes(host) ||
+      !s.evidenceVisible(prior.evidence, host, false)
+    )
+      throw Error("Superseded memory unavailable");
+    if (m.allowedHosts.some((h) => !prior.allowedHosts.includes(h)))
+      throw Error("Replacement cannot broaden host access");
+  }
   const id = uid("memory");
   writeNote(s.path(`memory/${id}.md`), {
     schemaVersion: 1,

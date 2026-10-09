@@ -1,15 +1,58 @@
+import Memory from "./memory";
+import { ActivityButton } from "./activity.jsx";
+import Inbox from "./inbox.jsx";
+import WikiLibrary from "./wiki-core.jsx";
+import Showcase from "./showcase.jsx";
+import Delivery from "./delivery.jsx";
+import Skills from "./skills.jsx";
+import {
+  requested,
+  navigate,
+  routeView,
+  useLocationSearch,
+  useSubview,
+} from "./destination.js";
+import {
+  RecoveryState,
+  ViewErrorBoundary,
+  ViewTabs,
+  StatusLabel,
+} from "./shell.jsx";
+import Hub from "./hub.jsx";
+import Records from "./records.jsx";
+import Dashboard from "./dashboard.jsx";
+import Configuration from "./configuration.jsx";
+import Chat from "./chat.jsx";
+import Maintenance from "./maintenance.jsx";
+import Daily from "./daily.jsx";
+import Tasks from "./tasks.jsx";
 import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import "./tokens.css";
 import "./style.css";
 import "./app.css";
-const token =
-  location.hash.slice(1) || sessionStorage.getItem("hoi-map-token") || "";
-if (location.hash) {
+import "./product.css";
+const incomingToken = /^[a-f0-9]{64}$/.test(location.hash.slice(1))
+  ? location.hash.slice(1)
+  : "";
+const token = incomingToken || sessionStorage.getItem("hoi-map-token") || "";
+if (incomingToken) {
   sessionStorage.setItem("hoi-map-token", token);
-  history.replaceState(null, "", location.pathname);
+  history.replaceState(null, "", location.pathname + location.search);
+}
+function connectionError(code, message) {
+  const error = Object.assign(new Error(message), { code });
+  window.dispatchEvent(
+    new CustomEvent("hoi:connection-error", { detail: code }),
+  );
+  return error;
 }
 async function api(path, body) {
+  if (!token)
+    throw connectionError(
+      "SESSION_REQUIRED",
+      "Open the authenticated workspace link from the launcher.",
+    );
   let r;
   try {
     r = await fetch(`/api/${path}`, {
@@ -22,10 +65,16 @@ async function api(path, body) {
       signal: AbortSignal.timeout(15000),
     });
   } catch {
-    throw Error(
+    throw connectionError(
+      "SERVER_UNAVAILABLE",
       "The local server is unavailable. Restart the app command and open its new URL.",
     );
   }
+  if (r.status === 401)
+    throw connectionError(
+      "SESSION_EXPIRED",
+      "Open the new authenticated workspace link from the launcher.",
+    );
   if (!r.ok) {
     let message = "";
     try {
@@ -37,14 +86,19 @@ async function api(path, body) {
         : message || "The requested action is unavailable for this host.",
     );
   }
-  return r.json();
+  const result = await r.json();
+  if (body) window.dispatchEvent(new Event("hoi:activity"));
+  return result;
 }
 const VIEWS = [
   ["home", "Home"],
-  ["brain", "Brain"],
-  ["wiki", "Wiki"],
-  ["sources", "Sources"],
-  ["memory", "Memory"],
+  ["inbox", "Inbox"],
+  ["knowledge", "Knowledge Hub"],
+  ["projects", "Projects"],
+  ["clients", "Clients"],
+  ["chat", "Chat"],
+  ["skills", "Skills"],
+  ["configuration", "Configuration"],
 ];
 function Chip({ value }) {
   return <span className={`chip ${value}`}>{value}</span>;
@@ -217,127 +271,16 @@ function Brain({ graph }) {
     </>
   );
 }
-function Wiki({ wikiPages, refresh, setError }) {
-  const [selected, setSelected] = useState(null),
-    [page, setPage] = useState(null),
-    [passage, setPassage] = useState(null),
-    [busy, setBusy] = useState(false);
-  async function open(id) {
-    setSelected(id);
-    setPassage(null);
-    try {
-      setPage(await api(`wiki/${id}`));
-    } catch (e) {
-      setError(e.message);
-    }
-  }
-  async function act(path, body) {
-    setBusy(true);
-    try {
-      await api(path, body);
-      await refresh();
-      if (selected) await open(selected);
-    } catch (e) {
-      setError(e.message);
-    } finally {
-      setBusy(false);
-    }
-  }
-  return (
-    <>
-      <p className="eyebrow">WIKI</p>
-      <h1>The current view, with its sources.</h1>
-      <p className="lede">
-        Synthesized pages your assistant proposed. Nothing becomes canonical
-        without your review.
-      </p>
-      {wikiPages.length ? (
-        <ul className="row-list">
-          {wikiPages.map((p) => (
-            <li key={p.id}>
-              <div className="grow">
-                <button className="text-link" onClick={() => open(p.id)}>
-                  {p.title}
-                </button>
-                <small>
-                  {p.slug} · {p.type} · {p.evidenceCount} source
-                  {p.evidenceCount === 1 ? "" : "s"}
-                  {p.evidenceCurrent ? "" : " · evidence needs review"}
-                </small>
-              </div>
-              <Chip value={p.status} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="app-note">
-          No wiki pages yet. Ask your assistant to build them from your sources
-          with hoi-wiki.
-        </p>
-      )}
-      {page && (
-        <div className="detail">
-          <p className="eyebrow">
-            {page.slug} · {page.type} · {page.status.toUpperCase()}
-          </p>
-          <h2>{page.title}</h2>
-          {page.content.split(/\n{2,}/).map((block, i) => (
-            <p key={i}>{block.replace(/^#+\s*/, "")}</p>
-          ))}
-          <div className="actions">
-            {page.status === "draft" && (
-              <>
-                <button
-                  disabled={busy}
-                  onClick={() =>
-                    act("wiki/review", { id: page.id, state: "reviewed" })
-                  }
-                >
-                  Mark reviewed
-                </button>
-                <button
-                  className="danger"
-                  disabled={busy}
-                  onClick={() =>
-                    act("wiki/review", { id: page.id, state: "rejected" })
-                  }
-                >
-                  Reject
-                </button>
-              </>
-            )}
-            {page.status === "reviewed" && (
-              <button
-                disabled={busy}
-                onClick={() => act("wiki/canonical", { id: page.id })}
-              >
-                Mark canonical
-              </button>
-            )}
-          </div>
-          <p className="group-head">SOURCES</p>
-          {page.evidence.map((e) => (
-            <button
-              key={e.passageId}
-              className="text-link"
-              onClick={async () => {
-                try {
-                  setPassage(await api(`passage/${e.passageId}`));
-                } catch (err) {
-                  setError(err.message);
-                }
-              }}
-            >
-              {e.relation === "contradicts" ? "Contradicts: " : "Evidence: "}
-              {e.quote.slice(0, 90)}
-            </button>
-          ))}
-          {passage && <Passage passage={passage} />}
-        </div>
-      )}
-    </>
+function Wiki({ schemaVersion }) {
+  return schemaVersion >= 15 ? (
+    <WikiLibrary api={api} />
+  ) : (
+    <p>
+      Upgrade a verified workspace copy to schema 15 to use the wiki editor.
+    </p>
   );
 }
+
 function Sources({ sources, connections }) {
   return (
     <>
@@ -399,96 +342,34 @@ function Sources({ sources, connections }) {
     </>
   );
 }
-function Memory({ memories, refresh, setError }) {
-  const [busy, setBusy] = useState(false);
-  async function review(id, state) {
-    setBusy(true);
-    try {
-      await api("memory/review", { id, state });
-      await refresh();
-    } catch (e) {
-      setError(e.message);
-    } finally {
-      setBusy(false);
-    }
-  }
-  const sections = [
-    ["PROPOSED", memories.filter((m) => m.state === "proposed")],
-    ["APPROVED", memories.filter((m) => m.state === "approved")],
-    [
-      "OTHER",
-      memories.filter((m) => !["proposed", "approved"].includes(m.state)),
-    ],
-  ];
+function ProjectsArea({ api, graph, schemaVersion }) {
+  const [tab, setTab] = useSubview(
+    "projects",
+    ["portfolio", "tasks"],
+    requested("task") || requested("proposal") ? "tasks" : "portfolio",
+  );
   return (
     <>
-      <p className="eyebrow">MEMORY</p>
-      <h1>What persists, on your say-so.</h1>
-      <p className="lede">
-        Facts, preferences, and decisions stay proposed until you approve them.
-        Superseded memory keeps its history.
-      </p>
-      {sections.map(
-        ([label, items]) =>
-          items.length > 0 && (
-            <div key={label}>
-              <p className="group-head">
-                {label} · {items.length}
-              </p>
-              <ul className="row-list">
-                {items.map((m) => (
-                  <li key={m.id}>
-                    <div className="grow">
-                      <strong>{m.content}</strong>
-                      <small>
-                        {m.type} · {m.durability} ·{" "}
-                        {m.createdAt?.slice(0, 10) ?? "date unknown"}
-                        {m.stale ? " · evidence needs review" : ""}
-                      </small>
-                      {m.state === "proposed" && (
-                        <span
-                          style={{ display: "flex", gap: 12, marginTop: 8 }}
-                        >
-                          <button
-                            disabled={busy}
-                            onClick={() => review(m.id, "approved")}
-                          >
-                            Approve
-                          </button>
-                          <button
-                            className="danger"
-                            style={{
-                              background: "transparent",
-                              color: "var(--danger)",
-                              border: "1px solid var(--danger)",
-                            }}
-                            disabled={busy}
-                            onClick={() => review(m.id, "rejected")}
-                          >
-                            Reject
-                          </button>
-                        </span>
-                      )}
-                    </div>
-                    <Chip value={m.stale ? "stale" : m.state} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ),
-      )}
-      {!memories.length && (
-        <p className="app-note">
-          No memories yet. Capture decisions with hoi-capture or
-          hoi-session-capture in your assistant.
-        </p>
+      <ViewTabs
+        label="Project views"
+        values={["Portfolio", "Tasks & approvals"]}
+        value={tab === "portfolio" ? "Portfolio" : "Tasks & approvals"}
+        onChange={(t) => setTab(t === "Portfolio" ? "portfolio" : "tasks")}
+      />
+      {tab === "portfolio" ? (
+        <Records api={api} kind="project" />
+      ) : (
+        <Tasks api={api} graph={graph} schemaVersion={schemaVersion} />
       )}
     </>
   );
 }
 function App() {
-  const [view, setView] = useState("home"),
-    [error, setError] = useState(""),
+  const search = useLocationSearch();
+  const view = routeView(search);
+  const [navigationOpen, setNavigationOpen] = useState(false);
+  const [connectionCode, setConnectionCode] = useState(null);
+  const [error, setError] = useState(""),
     [workspace, setWorkspace] = useState(null),
     [graph, setGraph] = useState({ nodes: [], links: [] }),
     [wikiPages, setWikiPages] = useState([]),
@@ -497,34 +378,66 @@ function App() {
     [connections, setConnections] = useState(null),
     [loading, setLoading] = useState(true);
   async function refresh() {
+    if (!workspace || connectionCode) setLoading(true);
+    setConnectionCode(null);
     setError("");
     try {
-      const [w, g, wk, m, src, conn] = await Promise.all([
-        api("workspace"),
+      const w = await api("workspace");
+      if (!w || !Number.isInteger(w.schemaVersion))
+        throw Error("Invalid workspace response");
+      setWorkspace(w);
+      const results = await Promise.allSettled([
         api("graph"),
         api("wiki"),
         api("memory"),
         api("sources"),
         api("connections"),
       ]);
-      setWorkspace(w);
-      setGraph(g);
-      setWikiPages(wk);
-      setMemories(m);
-      setSources(src);
-      setConnections(conn);
+      const setters = [
+        setGraph,
+        setWikiPages,
+        setMemories,
+        setSources,
+        setConnections,
+      ];
+      results.forEach((r, i) => {
+        if (r.status === "fulfilled") setters[i](r.value);
+        else setters[i]([{ nodes: [], links: [] }, [], [], [], null][i]);
+      });
+      if (results.some((r) => r.status === "rejected"))
+        setError(
+          "Some supporting records could not load. Retry workspace data before relying on empty lists.",
+        );
     } catch (e) {
-      setError(e.message);
+      setWorkspace(null);
+      setConnectionCode(e.code || "REQUEST_FAILED");
     } finally {
       setLoading(false);
     }
   }
   useEffect(() => {
+    const failed = (e) => setConnectionCode(e.detail);
+    window.addEventListener("hoi:connection-error", failed);
     refresh();
+    return () => window.removeEventListener("hoi:connection-error", failed);
   }, []);
+  useEffect(() => {
+    setNavigationOpen(false);
+  }, [search]);
   return (
-    <div className="app-shell">
+    <div className={`app-shell view-${view}`}>
+      <a className="workspace-skip" href="#workspace-main">
+        Skip to workspace
+      </a>
       <nav className="app-nav" aria-label="Workspace">
+        <button
+          className="navigation-toggle"
+          aria-expanded={navigationOpen}
+          aria-controls="workspace-navigation"
+          onClick={() => setNavigationOpen(!navigationOpen)}
+        >
+          Menu
+        </button>
         <div className="brand">
           <img src="/mark.png" alt="House of Ichigo" className="logo-mark" />
           <span>
@@ -532,54 +445,230 @@ function App() {
             <span className="subbrand">WORKSPACE</span>
           </span>
         </div>
-        {VIEWS.map(([id, label]) => (
-          <button
-            key={id}
-            className={view === id ? "active" : ""}
-            aria-current={view === id ? "page" : undefined}
-            onClick={() => setView(id)}
-          >
-            {label}
-          </button>
-        ))}
-        <button onClick={() => (location.href = `/#${token}`)}>
-          Memory Map ↗
-        </button>
+        <div
+          id="workspace-navigation"
+          className={`workspace-navigation ${navigationOpen ? "is-open" : ""}`}
+        >
+          {[...VIEWS]
+            .sort(
+              (a, b) =>
+                [
+                  "home",
+                  "inbox",
+                  "projects",
+                  "clients",
+                  "knowledge",
+                  "chat",
+                  "skills",
+                  "configuration",
+                ].indexOf(a[0]) -
+                [
+                  "home",
+                  "inbox",
+                  "projects",
+                  "clients",
+                  "knowledge",
+                  "chat",
+                  "skills",
+                  "configuration",
+                ].indexOf(b[0]),
+            )
+            .map(([id, label]) => (
+              <React.Fragment key={id}>
+                {id === "home" && <span className="nav-group">Work</span>}
+                {id === "knowledge" && (
+                  <span className="nav-group">Intelligence</span>
+                )}
+                <button
+                  key={id}
+                  className={view === id ? "active" : ""}
+                  aria-current={view === id ? "page" : undefined}
+                  onClick={() => {
+                    navigate(id);
+                    setNavigationOpen(false);
+                    requestAnimationFrame(() =>
+                      document.getElementById("workspace-main")?.focus(),
+                    );
+                  }}
+                >
+                  {label}
+                </button>
+              </React.Fragment>
+            ))}
+        </div>
         <div className="nav-foot">
           LOCAL WORKSPACE
           <br />
           REVIEWABLE ACTIONS ONLY
         </div>
       </nav>
-      <main className="app-main">
-        {error && (
-          <p role="alert" className="app-error">
-            {error}
-          </p>
-        )}
-        {loading ? (
-          <p role="status" className="app-note">
-            Loading your workspace…
-          </p>
-        ) : view === "home" ? (
-          <Home
-            workspace={workspace}
-            wikiPages={wikiPages}
-            memories={memories}
-            go={setView}
-            setError={setError}
-          />
-        ) : view === "brain" ? (
-          <Brain graph={graph} />
-        ) : view === "wiki" ? (
-          <Wiki wikiPages={wikiPages} refresh={refresh} setError={setError} />
-        ) : view === "sources" ? (
-          <Sources sources={sources} connections={connections} />
-        ) : (
-          <Memory memories={memories} refresh={refresh} setError={setError} />
-        )}
-      </main>
+      <div className="workspace-body">
+        <div className="workspace-topbar">
+          <div>
+            <span className="workspace-label">
+              {workspace?.displayName || "Private workspace"}
+            </span>
+            <span className="workspace-location">
+              {VIEWS.find(([id]) => id === view)?.[1]}
+            </span>
+          </div>
+          <div className="workspace-health">
+            {workspace?.schemaVersion >= 18 && !connectionCode && (
+              <ActivityButton api={api} />
+            )}
+            {workspace?.environment === "demo" && (
+              <StatusLabel>Fictional demo</StatusLabel>
+            )}
+            <StatusLabel tone={connectionCode ? "warning" : "neutral"}>
+              {loading
+                ? "Connecting"
+                : connectionCode
+                  ? "Connection needed"
+                  : workspace
+                    ? "Local engine connected"
+                    : "Not connected"}
+            </StatusLabel>
+            <span className="workspace-alpha">Alpha</span>
+          </div>
+        </div>
+        <main id="workspace-main" tabIndex={-1} className="app-main">
+          {[
+            "project",
+            "client",
+            "task",
+            "proposal",
+            "source",
+            "event",
+            "training",
+            "connection",
+          ].some((k) => requested(k)) && (
+            <a
+              className="text-link"
+              href="/app?view=home"
+              onClick={(e) => {
+                if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                  e.preventDefault();
+                  navigate("home");
+                }
+              }}
+            >
+              Back to Home
+            </a>
+          )}
+          {error && !connectionCode && (
+            <div role="alert" className="app-error">
+              {error}{" "}
+              <button className="secondary" onClick={refresh}>
+                Retry workspace data
+              </button>
+            </div>
+          )}
+          <ViewErrorBoundary key={view}>
+            {requested("showcase") === "components" ? (
+              <Showcase />
+            ) : loading ? (
+              <p role="status" className="app-note">
+                Loading your workspace…
+              </p>
+            ) : connectionCode || !workspace ? (
+              <RecoveryState
+                code={connectionCode || "REQUEST_FAILED"}
+                onRetry={refresh}
+              />
+            ) : workspace.schemaVersion < 12 ? (
+              <p>
+                Back up and upgrade this workspace to use the redesigned app.
+                Existing CLI commands remain available.
+              </p>
+            ) : view === "home" ? (
+              <Dashboard
+                composer={
+                  <Chat
+                    api={api}
+                    token={token}
+                    schemaVersion={workspace.schemaVersion}
+                    entry="home"
+                  />
+                }
+                api={api}
+                daily={
+                  <Daily api={api} schemaVersion={workspace.schemaVersion} />
+                }
+                trainings={<Delivery api={api} type="training" />}
+                consulting={<Delivery api={api} type="consulting" />}
+              />
+            ) : view === "inbox" ? (
+              <Inbox
+                api={api}
+                token={token}
+                schemaVersion={workspace.schemaVersion}
+              />
+            ) : view === "skills" ? (
+              <Skills api={api} schemaVersion={workspace.schemaVersion} />
+            ) : view === "chat" ? (
+              <Chat
+                api={api}
+                token={token}
+                schemaVersion={workspace.schemaVersion}
+              />
+            ) : view === "knowledge" ? (
+              <Hub
+                composer={
+                  <Chat
+                    api={api}
+                    token={token}
+                    schemaVersion={workspace.schemaVersion}
+                    entry="knowledge"
+                  />
+                }
+                api={api}
+                token={token}
+                views={{
+                  overview: <Brain graph={graph} />,
+                  wiki: (
+                    <Wiki
+                      wikiPages={wikiPages}
+                      refresh={refresh}
+                      setError={setError}
+                      schemaVersion={workspace.schemaVersion}
+                    />
+                  ),
+                  memory: (
+                    <Memory
+                      api={api}
+                      memories={memories}
+                      refresh={refresh}
+                      setError={setError}
+                    />
+                  ),
+                  reviews: (
+                    <Maintenance
+                      refresh={refresh}
+                      api={api}
+                      schemaVersion={workspace.schemaVersion}
+                    />
+                  ),
+                }}
+              />
+            ) : view === "projects" ? (
+              <ProjectsArea
+                api={api}
+                graph={graph}
+                schemaVersion={workspace.schemaVersion}
+              />
+            ) : view === "clients" ? (
+              <Records api={api} kind="client" />
+            ) : (
+              <Configuration api={api} />
+            )}
+          </ViewErrorBoundary>
+        </main>
+      </div>
     </div>
   );
 }
-createRoot(document.getElementById("root")).render(<App />);
+createRoot(document.getElementById("root")).render(
+  <ViewErrorBoundary>
+    <App />
+  </ViewErrorBoundary>,
+);

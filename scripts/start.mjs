@@ -13,9 +13,9 @@ try {
       "no-open": { type: "boolean" },
     },
   });
-  if (!v.workspace || !["codex", "claude"].includes(v.host))
+  if (!v.workspace || !["codex", "claude", "local"].includes(v.host || "local"))
     throw Error(
-      'START_ARGUMENTS: Use npm start -- --workspace "<private directory>" --host codex|claude',
+      'START_ARGUMENTS: Use npm start -- --workspace "<private directory>" --host codex|claude|local',
     );
   const workspace = resolve(v.workspace);
   if (!existsSync(join(workspace, ".hoi/workspace.json")))
@@ -24,7 +24,7 @@ try {
     );
   if (
     !existsSync(join(product, "dist/core/server.js")) ||
-    !existsSync(join(product, "dist/web/index.html"))
+    !existsSync(join(product, "dist/web/app.html"))
   )
     throw Error(
       "BUILD_MISSING: Run npm ci and npm run build, then npm start again.",
@@ -39,7 +39,13 @@ try {
   const s = new Store(workspace);
   let running;
   try {
-    running = await serve(s, v.host, join(product, "dist/web"), port);
+    running = await serve(
+      s,
+      v.host || "local",
+      join(product, "dist/web"),
+      port,
+      { app: true },
+    );
   } catch (e) {
     s.close();
     throw e;

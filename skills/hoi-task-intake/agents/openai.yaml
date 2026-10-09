@@ -1,0 +1,4 @@
+interface:
+  display_name: "Extract to-dos"
+  short_description: "Find commitments and prepare tasks for review."
+  default_prompt: "Use $hoi-task-intake for this request, respecting HOI review and source permissions."

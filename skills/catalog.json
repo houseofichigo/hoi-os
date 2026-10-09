@@ -1,10 +1,58 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "compatibility": {
+    "engineApiVersion": 1,
+    "workspaceSchema": 19,
+    "supportedSchemas": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "node": ">=22.14.0",
+    "channel": "unreleased-local"
+  },
   "version": "0.1.0-alpha.2",
   "skills": [
     {
       "name": "hoi-3d-map",
-      "description": "Open the local HOI Workspace App or its optional 3D knowledge map to inspect source-backed search, wiki, memory, entities, relationships, and temporal views.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "configuration"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to open the local HOI Workspace App or its optional 3D knowledge map to inspect source-backed search, wiki, memory, entities, relationships, and temporal views.",
+      "presentation": {
+        "displayName": "Knowledge map",
+        "shortDescription": "Explore the connections behind your documents.",
+        "category": "Knowledge",
+        "icon": "knowledge",
+        "examples": [
+          "Show the knowledge map."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -13,12 +61,35 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
       ]
     },
     {
       "name": "hoi-audit",
-      "description": "Inspect an HOI OS workspace for schema, database, extraction, backup, adapter, connection, workflow, and memory health without changing it.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "audit",
+        "health"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to inspect an HOI OS workspace for schema, database, extraction, backup, adapter, connection, workflow, and memory health without changing it.",
+      "presentation": {
+        "displayName": "Workspace audit",
+        "shortDescription": "Check source health, backups and workspace readiness.",
+        "category": "Governance",
+        "icon": "governance",
+        "examples": [
+          "Audit this workspace and explain the gaps."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -27,12 +98,35 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
       ]
     },
     {
       "name": "hoi-build-capability",
-      "description": "Define, evaluate, and activate a bounded HOI workflow using registered tools.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "build-capability",
+        "evaluate"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to define, evaluate, and activate a bounded HOI workflow using registered tools.",
+      "presentation": {
+        "displayName": "Capability builder",
+        "shortDescription": "Define a bounded workflow for review.",
+        "category": "Setup",
+        "icon": "setup",
+        "examples": [
+          "Help draft a capability using registered tools."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -41,12 +135,35 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
       ]
     },
     {
       "name": "hoi-capture",
-      "description": "Record user-supplied decisions, preferences, or experience as reviewable HOI memory.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "capture",
+        "review-memory"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to record user-supplied decisions, preferences, or experience as reviewable HOI memory.",
+      "presentation": {
+        "displayName": "Capture a decision",
+        "shortDescription": "Save confirmed decisions as reviewable memory.",
+        "category": "Knowledge",
+        "icon": "knowledge",
+        "examples": [
+          "Capture a decision from my selected notes."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -55,12 +172,81 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
+      ]
+    },
+    {
+      "name": "hoi-chief-of-staff",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "daily:view",
+        "daily:meeting",
+        "task:list"
+      ],
+      "optionalConnections": [
+        "gmail",
+        "calendar"
+      ],
+      "description": "Use when requested to prepare a daily HOI work brief, review promises and waiting-for tasks, prepare an exact meeting instance, and suggest local preparation time from confirmed calendar exports.",
+      "presentation": {
+        "displayName": "Chief of Staff",
+        "shortDescription": "Review priorities, promises and upcoming work.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Review consulting priorities.",
+          "What should I focus on today?"
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/daily-inputs.md"
       ]
     },
     {
       "name": "hoi-connect",
-      "description": "Check available Gmail, Calendar, Drive, or GitHub host tools for a selected HOI workspace.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "connect"
+      ],
+      "optionalConnections": [
+        "gmail",
+        "calendar",
+        "drive"
+      ],
+      "description": "Use when requested to check available Gmail, Calendar, Drive, or GitHub host tools for a selected HOI workspace.",
+      "presentation": {
+        "displayName": "Connections",
+        "shortDescription": "Check which information sources are available.",
+        "category": "Setup",
+        "icon": "setup",
+        "examples": [
+          "Check my available connections."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -69,12 +255,34 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
       ]
     },
     {
       "name": "hoi-consolidate",
-      "description": "Find duplicate, stale, and proposed HOI memories for review.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "consolidate"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to find duplicate, stale, and proposed HOI memories for review.",
+      "presentation": {
+        "displayName": "Memory consolidation",
+        "shortDescription": "Review duplicate and outdated memories.",
+        "category": "Knowledge",
+        "icon": "knowledge",
+        "examples": [
+          "Find memories that need consolidation."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -83,12 +291,34 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
       ]
     },
     {
       "name": "hoi-evaluate",
-      "description": "Run reproducible evidence retrieval checks for a HOI capability.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "evaluate"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to run reproducible evidence retrieval checks for a HOI capability.",
+      "presentation": {
+        "displayName": "Retrieval evaluation",
+        "shortDescription": "Measure whether evidence retrieval answers your questions.",
+        "category": "Governance",
+        "icon": "governance",
+        "examples": [
+          "Evaluate retrieval against my selected questions."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -97,12 +327,37 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
       ]
     },
     {
       "name": "hoi-ingest",
-      "description": "Plan and ingest selected local files or authorized host exports into HOI OS with bounded scope, preserved originals, provenance, and visible failures.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "ingest-plan",
+        "ingest"
+      ],
+      "optionalConnections": [
+        "drive"
+      ],
+      "description": "Use when requested to plan and ingest selected local files or authorized host exports into HOI OS with bounded scope, preserved originals, provenance, and visible failures.",
+      "presentation": {
+        "displayName": "Document intake",
+        "shortDescription": "Preserve and index selected documents.",
+        "category": "Knowledge",
+        "icon": "knowledge",
+        "examples": [
+          "Review these documents for ingestion."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -111,24 +366,68 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
       ]
     },
     {
       "name": "hoi-install",
-      "description": "Install or update HOI OS from its official GitHub release in a local Codex or Claude Code workspace, or guide a ChatGPT or Claude chat user through local installation.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [],
+      "optionalConnections": [],
+      "description": "Use when requested to locate, install or verify the existing HOI OS product and optional workspace adapters, or guide chat-only users through a documented local installation. Does not generate an app.",
+      "presentation": {
+        "displayName": "Installation guide",
+        "shortDescription": "Verify the app and optional assistant adapters.",
+        "category": "Setup",
+        "icon": "setup",
+        "examples": [
+          "Check my installation prerequisites."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "installer",
       "requires": [],
       "files": [
         "SKILL.md",
+        "agents/openai.yaml",
         "references/chat-guidance.md",
         "references/local-setup.md"
       ]
     },
     {
-      "name": "hoi-meeting-prep",
-      "description": "Prepare a cited client meeting brief using HOI knowledge and available read-only host connections.",
+      "name": "hoi-knowledge-review",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:scan",
+        "knowledge:review"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to audit HOI wiki and memory for stale evidence, recorded contradictions, duplicates, superseded information and expired memory; prepare cited replacements and review findings without deleting originals.",
+      "presentation": {
+        "displayName": "Knowledge review",
+        "shortDescription": "Review outdated evidence and proposed knowledge changes.",
+        "category": "Knowledge",
+        "icon": "knowledge",
+        "examples": [
+          "Review knowledge that needs verification.",
+          "Find outdated project information."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -137,12 +436,78 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/review-contract.md"
+      ]
+    },
+    {
+      "name": "hoi-meeting-prep",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "run",
+        "retrieve"
+      ],
+      "optionalConnections": [
+        "calendar",
+        "gmail",
+        "drive"
+      ],
+      "description": "Use when requested to prepare a cited client meeting brief using HOI knowledge and available read-only host connections.",
+      "presentation": {
+        "displayName": "Meeting preparation",
+        "shortDescription": "Go into your next meeting with the right evidence.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Prepare my next meeting.",
+          "Find open commitments for this project."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml"
       ]
     },
     {
       "name": "hoi-onboard",
-      "description": "Onboard a user into HOI OS, capture their operating context, select a bounded source scope, and reach a first useful result without uncontrolled ingestion.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "onboard",
+        "doctor"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to onboard a user into HOI OS, capture their operating context, select a bounded source scope, and reach a first useful result without uncontrolled ingestion.",
+      "presentation": {
+        "displayName": "Workspace onboarding",
+        "shortDescription": "Set up goals, context and a bounded source collection.",
+        "category": "Setup",
+        "icon": "setup",
+        "examples": [
+          "Help me set up this workspace."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -151,12 +516,35 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
       ]
     },
     {
       "name": "hoi-organize",
-      "description": "Propose and apply an exact, approval-bound organization of HOI OS working copies while preserving every original.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "organize",
+        "approve"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to propose and apply an exact, approval-bound organization of HOI OS working copies while preserving every original.",
+      "presentation": {
+        "displayName": "Organize knowledge",
+        "shortDescription": "Review a proposed structure while keeping originals.",
+        "category": "Knowledge",
+        "icon": "knowledge",
+        "examples": [
+          "Suggest a structure for my selected sources."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -165,12 +553,76 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
+      ]
+    },
+    {
+      "name": "hoi-project-intake",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "intake:list",
+        "task:proposals"
+      ],
+      "optionalConnections": [],
+      "description": "Extract a complete project brief from a transcript or user input, clarify missing fields, and validate the exact 17-field project Action contract before an explicitly requested submission. Individual tasks use HOI task proposals separately.",
+      "presentation": {
+        "displayName": "Project brief",
+        "shortDescription": "Turn a transcript or brief into a complete project.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Extract a project brief from my selected transcript.",
+          "Check which project fields are still missing."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/action-integration.md",
+        "references/project.schema.json",
+        "scripts/action-definition.mjs",
+        "scripts/validate.mjs"
       ]
     },
     {
       "name": "hoi-retrieve",
-      "description": "Find source-backed information and bounded context in HOI OS.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "retrieve"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to find source-backed information and bounded context in HOI OS.",
+      "presentation": {
+        "displayName": "Evidence search",
+        "shortDescription": "Find passages that support an answer.",
+        "category": "Knowledge",
+        "icon": "knowledge",
+        "examples": [
+          "Find related evidence for this project."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -179,12 +631,73 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
+      ]
+    },
+    {
+      "name": "hoi-security",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "security"
+      ],
+      "optionalConnections": [],
+      "description": "Review HOI OS security configuration and recorded test coverage, including source access, exact approvals, connection scopes, credentials and recovery. Use for a requested security check of a selected local workspace.",
+      "presentation": {
+        "displayName": "Security review",
+        "shortDescription": "Inspect security checks and their coverage.",
+        "category": "Governance",
+        "icon": "governance",
+        "examples": [
+          "Review workspace security findings.",
+          "Explain what security checks remain untested."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml"
       ]
     },
     {
       "name": "hoi-session-capture",
-      "description": "Propose reviewable HOI memories and wiki updates from decisions made in the current working session.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "capture",
+        "review-memory",
+        "wiki:propose"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to propose reviewable HOI memories and wiki updates from decisions made in the current working session.",
+      "presentation": {
+        "displayName": "Session capture",
+        "shortDescription": "Turn supplied session notes into reviewed knowledge.",
+        "category": "Knowledge",
+        "icon": "knowledge",
+        "examples": [
+          "Capture decisions from these session notes."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -193,12 +706,79 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
+      ]
+    },
+    {
+      "name": "hoi-task-intake",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "task:list",
+        "task:proposals",
+        "intake:list"
+      ],
+      "optionalConnections": [
+        "gmail",
+        "calendar"
+      ],
+      "description": "Use when requested to extract evidence-backed to-do proposals from selected transcripts, briefs, Gmail messages or Calendar context; check existing commitments and route ambiguous duplicates to review without approving tasks or changing calendars.",
+      "presentation": {
+        "displayName": "Extract to-dos",
+        "shortDescription": "Find commitments and prepare tasks for review.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Extract to-dos from these documents.",
+          "Check these action items for duplicates."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml"
       ]
     },
     {
       "name": "hoi-wiki",
-      "description": "Build and maintain cited, reviewable current-view wiki pages from HOI OS evidence without replacing original sources or history.",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "wiki:list",
+        "wiki:propose",
+        "wiki:review",
+        "wiki:canonical"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to build and maintain cited, reviewable current-view wiki pages from HOI OS evidence without replacing original sources or history.",
+      "presentation": {
+        "displayName": "Wiki editor",
+        "shortDescription": "Prepare cited wiki updates for review.",
+        "category": "Knowledge",
+        "icon": "knowledge",
+        "examples": [
+          "Propose a wiki update from these documents."
+        ]
+      },
       "version": "0.1.0-alpha.2",
       "kind": "operational",
       "requires": [
@@ -207,7 +787,49 @@
         "local Codex or Claude Code"
       ],
       "files": [
-        "SKILL.md"
+        "SKILL.md",
+        "agents/openai.yaml"
+      ]
+    },
+    {
+      "name": "hoi-wiki-author",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 19,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "wiki:pages",
+        "wiki:save",
+        "wiki:compare",
+        "wiki:search"
+      ],
+      "optionalConnections": [],
+      "description": "Use when requested to create or revise cited HOI wiki drafts for clients, projects, people, offerings, topics and decisions; resolve existing pages first and preserve evidence, attribution and revision history.",
+      "presentation": {
+        "displayName": "Wiki author",
+        "shortDescription": "Prepare cited wiki drafts with explicit attribution and review.",
+        "category": "Knowledge",
+        "icon": "knowledge",
+        "examples": [
+          "Draft a project wiki from selected evidence",
+          "Update this wiki while preserving its source history"
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/authoring.md"
       ]
     }
   ]

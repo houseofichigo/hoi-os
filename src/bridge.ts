@@ -44,6 +44,7 @@ export async function importConnection(s: Store, input: unknown, host: Host) {
     );
     const sourceKey = `${item.provider}:${sha(item.account)}:${item.remoteId}`;
     const result = await ingest(s, path, {
+      host,
       sourceKey,
       metadata: { ...(item.metadata ?? {}), title: item.title },
     });

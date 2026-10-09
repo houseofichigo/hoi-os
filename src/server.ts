@@ -1,28 +1,18 @@
+import { stopAI, startAutomaticAnalysis } from "./ai.js";
+import { randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
+import { existsSync, readFileSync, rmSync, statSync } from "node:fs";
 import { createServer } from "node:http";
-import { readFileSync, existsSync, statSync, mkdirSync, rmSync } from "node:fs";
-import { resolve, extname } from "node:path";
-import { randomBytes, timingSafeEqual } from "node:crypto";
-import { Store } from "./store.js";
-import { graph } from "./graph.js";
-import {
-  listWiki,
-  getWiki,
-  proposeWiki,
-  reviewWiki,
-  canonicalWiki,
-  wikiContradictions,
-} from "./wiki.js";
-import { retrieve } from "./intake.js";
-import { connect, reviewMemory } from "./knowledge.js";
-import { safePath, atomic } from "./files.js";
+import { extname, resolve } from "node:path";
+import { z } from "zod";
+import { APP_POST_ROUTES } from "./app-operations.js";
+import { getChat } from "./chat.js";
+import { createEngineSession } from "./engine.js";
+import { atomic, safePath } from "./files.js";
+import { receiveUpload } from "./hub.js";
+import { ENGINE_API_VERSION, executeOperation } from "./operations.js";
 import type { Host } from "./schema.js";
-
-const APP_POST_ROUTES = new Set([
-  "/api/wiki/propose",
-  "/api/wiki/review",
-  "/api/wiki/canonical",
-  "/api/memory/review",
-]);
+import { Store } from "./store.js";
+import { startSync } from "./sync.js";
 
 function readBody(req: any): Promise<any> {
   return new Promise((ok, bad) => {
@@ -55,6 +45,7 @@ export async function serve(
   const entry = options.app ? "app.html" : "index.html";
   if (!existsSync(resolve(webRoot, entry)))
     throw Error("Map not built. Run npm run build.");
+  const engine = options.app ? await createEngineSession(s) : undefined;
   const token = randomBytes(32).toString("hex");
   const server = createServer(async (req, res) => {
     res.setHeader("Cache-Control", "no-store");
@@ -62,7 +53,7 @@ export async function serve(
     res.setHeader("Referrer-Policy", "no-referrer");
     res.setHeader(
       "Content-Security-Policy",
-      "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'none'",
+      "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'self'; base-uri 'none'",
     );
     try {
       const address = server.address() as any,
@@ -74,8 +65,45 @@ export async function serve(
         throw Error("Untrusted origin");
       const url = new URL(req.url ?? "/", origin),
         pathname = decodeURIComponent(url.pathname);
+      if (options.app && pathname.startsWith("/api/engine/")) {
+        const caller = engine!.authenticate(
+          (req.headers.authorization || "").replace(/^Bearer /, ""),
+        );
+        if (!caller) {
+          res.writeHead(401);
+          res.end(JSON.stringify({ error: "ENGINE_AUTH_REQUIRED" }));
+          return;
+        }
+        s.assertHost(caller);
+        if (pathname === "/api/engine/status" && req.method === "GET") {
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify(engine!.status()));
+          return;
+        }
+        if (pathname !== "/api/engine/call" || req.method !== "POST")
+          throw Error("OPERATION_UNKNOWN");
+        const body = z
+          .object({
+            apiVersion: z.literal(ENGINE_API_VERSION),
+            requestId: z.string(),
+            operation: z.unknown(),
+          })
+          .strict()
+          .parse(await readBody(req));
+        const result = await engine!.execute(
+          caller,
+          body.operation,
+          body.requestId,
+        );
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ apiVersion: ENGINE_API_VERSION, result }));
+        return;
+      }
       const mutation =
-        options.app && req.method === "POST" && APP_POST_ROUTES.has(pathname);
+        options.app &&
+        req.method === "POST" &&
+        (APP_POST_ROUTES.has(pathname) ||
+          /^\/api\/hub\/upload\/upload_[a-f0-9]+$/.test(pathname));
       if (req.method !== "GET" && !mutation) {
         res.writeHead(405);
         res.end(
@@ -97,99 +125,84 @@ export async function serve(
           res.end("Open the URL printed by the CLI.");
           return;
         }
+        if (options.app && pathname.startsWith("/api/chat/stream/")) {
+          const id = pathname.split("/").pop()!;
+          getChat(s, id, host);
+          res.writeHead(200, {
+            "Content-Type": "text/event-stream",
+            Connection: "keep-alive",
+          });
+          let version = -1;
+          const started = Date.now();
+          let timer: ReturnType<typeof setInterval>;
+          const send = () => {
+            try {
+              const r = getChat(s, id, host);
+              if (r.version !== version) {
+                version = r.version;
+                res.write(`data: ${JSON.stringify(r)}\n\n`);
+              }
+              if (
+                r.state !== "awaiting-assistant" ||
+                Date.now() - started > 600000
+              ) {
+                clearInterval(timer);
+                res.end();
+              }
+            } catch {
+              res.write(
+                `data: ${JSON.stringify({ error: "Chat context changed or became unavailable. Start a new chat." })}\n\n`,
+              );
+              clearInterval(timer);
+              res.end();
+            }
+          };
+          timer = setInterval(send, 1000);
+          res.on("close", () => clearInterval(timer));
+          send();
+          return;
+        }
+        if (mutation && pathname.startsWith("/api/hub/upload/")) {
+          const result = await engine!.enqueue(() =>
+            receiveUpload(s, pathname.split("/").pop()!, host, req),
+          );
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify(result));
+          return;
+        }
         let result: any;
         if (mutation) {
           const body = await readBody(req);
-          if (pathname === "/api/wiki/propose")
-            result = proposeWiki(s, body, host);
-          else if (pathname === "/api/wiki/review")
-            result = reviewWiki(s, String(body.id), body.state, host);
-          else if (pathname === "/api/wiki/canonical")
-            result = canonicalWiki(s, String(body.id), host);
-          else result = reviewMemory(s, String(body.id), body.state, host);
-        } else if (pathname === "/api/graph") result = graph(s, host);
-        else if (pathname === "/api/wiki") result = listWiki(s, host);
-        else if (pathname.startsWith("/api/wiki/"))
-          result = getWiki(s, pathname.split("/").pop() ?? "", host);
-        else if (options.app && pathname === "/api/workspace")
-          result = {
-            schemaVersion: s.schemaVersion,
+          result = await engine!.execute(
             host,
-            counts: {
-              sources: s.one("SELECT COUNT(*) c FROM sources").c,
-              entities: s.one("SELECT COUNT(*) c FROM entities").c,
-              memories: s
-                .memories()
-                .filter((m) => m.allowedHosts?.includes(host)).length,
-              wikiPages:
-                s.schemaVersion >= 2
-                  ? s.one("SELECT COUNT(*) c FROM wiki_pages").c
-                  : 0,
-            },
-          };
-        else if (options.app && pathname === "/api/retrieve")
-          result = retrieve(s, url.searchParams.get("q") ?? "", host, {
-            limit: 8,
-          });
-        else if (options.app && pathname === "/api/memory")
-          result = s
-            .memories()
-            .filter((m) => m.allowedHosts?.includes(host))
-            .map((m) => ({
-              id: m.id,
-              type: m.type,
-              content: m.content,
-              state: m.state,
-              createdAt: m.createdAt,
-              durability: m.durability,
-              stale: !s.evidenceVisible(m.evidence ?? [], host),
-              evidence: m.evidence ?? [],
-            }));
-        else if (options.app && pathname === "/api/connections")
-          result = connect(s);
-        else if (options.app && pathname === "/api/sources")
-          result = s
-            .all(
-              "SELECT s.*,r.status extraction_status FROM sources s LEFT JOIN revisions r ON r.id=s.current_revision",
-            )
-            .filter((r) => s.allowed(r, host))
-            .map((r) => {
-              const m = JSON.parse(r.metadata);
-              return {
-                id: r.id,
-                title: r.title,
-                documentType: m.documentType,
-                authority: m.authority,
-                status: m.status,
-                effectiveDate: m.effectiveDate,
-                client: m.client,
-                extractionStatus: r.extraction_status,
-                sourceKey: r.source_key,
-                lastChecked: r.last_checked,
-              };
-            });
-        else if (options.app && pathname === "/api/contradictions")
-          result = wikiContradictions(s, host);
-        else if (pathname.startsWith("/api/passage/")) {
-          const id = pathname.split("/").pop();
-          const p = s.one(
-            "SELECT p.*,s.id source_id,s.title,s.metadata FROM passages p JOIN revisions r ON r.id=p.revision_id JOIN sources s ON s.id=r.source_id WHERE p.id=?",
-            id,
+            { command: "app-action", args: [pathname], input: body },
+            String(req.headers["x-hoi-request-id"] || randomUUID()),
           );
-          if (!p || !s.allowed({ id: p.source_id, metadata: p.metadata }, host))
-            throw Error("Passage unavailable");
-          result = {
-            id: p.id,
-            revisionId: p.revision_id,
-            sourceId: p.source_id,
-            title: p.title,
-            location: p.location,
-            text: p.text,
-          };
+        } else if (!pathname.startsWith("/api/original/")) {
+          result = await (pathname === "/api/intake/jobs"
+            ? executeOperation(s, host, { command: "jobs", args: ["list"] })
+            : engine
+              ? engine.enqueue(() =>
+                  executeOperation(s, host, {
+                    command: "app-read",
+                    input: { pathname, query: url.search, app: true },
+                  }),
+                )
+              : executeOperation(s, host, {
+                  command: "app-read",
+                  input: { pathname, query: url.search, app: false },
+                }));
         } else if (pathname.startsWith("/api/original/")) {
           const id = pathname.split("/").pop(),
             source = s.one("SELECT * FROM sources WHERE id=?", id);
-          if (!source || !s.allowed(source, host))
+          if (
+            !source ||
+            !s.allowed(
+              source,
+              host,
+              options.app && url.searchParams.get("history") === "1",
+            )
+          )
             throw Error("Source unavailable");
           const r = s.one(
             "SELECT * FROM revisions WHERE source_id=? AND id=?",
@@ -240,23 +253,62 @@ export async function serve(
       );
       res.end(readFileSync(file));
     } catch (e) {
-      res.writeHead(403, { "Content-Type": "application/json" });
+      res.writeHead(
+        (e as Error).message === "OPERATION_UNKNOWN"
+          ? 404
+          : (e as Error).message.startsWith("STALE_VERSION")
+            ? 409
+            : 403,
+        { "Content-Type": "application/json" },
+      );
       res.end(JSON.stringify({ error: (e as Error).message }));
     }
   });
-  await new Promise<void>((ok, bad) => {
-    server.once("error", (error: NodeJS.ErrnoException) =>
-      bad(
-        error.code === "EADDRINUSE"
-          ? Error(
-              "PORT_IN_USE: Choose --port 0 for an available port, or another port. Leave unrelated services running.",
-            )
-          : error,
-      ),
-    );
-    server.listen(port, "127.0.0.1", ok);
-  });
+  try {
+    await new Promise<void>((ok, bad) => {
+      server.once("error", (error: NodeJS.ErrnoException) =>
+        bad(
+          error.code === "EADDRINUSE"
+            ? Error(
+                "PORT_IN_USE: Choose --port 0 for an available port, or another port. Leave unrelated services running.",
+              )
+            : error,
+        ),
+      );
+      server.listen(port, "127.0.0.1", ok);
+    });
+  } catch (e) {
+    await engine?.stop();
+    throw e;
+  }
+  const stopAnalysis = options.app
+    ? startAutomaticAnalysis(s, host, (fn) => engine!.enqueue(fn))
+    : () => {};
+  const stopSync = options.app
+    ? startSync(s, host, (fn) => engine!.enqueue(fn))
+    : () => {};
+  const close = server.close.bind(server);
+  let closing = false;
+  server.close = ((callback?: (error?: Error) => void) => {
+    if (closing) {
+      if (callback) server.once("close", callback);
+      return server;
+    }
+    closing = true;
+    stopSync();
+    stopAnalysis();
+    // Close sockets only after durable work finishes; keep ownership until then.
+    void stopAI(s)
+      .then(() => engine?.stop())
+      .then(() => {
+        close(callback);
+        server.closeIdleConnections();
+      });
+    return server;
+  }) as typeof server.close;
+  server.on("close", stopSync);
   const address = server.address() as any;
+  engine?.publish(address.port);
   const reader = s.path(`.hoi/readers/${process.pid}-${address.port}`);
   atomic(reader, options.app ? "app server" : "map server");
   server.on("close", () => rmSync(reader, { force: true }));

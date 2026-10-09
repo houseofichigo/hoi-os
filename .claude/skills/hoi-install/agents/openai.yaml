@@ -1,0 +1,4 @@
+interface:
+  display_name: "Installation guide"
+  short_description: "Verify the app and optional assistant adapters."
+  default_prompt: "Use $hoi-install for this request, respecting HOI review and source permissions."

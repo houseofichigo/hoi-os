@@ -1,0 +1,4 @@
+interface:
+  display_name: "Retrieval evaluation"
+  short_description: "Measure whether evidence retrieval answers your questions."
+  default_prompt: "Use $hoi-evaluate for this request, respecting HOI review and source permissions."

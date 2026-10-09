@@ -1,6 +1,12 @@
+import { eligibleMemories } from "./retrieval.js";
+import { wikiLibrary } from "./wiki-core.js";
+import { mergedEntity } from "./entity-merge.js";
+import { records } from "./workspace.js";
+import { listWiki } from "./wiki.js";
+import { listProjects, listTasks } from "./tasks.js";
 import { Store } from "./store.js";
 import type { Host } from "./schema.js";
-import { now, readYaml } from "./files.js";
+import { now, readYaml, sha } from "./files.js";
 import { readdirSync } from "node:fs";
 export function graph(s: Store, host: Host) {
   s.assertHost(host);
@@ -46,10 +52,36 @@ export function graph(s: Store, host: Host) {
       });
     }
   }
+  const visibleProjects =
+    s.schemaVersion >= 9
+      ? new Set(listProjects(s, host).map((p) => p.entity_id))
+      : null;
+  const visibleClients =
+    s.schemaVersion >= 9
+      ? new Set(records(s, "client", host).map((c) => c.id))
+      : null;
   // Entities are manually declared registry entries. Source-derived names must only be created after review.
   for (const e of s
     .all("SELECT * FROM entities")
-    .filter((e) => JSON.parse(e.allowed_hosts).includes(host)))
+    .filter((e) => JSON.parse(e.allowed_hosts).includes(host))
+    .filter(
+      (e) =>
+        !(
+          visibleProjects &&
+          e.type === "project" &&
+          s.one("SELECT id FROM projects WHERE entity_id=?", e.id) &&
+          !visibleProjects.has(e.id)
+        ),
+    )
+    .filter(
+      (e) =>
+        !(
+          visibleClients &&
+          e.type === "client" &&
+          s.one("SELECT id FROM workspace_records WHERE id=?", e.id) &&
+          !visibleClients.has(e.id)
+        ),
+    ))
     nodes.push({
       id: e.id,
       type: e.type,
@@ -58,7 +90,7 @@ export function graph(s: Store, host: Host) {
       date: e.date,
       recordedAt: e.created_at,
     });
-  for (const m of s.memories()) {
+  for (const m of eligibleMemories(s, host)) {
     if (
       !m.allowedHosts.includes(host) ||
       !s.evidenceVisible(m.evidence, host, false)
@@ -104,10 +136,8 @@ export function graph(s: Store, host: Host) {
   }
   if (s.schemaVersion >= 2)
     for (const w of s
-      .all(
-        "SELECT * FROM wiki_pages WHERE status IN ('draft','reviewed','canonical')",
-      )
-      .filter((row) => JSON.parse(row.allowed_hosts).includes(host))) {
+      .all("SELECT * FROM wiki_pages WHERE status = 'canonical'")
+      .filter((row) => listWiki(s, host).some((w) => w.id === row.id))) {
       nodes.push({
         id: w.id,
         type: "wiki",
@@ -146,13 +176,86 @@ export function graph(s: Store, host: Host) {
           id: `${w.id}-${e.passage_id}`,
           source: r.source_id,
           target: w.id,
-          type: w.status === "canonical" ? "SUPPORTS" : "REFERENCES",
+          type:
+            e.relation === "contradicts"
+              ? "CONTRADICTS"
+              : e.relation === "references"
+                ? "REFERENCES"
+                : "SUPPORTS",
           basis: w.status === "canonical" ? "supported" : "inferred",
           evidence: [evidence],
           date: w.effective_date,
         });
       }
     }
+  if (s.schemaVersion >= 15) {
+    const visible = wikiLibrary(s, host).filter(
+      (p) => p.status === "canonical",
+    );
+    const remap = new Map(visible.map((p) => [p.id, p.pageId]));
+    for (const n of nodes)
+      if (n.type === "wiki" && remap.has(n.id)) {
+        n.revisionId = n.id;
+        n.id = remap.get(n.id);
+      }
+    for (const l of links) {
+      l.source = remap.get(l.source) ?? l.source;
+      l.target = remap.get(l.target) ?? l.target;
+    }
+    for (const p of visible)
+      for (const target of p.relatedPages ?? [])
+        if (visible.some((x) => x.pageId === target))
+          links.push({
+            id: `${p.pageId}-cites-${target}`,
+            source: p.pageId,
+            target,
+            type: "CITES",
+            basis: "manual",
+            evidence: [],
+            date: p.effectiveDate,
+          });
+  }
+  if (s.schemaVersion >= 3) {
+    const projects = listProjects(s, host);
+    for (const t of listTasks(s, host)) {
+      const p = projects.find((p) => p.id === t.projectId);
+      if (!p) continue;
+      nodes.push({
+        id: t.id,
+        type: "task",
+        name: t.title,
+        status: t.status,
+        date: t.dueDate,
+        recordedAt: t.createdAt,
+        project: p.entity_id,
+        evidence: t.evidence,
+      });
+      links.push({
+        id: `${t.id}-project`,
+        source: t.id,
+        target: p.entity_id,
+        type: "BELONGS_TO",
+        basis: "manual",
+        date: t.createdAt.slice(0, 10),
+        evidence: [],
+      });
+      for (const e of t.evidence) {
+        const r = s.one(
+          "SELECT source_id FROM revisions WHERE id=?",
+          e.revisionId,
+        );
+        links.push({
+          id: `${t.id}-${e.passageId}-${sha(e.quote).slice(0, 12)}`,
+          source: r.source_id,
+          target: t.id,
+          type: "SUPPORTS",
+          basis: "supported",
+          date: t.createdAt.slice(0, 10),
+          evidence: [e],
+        });
+      }
+    }
+  }
   for (const r of s.all("SELECT * FROM relationships")) {
     const evidence = JSON.parse(r.evidence);
     if (!s.evidenceVisible(evidence, host, false)) continue;
@@ -212,10 +315,35 @@ export function graph(s: Store, host: Host) {
       });
     }
   }
-  const ids = new Set(nodes.map((n) => n.id));
+  if (s.schemaVersion >= 9) {
+    for (const p of records(s, "project", host)) {
+      const entity = s.one("SELECT entity_id FROM projects WHERE id=?", p.id);
+      for (const clientId of p.clientIds)
+        links.push({
+          id: "project-client-" + p.id + "-" + clientId,
+          source: entity.entity_id,
+          target: clientId,
+          type: "FOR_CLIENT",
+          basis: "manual",
+          evidence: [],
+          date: null,
+        });
+    }
+  }
+  const visibleNodes = nodes.filter(
+    (n) => mergedEntity(s, host, n.id) === n.id,
+  );
+  const projectedLinks = links.map((l) => ({
+    ...l,
+    originalSource: l.source,
+    originalTarget: l.target,
+    source: mergedEntity(s, host, l.source),
+    target: mergedEntity(s, host, l.target),
+  }));
+  const ids = new Set(visibleNodes.map((n) => n.id));
   return {
-    nodes,
-    links: links.filter((l) => ids.has(l.source) && ids.has(l.target)),
+    nodes: visibleNodes,
+    links: projectedLinks.filter((l) => ids.has(l.source) && ids.has(l.target)),
     generatedAt: now(),
     host,
     note: "Dates represent recorded effective dates. Unknown dates are not inferred.",

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capability builder"
+  short_description: "Define a bounded workflow for review."
+  default_prompt: "Use $hoi-build-capability for this request, respecting HOI review and source permissions."

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'"
+    />
+    <title>House of Ichigo — workspace</title>
+    <link rel="stylesheet" href="desktop.css" />
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">HOUSE OF ICHIGO · ALPHA</p>
+      <h1>Your work, in one workspace.</h1>
+      <p>
+        The HOI engine keeps your documents, memory and reviewed work on this
+        computer. Assistant skills are optional.
+      </p>
+      <section aria-label="Workspace setup">
+        <h2>Choose your private workspace</h2>
+        <p>
+          Create a new folder or open an existing workspace. Keep it separate
+          from the application.
+        </p>
+        <div class="actions">
+          <button id="create">Create workspace</button
+          ><button id="open">Open workspace</button>
+        </div>
+      </section>
+      <section aria-label="Engine status">
+        <h2>Engine status</h2>
+        <p id="status" role="status">Checking desktop…</p>
+        <p id="error" role="alert"></p>
+        <p id="workspace"></p>
+        <div class="actions">
+          <button id="home">Open Home</button
+          ><button id="restart">Restart engine</button
+          ><button id="stop">Stop engine</button
+          ><button id="upgrade" hidden>Create upgraded copy</button>
+        </div>
+      </section>
+      <p>
+        Closing this app stops synchronization. Your private workspace remains
+        when the application is removed. Updates are manual during alpha.
+      </p>
+    </main>
+    <script src="renderer.js"></script>
+  </body>
+</html>

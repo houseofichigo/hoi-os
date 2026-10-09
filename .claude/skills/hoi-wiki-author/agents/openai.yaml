@@ -1,0 +1,4 @@
+interface:
+  display_name: "Wiki author"
+  short_description: "Prepare cited wiki drafts with explicit attribution and review."
+  default_prompt: "Use $hoi-wiki-author for this request, respecting HOI review and source permissions."

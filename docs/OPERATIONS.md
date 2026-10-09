@@ -2,9 +2,9 @@
 
 ## Updates
 
-Stop active commands and the map. Back up the private workspace to a new directory outside it. Update product code using a reviewed release, run npm ci, then rerun setup against the existing private workspace. Setup rebuilds the product and refreshes its managed skill/manual blocks, preserving previous copies in workspace archives.
+For developer/browser updates, use a reviewed compatible product checkout. Desktop users use a compatible packaged app; Git and a separate Node installation are not required. Before any private schema upgrade, take a verified backup and restore it into a separate directory. Stop the relevant engine/readers when exclusive recovery is required. Do not bypass locks.
 
-The current database version is 2. Schema-1 workspaces open for compatible operations; `upgrade BACKUP_DESTINATION` creates and verifies a backup before applying the supported schema 1→2 wiki migration. Future migrations must be transactional, take a verified pre-migration backup, and ship a restore test. This alpha does not claim a migration path from future schemas or from Personal Workspace.
+Current schema and supported sequential migrations are listed in [generated compatibility](COMPATIBILITY.md). This local checkout uses schema 18. Use the explicit backup-first upgrade flow; setup does not silently migrate a private database. Preserve the previous compatible workspace copy for rollback, rather than opening a newer database with an older engine. Historical schema-2 instructions do not describe the current app.
 
 ## Backups
 
@@ -14,7 +14,7 @@ Restore validates checksums and SQLite integrity before staging replacement. The
 
 ## Interrupted work
 
-CLI mutations hold `.hoi/lock` with owner PID and machine identity. After a crash, run `doctor` and then `recover-lock`; active or uncertain owners are refused. Legacy locks without machine identity require investigation. Do not remove an active lock. Rerun ingest for pending/failed sources; preserved originals and occurrence history remain available. Resume a failed workflow by execution ID only when its inputs, host, policy, context, source state and capability still match.
+One engine owns workspace writes under `.hoi/lock` with owner PID and machine identity; compatible CLI requests route to that running engine. After a crash, run `doctor` and then `recover-lock`; active or uncertain owners are refused. Legacy locks without machine identity require investigation. Do not remove an active lock. Rerun ingest for pending/failed sources; preserved originals and occurrence history remain available. Resume a failed workflow by execution ID only when its inputs, host, policy, context, source state and capability still match.
 
 The map records its process under `.hoi/readers`. Stop it with Ctrl+C before restore. After a killed process, verify it has stopped before removing its stale reader marker. A running map can coexist with ordinary CLI writes; refresh the browser to see new records.
 
@@ -49,7 +49,7 @@ The command refuses existing outputs, retains the original, and writes a checksu
 
 Run `npm start -- --workspace "<private workspace>" --host codex` (or `claude`). It validates installation, starts localhost, and opens the authenticated URL. Add `--no-open` to copy the URL yourself. If the port is occupied, add `--port 0`. Do not open `web/index.html` via `file://`; it is application source, not a standalone app.
 
-The record list opens first. Choose **3D map** when needed. A failed refresh clears displayed records rather than leaving stale evidence visible. Restarting the server changes its session token: open the newly printed URL.
+Home opens first. Knowledge Hub offers a lazily loaded Map and its accessible record list. A failed refresh clears displayed records rather than leaving stale evidence visible. Restarting the server changes its session token: open the newly printed URL.
 
 `doctor --json` includes versioned diagnostic checks: `DATABASE_OK/UNAVAILABLE/CORRUPT`, `EXTRACTION_OK/GAPS`, `LOCK_CLEAR/ACTIVE/STALE/UNKNOWN`, `CODEX_ADAPTER_OK/MISSING`, `CLAUDE_ADAPTER_OK/MISSING`, and `BACKUP_VERIFIED/OLD/MISSING/INVALID`. Backup verification checks contents when diagnostics run; OLD means more than seven days since creation, not a claim that every subsequent change is backed up.
 
@@ -59,4 +59,24 @@ The record list opens first. Choose **3D map** when needed. A failed refresh cle
 
 `recover-restore --workspace "<private workspace>"` handles a killed restore. After verifying the restoring process has stopped, it uses the journal to recover the previous workspace if the directory swap was interrupted. Completed swaps retain the prior workspace. Incomplete staging directories are never treated as successful backups and may be inspected before manual cleanup.
 
-Setup against an existing workspace takes a verified sibling backup before updating adapters. Keep backup directories private and include them in your own encrypted storage policy. Setup does not silently change the database schema; run the explicit backup-first `upgrade` command when a supported schema-1 workspace needs schema 2.
+Setup against an existing workspace takes a verified sibling backup before updating adapters. Keep backup directories private and include them in your own encrypted storage policy. Setup does not silently change the database schema; run the explicit backup-first `upgrade` command when a supported older workspace needs the current schema (see [generated compatibility](COMPATIBILITY.md)).
+
+## Optional adapters
+
+Current setup defaults to app-only and does not create assistant manuals in a new workspace. Existing adapters remain installed when setup is rerun with `--hosts none`. Use the separate `adapter install/remove` commands or Configuration for explicit adapter changes.
+
+General workspace backups exclude `.agents` and `.claude`. Adapter changes additionally preserve these skill files under dated workspace archives with checksums. Check returned conflicts before relying on changed instructions; repair restores missing packaged resources but retains local edits. Legacy, untracked removal is refused until the adapter is installed/verified. Invalid managed manual markers require review rather than blind rewriting. Keep preserved archives private.
+
+## Assistant documentation updates
+
+Adapter installation bundles the governance, filesystem and tool-convention guides with a generated operation reference under `.hoi/guides/<content-digest>/`. Manifests record version and checksums. Legacy adapters remain readable and report documentation-update-needed; update them through the existing adapter installation flow. A modified guide or managed manual is retained as a conflict. User text outside managed blocks is preserved. Old guide bundles remain for history and other adapters after removal. Full pre-update backups include prior manuals and guides; the local archive also records replaced manuals and current guide copies.
+
+See [filesystem ownership](FILESYSTEM.md) for permitted editing and [tool conventions](TOOL_CONVENTIONS.md) for safe retries.
+
+### Local guide-delivery verification (30 September 2026)
+
+Schema remains 18. Guide bundle `e530e666485f9b1a992a24f7a414ba456cf56c6adc4cdd0a04e3acb61feea2e1` is included in build `8157ae8deb22eed263d1544fbb6b39632f21f6842cd567740101cff7399428ce`. Local evidence: 229 core checks, 42 browser checks and 2 staged Electron checks passed. The Electron workflow installs an adapter and verifies all four guide files and managed manual links. A deliberately modified generated reference was rejected by the drift checker. App-only, legacy-manifest, custom-guide/manual conflict and imported-instruction preservation cases use fictional workspaces.
+
+The local canonical skill collection contains the updated installer/onboarding guidance with provenance; prior published snapshots remain unchanged. These tests do not establish live-provider or clean-machine certification. No private schema migration or publication was performed.
+
+The rebuilt unsigned macOS arm64 package at `desktop-release/8157ae8deb22-2026-09-30T11-38-29.771Z/` passed both packaged-app tests, including adapter installation and guide links. Its guide checksums and build identity match the checkout; SHA256SUMS is included. The earlier `11-37-22.340Z` artifact failed guide containment inspection and is marked rejected in its QA.json; it must not be distributed. No artifact was published.
