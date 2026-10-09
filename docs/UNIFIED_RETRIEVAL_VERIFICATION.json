@@ -25,9 +25,21 @@
     "No clean-machine, Windows or live paid-provider certification.",
     "Historical search remains lexical.",
     "No human-labelled quality certification; synthetic lexical measurements do not establish hybrid or multi-domain performance.",
-    "Incremental reuse is functionally verified on small fictional fixtures; no large hybrid-corpus latency or memory guarantee."
+    "10000-unit synthetic hybrid p95 measured 5.24 seconds on Apple M5, exceeding the 2-second target; not a representative or human-reviewed corpus."
   ],
   "evaluation": "Synthetic 10000-passage benchmark measured exact-ID and broad lexical workloads on Apple M5. Human-labelled bilingual quality and factual-support gates remain unverified.",
   "candidateCorpus": "120 paired diagnostic queries: 116 hybrid, 4 historical lexical. Draft-label recall@5 increased from 0.521739 to 0.934783, no observed recall regressions or forbidden returned references. All 34 unanswerable cases returned hybrid evidence. Tiny fixtures and unreviewed labels do not establish acceptance.",
-  "sharedEvaluation": "Corrected 1018-unit run: 116 hybrid and 4 historical lexical queries; provisional recall@5 98.91%, nDCG@10 96.50%, one French conflict recall regression, zero forbidden returned references. Warm p95 505.48ms under partially overlapping core-test load. Initial query-key mismatch report preserved as invalid hybrid evidence. Labels unreviewed; no answer-quality certification."
+  "sharedEvaluation": "Corrected 1018-unit run: 116 hybrid and 4 historical lexical queries; provisional recall@5 98.91%, nDCG@10 96.50%, one French conflict recall regression, zero forbidden returned references. Warm p95 505.48ms under partially overlapping core-test load. Initial query-key mismatch report preserved as invalid hybrid evidence. Labels unreviewed; no answer-quality certification.",
+  "scaleEvaluation": {
+    "report": "evaluation/knowledge-v1/measurements/2026-10-09-shared-hybrid-10000.json",
+    "eligibleUnits": 10000,
+    "hybridQueries": 116,
+    "historicalLexicalQueries": 4,
+    "warmP50Ms": 3384.1640420000767,
+    "warmP95Ms": 5242.941957999952,
+    "p95TargetMs": 2000,
+    "performanceTargetMet": false,
+    "independentQualityAcceptance": false,
+    "note": "No runtime changes or new regression-suite claim in this evaluation-only batch. Prior matching-build core/browser/desktop evidence retained."
+  }
 }

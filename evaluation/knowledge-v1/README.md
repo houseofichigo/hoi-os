@@ -86,3 +86,29 @@ The initial `2026-10-09-shared-hybrid-1000.json` is retained as an **invalid hyb
 The [corrected report](measurements/2026-10-09-shared-hybrid-1000-corrected.json) verifies 116 hybrid queries and four historical lexical queries over 1,018 eligible units. On the proposed held-out labels, lexical versus hybrid recall@5 was 100% versus 98.91%; nDCG@10 was 82.17% versus 96.50%. The comparison flags `moss-02-fr` as a recall regression. This requires review; no ranking settings were changed to fit the draft. No forbidden references were returned. All 34 unanswerable cases retrieved candidates in both variants; answer correctness remains unmeasured.
 
 On Apple M5 / 32 GiB, corrected warm query-embedding-plus-retrieval p50 was 338.54 ms and p95 505.48 ms. Index construction took 7.01 seconds. Database/WAL sizes were 7,675,904 / 4,161,232 bytes; whole-process peak RSS was 1,579,168 KiB (about 1.51 GiB). Database sizes include fixture records, not just the vector index. Core verification overlapped part of this run, so latency is a diagnostic under mixed local load, not an isolated performance guarantee. No paid provider calls or model downloads occurred. Templated distractors, explicit subject prefixes and unreviewed labels limit these results; neither human quality gates nor the 10,000-unit hybrid target are certified.
+
+## 10,000-unit hybrid diagnostic
+
+Reproduce the shared workload with `9982` as the final runner argument: the fixture contributes 18 eligible units before distractors. The [10,000-unit report](measurements/2026-10-09-shared-hybrid-10000.json) records the actual count, model fingerprint, runtime build, hardware, per-query modes/timings and exact-reference mappings. All 116 current queries used hybrid retrieval; four historical queries remained lexical. No other test suite ran concurrently. Normal desktop processes were not disabled; this was not a dedicated benchmark machine.
+
+| Measurement | Observed |
+|---|---:|
+| Eligible search units | 10,000 |
+| Preserved sources, including excluded fixture sources | 9,998 |
+| Warm hybrid p50 | 3,384.16 ms |
+| Warm hybrid p95 | 5,242.94 ms |
+| Index construction | 59.14 s |
+| Whole-process peak RSS | 1,703,568 KiB (~1.62 GiB) |
+| SQLite database / WAL | 70,889,472 / 4,185,952 bytes |
+| Lexical / hybrid provisional recall@5 | 97.83% / 98.91% |
+| Lexical / hybrid provisional nDCG@10 | 82.11% / 93.84% |
+| Forbidden returned references | 0 |
+| Paid provider calls | 0 |
+
+**The warm p95 ≤2-second target failed on this workload.** Database bytes include authoritative fixture records and other projections, not only vector-index bytes. Peak RSS covers fixture creation, indexing and query execution; it is not a steady-state measurement. Model installation/copy time is outside indexing and query timing. These results do not claim cold-start, Windows or clean-machine performance.
+
+`moss-02-fr` again regressed relative to lexical: its two relevant passages were at lexical positions three/four and hybrid positions five/seven. See [conflict-case review](CONFLICT_CASE_REVIEW.md). Equal-score ordering uses generated record identities, so independently materialized runs need not retain identical tied order. Do not interpret a ranking change between corpus sizes as caused solely by distractors. All 34 unanswerable cases returned evidence; answer abstention remains unmeasured.
+
+Next engineering work is profiling and reducing repeated eligibility/evidence resolution while preserving current permission, revision, archive and scope checks. Inspect lexical candidate materialization as well as semantic index traversal. Do not solve the latency failure by skipping checks or caching authorization beyond its validity. Compare any optimization on the same preserved fixture, then rerun permission-revocation, historical, exact-ID and ranking regressions. No runtime or ranking change was made in this measurement batch.
+
+The [independent-review handoff](HUMAN_REVIEW_HANDOFF.md) identifies the remaining human work. Unreviewed templated data and explicit subject prefixes do not satisfy the held-out quality gates, regardless of the diagnostic percentages above.
