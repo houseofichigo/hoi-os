@@ -1,8 +1,13 @@
 {
   "date": "2026-10-09",
-  "buildId": "53c885bb29a703d550f4826acadbd6733510ca9a7549642664ae48252cfee9e7",
+  "buildId": "a80c352b56f45de8dfdd68eb9eac1a1284a6d47f28de4b5b5096b8e52da91ae0",
   "scope": "fictional workspaces; local developer and staged macOS arm64",
   "suites": [
+    {
+      "suite": "core",
+      "passed": true,
+      "tests": 266
+    },
     {
       "suite": "browser",
       "passed": true,
@@ -12,14 +17,9 @@
       "suite": "desktop",
       "passed": true,
       "tests": 2
-    },
-    {
-      "suite": "core",
-      "passed": true,
-      "tests": 264
     }
   ],
-  "coreNote": "264 total: 261 passed, 3 opt-in model tests skipped. Review-export regression added. Runtime unchanged from the policy optimization; matching-build browser 43, Electron 2 and separately recorded offline model 4 results retained.",
+  "coreNote": "266 total: 263 passed, 3 opt-in model tests skipped. All 4 offline semantic tests separately passed. Browser 43 and staged macOS arm64 Electron 2 passed on the memory-recovery hardening build.",
   "localModel": "Offline tests confirm bilingual retrieval, restart recovery, unchanged embedding reuse, changed-unit recomputation, corrupt-vector repair and revoked-source exclusion.",
   "limitations": [
     "No clean-machine, Windows or live paid-provider certification.",
@@ -52,7 +52,9 @@
     "performanceTargetMetOnMeasuredFixture": true,
     "changedOrderedResults": [],
     "forbiddenReturnedReferences": 0,
-    "independentQualityAcceptance": false
+    "independentQualityAcceptance": false,
+    "measuredBuildId": "53c885bb29a703d550f4826acadbd6733510ca9a7549642664ae48252cfee9e7",
+    "note": "Historical measurement of the unchanged retrieval path; not rerun for this memory-journal-only runtime change."
   },
   "independentReviewPacket": {
     "path": "evaluation/knowledge-v1/review-packets/2026-10-09-shared-10000/README.md",
@@ -62,5 +64,18 @@
     "generatedAnswers": 0,
     "humanApprovals": 0,
     "note": "Engine-resolved fictional evidence with empty decision fields. Exporter rejects mismatched labels/questions and revoked evidence; this does not close the human evaluation gate."
+  },
+  "memoryRecovery": {
+    "status": "synthetic-regressions-passed",
+    "tests": "tests/memory-recovery-hardening.test.mjs",
+    "schema": 19,
+    "checks": [
+      "Reject malformed, empty, duplicate-path, traversal and checksum-inconsistent journals before applying any write in that journal",
+      "Preserve invalid pending journal and existing files",
+      "Back up a partially applied two-memory replacement, restore separately, recover and restart twice",
+      "Preserve both IDs, approved/superseded states, revision counts and exact post-write checksums",
+      "Leave original interrupted workspace unchanged by restored-copy recovery"
+    ],
+    "privateWorkspaceMigrated": false
   }
 }

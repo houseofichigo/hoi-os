@@ -66,14 +66,42 @@ export function recoverMemoryWrites(s: Store) {
   for (const j of s.all(
     "SELECT * FROM memory_write_journal WHERE state='pending' ORDER BY created_at,id",
   )) {
-    const writes = JSON.parse(j.writes);
-    for (const w of writes) {
-      if (
-        !/^memory\/(?:history\/memory_[a-z0-9]+\/\d+\.md|memory_[a-z0-9]+\.md)$/.test(
-          w.path,
+    let writes: {
+      path: string;
+      before: string | null;
+      after: string;
+      text: string;
+    }[];
+    try {
+      writes = z
+        .array(
+          z
+            .object({
+              path: z
+                .string()
+                .regex(
+                  /^memory\/(?:history\/memory_[a-z0-9]+\/\d+\.md|memory_[a-z0-9]+\.md)$/,
+                ),
+              before: z
+                .string()
+                .regex(/^[a-f0-9]{64}$/)
+                .nullable(),
+              after: z.string().regex(/^[a-f0-9]{64}$/),
+              text: z.string(),
+            })
+            .strict(),
         )
+        .min(1)
+        .parse(JSON.parse(j.writes));
+      if (
+        new Set(writes.map((w) => w.path)).size !== writes.length ||
+        writes.some((w) => sha(w.text) !== w.after)
       )
-        throw Error("MEMORY_JOURNAL_INVALID");
+        throw Error("Invalid journal");
+    } catch {
+      throw Error("MEMORY_JOURNAL_INVALID");
+    }
+    for (const w of writes) {
       const path = s.path(w.path),
         actual = existsSync(path) ? sha(readFileSync(path)) : null;
       if (actual !== w.before && actual !== w.after)
