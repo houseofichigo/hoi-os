@@ -58,3 +58,17 @@ The runner requires a directory that does not exist, creates 12 isolated fiction
 Source ingestion, wiki publication, attributed-memory approval and source archiving use the engine. Restricted fixtures use real host permissions. For the explicitly named Birch temporal fixture only, recorded revision timestamps are seeded in its disposable database to represent January history; this is a fixture setup technique, not a supported user write operation. All proposed relevant references and every returned primary reference must resolve through the engine. Forbidden references must fail resolution before scoring. The source text never supplies execution authority.
 
 The [first diagnostic report](measurements/2026-10-09-draft-lexical-run.json) remains **unreviewed**. Logical labels resolve in a separate run artifact; the original draft pack and its checksum remain unchanged. Duplicate-lineage, alias, contradiction and partial-thread records currently test content retrieval, not full connector/relationship behavior. This limitation is recorded in every report. Answers are not generated, so correct answer abstention and factual support remain null/unmeasured. A provisional relevance score is useful for finding failures but must not be reported as product acceptance or as a sealed held-out result.
+
+## Paired local hybrid comparison
+
+Pass an already verified offline model directory as the optional third argument:
+
+```sh
+node scripts/run-review-pack.mjs evaluation/knowledge-v1/candidates/review-pack.json NEW_DIRECTORY VERIFIED_MODEL_DIRECTORY
+```
+
+The runner collects lexical results before enabling semantic search in each fresh fixture, installs only from the supplied local package, rebuilds its index and evaluates the identical cases. It records modes per query, verifies exact references for hybrid results, and writes the lexical scoring input alongside the hybrid one. At completion it disables semantic search and removes only the model copies created in those fresh fixture directories; originals, indexes, manifests and reports remain. Reusing those fixtures for semantic queries requires reinstalling the verified model package. It does not download a model or invoke a provider.
+
+The [paired diagnostic report](measurements/2026-10-09-draft-hybrid-run.json) contains 116 hybrid queries and four historical queries that intentionally remain lexical. Provisional recall@5 on the proposed held-out subset rose from 52.17% to 93.48%; nDCG@10 rose from 52.17% to 91.87%. No per-case recall regressions or forbidden returned references were observed. These are **not acceptance results**: labels are unreviewed, the split is unsealed, and each isolated fixture contains only one to three records, making top-five retrieval much easier than a real workspace.
+
+All 34 unanswerable cases returned evidence in hybrid mode, versus 16 in lexical mode. This measures retrieved candidates, not generated answer errors: no answers were generated. It demonstrates why the assistant must not equate retrieved context with a supported answer. Next evaluation work requires independent labels, realistic distractors and mixed-workspace retrieval, followed by reviewed generated answers and abstention checks. Do not enable reranking, alter thresholds or claim the 90% quality gate based on this diagnostic pack.

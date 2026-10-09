@@ -16,10 +16,10 @@
     {
       "suite": "core",
       "passed": true,
-      "tests": 257
+      "tests": 259
     }
   ],
-  "coreNote": "257 total: 254 passed, 3 opt-in model tests skipped. Materialization test covers 120 diagnostic queries. Runtime unchanged; matching-build browser and desktop results retained.",
+  "coreNote": "259 total: 256 passed, 3 opt-in model tests skipped. Paired comparison tests added; runtime unchanged, previous matching-build browser and desktop results retained.",
   "localModel": "Offline tests confirm bilingual retrieval, restart recovery, unchanged embedding reuse, changed-unit recomputation, corrupt-vector repair and revoked-source exclusion.",
   "limitations": [
     "No clean-machine, Windows or live paid-provider certification.",
@@ -28,5 +28,5 @@
     "Incremental reuse is functionally verified on small fictional fixtures; no large hybrid-corpus latency or memory guarantee."
   ],
   "evaluation": "Synthetic 10000-passage benchmark measured exact-ID and broad lexical workloads on Apple M5. Human-labelled bilingual quality and factual-support gates remain unverified.",
-  "candidateCorpus": "120 draft cases materialized across 12 fictional workspaces with exact engine references. Provisional lexical recall@5 0.521739; zero returned forbidden references. Labels remain unreviewed; no answer or acceptance certification."
+  "candidateCorpus": "120 paired diagnostic queries: 116 hybrid, 4 historical lexical. Draft-label recall@5 increased from 0.521739 to 0.934783, no observed recall regressions or forbidden returned references. All 34 unanswerable cases returned hybrid evidence. Tiny fixtures and unreviewed labels do not establish acceptance."
 }

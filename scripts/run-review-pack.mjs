@@ -1,6 +1,6 @@
 import { performance } from "node:perf_hooks";
 import { compareRetrieval } from "./compare-retrieval.mjs";
-import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import { mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { initialize, Store } from "../dist/core/store.js";
@@ -262,8 +262,14 @@ export async function runReviewPack(pack, directory, options = {}) {
         })),
       });
     } finally {
-      if (hybrid)
+      if (hybrid) {
         configureSemantic(s, "local", { enabled: false, confirm: true });
+        // Remove only this fresh fixture's disposable model copy; preserve originals, indexes and manifests.
+        rmSync(s.path(`.hoi/models/${MODEL_FINGERPRINT}`), {
+          recursive: true,
+          force: true,
+        });
+      }
       s.close();
     }
   }
