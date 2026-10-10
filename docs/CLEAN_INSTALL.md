@@ -151,3 +151,7 @@ The removal test skips when no explicit macOS bundle is provided. It copies the 
 - Distribution polish and security review, including the default Electron icon and unpacked resources noted by the packager.
 
 No private migration, external connection, AI configuration, GitHub update or publication was performed.
+
+## Follow-up readiness batches
+
+See [historical upgrade, clean-Mac kit and signing assessment](RELEASE_READINESS_BATCHES.md). The original schema-1 release source now generates a genuine historical-schema fixture that successfully migrates and restores; this improves on marker-only simulations, while still using current compatible dependencies. The clean-Mac kit is prepared. Native signing/Gatekeeper checks fail for the current unsigned candidate and no valid signing identity is available, so public distribution remains blocked.

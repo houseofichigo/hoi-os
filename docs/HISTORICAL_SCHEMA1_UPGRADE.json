@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "historicalTag": "v0.1.0-alpha.2",
+  "historicalCommit": "cadc585ca63ec0ae5872a88102b48fbff55ff2a7",
+  "sourceArchiveSha256": "b216ee2b6c347ca277b9f87dd6a20576ee3f4b7e4211539a3d2651bed7376d41",
+  "fromSchema": 1,
+  "toSchema": 19,
+  "sourceAndCitationIdsPreserved": true,
+  "approvedMemoryFilePreserved": true,
+  "originalUnchangedBeforeRollback": true,
+  "oldEngineRollbackReadPassed": true,
+  "upgradedBackupRestorePassed": true,
+  "limitations": [
+    "Historical release source executed with current compatible dependencies, not the historical lockfile binaries.",
+    "Fictional source and approved memory only; schema 1 predates projects/tasks/wiki/conversation tables.",
+    "No private migration or clean-machine certification."
+  ]
+}

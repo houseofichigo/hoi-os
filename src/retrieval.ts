@@ -103,6 +103,26 @@ export function eligibleMemories(
   );
 }
 
+// Project records and their explicit subject entities are the same scope.
+// Never infer an association from names, tags or query terms.
+function matchesProject(
+  s: Store,
+  requested: string | undefined,
+  linked: unknown,
+) {
+  if (!requested) return true;
+  if (linked === requested) return true;
+  const row =
+    s.schemaVersion >= 3
+      ? s.one(
+          "SELECT id,entity_id FROM projects WHERE id=? OR entity_id=?",
+          requested,
+          requested,
+        )
+      : null;
+  return !!row && (linked === row.id || linked === row.entity_id);
+}
+
 export function knowledgeSearch(s: Store, input: unknown, h: Host) {
   return s.withReadPolicyCache(() => searchWithinRead(s, input, h));
 }
@@ -153,7 +173,7 @@ function searchWithinRead(s: Store, input: unknown, h: Host) {
       s.allowed({ id: r.source_id, metadata: m }, h) &&
       m.status !== "superseded" &&
       (!v.sourceId || r.source_id === v.sourceId) &&
-      (!v.project || m.project === v.project) &&
+      matchesProject(s, v.project, m.project) &&
       (!v.client || m.client === v.client)
     );
   });
@@ -294,7 +314,7 @@ function searchWithinRead(s: Store, input: unknown, h: Host) {
     if (ref.kind === "source") {
       if (
         (v.sourceId && data.sourceId !== v.sourceId) ||
-        (v.project && data.metadata.project !== v.project) ||
+        !matchesProject(s, v.project, data.metadata.project) ||
         (v.client && data.metadata.client !== v.client)
       )
         return false;
@@ -404,7 +424,7 @@ function searchWithinRead(s: Store, input: unknown, h: Host) {
       const data = knowledgeEvidence(s, ref, h) as any;
       if (
         (v.sourceId && data.sourceId !== v.sourceId) ||
-        (v.project && data.metadata.project !== v.project) ||
+        !matchesProject(s, v.project, data.metadata.project) ||
         (v.client && data.metadata.client !== v.client)
       )
         return [];
