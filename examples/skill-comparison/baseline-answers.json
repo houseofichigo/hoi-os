@@ -1,0 +1,22 @@
+[
+  {
+    "caseId": "duration",
+    "text": "Allow three days.",
+    "citations": [
+      {
+        "sourceId": "orchard-note",
+        "quote": "The Orchard workshop requires two preparation days."
+      }
+    ]
+  },
+  {
+    "caseId": "contact",
+    "text": "Contact Morgan.",
+    "citations": [
+      {
+        "sourceId": "orchard-note",
+        "quote": "Morgan is the contact."
+      }
+    ]
+  }
+]

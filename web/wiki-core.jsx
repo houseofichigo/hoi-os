@@ -1,3 +1,4 @@
+import { surfacePath } from "./destination.js";
 import React, { useState, useEffect } from "react";
 import { Drawer } from "./product-ui.jsx";
 const newBlock = (heading = "Notes") => ({
@@ -151,7 +152,7 @@ export function WikiPanel({ api, refId, onClose, onChanged, subjectId }) {
   }
   return (
     <Drawer title={page?.title ?? "Wiki draft"} onClose={close}>
-      <header>
+      <header className="wiki-panel-header">
         <p className="eyebrow">HOI KNOWLEDGE</p>
         <h2>{page?.title ?? "Create wiki draft"}</h2>
         {page?.status === "canonical" && (
@@ -736,7 +737,8 @@ export function WikiPanel({ api, refId, onClose, onChanged, subjectId }) {
               {citation.sourceId && (
                 <a
                   href={
-                    "/app?view=knowledge&section=Sources&source=" +
+                    surfacePath +
+                    "?view=knowledge&section=Sources&source=" +
                     encodeURIComponent(citation.sourceId)
                   }
                 >
@@ -855,7 +857,8 @@ export function WikiLinks({ api, subjectId }) {
           <p key={p.pageId}>
             <a
               href={
-                "/app?view=knowledge&section=Wiki&wiki=" +
+                surfacePath +
+                "?view=knowledge&section=Wiki&wiki=" +
                 encodeURIComponent(p.pageId)
               }
             >
@@ -867,7 +870,8 @@ export function WikiLinks({ api, subjectId }) {
       ) : (
         <a
           href={
-            "/app?view=knowledge&section=Wiki&wikiSubject=" +
+            surfacePath +
+            "?view=knowledge&section=Wiki&wikiSubject=" +
             encodeURIComponent(subjectId)
           }
         >

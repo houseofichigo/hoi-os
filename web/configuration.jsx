@@ -1,5 +1,6 @@
+import { surfacePath } from "./destination.js";
 import Onboarding from "./onboarding.jsx";
-import { GoogleWritePolicy } from "./email-drafts.jsx";
+import { GoogleWritePolicy } from "./google-write-policy.jsx";
 import AISettings from "./ai-settings.jsx";
 import { ViewTabs } from "./shell.jsx";
 import { requested, focusRecord, useSubview } from "./destination.js";
@@ -72,7 +73,7 @@ export default function Configuration({ api }) {
     act(async () => {
       const r = await api("adapters/update", { action, hosts: [host] });
       setNotice(
-        `Adapter ${action} completed. Verified backup: ${r.backup}. Preserved skills: ${r.archive}. ${r.conflicts.length ? `${r.conflicts.length} customized files retained; inspect adapter status and the preserved archive.` : "No preservation conflicts."}`,
+        `Adapter ${action} finished${r.conflicts.length ? " with conflicts requiring review" : ""}. Verified backup: ${r.backup}. Preserved skills: ${r.archive}. ${r.conflicts.length ? "Conflicting files or folders remain in place; inspect adapter status and the preserved archive." : "No preservation conflicts."}`,
       );
     });
   const create = () =>
@@ -414,8 +415,8 @@ export default function Configuration({ api }) {
         <>
           <h2>Installed workspace adapters</h2>
           <p>
-            The app works without skills. Installing instructions does not
-            install or run an assistant.
+            The Knowledge Hub works without skills. Installing instructions does
+            not install or run an assistant.
           </p>
           {data?.adapters?.map((a) => (
             <article key={a.host}>
@@ -427,14 +428,28 @@ export default function Configuration({ api }) {
                 Runtime {a.runtimeAvailable}
               </p>
               <p>{a.detail}</p>
+              {a.recovery && (
+                <div role="alert">
+                  <p>
+                    An adapter update was interrupted. Stop the affected engine
+                    and restore its verified backup into a separate directory
+                    before retrying. Do not delete the recovery marker.
+                  </p>
+                  <details>
+                    <summary>Recovery details</summary>
+                    <p>Backup: {a.recovery.backup}</p>
+                    <p>Preserved files: {a.recovery.archive}</p>
+                  </details>
+                </div>
+              )}
               <button
-                disabled={busy}
+                disabled={busy || !!a.recovery}
                 onClick={() => adapter("install", a.host)}
               >
                 Install / repair {a.host} adapter
               </button>
               <button
-                disabled={busy || a.status === "not-installed"}
+                disabled={busy || !!a.recovery || a.status === "not-installed"}
                 onClick={() => adapter("remove", a.host)}
               >
                 Remove {a.host} adapter
@@ -446,11 +461,31 @@ export default function Configuration({ api }) {
                   repair.
                 </p>
               )}
+              {(a.untracked?.length > 0 || a.conflicts?.length > 0) && (
+                <details>
+                  <summary>Preserved content needs review</summary>
+                  <p>
+                    Untracked or customized skill folders are not merged or
+                    removed automatically. Remaining files may still be
+                    discoverable by your assistant.
+                  </p>
+                  <ul>
+                    {[
+                      ...new Set([
+                        ...(a.untracked || []),
+                        ...(a.conflicts || []),
+                      ]),
+                    ].map((path) => (
+                      <li key={path}>{path}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
             </article>
           ))}
           <h2>Skill library</h2>
           <p>
-            <a href="/app?view=skills">
+            <a href={surfacePath + "?view=skills"}>
               Open Skills to import, edit and review instructions.
             </a>
           </p>

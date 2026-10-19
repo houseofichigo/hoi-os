@@ -125,7 +125,14 @@ export default function Hub({ api, token, views, composer }) {
   return (
     <>
       <h1 className="screen-reader-only">Knowledge Hub</h1>
-      {composer}
+      {composer || (
+        <PageHeader eyebrow="HOI OS" title="Your knowledge, connected.">
+          <p>
+            Preserved sources, reviewed wikis and memory. Explore the map or add
+            files through a reviewed import.
+          </p>
+        </PageHeader>
+      )}
       <ViewTabs
         label="Knowledge Hub views"
         values={tabs}
@@ -220,7 +227,7 @@ export default function Hub({ api, token, views, composer }) {
       )}
       {tab === "Overview" && (
         <>
-          <RetrievalStatus api={api}/>
+          <RetrievalStatus api={api} />
           <div className="stat-band">
             <p>
               {sources.filter((s) => s.state === "active").length} active

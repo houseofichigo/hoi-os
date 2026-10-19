@@ -60,7 +60,12 @@ test("security evidence expires and is bound to code, check version, suite and p
   assert.equal(evidenceChecks(id, p)[0].detail, "EVIDENCE_INVALID");
   save(report());
   assert.equal(
-    evidenceChecks(id, p).find((x) => x.code === "DESKTOP_BOUNDARY").detail,
+    evidenceChecks(id, p).find((x) => x.code === "HUB_BOUNDARY").status,
+    "pass",
+  );
+  assert.equal(
+    evidenceChecks(id, p).find((x) => x.code === "BROWSER_ACCESSIBILITY")
+      .detail,
     "SUITE_NOT_RUN",
   );
 });
@@ -112,21 +117,20 @@ test("build identity survives packaging removal of development metadata and dete
   const f = fixture(t),
     root = join(f.root, "product");
   mkdirSync(root);
-  for (const dir of ["dist/core", "dist/web", "bin", "skills", "desktop"])
+  for (const dir of ["dist/core", "dist/hub", "bin", "skills"])
     mkdirSync(join(root, dir), { recursive: true });
   const pkg = {
     version: "0.1.0-test",
     dependencies: { sqlite: "fixture" },
-    devDependencies: { electron: "42.11.8" },
+    devDependencies: { vite: "fixture" },
   };
   const p = join(root, "package.json");
   writeFileSync(p, JSON.stringify(pkg));
-  writeFileSync(join(root, "desktop/main.cjs"), "// fixture");
+  writeFileSync(join(root, "dist/hub/hub.html"), "// fixture");
   const initial = buildIdentity(root);
   delete pkg.devDependencies;
-  pkg.hoiEngine = { electron: "42.11.8" };
   writeFileSync(p, JSON.stringify(pkg));
   assert.equal(buildIdentity(root), initial);
-  writeFileSync(join(root, "desktop/main.cjs"), "// changed fixture");
+  writeFileSync(join(root, "dist/hub/hub.html"), "// changed fixture");
   assert.notEqual(buildIdentity(root), initial);
 });

@@ -40,12 +40,21 @@ export async function serve(
   host: Host,
   webRoot: string,
   port = 4640,
-  options: { app?: boolean } = {},
+  options: { app?: boolean; hub?: boolean } = {},
 ) {
+  // The hub is a focused client of the same engine, never a permission role.
+  // `app` remains an API compatibility alias for the Knowledge Hub. The
+  // standalone map deliberately retains its existing read-only mode.
+  if (options.hub || options.app)
+    options = { ...options, app: true, hub: true };
   s.assertHost(host);
-  const entry = options.app ? "app.html" : "index.html";
+  const entry = options.hub ? "hub.html" : "index.html";
   if (!existsSync(resolve(webRoot, entry)))
-    throw Error("Map not built. Run npm run build.");
+    throw Error(
+      options.hub
+        ? "HUB_BUILD_MISSING: Run npm run build:hub."
+        : "Map not built. Run npm run build.",
+    );
   const engine = options.app ? await createEngineSession(s) : undefined;
   const token = randomBytes(32).toString("hex");
   const server = createServer(async (req, res) => {
@@ -229,10 +238,10 @@ export async function serve(
       }
       const file = safePath(
         webRoot,
-        pathname === "/"
-          ? "index.html"
-          : pathname === "/app"
-            ? "app.html"
+        options.hub && ["/", "/app", "/hub"].includes(pathname)
+          ? "hub.html"
+          : pathname === "/"
+            ? "index.html"
             : pathname.slice(1),
       );
       if (!existsSync(file) || !statSync(file).isFile()) {
@@ -320,6 +329,6 @@ export async function serve(
   return {
     server,
     token,
-    url: `http://127.0.0.1:${address.port}/${options.app ? "app" : ""}#${token}`,
+    url: `http://127.0.0.1:${address.port}/${options.hub ? "hub?view=knowledge" : options.app ? "app" : ""}#${token}`,
   };
 }

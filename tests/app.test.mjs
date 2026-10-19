@@ -9,7 +9,7 @@ import { serve } from "../dist/core/server.js";
 
 const webRoot = resolve(
   fileURLToPath(new URL(".", import.meta.url)),
-  "../dist/web",
+  "../dist/hub",
 );
 async function call(running, path, body) {
   const r = await fetch(`http://127.0.0.1:${port(running)}/api/${path}`, {
@@ -24,7 +24,7 @@ async function call(running, path, body) {
 }
 const port = (running) => running.server.address().port;
 
-test("app mode exposes reviewable mutations; map mode stays read-only", async (t) => {
+test("Hub compatibility app mode exposes reviewable mutations; map mode stays read-only", async (t) => {
   const { s, file } = fixture(t);
   await ingest(s, file("positioning.md", "Ichigo positioning statement here"));
   const found = retrieve(s, "positioning statement", "local");
@@ -36,7 +36,11 @@ test("app mode exposes reviewable mutations; map mode stays read-only", async (t
   };
   capture(
     s,
-    { type: "decision", content: "Use the September positioning", evidence: [evidence] },
+    {
+      type: "decision",
+      content: "Use the September positioning",
+      evidence: [evidence],
+    },
     "local",
   );
   const app = await serve(s, "local", webRoot, 0, { app: true });
@@ -74,8 +78,11 @@ test("app mode exposes reviewable mutations; map mode stays read-only", async (t
   // Memory review over HTTP
   const approve = await call(app, "memory/review", {
     id: memory.json[0].id,
-    state: "approved", expectedVersion: memory.json[0].version,
-    expectedChecksum: memory.json[0].checksum, requestKey: "http-review-memory", confirm: true,
+    state: "approved",
+    expectedVersion: memory.json[0].version,
+    expectedChecksum: memory.json[0].checksum,
+    requestKey: "http-review-memory",
+    confirm: true,
   });
   assert.equal(approve.json.state, "approved");
   // Unlisted mutation is refused even in app mode

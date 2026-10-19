@@ -81,11 +81,7 @@
   "memoryDrafts": {
     "status": "implemented-and-synthetically-verified",
     "schema": 19,
-    "operations": [
-      "memory:draft",
-      "memory:save-draft",
-      "memory:compare"
-    ],
+    "operations": ["memory:draft", "memory:save-draft", "memory:compare"],
     "checks": [
       "Saved proposed edits retain identity and immutable revisions",
       "Stale edits rejected and identical retries return the same result",
@@ -104,13 +100,7 @@
   "operationalEvidence": {
     "profile": "unified-retrieval-v3",
     "status": "implemented-and-synthetically-verified",
-    "kinds": [
-      "project",
-      "client",
-      "task",
-      "event",
-      "connection"
-    ],
+    "kinds": ["project", "client", "task", "event", "connection"],
     "defaultScope": "knowledge",
     "workspaceScope": "explicit",
     "checks": [

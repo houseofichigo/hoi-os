@@ -7,7 +7,7 @@ import { execFileSync } from "node:child_process";
 export function safePath(path) {
   return (
     typeof path === "string" &&
-    !path.includes("\\") &&
+    !/[\\:\x00-\x1f]/.test(path) &&
     !path.startsWith("/") &&
     !path.split("/").some((p) => !p || p === "." || p === "..") &&
     !/(^|\/)(audits|workspaces|archives|backups|logs|node_modules|dist|release|desktop-release|test-results|playwright-report|coverage|\.git|\.local|\.secrets|\.verification|\.desktop-stage)(\/|$)/i.test(
@@ -23,6 +23,10 @@ export function scan(bytes) {
     [
       "PRIVATE_HOME_PATH",
       /(?:\/Users\/|\/home\/|[A-Z]:\\Users\\)[a-zA-Z0-9_.-]+/,
+    ],
+    [
+      "LOCAL_AUTH_FRAGMENT",
+      /https?:\/\/(?:127\.0\.0\.1|localhost):[0-9]+\/[^\s"'<>]*#[a-f0-9]{64}\b/i,
     ],
     ["PRIVATE_KEY", /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/],
     [
@@ -77,7 +81,10 @@ export function main(root) {
   ])
     .toString()
     .split("\0")
-    .filter(Boolean);
+    .filter(
+      (path) =>
+        path && lstatSync(resolve(root, path), { throwIfNoEntry: false }),
+    );
   const unclassified = inventory.filter(
     (p) => !manifest.files.includes(p) && !manifest.excludedFiles.includes(p),
   );

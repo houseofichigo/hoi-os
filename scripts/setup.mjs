@@ -2,16 +2,31 @@ import { parseArgs } from "node:util";
 import { createInterface } from "node:readline/promises";
 import { stdin, stdout } from "node:process";
 import { fileURLToPath } from "node:url";
-import { resolve, join } from "node:path";
+import {
+  resolve,
+  join,
+  dirname,
+  basename,
+  relative,
+  isAbsolute,
+  sep,
+} from "node:path";
 import { homedir } from "node:os";
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import {
+  existsSync,
+  readFileSync,
+  readdirSync,
+  lstatSync,
+  realpathSync,
+} from "node:fs";
 
 const { values: v } = parseArgs({
   options: {
     workspace: { type: "string" },
     hosts: { type: "string", default: "none" },
     "skip-build": { type: "boolean" },
+    surface: { type: "string", default: "hub" },
     "non-interactive": { type: "boolean" },
   },
 });
@@ -24,6 +39,10 @@ if (
   throw Error("Node.js 22.14 or newer is required.");
 if (!["none", "codex", "claude", "both"].includes(v.hosts))
   throw Error("--hosts must be none, codex, claude, or both");
+if (!["app", "hub"].includes(v.surface))
+  throw Error("--surface must be app or hub");
+// The old app flag is a compatibility alias; the business app is retired.
+v.surface = "hub";
 let workspace = v.workspace;
 if (!workspace) {
   if (v["non-interactive"] || !stdin.isTTY)
@@ -38,13 +57,50 @@ if (!workspace) {
   rl.close();
 }
 workspace = resolve(workspace);
+// Inspect the selected location before building or writing any workspace files.
+try {
+  if (lstatSync(workspace).isSymbolicLink())
+    throw Error("Choose a real workspace directory, not a symbolic link");
+} catch (e) {
+  if (e.code !== "ENOENT") throw e;
+}
+function physical(path) {
+  const suffix = [];
+  while (!existsSync(path)) {
+    suffix.unshift(basename(path));
+    path = dirname(path);
+  }
+  return join(realpathSync(path), ...suffix);
+}
+workspace = physical(workspace);
+const productDirectory = physical(product);
+const within = (a, b) => {
+  const p = relative(a, b);
+  return !p || (p !== ".." && !p.startsWith(".." + sep) && !isAbsolute(p));
+};
+if (within(productDirectory, workspace) || within(workspace, productDirectory))
+  throw Error(
+    "The private workspace and product checkout must be separate directories.",
+  );
+if (
+  existsSync(workspace) &&
+  !existsSync(join(workspace, ".hoi/workspace.json")) &&
+  readdirSync(workspace).length
+)
+  throw Error(
+    "Choose an empty directory for a new private workspace; existing files are never adopted or committed automatically.",
+  );
 if (!v["skip-build"]) {
   const npm = process.env.npm_execpath;
   if (!npm) throw Error("Run setup through npm run setup");
-  const r = spawnSync(process.execPath, [npm, "run", "build"], {
-    cwd: product,
-    stdio: "inherit",
-  });
+  const r = spawnSync(
+    process.execPath,
+    [npm, "run", v.surface === "hub" ? "build:hub" : "build"],
+    {
+      cwd: product,
+      stdio: "inherit",
+    },
+  );
   if (r.status !== 0) process.exit(r.status ?? 1);
 }
 const { initialize, Store } = await import("../dist/core/store.js");
@@ -112,6 +168,6 @@ const doctor = spawnSync(
 );
 if (doctor.status !== 0) throw Error(doctor.stderr);
 console.log(
-  `Setup complete. Start Home with npm start -- --workspace "${workspace}". Assistant adapters are optional.\n${doctor.stdout}`,
+  `Setup complete. Start ${v.surface === "hub" ? "Knowledge Hub with npm run hub" : "Home with npm start"} -- --workspace "${workspace}". Assistant adapters are optional.\n${doctor.stdout}`,
 );
 if (installed) console.log(JSON.stringify(installed, null, 2));

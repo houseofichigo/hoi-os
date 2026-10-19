@@ -9,21 +9,21 @@ test.beforeAll(async () => {
   root = mkdtempSync(join(tmpdir(), "hoi-onboarding-ui-"));
   initialize(join(root, "workspace"));
   s = new Store(join(root, "workspace"));
-  running = await serve(s, "local", resolve("dist/web"), 0, { app: true });
+  running = await serve(s, "local", resolve("dist/hub"), 0, { app: true });
 });
 test.afterAll(async () => {
   await new Promise((r) => running.server.close(r));
   s.close();
   rmSync(root, { recursive: true, force: true });
 });
-test("app-only setup saves and resumes at narrow width without enabling AI", async ({
+test("Hub-only setup saves and resumes at narrow width without enabling AI", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto(running.url);
-  await page
-    .getByRole("button", { name: "Continue setup", exact: true })
-    .click();
+  const url = new URL(running.url);
+  url.searchParams.set("view", "configuration");
+  url.searchParams.set("section", "Onboarding");
+  await page.goto(url.href);
   await page.getByLabel("Your name", { exact: true }).fill("Fictional Alex");
   await page
     .getByRole("button", { name: "Save and continue", exact: true })

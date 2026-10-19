@@ -358,6 +358,7 @@ export function collectUnits(s: Store, h: Host) {
     .filter(
       (m) =>
         m.state === "approved" &&
+        !m.lesson &&
         m.allowedHosts.includes(h) &&
         s.evidenceVisible(m.evidence, h) &&
         (!m.validFrom || m.validFrom <= today) &&

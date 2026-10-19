@@ -2,11 +2,13 @@
 
 ## Current local development (unreleased)
 
-The app supports user-owned desktop OAuth for selected Gmail, Calendar and Drive scopes, plus local folders. Polling runs only while the engine is running. Configuration shows selected scope, preview, synchronization history and reconnect controls. Read-only remains the default.
+The engine supports user-owned local OAuth for selected Gmail, Calendar and Drive scopes, plus local folders. Polling runs only while the engine is running. Configuration shows selected scope, preview, synchronization history and reconnect controls. Read-only remains the default.
 
 Optional OpenAI Responses and Anthropic Messages adapters use OS-protected API keys and explicit provider disclosure. They do not use a ChatGPT/Claude subscription or extract host credentials. Automatic commitment analysis requires separate reviewed scope and budget authorization. Reviewed Gmail draft and preparation-event adapters require additional scopes and exact approval; no send endpoint is exposed.
 
-See [Operational Inbox](OPERATIONAL_INBOX.md) for setup, tested boundaries and remaining live/clean-install gates. Implemented does not mean live-verified.
+The current Knowledge Hub provides connection configuration and explicit assistant handoff. The retired Inbox and full Chat screens are not bundled. Optional provider generation remains an engine capability for registered operations and user-built clients; configuring a key does not add those screens.
+
+See [the historical Operational Inbox implementation](OPERATIONAL_INBOX.md) for setup, tested boundaries and remaining live/clean-install gates. Implemented does not mean live-verified.
 
 ## Historical release: assistant-mediated exports
 

@@ -5,6 +5,7 @@ import { type Host, id } from "./schema.js";
 import { sha, now, readNote } from "./files.js";
 import { proposeWiki } from "./wiki.js";
 import { capture } from "./knowledge.js";
+import { sameMemoryPurpose } from "./skill-lessons.js";
 function access(s: Store, h: Host, write = false) {
   s.assertSchema(5, "Knowledge maintenance");
   s.assertHost(h);
@@ -40,6 +41,8 @@ function objects(s: Store): any[] {
   ];
 }
 function visible(s: Store, o: any, h: Host) {
+  if (o.kind === "memory" && !s.memoryAllowed(o.snapshot, h, false))
+    return false;
   if (s.schemaVersion >= 15 && o.kind === "wiki") {
     try {
       wikiDetail(s, o.id, h);
@@ -316,6 +319,8 @@ export function reviewKnowledge(s: Store, input: unknown, h: Host) {
           "A cited reviewed replacement of the same kind is required",
         );
       s.validateEvidence(replacement.evidence, h, true);
+      if (target.kind === "memory")
+        sameMemoryPurpose(target.snapshot, replacement.snapshot);
       if (digest(s, replacement) !== v.replacementDigest)
         throw Error("STALE_VERSION: Replacement changed");
       if (

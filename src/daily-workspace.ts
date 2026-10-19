@@ -164,16 +164,7 @@ function visibleResult(s: Store, h: Host, result: any) {
     for (const w of result.wikiIds || [])
       if (!listWiki(s, h).some((x) => x.id === w)) return false;
     for (const m of result.memoryIds || [])
-      if (
-        !s
-          .memories()
-          .some(
-            (x) =>
-              x.id === m &&
-              x.allowedHosts.includes(h) &&
-              s.evidenceVisible(x.evidence, h, false),
-          )
-      )
+      if (!s.memories().some((x) => x.id === m && s.memoryAllowed(x, h, false)))
         return false;
     return true;
   } catch {

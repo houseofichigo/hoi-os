@@ -420,7 +420,10 @@ export function operationInfo(raw: unknown) {
       (r.command === "chat" && sub === "send") ||
       (r.command === "app-action" && sub === "/api/chat/send")
         ? "ChatSend/v1 (strict sendInput)"
-        : "OperationInput/v1 plus domain validation",
+        : (r.command === "memory" && sub === "propose") ||
+            (r.command === "app-action" && sub === "/api/memory/propose")
+          ? "MemoryProposal/v1 (strict memoryInput; optional skillLesson)"
+          : "OperationInput/v1 plus domain validation",
     outputSchema: "JSON/v1",
     exclusive: r.command === "upgrade",
   };

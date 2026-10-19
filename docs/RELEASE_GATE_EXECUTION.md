@@ -10,13 +10,13 @@ This addresses a scoped-retrieval defect, not the previously reported unscoped M
 
 ## External gates awaiting setup
 
-| Gate | Required input | Completion evidence |
-| --- | --- | --- |
-| Clean Mac | Fresh machine/test user and operator access | Completed checksum-bound kit with OS, build and observed outcomes |
-| Apple signing | Developer ID identity and secure notarization setup | Signed/notarized final artifact, stapling and successful native assessment |
-| Windows / Intel Mac | Native environments or authorized remote runners | Install/import/restart/restore/uninstall results for each exact artifact |
-| Google | Explicit account, small selected Gmail label and calendar | Verified read scope; exact reviewed draft and no-attendee preparation event receipts |
-| Ten-day pilot | Named user/workflow, bounded sources, baseline and start | Ten actual working days of observations and resolved critical defects |
+| Gate                | Required input                                            | Completion evidence                                                                  |
+| ------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Clean Mac           | Fresh machine/test user and operator access               | Completed checksum-bound kit with OS, build and observed outcomes                    |
+| Apple signing       | Developer ID identity and secure notarization setup       | Signed/notarized final artifact, stapling and successful native assessment           |
+| Windows / Intel Mac | Native environments or authorized remote runners          | Install/import/restart/restore/uninstall results for each exact artifact             |
+| Google              | Explicit account, small selected Gmail label and calendar | Verified read scope; exact reviewed draft and no-attendee preparation event receipts |
+| Ten-day pilot       | Named user/workflow, bounded sources, baseline and start  | Ten actual working days of observations and resolved critical defects                |
 
 Do not collect credentials in this document or chat. The existing unsigned candidate fails signing/Gatekeeper assessment. The prepared operator kit does not count as an executed clean-machine test. No test environment or Google scope has yet been supplied for this phase.
 

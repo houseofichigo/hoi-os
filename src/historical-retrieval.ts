@@ -169,6 +169,8 @@ export function historicalEvidence(
         .sort((a, b) => b.version - a.version)[0];
       if (
         m?.state === "approved" &&
+        !current.lesson &&
+        !m.lesson &&
         m.reviewedAt &&
         m.reviewedAt <= cutoff &&
         applicable(m.validFrom, m.validUntil)

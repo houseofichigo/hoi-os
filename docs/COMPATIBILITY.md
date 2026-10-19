@@ -10,6 +10,6 @@ Generated from package, protocol, schema and skill manifests. Do not edit by han
 - Node: >=22.14.0 (developer/browser installation).
 - Bundled instructions: 21 skills, including 20 operational skills and one installer guide.
 - Adapters: optional Codex and Claude Code, scoped to the private workspace.
-- Desktop: local Electron staging and packaging are available; released installers and clean-platform verification remain separate gates.
+- Optional interface: independently packaged Knowledge Hub; Node/native dependencies required. The legacy business app and Electron runtime are retired. Clean-host/platform verification remains separate.
 
 Compatibility is checked using API version and operation requirements; a matching base package version alone does not prove a compatible unreleased checkout. Native Windows execution and real assistant-session discovery still require verification.

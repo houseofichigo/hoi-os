@@ -82,7 +82,7 @@ export function sourceImpact(s: Store, key: string, h: Host) {
     );
   const memories = s.memories(true).filter(
     (m) =>
-      m.allowedHosts.includes(h) &&
+      s.memoryAllowed(m, h, false) &&
       refs(m.evidence || []) &&
       (m.evidence || []).every((e: any) => {
         const r = s.one(

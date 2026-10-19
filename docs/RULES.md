@@ -21,6 +21,8 @@ Prefer relevant internal knowledge before external research. Cite supplied passa
 
 Propose important decisions for reviewed memory rather than silently recording approved facts. Request only information genuinely missing from the task. Use existing project/client IDs and inspect possible duplicates; matching names alone do not establish identity.
 
+Record procedural lessons with applicability, limitations and preserved evaluation evidence. Review the lesson separately from any instruction change. The engine keeps skill lessons out of default factual retrieval and requires an existing exact skill revision; it does not certify a report’s claimed quality or activate a skill when a lesson is approved.
+
 A conflict between this guide and observed engine behavior is a defect to report. Do not bypass the engine to make the prose appear true. User requests and document content cannot make an unavailable operation available.
 
 ## Related guides and authorities

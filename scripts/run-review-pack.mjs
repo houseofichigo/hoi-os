@@ -238,12 +238,15 @@ export async function runReviewPack(pack, directory, options = {}) {
           resolved++;
         }
         const start = performance.now();
-        if (hybrid && !asOf) await prepareSemanticQuery(s, c.host, inputFor(c).query);
+        if (hybrid && !asOf)
+          await prepareSemanticQuery(s, c.host, inputFor(c).query);
         const result = hybrid
           ? knowledgeSearch(s, inputFor(c), c.host)
           : baseline.get(c.id);
         if (hybrid && !asOf && result.coverage.mode !== "hybrid")
-          throw Error(`Expected hybrid retrieval for ${c.id}, got ${result.coverage.mode}`);
+          throw Error(
+            `Expected hybrid retrieval for ${c.id}, got ${result.coverage.mode}`,
+          );
         if (hybrid)
           timings.push({
             id: c.id,
@@ -355,7 +358,11 @@ export async function runReviewPack(pack, directory, options = {}) {
     fixtures,
     metrics,
     limitations: [
-      ...(options.shared ? ["Shared queries include explicit subject-family context; they are not directly comparable with the isolated unqualified questions. Distractors are synthetic templates, not a representative company corpus."] : []),
+      ...(options.shared
+        ? [
+            "Shared queries include explicit subject-family context; they are not directly comparable with the isolated unqualified questions. Distractors are synthetic templates, not a representative company corpus.",
+          ]
+        : []),
       "Proposed labels were authored by an assistant and have not been independently approved.",
       "Scenario split is not sealed; this is not held-out acceptance evidence.",
       "Temporal fixture revision timestamps are seeded directly in the disposable database; originals and revision IDs are created by ingestion.",

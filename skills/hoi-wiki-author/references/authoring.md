@@ -15,13 +15,22 @@ Draft payload for `wiki save --input draft.json`:
   "subjects": [],
   "relatedPages": [],
   "expectedVersion": 0,
-  "blocks": [{
-    "id": "preparation",
-    "heading": "Preparation",
-    "text": "Use an exact supported statement here.",
-    "kind": "source-backed",
-    "evidence": [{"revisionId":"revision-id","passageId":"passage-id","quote":"Exact supplied passage","relation":"supports"}]
-  }]
+  "blocks": [
+    {
+      "id": "preparation",
+      "heading": "Preparation",
+      "text": "Use an exact supported statement here.",
+      "kind": "source-backed",
+      "evidence": [
+        {
+          "revisionId": "revision-id",
+          "passageId": "passage-id",
+          "quote": "Exact supplied passage",
+          "relation": "supports"
+        }
+      ]
+    }
+  ]
 }
 ```
 

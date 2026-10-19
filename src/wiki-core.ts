@@ -290,7 +290,7 @@ export function wikiLibrary(s: Store, h: Host, history = false): any[] {
 function subject(s: Store, id: string, h: Host): any {
   const memory = s.memories(true).find((m: any) => m.id === id);
   if (memory)
-    return memory.allowedHosts.includes(h) &&
+    return s.memoryAllowed(memory, h, false) &&
       s.knowledgeActive(id) &&
       s.evidenceVisible(memory.evidence ?? [], h, false)
       ? { id, kind: "memory", title: memory.content, evidence: memory.evidence }

@@ -17,17 +17,39 @@ import { catalog, files } from "../scripts/skill-packages.mjs";
 const root = resolve("."),
   version = JSON.parse(readFileSync("package.json", "utf8")).version;
 test("release packages are reproducible, complete and extractable without local paths", async (t) => {
-  const run = () => {
-    const r = spawnSync(process.execPath, ["scripts/package-release.mjs"], {
-      encoding: "utf8",
-    });
+  const scratch = mkdtempSync(join(tmpdir(), "hoi release skills "));
+  t.after(() => rmSync(scratch, { recursive: true, force: true }));
+  const run = (name) => {
+    const r = spawnSync(
+      process.execPath,
+      ["scripts/package-release.mjs", "--output", join(scratch, name)],
+      {
+        encoding: "utf8",
+      },
+    );
     assert.equal(r.status, 0, r.stderr + r.stdout);
   };
-  run();
-  const dir = join(root, "release", `v${version}`),
+  run("first");
+  const dir = join(scratch, "first"),
     first = readFileSync(join(dir, "SHA256SUMS"), "utf8");
-  run();
+  run("second");
+  assert.equal(
+    readFileSync(join(scratch, "second", "SHA256SUMS"), "utf8"),
+    first,
+  );
+  const retry = spawnSync(
+    process.execPath,
+    ["scripts/package-release.mjs", "--output", dir],
+    { encoding: "utf8" },
+  );
+  assert.notEqual(retry.status, 0);
+  assert.match(retry.stderr, /PACKAGE_OUTPUT_EXISTS/);
   assert.equal(readFileSync(join(dir, "SHA256SUMS"), "utf8"), first);
+  const missing = spawnSync(process.execPath, ["scripts/package-release.mjs"], {
+    encoding: "utf8",
+  });
+  assert.notEqual(missing.status, 0);
+  assert.match(missing.stderr, /PACKAGE_OUTPUT_REQUIRED/);
   for (const line of first.trim().split("\n")) {
     const [hash, name] = line.split("  ");
     assert.equal(
@@ -44,8 +66,6 @@ test("release packages are reproducible, complete and extractable without local 
   assert.ok(installer.file("hoi-install/references/local-setup.md"));
   assert.ok(installer.file("hoi-install/references/chat-guidance.md"));
   assert.ok(installer.file("hoi-install/LICENSE"));
-  const scratch = mkdtempSync(join(tmpdir(), "hoi release skills "));
-  t.after(() => rmSync(scratch, { recursive: true, force: true }));
   for (const [name, entry] of Object.entries(installer.files)) {
     assert.ok(name.startsWith("hoi-install/"));
     assert.ok(!name.includes(".."));

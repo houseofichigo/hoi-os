@@ -53,7 +53,7 @@ export function RecoveryState({ code = "REQUEST_FAILED", onRetry }) {
       </h1>
       <p>
         {session
-          ? "This tab needs the authenticated URL from the HOI launcher. Open that complete link, including the part after #. A plain /app link cannot sign you in."
+          ? "This tab needs the authenticated URL from the HOI launcher. Open that complete link, including the part after #. A plain workspace URL cannot sign you in."
           : code === "SERVER_UNAVAILABLE"
             ? "Check that HOI is running. If you restarted the app, open the new workspace link from its launcher."
             : "Your workspace records have not been changed by this display error. Retry the view; if it persists, reopen the app and check Configuration → Workspace & recovery."}

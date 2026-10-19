@@ -2,13 +2,13 @@
 
 ## Updates
 
-For developer/browser updates, use a reviewed compatible product checkout. Desktop users use a compatible packaged app; Git and a separate Node installation are not required. Before any private schema upgrade, take a verified backup and restore it into a separate directory. Stop the relevant engine/readers when exclusive recovery is required. Do not bypass locks.
+Use a reviewed compatible product checkout or staged Knowledge Hub package. Both need Node 22.14 or newer and compatible native modules. Git is not needed to run a staged package; the old Electron installer is retired. Before any private schema upgrade, take a verified backup and restore it into a separate directory. Stop the relevant engine/readers when exclusive recovery is required. Do not bypass locks.
 
-Current schema and supported sequential migrations are listed in [generated compatibility](COMPATIBILITY.md). This local checkout uses schema 18. Use the explicit backup-first upgrade flow; setup does not silently migrate a private database. Preserve the previous compatible workspace copy for rollback, rather than opening a newer database with an older engine. Historical schema-2 instructions do not describe the current app.
+Current schema and supported sequential migrations are listed in [generated compatibility](COMPATIBILITY.md). This local checkout uses schema 19. Use the explicit backup-first upgrade flow; setup does not silently migrate a private database. Preserve the previous compatible workspace copy for rollback, rather than opening a newer database with an older engine. Historical schema-2 instructions do not describe the current app.
 
 ## Backups
 
-Backup writes a consistent SQLite snapshot and a SHA-256 manifest of private workspace files, excluding credentials, live lock files, temporary files and generated dependencies. Generated assistant adapters are reinstalled by setup. Backups contain private originals and knowledge; store them privately. Application backup does not provide encryption or key management.
+Backup writes a consistent SQLite snapshot and a SHA-256 manifest of private workspace files, excluding credentials, live lock files, temporary files and generated dependencies. Workspace skill folders and managed guides are preserved by backup; adjacent host settings and credentials are excluded. After relocation, setup updates the runtime paths and reports adapter documentation conflicts. Backups contain private originals and knowledge; store them privately. Application backup does not provide encryption or key management.
 
 Restore validates checksums and SQLite integrity before staging replacement. The old workspace is renamed to a unique sibling and retained. The manifest cannot escape the backup root. Restore refuses a running writer or map reader. Files use relative original paths, so restoring to another directory works. Rerun setup after relocation to update runtime.json's machine-local product/workspace paths.
 
@@ -65,7 +65,7 @@ Setup against an existing workspace takes a verified sibling backup before updat
 
 Current setup defaults to app-only and does not create assistant manuals in a new workspace. Existing adapters remain installed when setup is rerun with `--hosts none`. Use the separate `adapter install/remove` commands or Configuration for explicit adapter changes.
 
-General workspace backups exclude `.agents` and `.claude`. Adapter changes additionally preserve these skill files under dated workspace archives with checksums. Check returned conflicts before relying on changed instructions; repair restores missing packaged resources but retains local edits. Legacy, untracked removal is refused until the adapter is installed/verified. Invalid managed manual markers require review rather than blind rewriting. Keep preserved archives private.
+General workspace backups include the managed `.agents/skills` and `.claude/skills` trees; adjacent host settings and credentials are excluded. Adapter changes additionally preserve these skill files under dated workspace archives with checksums. Check returned conflicts before relying on changed instructions; repair restores missing packaged resources but retains local edits. Legacy, untracked removal is refused until the adapter is installed/verified. Invalid managed manual markers require review rather than blind rewriting. Keep preserved archives private.
 
 ## Assistant documentation updates
 
@@ -73,7 +73,7 @@ Adapter installation bundles the governance, filesystem and tool-convention guid
 
 See [filesystem ownership](FILESYSTEM.md) for permitted editing and [tool conventions](TOOL_CONVENTIONS.md) for safe retries.
 
-### Local guide-delivery verification (30 September 2026)
+### Historical guide-delivery verification (30 September 2026)
 
 Schema remains 18. Guide bundle `e530e666485f9b1a992a24f7a414ba456cf56c6adc4cdd0a04e3acb61feea2e1` is included in build `8157ae8deb22eed263d1544fbb6b39632f21f6842cd567740101cff7399428ce`. Local evidence: 229 core checks, 42 browser checks and 2 staged Electron checks passed. The Electron workflow installs an adapter and verifies all four guide files and managed manual links. A deliberately modified generated reference was rejected by the drift checker. App-only, legacy-manifest, custom-guide/manual conflict and imported-instruction preservation cases use fictional workspaces.
 

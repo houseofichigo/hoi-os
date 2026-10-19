@@ -1,4 +1,7 @@
 import { useSyncExternalStore } from "react";
+export const hubSurface =
+  document.querySelector('meta[name="hoi-surface"]')?.content === "hub";
+export const surfacePath = hubSurface ? "/hub" : "/app";
 export const requested = (kind) =>
   new URLSearchParams(location.search).get(kind);
 const views = [
@@ -24,17 +27,18 @@ export function useLocationSearch() {
 }
 export function routeView(search = location.search) {
   const q = new URLSearchParams(search);
+  if (hubSurface && q.get("view") === "home") return "knowledge";
   if (views.includes(q.get("view"))) return q.get("view");
   if (["project", "task", "proposal"].some((k) => q.has(k))) return "projects";
   if (q.has("client")) return "clients";
   if (q.has("source")) return "knowledge";
   if (q.has("connection")) return "configuration";
-  return "home";
+  return hubSurface ? "knowledge" : "home";
 }
 export function navigate(view, subview) {
   const q = new URLSearchParams({ view });
   if (subview) q.set("section", subview);
-  const next = `/app?${q}`;
+  const next = `${surfacePath}?${q}`;
   if (location.pathname + location.search !== next) {
     history.pushState(null, "", next);
     window.dispatchEvent(new Event("hoi:navigate"));
@@ -59,7 +63,7 @@ export function recordRoute(kind, id) {
   const q = new URLSearchParams(location.search);
   if (id) q.set(kind, id);
   else q.delete(kind);
-  const url = `/app${q.size ? "?" + q : ""}`;
+  const url = `${surfacePath}${q.size ? "?" + q : ""}`;
   if (url !== location.pathname + location.search) {
     history.pushState(null, "", url);
     window.dispatchEvent(new Event("hoi:navigate"));

@@ -86,7 +86,7 @@ test("default setup runs intake, audit, map and task approval without assistant 
     );
     assert.equal(listTasks(s, "local").length, 1);
     assert.ok(await executeOperation(s, "local", { command: "audit" }));
-    r = await serve(s, "local", resolve("dist/web"), 0, { app: true });
+    r = await serve(s, "local", resolve("dist/hub"), 0, { app: true });
     const response = await fetch(
       `http://127.0.0.1:${r.server.address().port}/api/graph`,
       { headers: { authorization: `Bearer ${r.token}` } },
@@ -141,7 +141,10 @@ test("adapter lifecycle preserves local edits, repairs missing files and leaves 
     action: "remove",
     hosts: ["codex", "claude"],
   });
-  assert.equal(existsSync(skill), false);
+  assert.equal(
+    readFileSync(skill, "utf8"),
+    "User customized retrieval instructions.",
+  );
   assert.equal(
     readFileSync(manual, "utf8").trim(),
     "My independent instructions.",

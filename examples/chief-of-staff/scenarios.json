@@ -1,0 +1,80 @@
+{
+  "version": "chief-recipe-v1",
+  "fictional": true,
+  "date": "2026-10-19",
+  "timezone": "Europe/Paris",
+  "cases": [
+    {
+      "id": "cedar",
+      "partition": "development",
+      "name": "Cedar review",
+      "owner": "Alex",
+      "project": "Cedar launch",
+      "objective": "Review the Cedar launch options; no launch decision has been approved.",
+      "preference": "For Cedar review, Alex prefers a written agenda before the meeting.",
+      "commitment": "Alex: I will prepare the Cedar review comparison by 2026-10-20. This is a commitment, not approval to send anything.",
+      "draft": {
+        "title": "Prepare the Cedar review comparison",
+        "outcome": "Prepare the comparison for review",
+        "owner": "Alex",
+        "dueDate": "2026-10-20"
+      },
+      "accepted": [
+        {
+          "title": "Confirm Cedar review requirements",
+          "owner": "Alex",
+          "dueDate": "2026-10-18",
+          "status": "open"
+        },
+        {
+          "title": "Await Cedar review input",
+          "owner": "Morgan",
+          "dueDate": null,
+          "status": "waiting"
+        },
+        {
+          "title": "Finish Cedar review checklist",
+          "owner": "Alex",
+          "dueDate": "2026-10-16",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": "willow",
+      "partition": "reserved-fixture",
+      "name": "Willow review",
+      "owner": "Sam",
+      "project": null,
+      "objective": "Review Willow workshop questions. No project or deadline has been agreed.",
+      "preference": "For Willow review, Sam prefers a short written list of open questions.",
+      "commitment": "Sam: I will prepare the Willow review questions. We have not agreed a due date or a project. Do not invent either.",
+      "draft": {
+        "title": "Prepare the Willow review questions",
+        "outcome": "Prepare questions for review",
+        "owner": "Sam",
+        "dueDate": null
+      },
+      "accepted": [
+        {
+          "title": "Confirm Willow review venue",
+          "owner": "Sam",
+          "dueDate": "2026-10-19",
+          "status": "open"
+        },
+        {
+          "title": "Await Willow review material",
+          "owner": "Taylor",
+          "dueDate": null,
+          "status": "waiting"
+        },
+        {
+          "title": "Finish Willow review invitation",
+          "owner": "Sam",
+          "dueDate": "2026-10-16",
+          "status": "cancelled"
+        }
+      ]
+    }
+  ]
+}

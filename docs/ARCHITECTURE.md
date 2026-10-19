@@ -1,6 +1,6 @@
 # Architecture
 
-Current unreleased app architecture. The published skills-only package and historical app releases have separate compatibility. See [governance](RULES.md), [filesystem ownership](FILESYSTEM.md), [tool conventions](TOOL_CONVENTIONS.md) and [generated operations](OPERATIONS_REFERENCE.md).
+Current unreleased harness, engine and Knowledge Hub architecture. The supported browser build includes the Hub and read-only map. The previous business frontend and Electron runtime are retired; their engine operations remain available to optional assistants and user-built clients. The published skills-only package and historical app releases have separate compatibility. See [governance](RULES.md), [filesystem ownership](FILESYSTEM.md), [tool conventions](TOOL_CONVENTIONS.md) and [generated operations](OPERATIONS_REFERENCE.md).
 
 ## Product and private workspace
 
@@ -63,15 +63,19 @@ Approval records attest to a local operator's command. They are not cryptographi
 
 The registered deterministic tools are context, retrieve, and meeting-brief. Generated capabilities cannot execute arbitrary shell or external actions. They begin in draft, require labeled source-retrieval evaluations, and must be explicitly activated. The bundled meeting-prep capability is covered by the shipped tests.
 
-Runs persist each completed step. Retries resume explicitly by execution ID; they do not repeat successful deterministic steps. Changed input, host, capability, policy, context or sources invalidate resume. Missing evidence produces needs-review. Optional in-app OpenAI/Anthropic generation records usage and reservations under explicit disclosure and budget controls. Host handoff remains available; its external inference cost is unknown to HOI. The ledger distinguishes estimates, returned usage and uncertain dispatches.
+Runs persist each completed step. Retries resume explicitly by execution ID; they do not repeat successful deterministic steps. Changed input, host, capability, policy, context or sources invalidate resume. Missing evidence produces needs-review. Optional engine-level OpenAI/Anthropic generation records usage and reservations under explicit disclosure and budget controls. Host handoff remains available; its external inference cost is unknown to HOI. The ledger distinguishes estimates, returned usage and uncertain dispatches.
 
 Memory capture creates proposals. Review promotes or rejects them. Superseded content and prior file versions remain available. Context excludes stale source-backed, expired, future-effective and superseded memories. Quote checks prove source-text presence, not entailment. Consolidation reports candidates without silently merging them.
 
 ## Map boundary
 
-The map is an optional React/Three.js client integrated into Knowledge Hub, with node actions opening permission-filtered records and wiki draft/compare/publish workflows. Its standalone map server remains read-only. Local servers bind 127.0.0.1, authenticate requests and enforce Host/Origin rules. The full app routes mutations through governed engine operations; map proximity grants no relationship or permission. Original files use controlled downloads. The map needs no third-party CDN.
+The map is an optional React/Three.js client integrated into Knowledge Hub, with node actions opening permission-filtered records and wiki draft/compare/publish workflows. Its standalone map server remains read-only. Local servers bind 127.0.0.1, authenticate requests and enforce Host/Origin rules. The Hub routes mutations through governed engine operations; map proximity grants no relationship or permission. Original files use controlled downloads. The map needs no third-party CDN.
 
 Temporal filtering uses effective dates. It does not reconstruct prior database snapshots or invent chronology for undated records. The list provides access when WebGL is unavailable or motion is undesirable.
+
+## Historical implementation sequence
+
+The following batch descriptions record how the engine evolved. References to former app screens or earlier schema limits are historical; current availability is defined by the registry and generated compatibility.
 
 Normalized work intake preserves selected exports and immutable source revisions, then checkpoints a bounded assistant request. Structured submissions are validated against current, permitted, non-quoted evidence. Matching is scoped to project and recurrence, with human review of possible duplicates. Decisions, task updates and evidence attachment are transactional with version checks; undo refuses later edits. Derived task visibility includes decision history, including reversed changes. See [Batch 2](CHIEF_OF_STAFF_BATCH_2.md).
 
@@ -94,3 +98,9 @@ Schema 12 adds host-scoped saved views, workspace timezone preferences and revis
 The engine owns workspace writes and durable jobs; CLI and optional adapters connect to it while it runs. Conversations, bounded provider tools, proposals, exact-action Google drafts/preparation events and Activity use the shared registry. Schema 18 retains ordered progress and validated result links; see [interactive work](INTERACTIVE_WORK.md). Provider credentials use OS secure storage and are excluded from exports. Live-provider and clean-machine verification remain separate gates.
 
 Installed guides are checksummed documentation, not policies. Managed workspace manuals link to their content-versioned bundle. Missing or modified guide metadata is reported separately from runtime availability.
+
+## Current retrieval and procedural improvement
+
+Schema 19 retains unified evidence retrieval across eligible sources, published wiki sections, approved memory and operational records. Lexical search remains available; local semantic search is opt-in with a pinned model and rebuildable index. This implementation does not certify bilingual answer quality.
+
+Reviewed procedural lessons use versioned memory with exact skill and evidence references. They remain distinct from factual answer context. Saving or approving a lesson never edits, activates or installs a skill. Offline skill comparisons consume saved outputs against reviewed standards; they do not execute assistants or certify effectiveness. See [procedural lessons](PROCEDURAL_LESSONS.md) and [comparison](SKILL_IMPROVEMENT.md).

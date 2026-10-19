@@ -4,7 +4,7 @@ Dependency versions and integrity hashes are pinned in package-lock.json. Preser
 
 | Component | License |
 |---|---|
-| Electron / bundled Chromium | MIT and bundled third-party notices; desktop builds retain electron-LICENSE and electron-LICENSES.chromium.html in licenses/ |
+| Historical Electron / bundled Chromium | Retired from this edition. Prior desktop artifacts retain their MIT and bundled third-party notices; do not strip notices from archived binaries. |
 | React / React DOM | MIT |
 | react-force-graph-3d / force-graph stack | MIT |
 | Three.js | MIT |

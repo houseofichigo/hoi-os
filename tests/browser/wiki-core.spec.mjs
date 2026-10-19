@@ -9,7 +9,7 @@ test.beforeAll(async () => {
   root = mkdtempSync(join(tmpdir(), "hoi-wiki-ui-"));
   initialize(join(root, "workspace"));
   s = new Store(join(root, "workspace"));
-  running = await serve(s, "local", resolve("dist/web"), 0, { app: true });
+  running = await serve(s, "local", resolve("dist/hub"), 0, { app: true });
 });
 test.afterAll(async () => {
   await new Promise((ok) => running.server.close(ok));

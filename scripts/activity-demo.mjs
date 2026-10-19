@@ -97,7 +97,7 @@ const sent = await sendChat(
   },
 );
 await waitAI(s, sent.jobId);
-const running = await serve(s, "local", resolve("dist/web"), 0, { app: true });
+const running = await serve(s, "local", resolve("dist/hub"), 0, { app: true });
 const url = new URL(running.url);
 url.searchParams.set("view", "chat");
 url.searchParams.set("conversation", sent.conversationId);

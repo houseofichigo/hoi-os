@@ -2,20 +2,20 @@
 
 Use the selected checkout's package manifest and documentation. For the current **unreleased local checkout**, `docs/COMPATIBILITY.md` is generated from the engine and skill manifests. The package base version alone cannot distinguish it from the historical release.
 
-A developer/browser install needs Git, Node.js 22.14+ and npm. Check their versions; explain missing prerequisites rather than silently installing system software. Desktop installers without Git/Node are pending; do not claim they exist.
+An existing source checkout needs Node.js 22.14+ and npm; Git is needed only to obtain a checkout. The staged Hub package needs Node and npm but not Git. Check their versions; explain missing prerequisites rather than silently installing system software. The Electron app is retired in this edition. There is no supported standalone installer without Node; use the checksummed Node package and its current guide.
 
-## Current local checkout: app-only by default
+## Current local checkout: optional Knowledge Hub by default
 
-These commands are for an existing checkout containing `docs/ENGINE_BATCH_B.md`, not the old published tag:
+These commands are for the current checkout identified by `docs/HUB_INSTALLATION.md` and generated compatibility, not the old published tag:
 
 ```sh
 npm ci
-npm run setup -- --workspace "../HOI Workspace" --hosts none --non-interactive
+npm run setup -- --surface hub --workspace "../HOI Workspace" --hosts none --non-interactive
 node bin/hoi.mjs doctor --workspace "../HOI Workspace" --host local --json
-npm start -- --workspace "../HOI Workspace" --host local
+npm run hub -- --workspace "../HOI Workspace" --host local
 ```
 
-Setup without `--hosts` also selects app-only. It writes no assistant manuals or skill directories in a new workspace. Re-running app-only setup preserves already installed adapters.
+Setup without `--hosts` also omits adapters. It writes no assistant manuals or skill directories in a new workspace. Re-running app-only setup preserves already installed adapters.
 
 Optional, after setup:
 
@@ -24,7 +24,7 @@ node bin/hoi.mjs adapter install codex --workspace "../HOI Workspace" --host loc
 node bin/hoi.mjs adapter status --workspace "../HOI Workspace" --host local --json
 ```
 
-Use `claude` or `both` instead of `codex` as requested. Removal is `adapter remove codex` with the same workspace arguments. Updates preserve local edits and report conflicts; they do not silently replace customized instructions. Configuration shows package integrity separately from runtime availability. After installation reload the assistant workspace and invoke `hoi-onboard`; discovery must still be verified in that host.
+Use `claude` or `both` instead of `codex` as requested. Removal is `adapter remove codex` with the same workspace arguments. Updates preserve local edits and report conflicts. A same-name folder with untracked or customized content is skipped as a whole, so Python-harness scripts cannot be mixed into a replacement. Removal preserves customized files in place and in the backup; do not claim a clean uninstall while conflict files remain. Configuration shows package integrity separately from runtime availability. After installation reload the assistant workspace and invoke `hoi-onboard`; discovery must still be verified in that host.
 
 ## Historical downloadable release: v0.1.0-alpha.2
 
@@ -44,6 +44,10 @@ Substitute only the selected paths and adapters; quote paths as individual argum
 
 ## Updates and recovery
 
-Stop the existing engine before product setup. Retain the old checkout and use a separate directory for the chosen documented release. Existing-workspace setup verifies a sibling backup before changing runtime paths. Adapter changes additionally preserve skill folders, since general knowledge backups exclude assistant directories. Keep backups private.
+Stop the existing engine before product setup. Retain the old checkout and use a separate directory for the chosen documented release. Existing-workspace setup verifies a sibling backup before changing runtime paths. General backups include workspace `.agents/skills` and `.claude/skills` plus managed guides, while excluding adjacent host settings and credentials. Adapter changes also preserve prior instructions with checksums. Keep backups private.
 
 Read compatibility and upgrade guidance before opening a newer database. Do not downgrade a database in place: restore a compatible backup into a separate directory and use the matching engine. An initial empty workspace may report BACKUP_MISSING. Missing optional adapters are informational; database errors, incompatible installed adapters and preservation conflicts need attention. Do not describe failed checks as successful setup.
+
+## Staged Hub package
+
+In the selected verified local package, run `npm ci --omit=dev`, then `npm run setup -- --workspace "../HOI Workspace" --non-interactive`, then `npm start -- --workspace "../HOI Workspace" --port 0`. Check HUB_PACKAGE.json and the package guide; do not claim this unreleased candidate is downloadable from a historical tag. New setup refuses nonempty targets and never initializes or commits a Git repository. Existing HOI workspaces require their supported compatibility and recovery checks.

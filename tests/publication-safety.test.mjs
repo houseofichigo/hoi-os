@@ -13,12 +13,19 @@ test("publication rejects private paths, traversal and credential content", () =
     "workspaces/data.db",
     "/absolute",
     "foo/../bar",
+    "C:/data",
+    "file:stream",
+    "bad\u0000name",
   ])
     assert.equal(safePath(path), false);
   assert.equal(safePath("src/engine.ts"), true);
   assert.deepEqual(scan(Buffer.from("sk-" + "a".repeat(32))), [
     "PROVIDER_CREDENTIAL",
   ]);
+  assert.deepEqual(
+    scan(Buffer.from("http://127.0.0.1:4000/hub#" + "a".repeat(64))),
+    ["LOCAL_AUTH_FRAGMENT"],
+  );
   assert.deepEqual(scan(Buffer.from("fictional example")), []);
 });
 test("explicit manifest rejects symlinks and duplicates; captures exact bytes", () => {

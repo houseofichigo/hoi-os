@@ -26,7 +26,16 @@ export function backup(s: Store, destination: string) {
   mkdirSync(stage, { recursive: true, mode: 0o700 });
   try {
     const files: Record<string, string> = {};
-    for (const file of walk(s.root)) {
+    // Intake excludes assistant folders, but recovery must preserve their
+    // workspace-scoped skill instructions. Never include host settings or
+    // credentials alongside the skills; walk still excludes secret paths.
+    const adapterFiles = [".agents/skills", ".claude/skills"].flatMap(
+      (name) => {
+        const path = s.path(name);
+        return existsSync(path) ? walk(path) : [];
+      },
+    );
+    for (const file of [...walk(s.root), ...adapterFiles]) {
       const name = relative(s.root, file).replaceAll("\\", "/");
       if (
         name.startsWith(".hoi/lock") ||

@@ -1,3 +1,4 @@
+import { surfacePath } from "./destination.js";
 import React, { useEffect, useState } from "react";
 export default function ProcessingQueue({ api }) {
   const [queue, setQueue] = useState([]),
@@ -70,7 +71,11 @@ export default function ProcessingQueue({ api }) {
                   </p>
                   {r.result.proposalIds.map((id) => (
                     <p key={id}>
-                      <a href={"/app?proposal=" + encodeURIComponent(id)}>
+                      <a
+                        href={
+                          surfacePath + "?proposal=" + encodeURIComponent(id)
+                        }
+                      >
                         Open proposal {id}
                       </a>
                     </p>

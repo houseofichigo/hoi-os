@@ -43,7 +43,7 @@
         "configuration"
       ],
       "optionalConnections": [],
-      "description": "Use when requested to open the local HOI Workspace App or its optional 3D knowledge map to inspect source-backed search, wiki, memory, entities, relationships, and temporal views.",
+      "description": "Use when requested to open the optional local HOI Knowledge Hub or 3D map to inspect and maintain sources, reviewed wikis, memory, evidence and relationships.",
       "presentation": {
         "displayName": "Knowledge map",
         "shortDescription": "Explore the connections behind your documents.",
@@ -114,10 +114,13 @@
       },
       "requiredOperations": [
         "build-capability",
-        "evaluate"
+        "evaluate",
+        "skills:list",
+        "skills:get",
+        "skills:draft"
       ],
       "optionalConnections": [],
-      "description": "Use when requested to define, evaluate, and activate a bounded HOI workflow using registered tools.",
+      "description": "Use when requested to draft a role skill or define and evaluate a bounded HOI workflow using registered tools and explicit review.",
       "presentation": {
         "displayName": "Capability builder",
         "shortDescription": "Define a bounded workflow for review.",
@@ -216,7 +219,8 @@
       "files": [
         "SKILL.md",
         "agents/openai.yaml",
-        "references/daily-inputs.md"
+        "references/daily-inputs.md",
+        "references/rehearsal.md"
       ]
     },
     {
@@ -230,7 +234,8 @@
         "freshClaudeCodeSession": "pending"
       },
       "requiredOperations": [
-        "connect"
+        "connect",
+        "configuration"
       ],
       "optionalConnections": [
         "gmail",
@@ -306,10 +311,15 @@
         "freshClaudeCodeSession": "pending"
       },
       "requiredOperations": [
-        "evaluate"
+        "evaluate",
+        "skills:get",
+        "memory:propose",
+        "memory:list",
+        "memory:get",
+        "memory:history"
       ],
       "optionalConnections": [],
-      "description": "Use when requested to run reproducible evidence retrieval checks for a HOI capability.",
+      "description": "Use when requested to evaluate HOI retrieval or compare proposed skill revisions against frozen fictional evidence and independently reviewed standards.",
       "presentation": {
         "displayName": "Retrieval evaluation",
         "shortDescription": "Measure whether evidence retrieval answers your questions.",
@@ -385,7 +395,7 @@
       "description": "Use when requested to locate, install or verify the existing HOI OS product and optional workspace adapters, or guide chat-only users through a documented local installation. Does not generate an app.",
       "presentation": {
         "displayName": "Installation guide",
-        "shortDescription": "Verify the app and optional assistant adapters.",
+        "shortDescription": "Set up the engine, Knowledge Hub and optional adapters.",
         "category": "Setup",
         "icon": "setup",
         "examples": [

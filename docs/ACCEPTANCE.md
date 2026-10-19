@@ -1,27 +1,28 @@
-# Stable-release acceptance
+# Release acceptance
 
-Automated tests validate mechanics; they do not replace real client acceptance. Keep this release labeled alpha until every required gate has evidence.
+Audience: maintainers and independent evaluators of the current harness and optional Knowledge Hub. Automated tests validate mechanics. Keep the product labelled alpha until the applicable gates have recorded evidence.
 
-| Gate                | Required evidence                                                                                                                                                                                  |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Installation        | Clean macOS and Windows installs, each used in a fresh Claude Code and Codex session; no preexisting HOI accounts or machine paths.                                                                |
-| Preservation        | Identical imports, changed versions, filename collisions, moved files, interrupted extraction and restored backups verified against checksums.                                                     |
-| Retrieval           | At least 60 labeled real questions over 500–1,000 selected documents; recall@5 ≥90%. Include conflicting versions, absent evidence, ambiguous entities, French/English queries and denied sources. |
-| Grounding           | Every citation resolves; human review finds ≥95% of factual claims supported. No fabricated commitments or deadlines.                                                                              |
-| Meeting preparation | Ten real briefs reviewed; correct event/client identity and visible gaps. Median completion time at least 50% lower than a recorded manual baseline.                                               |
-| Policy              | Denied data excluded before host exposure; imported instructions cannot authorize actions; changed action cannot reuse approval.                                                                   |
-| Recovery            | Interrupted work, backup restoration to a new directory, index rebuilding and rollback of a release upgrade pass.                                                                                  |
-| Map                 | All views, source opening, relationship inspection, keyboard list, narrow viewport and reduced-motion behavior verified.                                                                           |
-| Independent pilots  | HOI plus at least two independent client installations, with recorded findings and fixes.                                                                                                          |
+| Gate                  | Required evidence                                                                                                                                                                                                                                     |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Installation          | Run the packaged Node acceptance kit on actually fresh target systems. Report Mac arm64, Mac x64, Windows x64 and Linux separately, including native dependencies, recovery and removal. No Electron signing claim applies to this edition.           |
+| Assistant integration | Fresh Codex and Claude Code sessions discover workspace instructions, perform a permitted read and submit one reviewed fictional proposal. Adapter files alone do not prove integration.                                                              |
+| Preservation          | Identical imports, changed revisions, collisions, moves, interrupted extraction and restored backups reconcile with original checksums.                                                                                                               |
+| Retrieval             | Versioned bilingual development and held-out corpora; answerable recall@5 at least 90%, no exact-identifier regression, at least 95% correct abstention on missing-answer cases. Synthetic labels and independent human labels must be distinguished. |
+| Grounding             | Every displayed citation resolves to authorized evidence; independent review finds at least 95% factual support. No invented commitments or deadlines.                                                                                                |
+| Meeting preparation   | Review actual briefs for occurrence/client identity, freshness and gaps. Measure time saved against a recorded manual baseline rather than an estimate.                                                                                               |
+| Policy                | Denied/archived data excluded before exposure; imported instructions cannot grant authority; an edited action cannot reuse approval.                                                                                                                  |
+| Recovery              | Interrupted work, separate-directory restoration, index rebuild and supported-version upgrade/rollback preserve identities and histories. A same-schema rehearsal is not historical migration evidence.                                               |
+| Hub and map           | Reading, editing, evidence, source opening, keyboard list, WebGL fallback, narrow layouts and reduced motion work.                                                                                                                                    |
+| Independent pilots    | Complete the agreed ten-day usefulness pilot and independent installations with authorized data, recorded defects and fixes.                                                                                                                          |
 
 ## Evaluation records
 
-Store real test records privately, outside this product repository. For each retrieval question record: question, permitted host, expected source/revision IDs, returned top-five IDs, correct/incorrect, and reviewer notes. Include explicitly unanswerable questions; abstention is the expected result.
+Keep real evaluation records private and outside the product. Record question, permitted identity, expected source/revision references, returned results, temporal interpretation and reviewer judgement. Include unanswerable questions and explicit abstention. Generated answers cannot label themselves correct.
 
-For each meeting record: intended event/timezone/client, source freshness, manual preparation minutes, assisted preparation minutes including corrections, factual claims checked, supported claims, invented commitments/deadlines, reviewer and date. A fluent narrative without verified evidence fails.
+For meeting preparation record the exact occurrence, timezone, related subject IDs, freshness, manual and assisted time including corrections, supported claims, invented commitments and reviewer. A fluent narrative is not proof of correctness. Saved skill-output comparisons evaluate the supplied artifacts, not the assistant's live runtime.
 
-The automated 1,000-document/60-question fixture is deliberately synthetic and primarily tests retrieval plumbing. It must never be presented as measured production accuracy.
+Local retrieval benchmarks, deterministic provider fixtures and scripted approvals must retain those labels. Optional semantic search remains opt-in; optional reranking stays disabled unless independent evaluation supports it. Windows behavior must be tested on Windows before being claimed.
 
-## Release procedure
+## Candidate procedure
 
-Run npm ci, npm run check, npm run format:check and npm audit. Record dependency versions, CI results and browser checks. Complete the private pilot records, resolve material findings, then choose the GitHub owner/visibility and publish a reviewed release. Do not tag a stable version solely because code builds.
+Run `npm run check`, `npm run format:check`, browser regressions and the publication safety scan; review dependency findings and notices. Build into a new directory with `npm run package:candidate -- --output "../HOI candidate"`. Verify the extracted package and record build/platform identity. Follow [publication preparation](PUBLICATION_READINESS.md) and [installation](HUB_INSTALLATION.md). A passing build is not approval to publish or evidence that the external gates passed.

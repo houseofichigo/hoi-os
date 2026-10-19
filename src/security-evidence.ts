@@ -14,7 +14,7 @@ export const TEST_CHECKS = {
   CREDENTIAL_EXCLUSION: "core",
   RECOVERY_REGRESSIONS: "core",
   CONNECTOR_REGRESSIONS: "core",
-  DESKTOP_BOUNDARY: "desktop",
+  HUB_BOUNDARY: "core",
   BROWSER_ACCESSIBILITY: "browser",
 } as const;
 export function buildIdentity(root = PRODUCT_ROOT) {
@@ -24,8 +24,8 @@ export function buildIdentity(root = PRODUCT_ROOT) {
     JSON.stringify({
       version: pkg.version,
       dependencies: pkg.dependencies,
-      electron: pkg.devDependencies?.electron ?? pkg.hoiEngine?.electron,
       checkVersion: CHECK_VERSION,
+      surface: "knowledge-hub",
     }),
   );
   const files: string[] = [];
@@ -37,8 +37,20 @@ export function buildIdentity(root = PRODUCT_ROOT) {
       else if (entry.isFile()) files.push(path);
     }
   }
-  for (const dir of ["dist/core", "dist/web", "bin", "skills", "desktop"])
+  for (const dir of ["dist/core", "bin", "skills", "dist/hub"])
     visit(join(root, dir));
+  for (const name of [
+    "package-lock.json",
+    "scripts/start.mjs",
+    "scripts/setup.mjs",
+    "scripts/chief-recipe.mjs",
+    "scripts/hub-acceptance.mjs",
+    "scripts/skill-trials.mjs",
+    "examples/chief-of-staff/scenarios.json",
+    "examples/chief-of-staff/review-standard.md",
+  ])
+    if (existsSync(join(root, name))) files.push(join(root, name));
+    else hash.update(`missing-runtime-file:${name}`);
   for (const name of [
     "RULES.md",
     "FILESYSTEM.md",
@@ -52,8 +64,6 @@ export function buildIdentity(root = PRODUCT_ROOT) {
   for (const file of files.sort()) {
     const name = relative(root, file).replaceAll("\\", "/");
     if (name.startsWith("dist/core/") && !name.endsWith(".js")) continue;
-    if (name.startsWith("desktop/") && !/\.(cjs|mjs|js|css|html)$/.test(name))
-      continue;
     hash.update(name + "\0");
     hash.update(readFileSync(file));
     hash.update("\0");

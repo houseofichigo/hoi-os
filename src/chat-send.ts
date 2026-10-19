@@ -67,7 +67,7 @@ export async function sendChat(
     };
   }
   if (!dependencies.key) await requireAIKey(s, v.provider);
-  await prepareSemanticQuery(s,v.host,v.message);
+  await prepareSemanticQuery(s, v.host, v.message);
   const concurrent = s.one(
     "SELECT * FROM chat_sends WHERE request_key=?",
     v.requestKey,

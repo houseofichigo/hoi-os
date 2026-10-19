@@ -22,3 +22,6 @@ audits/
 docs/verification/
 workspaces/
 backups/
+
+# Generated native session artifact; never distribute.
+/:memory:.ses

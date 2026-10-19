@@ -8,7 +8,12 @@
 - `knowledge review --input review.json`: submit the exact decision below.
 
 ```json
-{"id":"review_from_scan","expectedVersion":1,"targetId":"record_from_finding","action":"keep"}
+{
+  "id": "review_from_scan",
+  "expectedVersion": 1,
+  "targetId": "record_from_finding",
+  "action": "keep"
+}
 ```
 
 Actions are keep, reject, archive, update, merge and supersede. The last three additionally require replacementId and replacementDigest from `knowledge replacements`. A stale record, evidence revision or replacement digest requires reloading and renewed review; never substitute a new target under an old approval.

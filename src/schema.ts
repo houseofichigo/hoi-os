@@ -61,6 +61,21 @@ export const relationInput = z
     date: z.string().date().nullable().default(null),
   })
   .strict();
+export const skillLesson = z
+  .object({
+    skillId: z.string().regex(/^[a-z][a-z0-9-]{1,63}$/),
+    revisionId: z.string().min(1).max(180),
+    checksum: z.string().regex(/^[a-f0-9]{64}$/),
+    scope: z.string().trim().min(1).max(2000),
+    limitations: z.string().trim().min(1).max(2000),
+    evaluationKind: z.enum([
+      "engine-rehearsal",
+      "saved-comparison",
+      "host-run",
+      "manual-observation",
+    ]),
+  })
+  .strict();
 export const memoryInput = z
   .object({
     type: z.enum([
@@ -71,6 +86,7 @@ export const memoryInput = z
       "procedural",
     ]),
     content: z.string().min(1),
+    lesson: skillLesson.optional(),
     evidence: z.array(evidence).default([]),
     entities: z.array(id).default([]),
     durability: z

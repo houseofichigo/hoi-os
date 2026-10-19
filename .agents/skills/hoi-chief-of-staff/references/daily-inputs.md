@@ -3,7 +3,15 @@
 `daily --input options.json --json` accepts:
 
 ```json
-{"date":"2026-10-19","timezone":"Europe/Paris","owner":"Alex (fictional)","workStart":"09:00","workEnd":"18:00","prepMinutes":30,"bufferMinutes":15}
+{
+  "date": "2026-10-19",
+  "timezone": "Europe/Paris",
+  "owner": "Alex (fictional)",
+  "workStart": "09:00",
+  "workEnd": "18:00",
+  "prepMinutes": 30,
+  "bufferMinutes": 15
+}
 ```
 
 Use the actual requested date/owner, not these fixture values. Optional projectId is the operational project ID returned by `project list`. Defaults are Monday–Friday. CLI weekdays accepts integers 0–6, Sunday=0. Date-only deadlines remain dates.
@@ -12,4 +20,4 @@ Optional coverage: `{ "from": "ISO datetime with offset", "to": "ISO datetime wi
 
 `intake list` locates imported events; `daily meeting INTAKE_ID` prepares the exact current instance. Calendar imports need explicit calendar.start/end/participants, timezone, stable remoteId and recurrenceId. A calendar event is not proof of a promise or deadline.
 
-The local app owns its workspace lock. Use its authenticated UI while running, or stop it before CLI mutations. Do not remove active locks. The Projects & Tasks and Today views share the same reviewed records. Review proposals only when the user authorizes that exact decision.
+Use the workspace runtime entrypoint: the CLI connects to its running engine, or owns a temporary engine when stopped. Do not remove active locks or open a competing write connection. The optional Knowledge Hub inspects knowledge and related records; task operations remain available through the engine after retirement of the business frontend. Review proposals only when the user authorizes that exact decision, with the current expected version and actual host identity.

@@ -93,6 +93,7 @@ export function eligibleMemories(
   return all.filter(
     (m) =>
       m.state === "approved" &&
+      !m.lesson &&
       !replaced.has(m.id) &&
       m.allowedHosts?.includes(h) &&
       s.evidenceVisible(m.evidence, h) &&

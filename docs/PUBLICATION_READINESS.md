@@ -1,42 +1,36 @@
-# Local publication preparation
+# Local candidate and publication boundary
 
-This is a sanitized community-readiness summary, not a release certification.
-The application remains alpha. No GitHub update is authorized by this document.
+Audience: maintainers preparing the current harness and optional Knowledge Hub. This is an alpha candidate, not a release certification. The retired Electron app's signing and installer reports do not validate this Node distribution.
 
-## Batch 1: publication boundary
+## Review source before packaging
 
-`publication/manifest.json` lists exact candidate source paths. New files must be
-reviewed and added explicitly; the preparation command rejects unclassified files.
-Private audits and build-specific evaluation records remain local and ignored.
-Nothing is staged, committed, tagged, pushed or uploaded by this workflow.
+`publication/manifest.json` lists exact candidate source paths. Review and explicitly add new product files; preparation rejects unclassified files. Run:
 
-Run `npm run publication:prepare`. It snapshots the working-tree inventory, scans
-candidate bytes and reachable Git history for selected credential/private-path
-patterns, and writes a report and SHA256SUMS under `.local/publication/`.
-Only a passing scan produces a separate `source/` candidate. Each run has a new
-output directory; previous reports and candidates are preserved. Changed source
-requires a fresh candidate and checksums. Do not publish the `.local` directory.
+```sh
+npm run publication:prepare
+```
 
-The manifest is an allowlist, not permission to publish. Pattern matching cannot
-prove absence of private business data or unknown secret formats. Review candidate
-text and binary assets before publication. Findings block candidate creation;
-review them locally without pasting sensitive matches into public issues. History
-findings require a separate remediation decision; this command never rewrites Git.
-Do not use a blanket `git add .` for release preparation.
+The command snapshots the working-tree inventory, scans candidate bytes and reachable Git history for selected credential/private-path patterns, and records a report and SHA256SUMS under `.local/publication/`. Only a passing scan produces a separate `source/` candidate. It never stages, commits, tags, fetches, pushes or uploads. Do not publish `.local/`, private workspaces or raw runtime logs.
 
-## Remaining gates
+The allowlist is not permission to publish. Pattern matching cannot prove absence of private business data or unknown secret formats. Review text and binary assets. Findings block candidate creation. History findings need a separate remediation decision; the command never rewrites Git. Avoid blanket `git add .`.
 
-Batch 2 completed formatting, current/historical documentation separation and
-21-skill standardization with canonical collection provenance. See
-[the local verification record](STANDARDIZATION.md).
+## Prepare one immutable local candidate
 
-Remaining:
+```sh
+npm run check
+npm run format:check
+npm run test:browser
+npm run package:candidate -- --output "../HOI candidate"
+```
 
-- Resumable app onboarding is implemented locally: [Batch 3](ONBOARDING.md). Skills remain optional; clean installation is still a separate gate.
-- Verify live AI and bounded Google workflows with explicit scope and credentials.
-- Mac arm64 local rehearsal and Windows x64 cross-packaging are complete. Verify clean macOS installation, then Windows installation and recovery; see [installation evidence](CLEAN_INSTALL.md).
-- Complete the real-data pilot and review current artifacts, notices and downloads.
+The destination must not already exist. Packaging writes the staged Hub, `hoi-os-hub.zip`, installer and operational skill archives, `START_HERE.md`, build fingerprints and SHA256SUMS. `CANDIDATE.json` is written only after assembly succeeds. Partial outputs remain for inspection; retry in another new directory. Skill-only packaging likewise requires `npm run package:release -- --output "../HOI skills candidate"`. Neither command overwrites a historical release directory.
 
-Recorded development tests are not clean-machine, live-provider or pilot evidence.
-Private audit reports are deliberately excluded; unresolved operational findings
-remain open. A new prerelease identity and GitHub publication are later work.
+The package base version remains historical compatibility metadata. Use build fingerprints and checksums to identify this candidate; choose a new release identity before eventual publication. The GitHub workflow is manual candidate preparation with read-only repository permissions. It uploads CI artifacts after checks; it does not create a tag or GitHub release.
+
+Run the [installation acceptance kit](HUB_INSTALLATION.md) against the extracted package. Record its exact package digest, platform and results. Preserve the [host checklist](HOST_ACCEPTANCE.md) for actual fresh assistant sessions. Hashes detect changes but are not signatures or proof of publisher identity.
+
+## Remaining release gates
+
+The [final handover](FINAL_HANDOVER.md) separates clean target-platform installation, fresh assistant integration, independent retrieval/skill quality, bounded live providers/connectors and real-use pilot evidence. Existing automated checks do not certify these gates. Native app signing is outside the current product boundary; if a desktop installer is reintroduced, it requires its own verification.
+
+Before publication, review final source and artifacts for private data, licences, provenance, dependency findings and accurate capability claims. Do not replace previously published assets as a shortcut. No publication is authorized by this document.

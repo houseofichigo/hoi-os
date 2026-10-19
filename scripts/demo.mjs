@@ -169,7 +169,7 @@ const product = fileURLToPath(new URL("..", import.meta.url));
 const running = await serve(
   s,
   "local",
-  join(product, "dist/web"),
+  join(product, "dist/hub"),
   Number(process.env.HOI_DEMO_PORT ?? 4640),
 );
 console.log(

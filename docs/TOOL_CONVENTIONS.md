@@ -6,7 +6,7 @@ Audience: optional assistant adapters and developers. Authority: the running eng
 
 Discover → Read permitted context → Propose → Review → Execute only an authorized operation → Report evidence and outcome.
 
-1. Read the selected workspace's `.hoi/runtime.json`. Use its executable and argument array; packaged desktop does not require an independently installed Node runtime. Check engine status/API compatibility and discover operations before assuming availability.
+1. Read the selected workspace's `.hoi/runtime.json`. Use its executable and argument array. The current Knowledge Hub package needs Node 22.14 or newer and compatible native dependencies; old Electron packaging instructions are historical. Check engine status/API compatibility and discover operations before assuming availability.
 2. Use the adapter's actual `codex` or `claude` host identity. Never impersonate `local`. Connect to the running engine; do not bypass its lock or write directly to SQLite or managed Markdown.
 3. Read relevant bounded context and exact records. Follow returned cursors, source revisions, coverage and permissions. Keep approved facts, attributed statements, pending proposals and questions distinct. Read-only connector context is synchronized scope, not necessarily live upstream state.
 4. Submit valid proposals through their existing typed operations. Use expected versions and exact evidence references. Missing inputs remain unknown; a skill cannot fill them by assumption.
@@ -36,3 +36,5 @@ Read [RULES.md](RULES.md) for governance and [FILESYSTEM.md](FILESYSTEM.md) for 
 Use registered `knowledge search` and `knowledge evidence` for exact source, wiki and memory references. Preserve attribution, validity, revision and coverage in answers. Local semantic retrieval is opt-in and reports lexical fallback; index availability is not proof of factual quality. Derived conversation artifacts only locate original supporting passages.
 
 Use `memory propose` for inferred content. `memory review` and `memory retire` require local review, expected version/checksum and request identity. Do not impersonate `local`. Corrections pin their predecessor and preserve prior Markdown revisions; explicit history reads do not authorize using retired statements as current facts. The generated operation reference remains the parameter-discovery entry point.
+
+For skill-improvement observations, `memory propose` accepts `type: procedural` plus strict `lesson` metadata and exact preserved passage evidence. Resolve the skill revision/checksum through `skills get`; include applicability and limitations. The `evaluationKind` is a declared observation category, not an attested pass. Versioned Memory handles review/correction; Skills handles any subsequent instruction edit, activation or adapter synchronization separately. Lessons cannot expand tool authority and are excluded from automatic factual context.

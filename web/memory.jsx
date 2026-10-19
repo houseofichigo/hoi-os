@@ -1,9 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Drawer } from "./product-ui";
 import { ViewTabs } from "./shell";
+import { LessonDetails } from "./lesson-details.jsx";
 
-export default function Memory({ api, memories, refresh }) {
-  const [view, setView] = useState("Current"),
+export default function Memory({
+  api,
+  memories,
+  refresh,
+  lessonsOnly = false,
+  skillId = "",
+}) {
+  const [view, setView] = useState(lessonsOnly ? "Proposed" : "Current"),
     [query, setQuery] = useState(""),
     [detail, setDetail] = useState(null);
   const [editing, setEditing] = useState(null),
@@ -38,6 +45,7 @@ export default function Memory({ api, memories, refresh }) {
       durability: m.durability ?? "long-term",
       validFrom: m.validFrom ?? "",
       validUntil: m.validUntil ?? "",
+      ...(m.lesson ? { lesson: m.lesson } : {}),
     });
     setDetail(null);
     setComparison(null);
@@ -61,13 +69,15 @@ export default function Memory({ api, memories, refresh }) {
       text !== (editing.content ?? "") ||
       Object.entries(fields).some(
         ([k, v]) =>
-          v !==
-          (editing[k] ??
-            (k === "type"
-              ? "semantic"
-              : k === "durability"
-                ? "long-term"
-                : "")),
+          JSON.stringify(v) !==
+          JSON.stringify(
+            editing[k] ??
+              (k === "type"
+                ? "semantic"
+                : k === "durability"
+                  ? "long-term"
+                  : ""),
+          ),
       );
     if (
       !dirty ||
@@ -88,7 +98,9 @@ export default function Memory({ api, memories, refresh }) {
                 : (x.quote ?? x.passageId ?? "Evidence reference"),
             )
             .join("; ") || "None"
-        : String(v);
+        : typeof v === "object"
+          ? JSON.stringify(v)
+          : String(v);
   const [historyRows, setHistoryRows] = useState([]);
   useEffect(() => {
     if (view === "History")
@@ -111,6 +123,8 @@ export default function Memory({ api, memories, refresh }) {
     !m.stale;
   const rows = (view === "History" ? historyRows : memories).filter(
     (m) =>
+      (!lessonsOnly ||
+        (m.lesson && (!skillId || m.lesson.skillId === skillId))) &&
       (view === "History" ||
         (view === "Proposed" ? m.state === "proposed" : current(m))) &&
       m.content.toLowerCase().includes(query.toLowerCase()),
@@ -142,19 +156,22 @@ export default function Memory({ api, memories, refresh }) {
     <section aria-label="Reviewed memory">
       <div className="section-head">
         <div>
-          <h2>Memory</h2>
+          <h2>{lessonsOnly ? "Reviewed lessons" : "Memory"}</h2>
           <p>
-            Reviewed preferences, decisions and durable context. Corrections
-            preserve history.
+            {lessonsOnly
+              ? "Approval retains a procedural recommendation. It does not certify effectiveness or change the skill."
+              : "Reviewed preferences, decisions and durable context. Corrections preserve history."}
           </p>
         </div>
-        <button
-          onClick={() => {
-            edit({});
-          }}
-        >
-          Add attributed note
-        </button>
+        {!lessonsOnly && (
+          <button
+            onClick={() => {
+              edit({});
+            }}
+          >
+            Add attributed note
+          </button>
+        )}
       </div>
       <ViewTabs
         label="Memory views"
@@ -163,7 +180,7 @@ export default function Memory({ api, memories, refresh }) {
         onChange={setView}
       />
       <label>
-        Search memory
+        {lessonsOnly ? "Search lessons" : "Search memory"}
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -175,7 +192,7 @@ export default function Memory({ api, memories, refresh }) {
         <p className="app-note">
           {query
             ? "No matching memories."
-            : `No ${view.toLowerCase()} memories.`}
+            : `No ${view.toLowerCase()} ${lessonsOnly ? "lessons" : "memories"}.`}
         </p>
       )}
       <ul className="row-list">
@@ -184,6 +201,7 @@ export default function Memory({ api, memories, refresh }) {
             <div className="grow">
               <strong>{m.content}</strong>
               <p>
+                {m.lesson && "Skill lesson · "}
                 {m.type} · {m.state} ·{" "}
                 {m.author
                   ? `Attributed to ${m.author}`
@@ -216,7 +234,7 @@ export default function Memory({ api, memories, refresh }) {
                 >
                   Inspect & history
                 </button>
-                {m.state === "approved" && (
+                {m.state === "approved" && !m.lesson && (
                   <button
                     className="text-link"
                     onClick={() =>
@@ -264,6 +282,7 @@ export default function Memory({ api, memories, refresh }) {
                     Version {m.version} · {m.state}
                   </h3>
                   <p>{m.content}</p>
+                  {m.lesson && <LessonDetails lesson={m.lesson} api={api} />}
                   <p>
                     Recorded {m.createdAt ?? "unknown"} · Reviewed{" "}
                     {m.reviewedAt ?? "not reviewed"}
@@ -370,6 +389,9 @@ export default function Memory({ api, memories, refresh }) {
               <p>{comparison.base?.content ?? "New memory"}</p>
               <h3>Proposed statement</h3>
               <p>{comparison.draft.content}</p>
+              {comparison.draft.lesson && (
+                <LessonDetails lesson={comparison.draft.lesson} api={api} />
+              )}
               <dl>
                 {comparison.changes.map((c) => (
                   <React.Fragment key={c.field}>
@@ -438,6 +460,44 @@ export default function Memory({ api, memories, refresh }) {
                     <p>{editing.content}</p>
                   </>
                 )}
+                {editing.lesson && (
+                  <LessonDetails lesson={editing.lesson} api={api} />
+                )}
+                {fields.lesson && (
+                  <>
+                    <label>
+                      Applies to
+                      <textarea
+                        required
+                        maxLength={2000}
+                        value={fields.lesson.scope}
+                        onChange={(e) =>
+                          setFields({
+                            ...fields,
+                            lesson: { ...fields.lesson, scope: e.target.value },
+                          })
+                        }
+                      />
+                    </label>
+                    <label>
+                      Limitations
+                      <textarea
+                        required
+                        maxLength={2000}
+                        value={fields.lesson.limitations}
+                        onChange={(e) =>
+                          setFields({
+                            ...fields,
+                            lesson: {
+                              ...fields.lesson,
+                              limitations: e.target.value,
+                            },
+                          })
+                        }
+                      />
+                    </label>
+                  </>
+                )}
                 <label htmlFor="memory-statement">Your statement</label>
                 <textarea
                   id="memory-statement"
@@ -450,6 +510,7 @@ export default function Memory({ api, memories, refresh }) {
                   Memory type
                   <select
                     value={fields.type}
+                    disabled={!!editing.lesson}
                     onChange={(e) =>
                       setFields({ ...fields, type: e.target.value })
                     }

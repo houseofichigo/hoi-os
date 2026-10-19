@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "suite": "suite.json",
+  "environment": "environment.json",
+  "baseline": {
+    "bundle": "baseline",
+    "answers": "baseline-answers.json",
+    "receipt": "baseline-receipt.json"
+  },
+  "candidate": {
+    "bundle": "candidate",
+    "answers": "candidate-answers.json",
+    "receipt": "candidate-receipt.json"
+  }
+}

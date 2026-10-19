@@ -1,8 +1,6 @@
 # Resumable onboarding — Batch 3
 
-Open **Continue setup** on Home, or **Configuration → Onboarding**. Desktop
-create/open-workspace remains the entry point; onboarding runs inside the selected
-workspace. Skills, projects, API keys and connections are optional.
+Open **Configuration → Onboarding** in the Knowledge Hub after selecting a workspace with the launcher. Skills, projects, API keys and connections are optional. The old Home and Electron entry points are retired.
 
 Progress lives in the existing workspace-preferences table (schema 16). No schema
 migration or private-workspace upgrade was performed for this batch. Saved choices
@@ -36,7 +34,7 @@ Tests cover persistence, stale edits, skip/finish behavior, restored progress an
 390px browser navigation. Live-provider, clean-install and real-pilot gates remain
 separate; GitHub publication is still last.
 
-## Local validation
+## Historical local validation
 
 211 core tests passed, including restoration, stale saves and profile permissions.
 The full browser suite passed 37 tests; the onboarding browser test was rerun after

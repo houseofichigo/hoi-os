@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "sourceArchive": "hoi-harness-1.1.0.zip",
+  "sourceArchiveSha256": "8e767a24acd00d201ac01b84d265c4e9ca09a66b9d97675a787bcc45b9bf07a3",
+  "state": "reviewed-method-routing-not-runtime-aliases",
+  "installer": "scripts/setup.mjs",
+  "schemaVersion": 19,
+  "entries": [
+    {
+      "suppliedSkill": "hoi-onboard",
+      "suppliedInstructionSha256": "367c3da3e9d1558de5df8804f76dfe8d87f2cd16e0eab78fecf0e5d6080ca2d7",
+      "engineSkills": ["hoi-onboard"],
+      "disposition": "retain",
+      "contract": "Owner interview and engine onboarding; no automatic memory seeding."
+    },
+    {
+      "suppliedSkill": "hoi-govern",
+      "suppliedInstructionSha256": "f4e08ebb34f8ea73b42ffb606cc6b6e19f62be43d4646b2ba48cc3edd8dc2258",
+      "engineSkills": ["hoi-onboard"],
+      "disposition": "replace",
+      "contract": "Maintained guides, managed manuals and policy configuration; no competing state files."
+    },
+    {
+      "suppliedSkill": "hoi-organize",
+      "suppliedInstructionSha256": "fbf782f9d29806aa42fa8cd756ec24989b190035f311f46427be4f02037dfeb2",
+      "engineSkills": ["hoi-organize"],
+      "disposition": "retain",
+      "contract": "Exact reviewed working-copy plan; engine originals remain preserved."
+    },
+    {
+      "suppliedSkill": "hoi-connect",
+      "suppliedInstructionSha256": "e90157081fe009cf6a4b81eec83493960abddb2eeb3ffc18007aa01c81f741de",
+      "engineSkills": ["hoi-connect"],
+      "disposition": "retain",
+      "contract": "Observed host capabilities and engine connector status stay separate."
+    },
+    {
+      "suppliedSkill": "hoi-app",
+      "suppliedInstructionSha256": "e1ab5156cc7034a3d3f054e42d29b6a4a2ea5a388b309e307acf9b89f6988b2a",
+      "engineSkills": ["hoi-3d-map"],
+      "disposition": "replace",
+      "contract": "Optional authenticated Knowledge Hub; no static workbench generator or watcher."
+    },
+    {
+      "suppliedSkill": "hoi-ingest",
+      "suppliedInstructionSha256": "6fa862d6356050c39b346e1eba72f219454eef0a2de1fdc8ed5e3893c105daba",
+      "engineSkills": ["hoi-ingest"],
+      "disposition": "retain",
+      "contract": "Bounded reviewed engine intake with stable source revisions."
+    },
+    {
+      "suppliedSkill": "hoi-wiki-author",
+      "suppliedInstructionSha256": "dedf75513082ef76f0309d605acaa21711849be4878e8bdc5c20634a45af317b",
+      "engineSkills": ["hoi-wiki-author"],
+      "disposition": "retain",
+      "contract": "Canonical page drafts, compare, explicit publication and immutable evidence."
+    },
+    {
+      "suppliedSkill": "hoi-3d-map",
+      "suppliedInstructionSha256": "11374dda59cadfbf85a7d80671b1788a41d9b3c5e9991cd00307f0ff2e5bed2b",
+      "engineSkills": ["hoi-3d-map"],
+      "disposition": "retain",
+      "contract": "Existing Hub/map and accessible record list; no unsafe HTML export."
+    },
+    {
+      "suppliedSkill": "hoi-retrieve",
+      "suppliedInstructionSha256": "aa770239e176c7773715f1f0bde6759cd4f4d4453b6cb1d61eef5bd4717f84a5",
+      "engineSkills": ["hoi-retrieve"],
+      "disposition": "retain",
+      "contract": "Unified permitted evidence and exact references; lexical fallback explicit."
+    },
+    {
+      "suppliedSkill": "hoi-skill-author",
+      "suppliedInstructionSha256": "246d0bea2cc66e42bd70a15c38c434fd0a4a8ae61dc6677f450695c4ad6a6c7e",
+      "engineSkills": ["hoi-build-capability"],
+      "disposition": "replace",
+      "contract": "Role instructions use workspace skill drafts, reviewed activation and separate adapter sync."
+    },
+    {
+      "suppliedSkill": "hoi-evaluate",
+      "suppliedInstructionSha256": "97811bfca12affca097e9ffc62526edd2f184b3ace069da81298d6da6906f030",
+      "engineSkills": ["hoi-evaluate"],
+      "disposition": "retain",
+      "contract": "Frozen comparison inputs; no false promotion or automatic activation."
+    },
+    {
+      "suppliedSkill": "hoi-automate",
+      "suppliedInstructionSha256": "e7281db934e0dde389b7bf6e48331e4affc867756433436b9cba238fee3032ad",
+      "engineSkills": ["hoi-connect"],
+      "disposition": "host-dependent",
+      "contract": "Method scheduling specification only; actual supported scheduler requires explicit setup and read-back."
+    },
+    {
+      "suppliedSkill": "hoi-memory-propose",
+      "suppliedInstructionSha256": "16d4131d1e68fe57412798e261fb68c2f7934bee1baaeafca6a0ea98c935cb6f",
+      "engineSkills": ["hoi-capture", "hoi-session-capture"],
+      "disposition": "replace",
+      "contract": "Versioned engine memory proposals; Markdown is never an approval."
+    },
+    {
+      "suppliedSkill": "hoi-knowledge-review",
+      "suppliedInstructionSha256": "ff35fa7cd51ddce432f0aef862ef1e9c509e08c4092668afaba41c3a279d5403",
+      "engineSkills": ["hoi-knowledge-review"],
+      "disposition": "retain",
+      "contract": "Evidence health and persistent review/dismissal identities."
+    },
+    {
+      "suppliedSkill": "hoi-audit",
+      "suppliedInstructionSha256": "03b6b45ea9beaf481b63d92e6d8d4c4b25f44e5c31f6bdee9b8f369985bab22a",
+      "engineSkills": ["hoi-audit"],
+      "disposition": "retain",
+      "contract": "Engine health and recorded verification; untested domains stay untested."
+    }
+  ]
+}

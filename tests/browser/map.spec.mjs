@@ -55,7 +55,7 @@ test.beforeAll(async () => {
     "codex",
   );
   reviewMemory(s, m.id, "approved", "codex");
-  ({ server, url } = await serve(s, "codex", resolve("dist/web"), 0));
+  ({ server, url } = await serve(s, "codex", resolve("dist/hub"), 0));
 });
 test.afterAll(async () => {
   await new Promise((ok) => server.close(ok));

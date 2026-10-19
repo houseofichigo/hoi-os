@@ -218,6 +218,22 @@ export class Store {
       .map((f) => readNote(this.path(`memory/${f}`)))
       .filter((m) => includeRetired || this.knowledgeActive(m.id));
   }
+  memoryAllowed(m: any, host: Host, current = true) {
+    if (
+      !m.allowedHosts?.includes(host) ||
+      !this.evidenceVisible(m.evidence ?? [], host, current)
+    )
+      return false;
+    if (m.lesson) {
+      const skill = this.one(
+        "SELECT allowed_hosts FROM workspace_skills WHERE id=?",
+        m.lesson.skillId,
+      );
+      if (skill && !JSON.parse(skill.allowed_hosts).includes(host))
+        return false;
+    }
+    return true;
+  }
   log(kind: string, details: unknown) {
     const id = uid("audit");
     this.exec(

@@ -1,0 +1,96 @@
+{
+  "source": "User-supplied hoi-harness-1.1.0.zip",
+  "source_sha256": "8e767a24acd00d201ac01b84d265c4e9ca09a66b9d97675a787bcc45b9bf07a3",
+  "imported_on": "2026-10-16",
+  "status": "Historical source documents and owner-input templates; no imported installer, runtime skill or plugin is activated",
+  "files": [
+    {
+      "path": "JOURNEY.md",
+      "sha256": "e62921e4e32dbc60156dc15644cdaf242485104d246ee5d15130256b85e17943"
+    },
+    {
+      "path": "METHOD.md",
+      "sha256": "f5704d09e1203dd60eb9df9af6748205fd3f9d4af65f86da157001a28c7a7975"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "4cf33b2fd3502a493a1a9c6e6338241dc7ad1c8f3d0a0ebbb05837177bfb067f"
+    },
+    {
+      "path": "GLOSSARY.md",
+      "sha256": "e8420850c29447a04a43417a4ed70b97c7f14e7bd8d5f5d91b96c6d10c14ad6e"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "d2cfe05c941bec1ac19d3bff29ba0d3a2d01009c402107927b74820f23acf935"
+    },
+    {
+      "path": "README.md",
+      "sha256": "3dcc293a2e425240811cc592703cf5a53140c763b4e93c3203bf225be4bf1bd9"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "c8dec79f39b4737fdabb64015676537294747231136957c01b444dd3c78a1f3d"
+    },
+    {
+      "path": "BRIEF.md",
+      "sha256": "099c775a5c7223d8ae4301e08e5fc8154e8bda51016d224f547a7ecc92044db1"
+    },
+    {
+      "path": "docs/what-is-a-harness.md",
+      "sha256": "ddfd3ea3c0c5f832587867a0162c2b26fc323173760408316121c6a2aa98a5d9"
+    },
+    {
+      "path": "docs/provenance.md",
+      "sha256": "19c2a19790e04ad1575e7e39314371228e17dc88da1cee5165cfdecb82dd5e27"
+    },
+    {
+      "path": "docs/hosts.md",
+      "sha256": "396bedcadceb6ebeb5b305e8ca216eeddfa732567f46a21c2cec76b679a60ca6"
+    },
+    {
+      "path": "docs/workshop.md",
+      "sha256": "b8241bcdc364246b3c1f473a541c87198ff65d3478ed391fdb7cc6c748be5ec8"
+    },
+    {
+      "path": "docs/visuals/_svg.py",
+      "sha256": "47f73ab61b4087acd4daab1714761b3b6b5da785da8574a41365a06faf49f666"
+    },
+    {
+      "path": "docs/visuals/evaluation.svg",
+      "sha256": "b7d0b20aa928cc990b30ed3d6751c02427029ee89672ebfdd2fc63a6df6ec08f"
+    },
+    {
+      "path": "docs/visuals/_build.py",
+      "sha256": "d5b3a3a2ed43dbece27369858bc17b1f1ab9bb6afd89e4fa35a86d8de1112d9e"
+    },
+    {
+      "path": "docs/visuals/harness-loop.svg",
+      "sha256": "00a850d591e82e311fc7581e118810ae08a0231a73632cdd8c0dca0da76da843"
+    },
+    {
+      "path": "docs/visuals/three-layers.svg",
+      "sha256": "17484e9f6d9278c61cb8a3359e94b2b1facc160b98d14c06b1638329ea19d3d4"
+    },
+    {
+      "path": "docs/visuals/journey.svg",
+      "sha256": "ce3c2a287ce469a6732368c32349256e7320185f17e06125809aa204f39eca18"
+    },
+    {
+      "path": "docs/visuals/folder.svg",
+      "sha256": "b5887fc613bdca88f93b7e8dbfdde2b295623c5516274fd417c6d965708b7eb2"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "35ec55efea143442d4f008c6b1eedca0106612a6cb912f11d6088019fdf27f49"
+    },
+    {
+      "path": "../templates/ABOUT_US.template.md",
+      "sha256": "27f921230a369456b29ad657e5fe9bdd1791454fa4cd31b3989a88ab2f2af2fd"
+    },
+    {
+      "path": "../templates/ROLE.template.md",
+      "sha256": "eb501d5e80770dbee25e2ea52582d0390ed37ea71ba492febf13748cde47299e"
+    }
+  ]
+}

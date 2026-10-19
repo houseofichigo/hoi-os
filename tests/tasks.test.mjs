@@ -257,11 +257,11 @@ for (const version of [1, 2])
 test("app endpoints require authentication, retain read-only map and reject stale writes", async (t) => {
   const { s, input } = await setup(t);
   const p = createProposal(s, input, "local");
-  const app = await serve(s, "local", join(process.cwd(), "dist/web"), 0, {
+  const app = await serve(s, "local", join(process.cwd(), "dist/hub"), 0, {
     app: true,
   });
   t.after(() => new Promise((ok) => app.server.close(ok)));
-  const base = app.url.split("/app#")[0];
+  const base = new URL(app.url).origin;
   const headers = {
     Authorization: `Bearer ${app.token}`,
     "Content-Type": "application/json",
@@ -303,7 +303,7 @@ test("app endpoints require authentication, retain read-only map and reject stal
     }),
   });
   assert.equal(stale.status, 409);
-  const map = await serve(s, "local", join(process.cwd(), "dist/web"), 0);
+  const map = await serve(s, "local", join(process.cwd(), "dist/hub"), 0);
   t.after(() => new Promise((ok) => map.server.close(ok)));
   assert.equal(
     (

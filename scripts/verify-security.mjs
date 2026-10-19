@@ -28,11 +28,11 @@ try {
   );
   if (previous.buildId === buildId) report = previous;
 } catch {}
-const requested = process.argv.includes("--desktop")
-  ? ["desktop"]
-  : process.argv.includes("--browser")
-    ? ["browser"]
-    : ["core"];
+if (process.argv.includes("--desktop"))
+  throw Error(
+    "DESKTOP_RETIRED: Use --browser for Knowledge Hub verification. Archived desktop evidence does not certify this edition.",
+  );
+const requested = process.argv.includes("--browser") ? ["browser"] : ["core"];
 let failed = false;
 for (const suite of requested) {
   const files =
@@ -47,25 +47,10 @@ for (const suite of requested) {
           .map((x) => "tests/" + suite + "/" + x);
   const hash = createHash("sha256");
   for (const f of files) hash.update(f + "\0").update(readFileSync(f));
-  if (suite === "desktop") {
-    if (
-      !existsSync(".desktop-stage/desktop/target.json") ||
-      buildIdentity(resolve(".desktop-stage")) !== buildId
-    )
-      throw Error(
-        "DESKTOP_STAGE_STALE: Run npm run desktop:stage, then verify:security -- --desktop",
-      );
-  }
   const args =
     suite === "core"
       ? [npm, "run", "check"]
-      : [
-          "node_modules/@playwright/test/cli.js",
-          "test",
-          ...(suite === "desktop"
-            ? ["--config", "playwright.desktop.config.mjs"]
-            : []),
-        ];
+      : ["node_modules/@playwright/test/cli.js", "test"];
   const env = { ...process.env, FORCE_COLOR: "0" };
   delete env.HOI_DESKTOP_TEST_EXECUTABLE;
   const r = spawnSync(process.execPath, args, {

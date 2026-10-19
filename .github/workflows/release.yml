@@ -1,13 +1,6 @@
-name: Prerelease
+name: Prepare candidate
 on:
   workflow_dispatch:
-    inputs:
-      release_tag:
-        description: Version tag matching package.json
-        required: true
-        default: v0.1.0-alpha.2
-  push:
-    tags: ["v*-alpha.*"]
 permissions:
   contents: read
 jobs:
@@ -43,11 +36,9 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
-  publish:
+  candidate:
     needs: [verify, browser]
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -57,13 +48,14 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
-      - name: Check release version
-        env:
-          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
-        run: node -e 'if (`v${require("./package.json").version}` !== process.env.RELEASE_TAG) process.exit(1)'
-      - run: npm run package:release
-      - name: Publish prerelease
-        env:
-          GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
-        run: gh release create "$RELEASE_TAG" release/"$RELEASE_TAG"/* --target "$GITHUB_SHA" --prerelease --title "HOI OS $RELEASE_TAG" --notes-file docs/RELEASE.md
+      - run: npm run package:candidate -- --output "${{ runner.temp }}/hoi-candidate"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hoi-os-local-candidate
+          path: |
+            ${{ runner.temp }}/hoi-candidate/hoi-os-hub.zip
+            ${{ runner.temp }}/hoi-candidate/skills/
+            ${{ runner.temp }}/hoi-candidate/START_HERE.md
+            ${{ runner.temp }}/hoi-candidate/CANDIDATE.json
+            ${{ runner.temp }}/hoi-candidate/SHA256SUMS
+          if-no-files-found: error

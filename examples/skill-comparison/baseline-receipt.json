@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "runId": "fictional-baseline",
+  "status": "completed",
+  "contextFingerprint": "e7a3f82ee8fe358aadcf01795c3dcbedbcdcb5df915e37fb4949b378940a461d",
+  "bundleFingerprint": "300b38d5d3ae7abc051d1efbac13981cd4c1a30e4b8d59e8f284095f81f936c2",
+  "answersChecksum": "000db153568794a926512b03585c498fbcbdf793f60a83962a9a0147531d2bcf"
+}

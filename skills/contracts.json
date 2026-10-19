@@ -19,7 +19,10 @@
   "hoi-build-capability": {
     "requiredOperations": [
       "build-capability",
-      "evaluate"
+      "evaluate",
+      "skills:list",
+      "skills:get",
+      "skills:draft"
     ],
     "optionalConnections": []
   },
@@ -43,7 +46,8 @@
   },
   "hoi-connect": {
     "requiredOperations": [
-      "connect"
+      "connect",
+      "configuration"
     ],
     "optionalConnections": [
       "gmail",
@@ -59,7 +63,12 @@
   },
   "hoi-evaluate": {
     "requiredOperations": [
-      "evaluate"
+      "evaluate",
+      "skills:get",
+      "memory:propose",
+      "memory:list",
+      "memory:get",
+      "memory:history"
     ],
     "optionalConnections": []
   },

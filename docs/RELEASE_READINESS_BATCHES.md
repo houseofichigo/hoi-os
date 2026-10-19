@@ -42,18 +42,18 @@ Remaining signing work requires an Apple Developer ID certificate/private key an
 
 ## Gate summary
 
-| Gate | Outcome |
-| --- | --- |
-| Schema-1 old-source import and reviewed memory migration | Passed locally |
-| Old-format and upgraded backup/restore | Passed locally |
-| Original preservation and old-engine rollback read | Passed locally |
-| Clean-Mac handoff kit | Prepared and checksum-validated |
-| Fresh Mac execution | Not tested; needs another machine/test user |
-| Signing/Gatekeeper | Failed current unsigned candidate; identity unavailable |
-| Notarization | Not attempted |
-| Windows / Intel Mac | Not tested |
-| Live AI / Google and independent quality review | Paused / separate |
-| Publication | Not performed |
+| Gate                                                     | Outcome                                                 |
+| -------------------------------------------------------- | ------------------------------------------------------- |
+| Schema-1 old-source import and reviewed memory migration | Passed locally                                          |
+| Old-format and upgraded backup/restore                   | Passed locally                                          |
+| Original preservation and old-engine rollback read       | Passed locally                                          |
+| Clean-Mac handoff kit                                    | Prepared and checksum-validated                         |
+| Fresh Mac execution                                      | Not tested; needs another machine/test user             |
+| Signing/Gatekeeper                                       | Failed current unsigned candidate; identity unavailable |
+| Notarization                                             | Not attempted                                           |
+| Windows / Intel Mac                                      | Not tested                                              |
+| Live AI / Google and independent quality review          | Paused / separate                                       |
+| Publication                                              | Not performed                                           |
 
 ## Verification of this batch
 

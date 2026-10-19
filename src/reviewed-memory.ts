@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { type Store } from "./store.js";
 import { type Host, memoryInput } from "./schema.js";
 import { atomic, readNote, sha, uid, now } from "./files.js";
+import { validateSkillLesson, sameMemoryPurpose } from "./skill-lessons.js";
 
 const key = z.string().min(8).max(200);
 const memoryId = z.string().regex(/^memory_[a-z0-9]+$/);
@@ -13,10 +14,7 @@ function check(s: Store, h: Host, write = false) {
     throw Error("POLICY_DENIED");
 }
 function visible(s: Store, m: any, h: Host, current = false) {
-  return (
-    m.allowedHosts?.includes(h) &&
-    s.evidenceVisible(m.evidence ?? [], h, current)
-  );
+  return s.memoryAllowed(m, h, current);
 }
 export function memoryGet(s: Store, id: string, h: Host) {
   check(s, h);
@@ -230,7 +228,9 @@ function retry(s: Store, h: Host, v: any) {
   if (row.payload_hash !== sha(JSON.stringify(v)))
     throw Error("IDEMPOTENCY_CONFLICT");
   recoverMemoryWrites(s);
-  return JSON.parse(row.result);
+  const result = JSON.parse(row.result);
+  memoryGet(s, result.id, h);
+  return result;
 }
 export function proposeMemory(s: Store, input: unknown, h: Host) {
   check(s, h, true);
@@ -246,6 +246,7 @@ export function proposeMemory(s: Store, input: unknown, h: Host) {
   if (prior) return prior;
   if (v.attributedStatement && h !== "local")
     throw Error("USER_ATTRIBUTION_REQUIRED");
+  validateSkillLesson(s, v.memory, h);
   s.validateEvidence(v.memory.evidence, h, true);
   if (
     v.memory.validFrom &&
@@ -261,6 +262,7 @@ export function proposeMemory(s: Store, input: unknown, h: Host) {
   let predecessor: any = undefined;
   if (v.memory.supersedes) {
     const old = memoryGet(s, v.memory.supersedes, h);
+    sameMemoryPurpose(old, v.memory);
     predecessor = { version: old.version, checksum: old.checksum };
     if (v.memory.allowedHosts.some((host) => !old.allowedHosts.includes(host)))
       throw Error("ACCESS_EXPANSION_DENIED");
@@ -304,6 +306,7 @@ export function reviewVersionedMemory(s: Store, input: unknown, h: Host) {
   if (["retired", "superseded"].includes(current.state))
     throw Error("MEMORY_REPLACEMENT_REQUIRED");
   if (v.state === "approved") {
+    validateSkillLesson(s, current, h);
     s.validateEvidence(current.evidence, h, true);
     if (!current.evidence.length && current.author !== "workspace-user")
       throw Error("MEMORY_EVIDENCE_REQUIRED");
@@ -320,6 +323,7 @@ export function reviewVersionedMemory(s: Store, input: unknown, h: Host) {
   ];
   if (v.state === "approved" && current.supersedes) {
     const old = memoryGet(s, current.supersedes, h);
+    sameMemoryPurpose(old, current);
     if (
       old.state !== "approved" ||
       !current.predecessor ||
@@ -366,6 +370,7 @@ const editableFields = [
   "validFrom",
   "validUntil",
   "allowedHosts",
+  "lesson",
 ] as const;
 function editable(m: any) {
   return Object.fromEntries(editableFields.map((k) => [k, m[k]]));
@@ -391,6 +396,7 @@ export function beginMemoryDraft(s: Store, input: unknown, h: Host) {
       )
     : current;
   if (!selected) throw Error("MEMORY_REVISION_UNAVAILABLE");
+  sameMemoryPurpose(current, selected);
   s.validateEvidence(selected.evidence ?? [], h, true);
   const note = {
     ...editable(selected),
@@ -433,6 +439,7 @@ export function saveMemoryDraft(s: Store, input: unknown, h: Host) {
           durability: true,
           validFrom: true,
           validUntil: true,
+          lesson: true,
         })
         .partial()
         .strict(),
@@ -448,6 +455,8 @@ export function saveMemoryDraft(s: Store, input: unknown, h: Host) {
   if (v.attributedStatement && h !== "local")
     throw Error("USER_ATTRIBUTION_REQUIRED");
   const next = { ...current, ...v.changes };
+  sameMemoryPurpose(current, next);
+  validateSkillLesson(s, next, h);
   if (!next.content.trim()) throw Error("MEMORY_CONTENT_REQUIRED");
   if (next.validFrom && next.validUntil && next.validFrom > next.validUntil)
     throw Error("INVALID_VALIDITY_INTERVAL");

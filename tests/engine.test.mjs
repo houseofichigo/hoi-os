@@ -54,7 +54,7 @@ async function seed(t) {
 }
 test("running app and fresh CLI clients share ownership; proposal approved once survives restart", async (t) => {
   const f = await seed(t),
-    r = await serve(f.s, "local", resolve("dist/web"), 0, { app: true });
+    r = await serve(f.s, "local", resolve("dist/hub"), 0, { app: true });
   try {
     assert.equal(inspectLock(f.s.root).state, "active");
     assert.ok(
@@ -129,7 +129,7 @@ test("running app and fresh CLI clients share ownership; proposal approved once 
 });
 test("engine rejects host spoofing, wrong token, unknown operations and changed replay payloads", async (t) => {
   const f = await seed(t),
-    r = await serve(f.s, "local", resolve("dist/web"), 0, { app: true });
+    r = await serve(f.s, "local", resolve("dist/hub"), 0, { app: true });
   try {
     const token = await readEngineCredential(f.s.root, "codex");
     const url = `http://127.0.0.1:${r.server.address().port}/api/engine/call`;
@@ -190,10 +190,10 @@ test("engine rejects host spoofing, wrong token, unknown operations and changed 
 });
 test("second app is refused and backups exclude live engine credentials", async (t) => {
   const f = fixture(t),
-    r = await serve(f.s, "local", resolve("dist/web"), 0, { app: true });
+    r = await serve(f.s, "local", resolve("dist/hub"), 0, { app: true });
   try {
     await assert.rejects(
-      serve(f.s, "local", resolve("dist/web"), 0, { app: true }),
+      serve(f.s, "local", resolve("dist/hub"), 0, { app: true }),
       /LOCK_BUSY/,
     );
     const backup = await cli(

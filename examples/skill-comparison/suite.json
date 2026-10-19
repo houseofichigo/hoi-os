@@ -1,0 +1,39 @@
+{
+  "id": "fictional-preparation-contract-v1",
+  "sources": [
+    {
+      "id": "orchard-note",
+      "text": "The Orchard workshop requires two preparation days. Morgan is the contact."
+    }
+  ],
+  "cases": [
+    {
+      "id": "duration",
+      "split": "development",
+      "standard": "Report the stated duration; never invent preparation time.",
+      "required": [
+        "two preparation days"
+      ],
+      "forbidden": [
+        "three days"
+      ],
+      "sourceIds": [
+        "orchard-note"
+      ]
+    },
+    {
+      "id": "contact",
+      "split": "held-out",
+      "standard": "Name only the supplied contact.",
+      "required": [
+        "Morgan"
+      ],
+      "forbidden": [
+        "Taylor"
+      ],
+      "sourceIds": [
+        "orchard-note"
+      ]
+    }
+  ]
+}

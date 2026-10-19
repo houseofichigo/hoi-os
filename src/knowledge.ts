@@ -48,6 +48,7 @@ export function context(
   const memories = allMemories.filter(
     (m) =>
       !replaced.has(m.id) &&
+      !m.lesson &&
       m.state === "approved" &&
       m.allowedHosts?.includes(host) &&
       (!options.entities?.length ||
@@ -172,6 +173,7 @@ export function relationship(s: Store, input: unknown, host: Host) {
 }
 export function capture(s: Store, input: unknown, host: Host) {
   const m = memoryInput.parse(input);
+  if (m.lesson) throw Error("USE_VERSIONED_MEMORY_PROPOSE");
   s.assertHost(host);
   s.validateEvidence(m.evidence, host, true);
   for (const id of m.entities)
@@ -180,6 +182,7 @@ export function capture(s: Store, input: unknown, host: Host) {
     throw Error("Unknown superseded memory");
   if (m.supersedes) {
     const prior = readNote(s.path(`memory/${m.supersedes}.md`));
+    if (prior.lesson) throw Error("USE_VERSIONED_MEMORY_PROPOSE");
     if (
       !prior.allowedHosts.includes(host) ||
       !s.evidenceVisible(prior.evidence, host, false)
@@ -209,6 +212,7 @@ export function reviewMemory(
   if (!/^memory_[a-z0-9]+$/.test(id)) throw Error("Invalid memory ID");
   const path = s.path(`memory/${id}.md`),
     m = readNote(path);
+  if (m.lesson) throw Error("USE_VERSIONED_MEMORY_REVIEW");
   if (!m.allowedHosts?.includes(host))
     throw Error("Memory is not permitted for this host");
   memoryInput.parse(
@@ -255,13 +259,7 @@ export function reviewMemory(
 }
 export function consolidate(s: Store, host: Host) {
   s.assertHost(host);
-  const memories = s
-    .memories()
-    .filter(
-      (m) =>
-        m.allowedHosts.includes(host) &&
-        s.evidenceVisible(m.evidence, host, false),
-    );
+  const memories = s.memories().filter((m) => s.memoryAllowed(m, host, false));
   const groups = new Map<string, string[]>();
   for (const m of memories) {
     const key = sha(m.content.trim().toLowerCase());

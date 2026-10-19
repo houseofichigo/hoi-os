@@ -11,6 +11,7 @@ try {
       host: { type: "string" },
       port: { type: "string" },
       "no-open": { type: "boolean" },
+      surface: { type: "string", default: "hub" },
     },
   });
   if (!v.workspace || !["codex", "claude", "local"].includes(v.host || "local"))
@@ -18,16 +19,20 @@ try {
       'START_ARGUMENTS: Use npm start -- --workspace "<private directory>" --host codex|claude|local',
     );
   const workspace = resolve(v.workspace);
+  if (!["app", "hub"].includes(v.surface))
+    throw Error("SURFACE_INVALID: Choose app or hub.");
+  // Preserve old launcher flags as aliases, never load retired UI assets.
+  const web = "dist/hub";
   if (!existsSync(join(workspace, ".hoi/workspace.json")))
     throw Error(
       "WORKSPACE_MISSING: Run npm run setup with this workspace first.",
     );
   if (
     !existsSync(join(product, "dist/core/server.js")) ||
-    !existsSync(join(product, "dist/web/app.html"))
+    !existsSync(join(product, web, "hub.html"))
   )
     throw Error(
-      "BUILD_MISSING: Run npm ci and npm run build, then npm start again.",
+      "BUILD_MISSING: Run npm ci and npm run build, then launch again.",
     );
   const port = v.port === undefined ? 4640 : Number(v.port);
   if (!Number.isInteger(port) || port < 0 || port > 65535)
@@ -39,19 +44,16 @@ try {
   const s = new Store(workspace);
   let running;
   try {
-    running = await serve(
-      s,
-      v.host || "local",
-      join(product, "dist/web"),
-      port,
-      { app: true },
-    );
+    running = await serve(s, v.host || "local", join(product, web), port, {
+      app: true,
+      hub: true,
+    });
   } catch (e) {
     s.close();
     throw e;
   }
   console.log(
-    `HOI OS is running. Open ${running.url}\nStop with Ctrl+C. Use this URL, not web/index.html.`,
+    `HOI OS Knowledge Hub is running. Open ${running.url}\nStop with Ctrl+C. Use the complete authenticated URL.`,
   );
   if (!v["no-open"]) {
     const executable =

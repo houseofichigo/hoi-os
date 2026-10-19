@@ -597,13 +597,8 @@ export function appRead(
           .filter((r) => s.allowed(r, host)).length,
         entities: graph(s, host).nodes.filter((n: any) => n.type !== "source")
           .length,
-        memories: s
-          .memories()
-          .filter(
-            (m) =>
-              m.allowedHosts?.includes(host) &&
-              s.evidenceVisible(m.evidence || [], host, false),
-          ).length,
+        memories: s.memories().filter((m) => s.memoryAllowed(m, host, false))
+          .length,
         wikiPages: s.schemaVersion >= 2 ? listWiki(s, host).length : 0,
       },
     };
@@ -622,11 +617,7 @@ export function appRead(
             ]
         : s
             .memories()
-            .filter(
-              (m) =>
-                m.allowedHosts?.includes(host) &&
-                s.evidenceVisible(m.evidence || [], host, false),
-            )
+            .filter((m) => s.memoryAllowed(m, host, false))
             .map((m) => ({
               id: m.id,
               type: m.type,

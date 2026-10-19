@@ -11,7 +11,7 @@ test.beforeAll(async () => {
   workspace = join(root, "workspace");
   await seedMaintenanceDemo(workspace);
   s = new Store(workspace);
-  running = await serve(s, "local", resolve("dist/web"), 0, { app: true });
+  running = await serve(s, "local", resolve("dist/hub"), 0, { app: true });
 });
 test.afterAll(async () => {
   await new Promise((ok) => running.server.close(ok));
@@ -63,7 +63,7 @@ test("knowledge scan, keyboard keep, archive and restart preserve review decisio
   await new Promise((ok) => running.server.close(ok));
   s.close();
   s = new Store(workspace);
-  running = await serve(s, "local", resolve("dist/web"), 0, { app: true });
+  running = await serve(s, "local", resolve("dist/hub"), 0, { app: true });
   await page.goto(running.url);
   await page.getByRole("button", { name: "Menu", exact: true }).click();
   await page

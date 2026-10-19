@@ -16,6 +16,7 @@ Availability is never inferred from a few events. Supply coverage only when the 
 
 Finish with actionable priorities and their reasons, waiting-for items, the selected meeting's evidence and remaining gaps. Never describe synthetic tests as proof of real-work usefulness.
 
+For a fictional engine rehearsal, read [the rehearsal boundary](references/rehearsal.md). It exercises records and review behavior without executing this skill or calling a provider; it is not evidence of assistant quality.
 
 ## Unified retrieval and reviewed memory (schema 19)
 

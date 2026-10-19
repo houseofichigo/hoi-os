@@ -57,7 +57,7 @@ export async function main(args = process.argv.slice(2)) {
     );
   if (command === "help" || v.help) {
     print(
-      "HOI OS\n\nhoi <command> --workspace <private directory> --host codex|claude|local [--json]\n\nCommands: views, preferences, processing, jobs, entity-merge, adapter, engine, init, doctor, health, onboard, connect, ingest-plan, ingest, organize, approve, retrieve, context, capture, review-memory, consolidate, entity, relate, wiki, project, task, intake, daily, knowledge, chat, build-capability, run, evaluate, audit, map, app, backup, restore, upgrade, diagnostics, recover-lock, recover-restore\n\nWiki: wiki list | wiki get REF | wiki propose --input page.json | wiki review ID --state reviewed|rejected | wiki canonical ID | wiki contradictions\n\nUse --input file.json for structured inputs. See docs/CLI.md for examples.",
+      "HOI OS\n\nhoi <command> --workspace <private directory> --host codex|claude|local [--json]\n\nCommands: views, preferences, processing, jobs, entity-merge, adapter, engine, init, doctor, health, onboard, connect, ingest-plan, ingest, organize, approve, retrieve, context, capture, review-memory, consolidate, entity, relate, wiki, project, task, intake, daily, knowledge, chat, build-capability, run, evaluate, audit, map, hub, app, backup, restore, upgrade, diagnostics, recover-lock, recover-restore\n\nWiki: wiki list | wiki get REF | wiki propose --input page.json | wiki review ID --state reviewed|rejected | wiki canonical ID | wiki contradictions\n\nUse --input file.json for structured inputs. See docs/CLI.md for examples.",
     );
     return;
   }
@@ -122,7 +122,7 @@ export async function main(args = process.argv.slice(2)) {
     ...(v.input ? { input: input() } : {}),
     ...(v.metadata ? { metadata: readYaml(resolve(String(v.metadata))) } : {}),
   };
-  if (!["app", "map"].includes(command)) {
+  if (!["app", "map", "hub"].includes(command)) {
     const remote = await callEngine(
       root,
       host,
@@ -136,7 +136,7 @@ export async function main(args = process.argv.slice(2)) {
   }
   // A command without a running server is a short-lived engine owner.
   const release =
-    !["app", "map"].includes(command) &&
+    !["app", "map", "hub"].includes(command) &&
     existsSync(resolve(root, ".hoi/workspace.json"))
       ? acquireLock(root, command)
       : undefined;
@@ -164,22 +164,22 @@ export async function main(args = process.argv.slice(2)) {
   let keepOpen = false;
   try {
     let result: any;
-    if (command === "app" || command === "map") {
+    if (["app", "map", "hub"].includes(command)) {
       const webRoot = resolve(
         dirname(fileURLToPath(import.meta.url)),
-        "../web",
+        "../hub",
       );
       const running = await serve(
         s,
         host,
         webRoot,
-        v.port ? Number(v.port) : command === "app" ? 4641 : 4640,
-        { app: command === "app" },
+        v.port ? Number(v.port) : command !== "map" ? 4641 : 4640,
+        { app: command !== "map", hub: command !== "map" },
       );
       print({
         url: running.url,
         note:
-          command === "app"
+          command !== "map"
             ? "Local workspace engine. CLI clients share this engine; stop with Ctrl+C."
             : "Read-only, localhost only. Stop with Ctrl+C.",
       });

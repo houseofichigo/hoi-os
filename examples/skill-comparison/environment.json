@@ -1,0 +1,8 @@
+{
+  "host": "manually-authored-fixture",
+  "model": "none",
+  "engineVersion": "schema-19-foundation",
+  "toolContract": "No operations executed",
+  "policy": "Fictional fixture, no external actions",
+  "instructionVersion": "fixture-1"
+}

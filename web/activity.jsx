@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Drawer, ProductTabs } from "./product-ui.jsx";
 import { StatusLabel } from "./shell.jsx";
-import EmailDrafts from "./email-drafts.jsx";
-import Calendar from "./calendar.jsx";
-import { useLocationSearch } from "./destination.js";
+import { surfacePath } from "./destination.js";
 const labels = {
   draft: "Draft",
   proposed: "Needs review",
@@ -27,7 +25,7 @@ const stages = {
 };
 export function openResult(href) {
   if (!href.startsWith("/app?")) return;
-  history.pushState(null, "", href);
+  history.pushState(null, "", surfacePath + href.slice(4));
   window.dispatchEvent(new Event("hoi:navigate"));
 }
 export function Progress({ events = [] }) {
@@ -384,78 +382,5 @@ export function ActivityButton({ api }) {
         </Drawer>
       )}
     </>
-  );
-}
-export function Suggestions({ api }) {
-  const search = useLocationSearch(),
-    query = new URLSearchParams(search),
-    review = query.get("review"),
-    record = query.get("record");
-  const [data, setData] = useState(null),
-    [error, setError] = useState(""),
-    [tab, setTab] = useState("Needs attention");
-  async function load(cursor) {
-    try {
-      const r = await api(
-        "suggestions?" +
-          new URLSearchParams({
-            bucket: tab === "History" ? "completed" : "attention",
-            ...(cursor ? { cursor } : {}),
-          }),
-      );
-      setData((old) =>
-        cursor ? { ...r, items: [...(old?.items ?? []), ...r.items] } : r,
-      );
-      setError("");
-    } catch (e) {
-      setData(null);
-      setError(e.message);
-    }
-  }
-  useEffect(() => {
-    load();
-  }, [tab, search]);
-  return (
-    <section aria-label="Suggestions">
-      <ProductTabs
-        label="Suggestion state"
-        values={["Needs attention", "History"]}
-        value={tab}
-        onChange={setTab}
-      />
-      <p>
-        Review source-backed proposals. Approval and execution remain separate.
-      </p>
-      {error && <p role="alert">{error}</p>}
-      {data?.items.length === 0 && <p>No recorded suggestions in this view.</p>}
-      {data?.items.map((c) => (
-        <ResultCard key={c.id} card={c} api={api} onChanged={() => load()} />
-      ))}
-      {data?.nextCursor && (
-        <button className="secondary" onClick={() => load(data.nextCursor)}>
-          Load more
-        </button>
-      )}
-      {review && record && (
-        <Drawer
-          title="Review suggestion"
-          onClose={() => openResult("/app?view=inbox&section=Suggestions")}
-        >
-          <button
-            className="secondary"
-            onClick={() => openResult("/app?view=inbox&section=Suggestions")}
-          >
-            Close review
-          </button>
-          {review === "email" ? (
-            <EmailDrafts api={api} selectedId={record} />
-          ) : review === "calendar" ? (
-            <Calendar api={api} selectedId={record} />
-          ) : (
-            <p>Review unavailable.</p>
-          )}
-        </Drawer>
-      )}
-    </section>
   );
 }
