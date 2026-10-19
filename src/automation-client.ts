@@ -8,14 +8,18 @@ export async function triggerAutomationClient(
   root: string,
   credentialFile: string,
   input: unknown,
+  mode: "run" | "status" = "run",
 ) {
-  const body = z
-    .object({
-      triggerId: z.string().regex(/^[a-zA-Z0-9:_-]{8,160}$/),
-      snapshot: z.unknown().optional(),
-    })
-    .strict()
-    .parse(input);
+  const body =
+    mode === "status"
+      ? z.object({}).strict().parse(input)
+      : z
+          .object({
+            triggerId: z.string().regex(/^[a-zA-Z0-9:_-]{8,160}$/),
+            snapshot: z.unknown().optional(),
+          })
+          .strict()
+          .parse(input);
   const path = resolve(credentialFile),
     stat = statSync(path);
   if (
@@ -39,15 +43,15 @@ export async function triggerAutomationClient(
   )
     throw Error("ENGINE_ENDPOINT_UNAVAILABLE");
   const response = await fetch(
-    `http://127.0.0.1:${d.port}/api/automation-client/run`,
+    `http://127.0.0.1:${d.port}/api/automation-client/${mode}`,
     {
-      method: "POST",
+      method: mode === "run" ? "POST" : "GET",
       redirect: "error",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      ...(mode === "run" ? { body: JSON.stringify(body) } : {}),
       signal: AbortSignal.timeout(15000),
     },
   );

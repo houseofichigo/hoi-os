@@ -12,6 +12,7 @@ const blank = {
   futureRevisions: true,
   importBacklog: false,
   analyzeBacklog: false,
+  discloseFutureSources: false,
   maxCost: 0.25,
   scheduler: {
     kind: "manual",
@@ -32,7 +33,11 @@ export default function Automations({ api }) {
     [connections, setConnections] = useState([]),
     [selected, setSelected] = useState(null),
     [editing, setEditing] = useState(null),
-    [observation, setObservation] = useState({schedulerId:"",state:"unknown",evidence:""}),
+    [observation, setObservation] = useState({
+      schedulerId: "",
+      state: "unknown",
+      evidence: "",
+    }),
     [secret, setSecret] = useState(null);
   async function load() {
     const [d, h] = await Promise.all([
@@ -104,6 +109,7 @@ export default function Automations({ api }) {
           </p>
         </div>
         <button
+          className="automation-primary"
           onClick={() => {
             setForm(structuredClone(blank));
             setSelection("");
@@ -123,6 +129,12 @@ export default function Automations({ api }) {
       {notice && <p role="status">{notice}</p>}
       <section aria-label="Automatic analysis budget">
         <strong>$25 monthly automatic-analysis limit</strong>
+        {data?.currentBudget && (
+          <p>
+            ${data.currentBudget.remaining.toFixed(2)} remaining for{" "}
+            {data.currentBudget.month}, after recorded costs and reservations.
+          </p>
+        )}
         <p>
           Each run is limited to $0.25. Recorded usage and unresolved
           reservations are kept separately.
@@ -160,7 +172,12 @@ export default function Automations({ api }) {
                 {d.schedulerObservation.stale
                   ? "verification stale"
                   : d.schedulerObservation.state}
-                . Next run: {d.schedulerObservation.nextRun ?? "unknown"}.
+                . Next run:{" "}
+                {!d.schedulerObservation.stale &&
+                Date.parse(d.schedulerObservation.nextRun) > Date.now()
+                  ? d.schedulerObservation.nextRun
+                  : "unknown"}
+                .
               </p>
               <p>
                 Last run:{" "}
@@ -234,11 +251,19 @@ export default function Automations({ api }) {
         ))}
       </ul>
       {form && (
-        <Drawer title={editing ? "Edit automation" : "New automation"} onClose={() => setForm(null)}>
+        <Drawer
+          title={editing ? "Edit automation" : "New automation"}
+          onClose={() => setForm(null)}
+        >
           <h2>{editing ? "Edit automation" : "New automation"}</h2>
           <button onClick={() => setForm(null)}>Close</button>
           {error && <p role="alert">{error}</p>}
-          {editing && <p>Saving disables this definition and revokes its scheduler credential. Review and enable the revised scope separately.</p>}
+          {editing && (
+            <p>
+              Saving disables this definition and revokes its scheduler
+              credential. Review and enable the revised scope separately.
+            </p>
+          )}
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -262,6 +287,10 @@ export default function Automations({ api }) {
                 onChange={(e) =>
                   change({
                     recipe: e.target.value,
+                    discloseFutureSources:
+                      e.target.value === "intake-review" && form.futureRevisions
+                        ? form.discloseFutureSources
+                        : false,
                     ...(e.target.value.includes("review")
                       ? { provider: form.provider ?? "openai" }
                       : { provider: undefined }),
@@ -313,31 +342,51 @@ export default function Automations({ api }) {
             </label>
             {form.scope.kind === "sources" && (
               <>
-                <fieldset><legend>Selected sources</legend>
-                  {sources.map(s=><label key={s.id}><input type="checkbox" checked={selection.split(",").includes(s.id)} onChange={e=>{const chosen=selection.split(",").filter(Boolean);setSelection((e.target.checked?[...chosen,s.id]:chosen.filter(id=>id!==s.id)).join(","));setPreview(null);}}/>{s.title}</label>)}
+                <fieldset>
+                  <legend>Selected sources</legend>
+                  {sources.map((s) => (
+                    <label key={s.id}>
+                      <input
+                        type="checkbox"
+                        checked={selection.split(",").includes(s.id)}
+                        onChange={(e) => {
+                          const chosen = selection.split(",").filter(Boolean);
+                          setSelection(
+                            (e.target.checked
+                              ? [...chosen, s.id]
+                              : chosen.filter((id) => id !== s.id)
+                            ).join(","),
+                          );
+                          setPreview(null);
+                        }}
+                      />
+                      {s.title}
+                    </label>
+                  ))}
                 </fieldset>
-                <details><summary>Source identities</summary>
-                <label>
-                  Source IDs (comma separated)
-                  <input
-                    required
-                    value={selection}
-                    onChange={(e) => {
-                      setSelection(e.target.value);
-                      setPreview(null);
-                    }}
-                  />
-                </label>
                 <details>
-                  <summary>Available source identities</summary>
-                  <ul>
-                    {sources.map((s) => (
-                      <li key={s.id}>
-                        {s.title} · <code>{s.id}</code>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
+                  <summary>Source identities</summary>
+                  <label>
+                    Source IDs (comma separated)
+                    <input
+                      required
+                      value={selection}
+                      onChange={(e) => {
+                        setSelection(e.target.value);
+                        setPreview(null);
+                      }}
+                    />
+                  </label>
+                  <details>
+                    <summary>Available source identities</summary>
+                    <ul>
+                      {sources.map((s) => (
+                        <li key={s.id}>
+                          {s.title} · <code>{s.id}</code>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
                 </details>
               </>
             )}
@@ -392,7 +441,14 @@ export default function Automations({ api }) {
               <input
                 type="checkbox"
                 checked={form.futureRevisions}
-                onChange={(e) => change({ futureRevisions: e.target.checked })}
+                onChange={(e) =>
+                  change({
+                    futureRevisions: e.target.checked,
+                    discloseFutureSources: e.target.checked
+                      ? form.discloseFutureSources
+                      : false,
+                  })
+                }
               />
               Allow future matching revisions
             </label>
@@ -406,6 +462,19 @@ export default function Automations({ api }) {
             </label>
             {form.recipe.includes("review") && (
               <>
+                {form.recipe.startsWith("intake") && (
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={form.discloseFutureSources}
+                      onChange={(e) =>
+                        change({ discloseFutureSources: e.target.checked })
+                      }
+                    />
+                    Allow this provider to analyze future matching intake
+                    revisions (excludes existing backlog)
+                  </label>
+                )}
                 <label>
                   AI provider
                   <select
@@ -503,7 +572,7 @@ export default function Automations({ api }) {
                 onClick={() =>
                   act(async () => {
                     await api("automations/save", {
-                      ...(editing ? {id:editing.id} : {}),
+                      ...(editing ? { id: editing.id } : {}),
                       definition: candidate(),
                       expectedVersion: editing?.version ?? 0,
                       previewDigest: preview.digest,
@@ -551,7 +620,7 @@ export default function Automations({ api }) {
           </p>
           <details>
             <summary>Scope and exact instruction revisions</summary>
-            <pre>
+            <pre className="automation-json">
               {JSON.stringify(
                 {
                   scope: selected.definition.scope,
@@ -563,19 +632,115 @@ export default function Automations({ api }) {
               )}
             </pre>
           </details>
-          <button disabled={busy || selected.lastRun?.state === "running"} onClick={()=>{
-            setEditing(selected);setForm(structuredClone(selected.definition));setSelection(selected.definition.scope.kind==="sources" ? selected.definition.scope.sourceIds.join(",") : selected.definition.scope.connectionId??"");setPreview(null);setSelected(null);setSecret(null);setError("");
-          }}>Edit definition</button>
-          {selected.state!=="enabled" && selected.definition.scope.kind==="connection" && <button disabled={busy} onClick={()=>act(async()=>{await api("automations/release-connection",controls(selected));setSelected(null);setNotice("Scheduling ownership released. The connection remains paused until you preview and activate it again.");})}>Release connection ownership</button>}
-          {selected.definition.scheduler.kind!=="manual" && <details><summary>Record scheduler verification</summary>
-            <p>Inspect the actual scheduler before recording this observation. This records your read-back; it does not create, activate or pause a schedule.</p>
-            <form onSubmit={e=>{e.preventDefault();act(async()=>{const updated=await api("automations/observe",{id:selected.id,expectedVersion:selected.version,...observation});setSelected(updated);setNotice("Scheduler observation saved.");});}}>
-              <label>Actual scheduler identity<input required value={observation.schedulerId} onChange={e=>setObservation({...observation,schedulerId:e.target.value})}/></label>
-              <label>Observed scheduler state<select value={observation.state} onChange={e=>setObservation({...observation,state:e.target.value})}>{["configured","verified-active","paused","unavailable","unknown"].map(x=><option key={x}>{x}</option>)}</select></label>
-              <label>Read-back evidence<textarea required value={observation.evidence} onChange={e=>setObservation({...observation,evidence:e.target.value})}/></label>
-              <button disabled={busy}>Record observation</button>
-            </form>
-          </details>}
+          <button
+            disabled={busy || selected.lastRun?.state === "running"}
+            onClick={() => {
+              setEditing(selected);
+              setForm(structuredClone(selected.definition));
+              setSelection(
+                selected.definition.scope.kind === "sources"
+                  ? selected.definition.scope.sourceIds.join(",")
+                  : (selected.definition.scope.connectionId ?? ""),
+              );
+              setPreview(null);
+              setSelected(null);
+              setSecret(null);
+              setError("");
+            }}
+          >
+            Edit definition
+          </button>
+          {selected.state !== "enabled" &&
+            selected.definition.scope.kind === "connection" && (
+              <button
+                disabled={busy}
+                onClick={() =>
+                  act(async () => {
+                    await api(
+                      "automations/release-connection",
+                      controls(selected),
+                    );
+                    setSelected(null);
+                    setNotice(
+                      "Scheduling ownership released. The connection remains paused until you preview and activate it again.",
+                    );
+                  })
+                }
+              >
+                Release connection ownership
+              </button>
+            )}
+          {selected.definition.scheduler.kind !== "manual" && (
+            <details>
+              <summary>Record scheduler verification</summary>
+              <p>
+                Inspect the actual scheduler before recording this observation.
+                This records your read-back; it does not create, activate or
+                pause a schedule.
+              </p>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  act(async () => {
+                    const updated = await api("automations/observe", {
+                      id: selected.id,
+                      expectedVersion: selected.version,
+                      ...observation,
+                    });
+                    setSelected(updated);
+                    setNotice("Scheduler observation saved.");
+                  });
+                }}
+              >
+                <label>
+                  Actual scheduler identity
+                  <input
+                    required
+                    value={observation.schedulerId}
+                    onChange={(e) =>
+                      setObservation({
+                        ...observation,
+                        schedulerId: e.target.value,
+                      })
+                    }
+                  />
+                </label>
+                <label>
+                  Observed scheduler state
+                  <select
+                    value={observation.state}
+                    onChange={(e) =>
+                      setObservation({ ...observation, state: e.target.value })
+                    }
+                  >
+                    {[
+                      "configured",
+                      "verified-active",
+                      "paused",
+                      "unavailable",
+                      "unknown",
+                    ].map((x) => (
+                      <option key={x}>{x}</option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  Read-back evidence
+                  <textarea
+                    required
+                    value={observation.evidence}
+                    onChange={(e) =>
+                      setObservation({
+                        ...observation,
+                        evidence: e.target.value,
+                      })
+                    }
+                  />
+                </label>
+                <button disabled={busy}>Record observation</button>
+              </form>
+            </details>
+          )}
           {selected.reviewPreview && (
             <section>
               <h3>Enable this exact scope?</h3>
@@ -583,11 +748,15 @@ export default function Automations({ api }) {
                 {selected.reviewPreview.backlog.previewItems} preview items.
                 Backlog import: {String(selected.definition.importBacklog)}.
                 Backlog analysis: {String(selected.definition.analyzeBacklog)}.
+                Future provider disclosure:{" "}
+                {String(selected.definition.discloseFutureSources)}.
               </p>
-              {selected.definition.scope.kind==="connection" && <p>
-                Connection polling transfers to this definition. External
-                schedule setup remains separate.
-              </p>}
+              {selected.definition.scope.kind === "connection" && (
+                <p>
+                  Connection polling transfers to this definition. External
+                  schedule setup remains separate.
+                </p>
+              )}
               <button
                 disabled={busy}
                 onClick={() =>

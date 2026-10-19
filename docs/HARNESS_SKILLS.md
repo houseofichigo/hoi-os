@@ -1,10 +1,10 @@
 # Harness skills and installation
 
-Current local edition, 17 October 2026. The seven phases and 25 steps remain in `method/JOURNEY.md`. The supplied 1.1.0 ZIP is preserved unchanged. Its Python utilities, guard plugin, static viewers and generated state stores are not installed. The governed engine, schema 19 and optional Knowledge Hub remain authoritative.
+Current local edition, 19 October 2026. The seven phases and 25 steps remain in `method/JOURNEY.md`. The supplied 1.1.0 ZIP is preserved unchanged. Its Python utilities, guard plugin, static viewers and generated state stores are not installed. The governed engine, schema 20 and optional Knowledge Hub remain authoritative.
 
 ## Reconciliation
 
-`method/SKILL_MAP.json` records all 15 supplied skill names, exact source-instruction hashes and supported destinations. These are explanatory routes, not executable aliases. The product still bundles 21 engine-client instructions; the company inventory is separate.
+`method/SKILL_MAP.json` records all 15 supplied skill names, exact source-instruction hashes and supported destinations. These are explanatory routes, not executable aliases. The product still bundles 22 engine-client instructions; the company inventory is separate.
 
 | Supplied role    | Supported route                                   | Decision                                                                                             |
 | ---------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |

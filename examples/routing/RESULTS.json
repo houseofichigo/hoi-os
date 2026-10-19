@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "at": "2026-10-19T12:19:32.533Z",
+  "labelStatus": "authored-provisional; independent human review pending",
+  "scope": "Deterministic plan selection only; no model calls, human answer-quality certification or live scheduler execution.",
+  "cases": 120,
+  "passed": 120,
+  "groups": {
+    "development/en/hoi-retrieve": {
+      "passed": 4,
+      "total": 4
+    },
+    "development/fr/hoi-retrieve": {
+      "passed": 4,
+      "total": 4
+    },
+    "development/en/hoi-chief-of-staff": {
+      "passed": 2,
+      "total": 2
+    },
+    "development/fr/hoi-chief-of-staff": {
+      "passed": 2,
+      "total": 2
+    },
+    "development/en/hoi-meeting-prep": {
+      "passed": 2,
+      "total": 2
+    },
+    "development/fr/hoi-meeting-prep": {
+      "passed": 2,
+      "total": 2
+    },
+    "development/en/hoi-task-intake": {
+      "passed": 2,
+      "total": 2
+    },
+    "development/fr/hoi-task-intake": {
+      "passed": 2,
+      "total": 2
+    },
+    "development/en/hoi-project-intake": {
+      "passed": 2,
+      "total": 2
+    },
+    "development/fr/hoi-project-intake": {
+      "passed": 2,
+      "total": 2
+    },
+    "development/en/clarification": {
+      "passed": 8,
+      "total": 8
+    },
+    "development/fr/clarification": {
+      "passed": 8,
+      "total": 8
+    },
+    "held-out/en/hoi-retrieve": {
+      "passed": 12,
+      "total": 12
+    },
+    "held-out/fr/hoi-retrieve": {
+      "passed": 12,
+      "total": 12
+    },
+    "held-out/en/hoi-chief-of-staff": {
+      "passed": 6,
+      "total": 6
+    },
+    "held-out/fr/hoi-chief-of-staff": {
+      "passed": 6,
+      "total": 6
+    },
+    "held-out/en/hoi-meeting-prep": {
+      "passed": 4,
+      "total": 4
+    },
+    "held-out/fr/hoi-meeting-prep": {
+      "passed": 4,
+      "total": 4
+    },
+    "held-out/en/hoi-task-intake": {
+      "passed": 4,
+      "total": 4
+    },
+    "held-out/fr/hoi-task-intake": {
+      "passed": 4,
+      "total": 4
+    },
+    "held-out/en/hoi-project-intake": {
+      "passed": 4,
+      "total": 4
+    },
+    "held-out/fr/hoi-project-intake": {
+      "passed": 4,
+      "total": 4
+    },
+    "held-out/en/clarification": {
+      "passed": 8,
+      "total": 8
+    },
+    "held-out/fr/clarification": {
+      "passed": 8,
+      "total": 8
+    },
+    "held-out/en/unavailable": {
+      "passed": 2,
+      "total": 2
+    },
+    "held-out/fr/unavailable": {
+      "passed": 2,
+      "total": 2
+    }
+  },
+  "failures": [],
+  "humanAcceptance": "pending"
+}

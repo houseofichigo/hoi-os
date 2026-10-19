@@ -1,6 +1,6 @@
 # Install and verify the optional Knowledge Hub
 
-Audience: people trying the current, unreleased harness package. The governed engine, 25-step method and 21 optional skill packages remain the product. The old Electron app and its installer evidence are historical. This guide describes a Node installation, not a signed desktop application.
+Audience: people trying the current, unreleased harness package. The governed engine, 25-step method and 22 optional skill packages remain the product. The old Electron app and its installer evidence are historical. This guide describes a Node installation, not a signed desktop application.
 
 ## Install in two separate locations
 
@@ -34,6 +34,7 @@ Setup defaults to no adapters or AI configuration. You can import selected docum
 
 - Packaged file checksums, runtime identity and isolated production dependency resolution.
 - Native SQLite and vector extension loading. The keyring module loads, but this does not certify AI credential storage. Windows engine authentication exercises its own credential-store path when actually run there.
+- Routing, disabled-by-default automation, scoped CLI triggers, duplicate suppression and restored definitions remaining paused.
 - Setup without assistant manuals, launcher authentication and concurrent CLI clients under `codex` and `claude` identities while the Hub owns the database.
 - One preserved fictional import, duplicate intake, a local-only denial, exact source/passage identities, task proposal retry and scripted review.
 - Optional adapter installation, versioned guides and preservation of existing manual text.

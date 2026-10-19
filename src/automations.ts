@@ -8,6 +8,7 @@ import { connections, syncConnection } from "./sync.js";
 import { scanKnowledge } from "./maintenance.js";
 import { importSnapshot, snapshotInput } from "./external-snapshots.js";
 import { runAutomationReview } from "./automation-review.js";
+import { automaticBudgetStatus } from "./ai.js";
 
 const ident = z.string().trim().min(1).max(180);
 const scopeSchema = z.discriminatedUnion("kind", [
@@ -47,6 +48,7 @@ export const definitionInput = z
     futureRevisions: z.boolean(),
     importBacklog: z.boolean().default(false),
     analyzeBacklog: z.boolean().default(false),
+    discloseFutureSources: z.boolean().default(false),
     provider: z.enum(["openai", "anthropic"]).optional(),
     maxCost: z.number().positive().max(0.25).default(0.25),
     scheduler: z
@@ -75,8 +77,24 @@ export const definitionInput = z
       });
     if (v.recipe.includes("review") && !v.provider)
       c.addIssue({ code: "custom", message: "Select the provider explicitly" });
+    if (
+      v.discloseFutureSources &&
+      (!v.recipe.includes("review") ||
+        !v.recipe.startsWith("intake") ||
+        !v.futureRevisions)
+    )
+      c.addIssue({
+        code: "custom",
+        message:
+          "Future disclosure requires reviewed intake, an explicit provider and future revisions",
+      });
     if (v.scheduler.kind === "manual" && v.scheduler.cadence !== "manual")
       c.addIssue({ code: "custom", message: "Manual mode has no cadence" });
+    if (v.scheduler.kind !== "manual" && v.scheduler.cadence === "manual")
+      c.addIssue({
+        code: "custom",
+        message: "Select the cadence for the external schedule",
+      });
   });
 export type AutomationDefinition = z.infer<typeof definitionInput>;
 const saveInput = z
@@ -128,7 +146,7 @@ function sourceIds(s: Store, d: AutomationDefinition) {
       .map((x) => x.source_id);
   return s
     .all(
-      `SELECT DISTINCT a.source_id FROM automation_snapshots a JOIN sources s ON s.id=a.source_id AND s.current_revision=a.revision_id WHERE namespace=? AND account=? AND scope=? AND content_type IN (${d.scope.contentTypes.map(()=>"?").join(",")})`,
+      `SELECT DISTINCT a.source_id FROM automation_snapshots a JOIN sources s ON s.id=a.source_id AND s.current_revision=a.revision_id WHERE namespace=? AND account=? AND scope=? AND content_type IN (${d.scope.contentTypes.map(() => "?").join(",")})`,
       d.scope.namespace,
       d.scope.account,
       d.scope.scope,
@@ -169,21 +187,24 @@ function pins(s: Store, d: AutomationDefinition) {
     ...(d.recipe.startsWith("intake") ? ["hoi-ingest"] : []),
     "hoi-knowledge-review",
   ].map((name) => {
-    const detail = skillDetail(s, name, d.accessHost), a=detail.active;
-    if (!detail.enabled || !a?.compatible) throw Error("AUTOMATION_SKILL_UNAVAILABLE");
+    const detail = skillDetail(s, name, d.accessHost),
+      a = detail.active;
+    if (!detail.enabled || !a?.compatible)
+      throw Error("AUTOMATION_SKILL_UNAVAILABLE");
     return { skillId: name, revisionId: a.revisionId, checksum: a.checksum };
   });
 }
 function providerPin(s: Store, d: AutomationDefinition) {
   if (!d.provider) return null;
   const r = s.one(
-    "SELECT payload FROM ai_providers WHERE provider=?",
+    "SELECT payload,version FROM ai_providers WHERE provider=?",
     d.provider,
   );
   if (!r) return null;
   const { verification, ...config } = JSON.parse(r.payload);
   return {
     provider: d.provider,
+    version: r.version,
     model: config.model,
     digest: sha(JSON.stringify(config)),
   };
@@ -287,14 +308,36 @@ export function saveAutomation(s: Store, raw: unknown, h: Host) {
   });
   return automationStatus(s, h, id);
 }
-export function releaseAutomationConnection(s:Store,raw:unknown,h:Host) {
-  access(s,h,true); const v=controlInput.parse(raw),r=row(s,v.id);
-  if(r.version!==v.expectedVersion || r.state==='enabled' || s.one("SELECT 1 FROM automation_runs WHERE definition_id=? AND state='running'",r.id)) throw Error("AUTOMATION_PAUSE_REQUIRED");
-  s.tx(()=>{
-    for(const owner of s.all("SELECT connection_id FROM automation_source_owners WHERE definition_id=?",r.id)) s.exec("UPDATE sync_connections SET state='paused',version=version+1 WHERE id=?",owner.connection_id);
-    s.exec("DELETE FROM automation_source_owners WHERE definition_id=?",r.id);
+export function releaseAutomationConnection(s: Store, raw: unknown, h: Host) {
+  access(s, h, true);
+  const v = controlInput.parse(raw),
+    r = row(s, v.id);
+  if (
+    r.version !== v.expectedVersion ||
+    r.state === "enabled" ||
+    s.one(
+      "SELECT 1 FROM automation_runs WHERE definition_id=? AND state='running'",
+      r.id,
+    )
+  )
+    throw Error("AUTOMATION_PAUSE_REQUIRED");
+  s.tx(() => {
+    for (const owner of s.all(
+      "SELECT connection_id FROM automation_source_owners WHERE definition_id=?",
+      r.id,
+    ))
+      s.exec(
+        "UPDATE sync_connections SET state='paused',version=version+1 WHERE id=?",
+        owner.connection_id,
+      );
+    s.exec("DELETE FROM automation_source_owners WHERE definition_id=?", r.id);
   });
-  return {id:r.id,state:"paused",notice:"Connections remain paused. Preview and activate explicitly to restore built-in polling."};
+  return {
+    id: r.id,
+    state: "paused",
+    notice:
+      "Connections remain paused. Preview and activate explicitly to restore built-in polling.",
+  };
 }
 function event(s: Store, id: string, runId: string | null, kind: string) {
   s.exec(
@@ -476,9 +519,12 @@ export function observeScheduler(s: Store, raw: unknown, h: Host) {
 }
 function visible(s: Store, r: any, h: Host) {
   // Definitions contain private paths and queries; only their owner sees these.
-  if(h!=="local" || r.host!==h) return false;
-  const d:AutomationDefinition=r.payload.definition;
-  return sourceIds(s,d).every(id=>{const source=s.one("SELECT * FROM sources WHERE id=?",id);return !source || s.allowed(source,h);});
+  if (h !== "local" || r.host !== h) return false;
+  const d: AutomationDefinition = r.payload.definition;
+  return sourceIds(s, d).every((id) => {
+    const source = s.one("SELECT * FROM sources WHERE id=?", id);
+    return !source || s.allowed(source, h);
+  });
 }
 export function automationStatus(s: Store, h: Host, id?: string): any {
   access(s, h);
@@ -519,6 +565,7 @@ export function automationStatus(s: Store, h: Host, id?: string): any {
   return {
     definitions: result,
     automaticBudget: 25,
+    currentBudget: h === "local" ? automaticBudgetStatus(s) : null,
     usage:
       h === "local"
         ? s.all(
@@ -539,12 +586,17 @@ export function automationHistory(s: Store, h: Host, raw: unknown = {}) {
     .parse(raw);
   if (h !== "local") return { items: [], nextCursor: null };
   if (v.id) automationStatus(s, h, v.id);
-  const cursor=v.cursor ? s.one("SELECT created_at,id FROM automation_runs WHERE id=?",v.cursor) : null;
-  if(v.cursor && !cursor) throw Error("AUTOMATION_CURSOR_INVALID");
-  const allowed=s.all("SELECT id FROM automation_definitions").filter(x=>visible(s,row(s,x.id),h)).map(x=>x.id);
-  if(!allowed.length) return {items:[],nextCursor:null};
+  const cursor = v.cursor
+    ? s.one("SELECT created_at,id FROM automation_runs WHERE id=?", v.cursor)
+    : null;
+  if (v.cursor && !cursor) throw Error("AUTOMATION_CURSOR_INVALID");
+  const allowed = s
+    .all("SELECT id FROM automation_definitions")
+    .filter((x) => visible(s, row(s, x.id), h))
+    .map((x) => x.id);
+  if (!allowed.length) return { items: [], nextCursor: null };
   const rows = s.all(
-    `SELECT * FROM automation_runs WHERE (? IS NULL OR definition_id=?) AND (? IS NULL OR created_at<? OR (created_at=? AND id<?)) AND definition_id IN (${allowed.map(()=>"?").join(",")}) ORDER BY created_at DESC,id DESC LIMIT ?`,
+    `SELECT * FROM automation_runs WHERE (? IS NULL OR definition_id=?) AND (? IS NULL OR created_at<? OR (created_at=? AND id<?)) AND definition_id IN (${allowed.map(() => "?").join(",")}) ORDER BY created_at DESC,id DESC LIMIT ?`,
     v.id ?? null,
     v.id ?? null,
     cursor?.created_at ?? null,
@@ -552,14 +604,21 @@ export function automationHistory(s: Store, h: Host, raw: unknown = {}) {
     cursor?.created_at ?? null,
     cursor?.id ?? null,
     ...allowed,
-    v.limit+1,
+    v.limit + 1,
   );
   const items = rows.slice(0, v.limit).map((r) => safeRun(s, r, h));
   return { items, nextCursor: rows.length > v.limit ? items.at(-1)?.id : null };
 }
 function safeRun(s: Store, r: any, h?: Host) {
+  const version = s.one(
+    "SELECT payload FROM automation_definition_revisions WHERE definition_id=? AND version=?",
+    r.definition_id,
+    r.definition_version,
+  );
   const cp = JSON.parse(r.checkpoint),
-    d: AutomationDefinition = row(s, r.definition_id).payload.definition;
+    d: AutomationDefinition = (
+      version ? JSON.parse(version.payload) : row(s, r.definition_id).payload
+    ).definition;
   const refs = (cp.revisionIds ?? []).filter((rev: string) => {
     const source = s.one(
       "SELECT s.* FROM sources s JOIN revisions r ON r.source_id=s.id WHERE r.id=?",
@@ -572,6 +631,7 @@ function safeRun(s: Store, r: any, h?: Host) {
   return {
     id: r.id,
     definitionId: r.definition_id,
+    definitionVersion: r.definition_version,
     state: r.state,
     stage: cp.stage ?? null,
     createdAt: r.created_at,
@@ -583,6 +643,7 @@ function safeRun(s: Store, r: any, h?: Host) {
           reviewIds: cp.reviewIds ?? [],
           aiJobIds: cp.aiJobIds ?? [],
           syncRunId: cp.syncRunId ?? null,
+          pendingCount: cp.pendingCount ?? 0,
         }
       : {}),
     notice:
@@ -707,15 +768,18 @@ async function execute(
       reviewIds: [],
       aiJobIds: [],
     };
-  const checkpoint = (stage: string) => {
+  const checkpoint = (stage: string, state?: string) => {
     cp.stage = stage;
-    event(s,r.id,runId,stage);
-    s.exec(
-      "UPDATE automation_runs SET checkpoint=?,updated_at=? WHERE id=?",
-      JSON.stringify(cp),
-      now(),
-      runId,
-    );
+    s.tx(() => {
+      event(s, r.id, runId, stage);
+      s.exec(
+        "UPDATE automation_runs SET checkpoint=?,updated_at=?,state=COALESCE(?,state) WHERE id=?",
+        JSON.stringify(cp),
+        now(),
+        state ?? null,
+        runId,
+      );
+    });
   };
   const recheck = () => {
     if (controller.signal.aborted) throw Error("AUTOMATION_PAUSED");
@@ -744,7 +808,7 @@ async function execute(
           },
         );
         cp.syncRunId = result.runId;
-        cp.partialIntake=result.failed>0;
+        cp.partialIntake = result.failed > 0;
       } else if (snapshot) {
         const result = await importSnapshot(
           s,
@@ -755,6 +819,12 @@ async function execute(
           recheck,
         );
         cp.revisionIds = [result.revisionId];
+        if (!snapshot.updatedAt || snapshot.updatedAt <= r.payload.enabledAt)
+          s.exec(
+            "INSERT OR IGNORE INTO automation_backlog_revisions VALUES(?,?)",
+            r.id,
+            result.revisionId,
+          );
       } else throw Error("AUTOMATION_EXPORT_REQUIRED");
     }
     recheck();
@@ -765,17 +835,33 @@ async function execute(
       ]),
     ];
     checkpoint("knowledge-health");
-    if(!d.futureRevisions) cp.revisionIds=cp.revisionIds.filter((rev:string)=>r.payload.baselineRevisions.includes(rev));
-    cp.revisionIds.sort((a:string,b:string)=>{
-      const last=(rev:string)=>s.one("SELECT checked_at FROM automation_checks WHERE definition_id=? AND revision_id=?",r.id,rev)?.checked_at??"";
+    if (!d.futureRevisions)
+      cp.revisionIds = cp.revisionIds.filter((rev: string) =>
+        r.payload.baselineRevisions.includes(rev),
+      );
+    cp.revisionIds.sort((a: string, b: string) => {
+      const last = (rev: string) =>
+        s.one(
+          "SELECT checked_at FROM automation_checks WHERE definition_id=? AND revision_id=?",
+          r.id,
+          rev,
+        )?.checked_at ?? "";
       return last(a).localeCompare(last(b)) || a.localeCompare(b);
     });
-    cp.pendingCount=Math.max(0,cp.revisionIds.length-d.maxItems);
-    cp.revisionIds=cp.revisionIds.slice(0,d.maxItems);
+    cp.pendingCount = Math.max(0, cp.revisionIds.length - d.maxItems);
+    cp.revisionIds = cp.revisionIds.slice(0, d.maxItems);
     cp.reviewIds = scanKnowledge(s, d.accessHost, cp.revisionIds)
       .filter((x) => x.current && x.state === "pending")
       .map((x) => x.id);
-    s.tx(()=>{for(const revisionId of cp.revisionIds) s.exec("INSERT INTO automation_checks VALUES(?,?,?) ON CONFLICT(definition_id,revision_id) DO UPDATE SET checked_at=excluded.checked_at",r.id,revisionId,now());});
+    s.tx(() => {
+      for (const revisionId of cp.revisionIds)
+        s.exec(
+          "INSERT INTO automation_checks VALUES(?,?,?) ON CONFLICT(definition_id,revision_id) DO UPDATE SET checked_at=excluded.checked_at",
+          r.id,
+          revisionId,
+          now(),
+        );
+    });
     if (d.recipe.includes("review")) {
       checkpoint("assisted-review");
       const candidates = cp.revisionIds
@@ -783,6 +869,11 @@ async function execute(
           (rev: string) =>
             d.analyzeBacklog ||
             (!r.payload.baselineRevisions.includes(rev) &&
+              !s.one(
+                "SELECT 1 FROM automation_backlog_revisions WHERE definition_id=? AND revision_id=?",
+                r.id,
+                rev,
+              ) &&
               s.one("SELECT created_at FROM revisions WHERE id=?", rev)
                 ?.created_at > r.payload.enabledAt),
         )
@@ -807,14 +898,8 @@ async function execute(
       }
     }
     recheck();
-    if(cp.partialIntake) throw Error("AUTOMATION_INTAKE_PARTIAL");
-    checkpoint("complete");
-    s.exec(
-      "UPDATE automation_runs SET state='completed',updated_at=? WHERE id=?",
-      now(),
-      runId,
-    );
-    event(s, r.id, runId, "completed");
+    if (cp.partialIntake) throw Error("AUTOMATION_INTAKE_PARTIAL");
+    checkpoint("complete", "completed");
   } catch (e) {
     const message = e instanceof Error ? e.message : "";
     cp.error =
@@ -825,18 +910,29 @@ async function execute(
       "SELECT 1 FROM ai_jobs WHERE json_extract(payload,'$.automationRunId')=? AND state='uncertain'",
       runId,
     );
-    s.exec(
-      "UPDATE automation_runs SET state=?,checkpoint=?,updated_at=? WHERE id=?",
-      uncertain
-        ? "uncertain"
-        : controller.signal.aborted
-          ? "cancelled"
-          : "needs-attention",
-      JSON.stringify(cp),
-      now(),
-      runId,
-    );
-    event(s, r.id, runId, uncertain ? "uncertain" : "needs-attention");
+    s.tx(() => {
+      s.exec(
+        "UPDATE automation_runs SET state=?,checkpoint=?,updated_at=? WHERE id=?",
+        uncertain
+          ? "uncertain"
+          : controller.signal.aborted
+            ? "cancelled"
+            : "needs-attention",
+        JSON.stringify(cp),
+        now(),
+        runId,
+      );
+      event(
+        s,
+        r.id,
+        runId,
+        uncertain
+          ? "uncertain"
+          : controller.signal.aborted
+            ? "cancelled"
+            : "needs-attention",
+      );
+    });
   }
 }
 export async function waitAutomations(s: Store) {

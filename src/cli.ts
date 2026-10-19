@@ -78,7 +78,7 @@ export async function main(args = process.argv.slice(2)) {
     if (!v.input) throw Error("--input file is required");
     return readYaml(resolve(String(v.input)));
   };
-  if (command === "automation" && p[1] === "trigger") {
+  if (command === "automation" && ["trigger", "inspect"].includes(p[1])) {
     if (!v["credential-file"])
       throw Error(
         "--credential-file is required; never put tokens in arguments or prompts",
@@ -87,7 +87,8 @@ export async function main(args = process.argv.slice(2)) {
       await triggerAutomationClient(
         root,
         String(v["credential-file"]),
-        input(),
+        p[1] === "inspect" ? {} : input(),
+        p[1] === "inspect" ? "status" : "run",
       ),
     );
     return;

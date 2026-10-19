@@ -59,8 +59,8 @@ test("complete candidate contains exact Hub bytes, 22 skills, reproducible hashe
   assert.equal(result.state, "local-unreleased-candidate");
   assert.deepEqual(result.skillCounts, {
     installer: 1,
-    operational: 20,
-    total: 21,
+    operational: 21,
+    total: 22,
   });
   assert.equal(result.gates.publication, "not-performed");
   for (const line of readFileSync(join(one, "SHA256SUMS"), "utf8")
@@ -85,6 +85,15 @@ test("complete candidate contains exact Hub bytes, 22 skills, reproducible hashe
   for (const name of Object.keys(archive.files))
     assert.doesNotMatch(name, /^(node_modules|desktop|\.secrets|\.local)\//);
   assert.ok(archive.file("docs/FINAL_HANDOVER.md"));
+  const start = readFileSync(join(one, "START_HERE.md"), "utf8");
+  assert.match(start, /\]\(hub\/docs\/AUTOMATIONS\.md\)/);
+  for (const [, name] of start.matchAll(/\]\((hub\/docs\/[^)]+\.md)\)/g))
+    assert.ok(existsSync(join(one, name)), name);
+  const validation = await archive
+    .file("docs/AUTOMATION_VALIDATION.md")
+    .async("string");
+  for (const [, name] of validation.matchAll(/\]\(([A-Z_]+\.md)\)/g))
+    assert.ok(archive.file("docs/" + name), name);
   await assert.rejects(packageCandidate(one), /PACKAGE_OUTPUT_EXISTS/);
   const workflow = parse(
     readFileSync(resolve(".github/workflows/release.yml"), "utf8"),

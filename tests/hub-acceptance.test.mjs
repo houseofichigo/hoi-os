@@ -146,7 +146,7 @@ test(
       "passed-local-checks",
       JSON.stringify(result.checks),
     );
-    assert.equal(result.checks.length, 12);
+    assert.equal(result.checks.length, 13);
     assert.ok(result.checks.every((c) => c.status === "passed"));
     assert.equal(result.schemaVersion, 20);
     assert.match(result.buildId, /^[a-f0-9]{64}$/);

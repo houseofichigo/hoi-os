@@ -107,6 +107,7 @@ export default function Configuration({ api }) {
         values={[
           "Onboarding",
           "Connections",
+          "Automations",
           "Skills & capabilities",
           "Assistant & search",
           "Security",

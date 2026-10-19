@@ -39,6 +39,71 @@ export const assistedOutput = z
       .max(20),
   })
   .strict();
+// A reviewed future-scope grant is distinct from broad workspace/provider permission.
+// Updating provider configuration invalidates its pinned version, including source revocation.
+export function automationDisclosureAllowed(
+  s: Store,
+  definitionId: string,
+  sourceId: string,
+  revisionId: string,
+  provider: string,
+) {
+  if (
+    s.one(
+      "SELECT 1 FROM ai_disclosures WHERE source_id=? AND provider=?",
+      sourceId,
+      provider,
+    )
+  )
+    return true;
+  const row = s.one(
+    "SELECT * FROM automation_definitions WHERE id=?",
+    definitionId,
+  );
+  if (!row || row.state !== "enabled" || !row.approval_digest) return false;
+  const saved = JSON.parse(row.payload),
+    d: AutomationDefinition = saved.definition;
+  if (
+    !d.discloseFutureSources ||
+    d.provider !== provider ||
+    saved.provider?.version !==
+      s.one("SELECT version FROM ai_providers WHERE provider=?", provider)
+        ?.version
+  )
+    return false;
+  if (
+    saved.baselineRevisions.includes(revisionId) ||
+    s.one(
+      "SELECT 1 FROM automation_backlog_revisions WHERE definition_id=? AND revision_id=?",
+      definitionId,
+      revisionId,
+    )
+  )
+    return false;
+  const revision = s.one(
+    "SELECT * FROM revisions WHERE id=? AND source_id=?",
+    revisionId,
+    sourceId,
+  );
+  if (!revision || revision.created_at <= saved.enabledAt) return false;
+  if (d.scope.kind === "connection")
+    return !!s.one(
+      "SELECT 1 FROM sync_items WHERE connection_id=? AND source_id=?",
+      d.scope.connectionId,
+      sourceId,
+    );
+  if (d.scope.kind === "export")
+    return !!s.one(
+      `SELECT 1 FROM automation_snapshots WHERE namespace=? AND account=? AND scope=? AND source_id=? AND revision_id=? AND content_type IN (${d.scope.contentTypes.map(() => "?").join(",")})`,
+      d.scope.namespace,
+      d.scope.account,
+      d.scope.scope,
+      sourceId,
+      revisionId,
+      ...d.scope.contentTypes,
+    );
+  return false;
+}
 export async function runAutomationReview(
   s: Store,
   input: {
@@ -84,7 +149,27 @@ export async function runAutomationReview(
         instructionDigest,
       ),
   );
-  if(input.revisionIds.some(rev=>s.one("SELECT 1 FROM automation_processing p JOIN ai_jobs j ON j.id=p.job_id WHERE p.definition_id=? AND p.revision_id=? AND p.instruction_digest=? AND j.state!='completed'",input.definitionId,rev,instructionDigest))) throw Error("AUTOMATION_RECONCILIATION_REQUIRED");
+  if (
+    input.revisionIds.some((rev) =>
+      s.one(
+        "SELECT 1 FROM automation_processing p JOIN ai_jobs j ON j.id=p.job_id WHERE p.definition_id=? AND p.revision_id=? AND j.state='uncertain'",
+        input.definitionId,
+        rev,
+      ),
+    )
+  )
+    throw Error("AUTOMATION_RECONCILIATION_REQUIRED");
+  if (
+    input.revisionIds.some((rev) =>
+      s.one(
+        "SELECT 1 FROM automation_processing p JOIN ai_jobs j ON j.id=p.job_id WHERE p.definition_id=? AND p.revision_id=? AND p.instruction_digest=? AND j.state!='completed'",
+        input.definitionId,
+        rev,
+        instructionDigest,
+      ),
+    )
+  )
+    throw Error("AUTOMATION_RECONCILIATION_REQUIRED");
   if (!selected.length) return { jobIds, reviewIds };
   const evidence: any[] = [];
   let room = Math.min(s.policy().maxContextChars, 18000);
@@ -95,13 +180,7 @@ export async function runAutomationReview(
     );
     if (!src || !s.allowed(src, d.accessHost) || src.current_revision !== rev)
       throw Error("SOURCE_UNAVAILABLE");
-    if (
-      !s.one(
-        "SELECT 1 FROM ai_disclosures WHERE source_id=? AND provider=?",
-        src.id,
-        p,
-      )
-    )
+    if (!automationDisclosureAllowed(s, input.definitionId, src.id, rev, p))
       throw Error("PROVIDER_SOURCE_DISCLOSURE_REQUIRED");
     for (const passage of s.all(
       "SELECT * FROM passages WHERE revision_id=? ORDER BY id",
@@ -185,19 +264,22 @@ export async function runAutomationReview(
         !src ||
         !s.allowed(src, d.accessHost) ||
         src.current_revision !== e.revisionId ||
-        !s.one(
-          "SELECT 1 FROM ai_disclosures WHERE source_id=? AND provider=?",
+        !automationDisclosureAllowed(
+          s,
+          input.definitionId,
           src.id,
+          e.revisionId,
           p,
         )
       )
         throw Error("PROVIDER_SOURCE_DISCLOSURE_REQUIRED");
     }
   };
-  let dispatched=false, received=false;
+  let dispatched = false,
+    received = false;
   try {
     check();
-    dispatched=true;
+    dispatched = true;
     const result = await (dependencies.stream ?? streamModel)(
       p,
       c.model,
@@ -207,7 +289,7 @@ export async function runAutomationReview(
       AbortSignal.any([signal, AbortSignal.timeout(120000)]),
       () => check(),
     );
-    received=true;
+    received = true;
     if (
       Number.isFinite(result.usage.input_tokens) &&
       Number.isFinite(result.usage.output_tokens)
@@ -251,7 +333,11 @@ export async function runAutomationReview(
     return { jobIds, reviewIds };
   } catch (e) {
     // Only a dispatch without a confirmed response has an uncertain paid outcome.
-    if(!dispatched) s.exec("UPDATE ai_usage SET actual=0,state='recorded' WHERE id=?",payload.usageId);
+    if (!dispatched)
+      s.exec(
+        "UPDATE ai_usage SET actual=0,state='recorded' WHERE id=?",
+        payload.usageId,
+      );
     s.exec(
       "UPDATE ai_jobs SET state=?,updated_at=? WHERE id=?",
       dispatched && !received ? "uncertain" : "failed",

@@ -143,6 +143,13 @@ function Review({ r, choices, busy, act }) {
         </select>
       </label>
       <p>{selected.content}</p>
+      {selected.kind === "source" && (
+        <a
+          href={`/hub?view=knowledge&section=Sources&source=${encodeURIComponent(selected.id)}`}
+        >
+          Inspect source
+        </a>
+      )}
       {r.proposedText && (
         <section>
           <h4>Suggested draft · not published</h4>
@@ -195,20 +202,21 @@ function Review({ r, choices, busy, act }) {
         </section>
       )}
       <div className="task-filters">
-        {["keep", "reject", "archive", "update", "merge", "supersede"].map(
-          (action) => (
-            <button
-              key={action}
-              disabled={
-                busy ||
-                (["update", "merge", "supersede"].includes(action) && !choice)
-              }
-              onClick={() => submit(action)}
-            >
-              {action}
-            </button>
-          ),
-        )}
+        {(selected.kind === "source"
+          ? ["keep", "reject"]
+          : ["keep", "reject", "archive", "update", "merge", "supersede"]
+        ).map((action) => (
+          <button
+            key={action}
+            disabled={
+              busy ||
+              (["update", "merge", "supersede"].includes(action) && !choice)
+            }
+            onClick={() => submit(action)}
+          >
+            {action}
+          </button>
+        ))}
       </div>
       <p>
         Keep or reject closes this unchanged finding. Archive removes this

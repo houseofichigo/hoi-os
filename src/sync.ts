@@ -767,9 +767,11 @@ export async function syncConnection(
     }
     for (const item of items) {
       automation?.check();
+      let automationBacklog = false;
       if (automation) {
         const original = automation.baselineItems.find((x) => x.id === item.id);
         const old = original && original.stamp === item.stamp;
+        automationBacklog = !!old;
         if (
           (old && !automation.importBacklog) ||
           (!old && !automation.futureRevisions)
@@ -1078,6 +1080,12 @@ export async function syncConnection(
           continue;
         }
         s.tx(() => {
+          if (automation && automationBacklog)
+            s.exec(
+              "INSERT OR IGNORE INTO automation_backlog_revisions VALUES(?,?)",
+              automation.automationId,
+              source.current_revision,
+            );
           s.exec(
             "INSERT INTO sync_items VALUES(?,?,?,?) ON CONFLICT(connection_id,remote_id) DO UPDATE SET stamp=excluded.stamp,source_id=excluded.source_id",
             key,

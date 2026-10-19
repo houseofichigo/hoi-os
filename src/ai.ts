@@ -293,6 +293,22 @@ function month(s: Store) {
     .format(new Date())
     .replace("/", "-");
 }
+export function automaticBudgetStatus(s: Store) {
+  const currentMonth = month(s),
+    row = s.one(
+      "SELECT SUM(actual) actual,SUM(CASE WHEN actual IS NULL THEN reserved ELSE 0 END) reserved FROM ai_usage WHERE month=? AND category='automatic'",
+      currentMonth,
+    );
+  const actual = Number(row?.actual ?? 0),
+    reserved = Number(row?.reserved ?? 0);
+  return {
+    month: currentMonth,
+    limit: 25,
+    actual,
+    reserved,
+    remaining: Math.max(0, 25 - actual - reserved),
+  };
+}
 export function reserveAI(
   s: Store,
   jobId: string,
@@ -361,6 +377,10 @@ export function aiJob(s: Store, id: string, h: Host) {
 }
 export function cancelAI(s: Store, id: string, h: Host) {
   const job = aiJob(s, id, h);
+  if (job.automationRunId && ["queued", "running"].includes(job.state))
+    throw Error(
+      "AUTOMATION_PAUSE_REQUIRED: Pause the owning definition in Configuration > Automations; changing an AI row cannot stop that run.",
+    );
   if (!["queued", "running"].includes(job.state))
     return { id, state: job.state };
   running.get(jobKey(s, id))?.abort();

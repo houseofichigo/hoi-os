@@ -431,7 +431,7 @@ export async function runAcceptance({ packageRoot = ownRoot, output, signal }) {
         );
       },
     );
-    let source, passage, task;
+    let source, passage, task, automation;
     await check(
       "Fictional import, duplicate intake and host-filtered retrieval",
       async () => {
@@ -481,6 +481,111 @@ export async function runAcceptance({ packageRoot = ownRoot, output, signal }) {
           revisionId: passage.revisionId,
           passageId: passage.passageId,
           quote: passage.quote,
+        };
+      },
+    );
+    await check(
+      "Routing and scoped automation without AI or a live scheduler",
+      async () => {
+        const request = async (path, input) => {
+          const r = await running.request(path, input);
+          assert.equal(r.status, 200);
+          return r.json();
+        };
+        const route = await request("/api/harness/route", {
+          message: "Review my priorities",
+        });
+        assert.equal(route.executed, false);
+        assert.equal(route.stages[0].skillId, "hoi-chief-of-staff");
+        const definition = {
+          label: "Fictional package health",
+          scope: { kind: "sources", sourceIds: [source.sourceId] },
+          recipe: "knowledge-health",
+          objective: "Check source evidence",
+          futureRevisions: true,
+          scheduler: { kind: "manual", timezone: "Europe/Paris" },
+        };
+        const preview = await request("/api/automations/preview", definition);
+        const saved = await request("/api/automations/save", {
+          definition,
+          expectedVersion: 0,
+          previewDigest: preview.digest,
+        });
+        assert.equal(saved.state, "disabled");
+        automation = await request("/api/automations/enable", {
+          id: saved.id,
+          expectedVersion: saved.version,
+          digest: preview.digest,
+          confirm: true,
+        });
+        const review = write("credential-review.json", {
+            id: automation.id,
+            expectedVersion: automation.version,
+            confirm: true,
+          }),
+          credential = join(ws, ".hoi/automation-credentials/fixture");
+        await cli(
+          ws,
+          "local",
+          "automation",
+          "credential",
+          "--input",
+          review,
+          "--output",
+          credential,
+        );
+        const input = write("trigger.json", {
+          triggerId: "packaged-fixture-1",
+        });
+        const run = await cli(
+          ws,
+          "local",
+          "automation",
+          "trigger",
+          "--credential-file",
+          credential,
+          "--input",
+          input,
+        );
+        assert.equal(
+          (
+            await cli(
+              ws,
+              "local",
+              "automation",
+              "trigger",
+              "--credential-file",
+              credential,
+              "--input",
+              input,
+            )
+          ).id,
+          run.id,
+        );
+        let status;
+        for (let i = 0; i < 20; i++) {
+          status = await cli(
+            ws,
+            "local",
+            "automation",
+            "inspect",
+            "--credential-file",
+            credential,
+          );
+          if (status.runs[0]?.state !== "running") break;
+          await new Promise((ok) => setTimeout(ok, 100));
+        }
+        assert.equal(status.runs[0].state, "completed");
+        assert.equal(status.runs.length, 1);
+        assert.doesNotMatch(JSON.stringify(status), /Orchard|ORCHARD/);
+        assert.equal(
+          (await request("/api/automations")).currentBudget.actual,
+          0,
+        );
+        return {
+          scheduler: "none installed",
+          providerCalls: 0,
+          duplicateRuns: 0,
         };
       },
     );
@@ -591,7 +696,7 @@ export async function runAcceptance({ packageRoot = ownRoot, output, signal }) {
       );
       assert.ok(
         !Object.keys(manifest.files).some((n) =>
-          /engine-session|\.secrets|\.env/.test(n),
+          /engine-session|automation-credentials|\.secrets|\.env/.test(n),
         ),
       );
     });
@@ -625,6 +730,10 @@ export async function runAcceptance({ packageRoot = ownRoot, output, signal }) {
         ),
       );
       running = await launch(root, restored);
+      const restoredAutomation = (
+        await (await running.request("/api/automations")).json()
+      ).definitions.find((d) => d.id === automation.id);
+      assert.equal(restoredAutomation.state, "paused");
       assert.equal(
         (await cli(restored, "codex", "task", "list"))[0].id,
         task.id,

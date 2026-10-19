@@ -7,10 +7,7 @@
       "name": "Manual test",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [
-        0,
-        0
-      ],
+      "position": [0, 0],
       "parameters": {}
     },
     {
@@ -18,10 +15,7 @@
       "name": "Submit selected snapshot",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [
-        300,
-        0
-      ],
+      "position": [300, 0],
       "parameters": {
         "method": "POST",
         "url": "http://127.0.0.1:REPLACE_WITH_ENGINE_PORT/api/automation-client/run",
@@ -32,7 +26,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ triggerId: \"n8n-execution:\" + $execution.id, snapshot: $json.snapshot }) }}"
+        "jsonBody": "={{ JSON.stringify({ triggerId: \"n8n-execution:\" + $execution.id, snapshot: $('Manual test').item.json.snapshot }) }}"
       },
       "retryOnFail": true,
       "maxTries": 2,
@@ -43,10 +37,7 @@
       "name": "Read safe status",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [
-        600,
-        0
-      ],
+      "position": [600, 0],
       "parameters": {
         "method": "GET",
         "url": "http://127.0.0.1:REPLACE_WITH_ENGINE_PORT/api/automation-client/status",

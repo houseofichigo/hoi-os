@@ -97,6 +97,31 @@ function findings(s: Store, h: Host) {
       recommendedAction: type === "duplicate" ? "merge" : "verify",
     });
   }
+  for (const src of s.all(
+    "SELECT s.*,r.status extraction_status FROM sources s JOIN revisions r ON r.id=s.current_revision WHERE r.status='failed'",
+  )) {
+    if (!s.allowed(src, h)) continue;
+    add(
+      "extraction-failed",
+      [
+        {
+          id: src.id,
+          kind: "source",
+          title: src.title,
+          content:
+            "Extraction needs review. The preserved original remains available.",
+          state: src.extraction_status,
+          allowedHosts: [h],
+          evidence: [],
+          snapshot: {
+            revisionId: src.current_revision,
+            status: src.extraction_status,
+          },
+        },
+      ],
+      "The current source revision could not be extracted. Inspect the source before retrying.",
+    );
+  }
   for (const o of all) {
     if (s.schemaVersion >= 15 && o.kind === "wiki") {
       const p = wikiDetail(s, o.id, h);
@@ -201,6 +226,7 @@ export function scanKnowledge(s: Store, h: Host, revisionIds?: string[]) {
   const relevant = findings(s, h).filter(
     (f) =>
       !sourceIds ||
+      f.targets.some((o: any) => o.kind === "source" && sourceIds.has(o.id)) ||
       f.evidence.some((e: any) =>
         sourceIds.has(
           s.one("SELECT source_id FROM revisions WHERE id=?", e.revisionId)

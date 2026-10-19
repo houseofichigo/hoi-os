@@ -544,3 +544,9 @@
 .automations .product-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
 .automations pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 .automations code { overflow-wrap: anywhere; }
+.automations h2 { font-size: 24px; }
+.automations .automation-row p { margin: 8px 0; }
+.automations .automation-row .product-toolbar { justify-content: flex-start; }
+.app-shell .automations button:not(.automation-primary) { color: var(--ink); background: white; border: 1px solid var(--line, #e3e8ef); }
+.app-shell .automations button.link-button { border: 0; padding: 0; background: transparent; text-align: left; font: inherit; min-height: 44px; }
+.automation-json { white-space: pre-wrap; overflow-wrap: anywhere; }

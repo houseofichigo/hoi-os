@@ -26,3 +26,7 @@ Local retrieval benchmarks, deterministic provider fixtures and scripted approva
 ## Candidate procedure
 
 Run `npm run check`, `npm run format:check`, browser regressions and the publication safety scan; review dependency findings and notices. Build into a new directory with `npm run package:candidate -- --output "../HOI candidate"`. Verify the extracted package and record build/platform identity. Follow [publication preparation](PUBLICATION_READINESS.md) and [installation](HUB_INSTALLATION.md). A passing build is not approval to publish or evidence that the external gates passed.
+
+## Routing and automation gate
+
+See [schema-20 verification](AUTOMATION_VALIDATION.md) for observed checks and remaining host/evaluation gates. Authored routing fixtures are not independent human labels. Inactive n8n templates are not live workflows. Do not activate private sources, install schedules or claim continuous uptime from local tests.

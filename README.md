@@ -4,13 +4,13 @@
 
 HOI keeps evidence, reviewed memory and governed operations in a workspace you own. Optional assistants use the same engine. The Knowledge Hub lets you import selected files, read and edit wikis, review memory and explore an evidence-linked 3D map. You can build your own application on the registered operations.
 
-This checkout is an **unreleased local candidate**. The earlier full business application and Electron installer are retired. Historical skills releases remain separate; a package's base version alone does not identify this candidate. Use its build fingerprint and checksums. See [final handover](docs/FINAL_HANDOVER.md) and [documentation index](docs/DOCUMENTATION.md).
+This checkout is an **unreleased local candidate**. The earlier full business application and Electron installer are retired. Historical skills releases remain separate; a package's base version alone does not identify this candidate. Use its build fingerprint and checksums. The current schema-20 upgrade adds selective routing and disabled-by-default automation; see [current verification](docs/AUTOMATION_VALIDATION.md). See [final handover](docs/FINAL_HANDOVER.md) and [documentation index](docs/DOCUMENTATION.md).
 
 ## What is included
 
 - A **25-step method in seven phases**, with preserved source documents and templates: [method](method/README.md).
 - The shared engine: preserved originals, ranked retrieval, versioned wikis and reviewed memory, tasks, approvals, durable work and recovery.
-- **21 optional skills: one installer and 20 operational skills**, with workspace-scoped Codex/Claude adapters.
+- **22 optional skills: one installer and 21 operational skills**, with workspace-scoped Codex/Claude adapters.
 - An optional browser Knowledge Hub: **Knowledge · Skills · Configuration**, including a 3D map and accessible record list.
 - Fictional examples, an installation acceptance runner and checksummed local packaging.
 

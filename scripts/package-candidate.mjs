@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, cpSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
@@ -45,7 +45,14 @@ export async function packageCandidate(output) {
     throw Error(
       "CANDIDATE_SKILLS_FAILED: Preserve this incomplete output and retry in a new directory.",
     );
-  cpSync(join(product, "docs/FINAL_HANDOVER.md"), join(out, "START_HERE.md"));
+  // This copy lives outside hub/docs, so preserve working relative guide links.
+  writeFileSync(
+    join(out, "START_HERE.md"),
+    readFileSync(join(product, "docs/FINAL_HANDOVER.md"), "utf8").replace(
+      /\]\(([A-Z][A-Z0-9_]*\.md)(#[^)]+)?\)/g,
+      "](hub/docs/$1$2)",
+    ),
+  );
   const assets = [
     "hoi-os-hub.zip",
     "START_HERE.md",

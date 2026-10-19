@@ -2,17 +2,17 @@
 
 ## Product boundary
 
-This edition is a **harness with an optional Knowledge Hub**, not the retired all-in-one desktop app. It preserves the seven-phase, 25-step method and its source documents; 21 optional product skills; the governed engine; reviewed wikis and memory; and the clickable 3D map. Users may build their own interfaces on registered operations.
+This edition is a **harness with an optional Knowledge Hub**, not the retired all-in-one desktop app. It preserves the seven-phase, 25-step method and its source documents; 22 optional product skills; the governed engine; reviewed wikis and memory; and the clickable 3D map. Users may build their own interfaces on registered operations.
 
-The Hub contains Knowledge, Skills and Configuration. It supports reviewed file intake, evidence inspection, wiki drafts/compare/publish, memory review/history, skill management and assistant handoff. The engine retains its permission, exact-approval, jobs, budget and recovery boundaries. No Markdown file grants authority. Imported scripts are not executed by skill import or activation.
+The Hub contains Knowledge, Skills and Configuration, including scoped automation management. It supports reviewed file intake, evidence inspection, wiki drafts/compare/publish, memory review/history, skill management and assistant handoff. The engine retains its permission, exact-approval, jobs, budget and recovery boundaries. No Markdown file grants authority. Imported scripts are not executed by skill import or activation.
 
-Schema 19 is retained. This delivery does not migrate a private workspace, contact a paid provider, install a private adapter, publish a release or create another background service.
+Schema 20 adds reviewed routing and bounded automation. See [automation guide](AUTOMATIONS.md) and [current verification](AUTOMATION_VALIDATION.md). This delivery does not migrate a private workspace, contact a paid provider, install a private adapter, publish a release or create another background service.
 
 ## Candidate contents
 
 - `hoi-os-hub.zip`: engine, built browser Hub/map, method, skills, guides, examples and a production dependency lock. No Node runtime or `node_modules` is bundled.
 - `skills/hoi-install.zip` and `skills/hoi-install.md`: installer instructions.
-- `skills/hoi-os-skills.zip`: 20 operational skills as a collection, not a single-skill upload.
+- `skills/hoi-os-skills.zip`: 21 operational skills as a collection, not a single-skill upload.
 - `skills/SKILL_PACKAGE.json`: compatibility and exact instruction checksums.
 - `CANDIDATE.json`: source and packaged build fingerprints, file hashes and explicit outstanding gates.
 - `SHA256SUMS`: integrity checks for candidate files. Checksums are not a publisher signature.

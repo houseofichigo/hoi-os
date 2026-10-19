@@ -233,3 +233,9 @@ Use `skills list` and `skills get NAME` for catalog/detail reads.
 ## Activity and turn results (local schema 18)
 
 `activity list`, `activity get ID`, `suggestions list`, `suggestions get ID`, and `chat results RUN_ID` are permission-filtered reads. List operations accept JSON input with `bucket`, `category`, `limit` and `cursor`. Discover current contracts in the [operation reference](OPERATIONS_REFERENCE.md); [tool conventions](TOOL_CONVENTIONS.md) define review boundaries.
+
+## Selective routing and governed automation (schema 20)
+
+`harness route --input request.json` plans without execution. Owner operations include `automation preview|save|enable|pause|run|status|history|credential|observe|release-connection`. Inputs are strict, version checked and discovered from the registry. Configuration → Automations provides the reviewed workflow.
+
+The scheduler uses a separate credential, not an owner token: `automation trigger --workspace <workspace> --credential-file <private-file> --input <trigger.json> --json`. Inspect its safe status with `automation inspect --workspace <workspace> --credential-file <private-file> --json`. These local client helpers require the running engine and cannot call arbitrary registered operations. See [automation setup](AUTOMATIONS.md).
