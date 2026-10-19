@@ -1,3 +1,16 @@
+import {
+  previewSession,
+  commitSession,
+  sessionDetail,
+} from "./session-exports.js";
+import {
+  previewEnrichment,
+  startEnrichment,
+  enrichmentStatus,
+  cancelEnrichment,
+} from "./knowledge-enrichment.js";
+import { listArtifacts, configureDiscovery } from "./conversation-artifacts.js";
+import { knowledgeHealth } from "./pipeline-health.js";
 import { routeHarness } from "./harness-routing.js";
 import {
   previewAutomation,
@@ -335,6 +348,15 @@ const subcommands: Record<string, string[]> = {
     "compare",
   ],
   knowledge: [
+    "configure-discovery",
+    "enrich-preview",
+    "enrich",
+    "enrich-status",
+    "enrich-cancel",
+    "artifacts",
+    "artifact",
+    "health",
+    "session",
     "",
     "index-status",
     "configure-search",
@@ -406,7 +428,7 @@ const commands = new Set(
   ),
 );
 const reads = new Set(
-  "harness:route automation:preview automation:status automation:history memory:compare memory:list memory:get memory:history activity: activity:list activity:get suggestions: suggestions:list suggestions:get chat:results onboard:status google-policy: email-actions: email-actions:list ai: ai:status ai:job inbox: inbox:get inbox:email-candidates skills: skills:list skills:get views:client views:project views:training preferences: preferences:get processing: processing:list entity-merge: entity-merge:list jobs: jobs:list adapter: adapter:status engine: engine:status engine:operations app-read security configuration dashboard health doctor audit diagnostics context ingest-plan retrieve query-data consolidate calendar:list calendar: records:client records:project records:training source: source:list source:get source:impact sync: sync:list chat: chat:status chat:get chat:conversations chat:conversation chat:evidence knowledge:index-status knowledge:search knowledge:evidence knowledge:dates knowledge: knowledge:list knowledge:replacements daily: daily:view intake: intake:list intake:mentions intake:decisions project: project:list project:get task: task:list task:proposals task:get task:history wiki: wiki:list wiki:get wiki:contradictions wiki:pages wiki:page wiki:compare wiki:history wiki:node wiki:taxonomy wiki:search wiki:templates wiki:backlinks".split(
+  "harness:route automation:preview automation:status automation:history memory:compare memory:list memory:get memory:history activity: activity:list activity:get suggestions: suggestions:list suggestions:get chat:results onboard:status google-policy: email-actions: email-actions:list ai: ai:status ai:job inbox: inbox:get inbox:email-candidates skills: skills:list skills:get views:client views:project views:training preferences: preferences:get processing: processing:list entity-merge: entity-merge:list jobs: jobs:list adapter: adapter:status engine: engine:status engine:operations app-read security configuration dashboard health doctor audit diagnostics context ingest-plan retrieve query-data consolidate calendar:list calendar: records:client records:project records:training source: source:list source:get source:impact sync: sync:list chat: chat:status chat:get chat:conversations chat:conversation chat:evidence knowledge:health knowledge:artifacts knowledge:artifact knowledge:session knowledge:enrich-preview knowledge:enrich-status knowledge:index-status knowledge:search knowledge:evidence knowledge:dates knowledge: knowledge:list knowledge:replacements daily: daily:view intake: intake:list intake:mentions intake:decisions project: project:list project:get task: task:list task:proposals task:get task:history wiki: wiki:list wiki:get wiki:contradictions wiki:pages wiki:page wiki:compare wiki:history wiki:node wiki:taxonomy wiki:search wiki:templates wiki:backlinks".split(
     " ",
   ),
 );
@@ -443,15 +465,60 @@ export function operationInfo(raw: unknown) {
     requiredPermission: action,
     idempotency: read ? "read-only" : "request-receipt",
     inputSchema:
-      r.command === "harness" ? "RouteInput/v1 (strict routeInput)" :
-      r.command === "automation" ? ({preview:"AutomationDefinition/v1",save:"AutomationSave/v1 (expectedVersion, previewDigest)",enable:"AutomationControl/v1 (expectedVersion, digest, confirm)",pause:"AutomationControl/v1 (expectedVersion, confirm)",run:"AutomationRun/v1 (triggerId, optional ExternalSourceSnapshot/v2)",status:"AutomationStatus/v1 (optional id)",history:"AutomationHistory/v1 (id, cursor, limit)",credential:"AutomationControl/v1 (expectedVersion, confirm)",observe:"SchedulerObservation/v1 (version, actual identity and read-back)","release-connection":"AutomationControl/v1 (paused, expectedVersion, confirm)"}[sub]??"AutomationInput/v1") :
-      (r.command === "chat" && sub === "send") ||
-      (r.command === "app-action" && sub === "/api/chat/send")
-        ? "ChatSend/v1 (strict sendInput)"
-        : (r.command === "memory" && sub === "propose") ||
-            (r.command === "app-action" && sub === "/api/memory/propose")
-          ? "MemoryProposal/v1 (strict memoryInput; optional skillLesson)"
-          : "OperationInput/v1 plus domain validation",
+      r.command === "import-connection"
+        ? "ConnectionExport/v1 | AutomationExport/v2 | SessionPreviewCommit/v1 (mode, session, selection, expectedRevision, previewDigest, requestKey)"
+        : r.command === "knowledge" &&
+            [
+              "enrich-preview",
+              "enrich",
+              "enrich-status",
+              "enrich-cancel",
+              "artifacts",
+              "artifact",
+              "health",
+              "session",
+              "configure-discovery",
+            ].includes(sub)
+          ? ({
+              "enrich-preview":
+                "EnrichmentPreview/v1 (revisionIds, provider, maxCost)",
+              enrich:
+                "EnrichmentRun/v1 (preview input, previewDigest, requestKey)",
+              "enrich-status": "EnrichmentIdentity/v1 (requestKey)",
+              "enrich-cancel": "EnrichmentIdentity/v1 (requestKey)",
+              artifacts: "ArtifactList/v1 (sourceId?, cursor?, limit?)",
+              artifact: "ArtifactIdentity/v1 (id)",
+              health: "KnowledgeHealth/v1 (empty input)",
+              session: "SessionIdentity/v1 (sourceId)",
+              "configure-discovery": "DiscoveryReview/v1 (enabled, confirm)",
+            }[sub] ?? "DiscoveryInput/v1")
+          : r.command === "harness"
+            ? "RouteInput/v1 (strict routeInput)"
+            : r.command === "automation"
+              ? ({
+                  preview: "AutomationDefinition/v1",
+                  save: "AutomationSave/v1 (expectedVersion, previewDigest)",
+                  enable:
+                    "AutomationControl/v1 (expectedVersion, digest, confirm)",
+                  pause: "AutomationControl/v1 (expectedVersion, confirm)",
+                  run: "AutomationRun/v1 (triggerId, optional ExternalSourceSnapshot/v2)",
+                  status: "AutomationStatus/v1 (optional id)",
+                  history: "AutomationHistory/v1 (id, cursor, limit)",
+                  credential:
+                    "AutomationCredential/v1 (expectedVersion, confirm, access: trigger|status)",
+                  observe:
+                    "SchedulerObservation/v1 (version, actual identity and read-back)",
+                  "release-connection":
+                    "AutomationControl/v1 (paused, expectedVersion, confirm)",
+                }[sub] ?? "AutomationInput/v1")
+              : (r.command === "chat" && sub === "send") ||
+                  (r.command === "app-action" && sub === "/api/chat/send")
+                ? "ChatSend/v1 (strict sendInput)"
+                : (r.command === "memory" && sub === "propose") ||
+                    (r.command === "app-action" &&
+                      sub === "/api/memory/propose")
+                  ? "MemoryProposal/v1 (strict memoryInput; optional skillLesson)"
+                  : "OperationInput/v1 plus domain validation",
     outputSchema: "JSON/v1",
     exclusive: r.command === "upgrade",
   };
@@ -698,6 +765,23 @@ async function dispatch(s: Store, host: Host, request: OperationInput) {
         );
       break;
     case "knowledge":
+      if (p[1] === "configure-discovery")
+        return configureDiscovery(s, host, input());
+      if (p[1] === "health") return knowledgeHealth(s, host);
+      if (p[1] === "session")
+        return sessionDetail(s, p[2] ?? (input() as any).sourceId, host);
+      if (p[1] === "artifacts" || p[1] === "artifact")
+        return listArtifacts(
+          s,
+          host,
+          request.input ?? (p[2] ? { id: p[2] } : {}),
+        );
+      if (p[1] === "enrich-preview") return previewEnrichment(s, input(), host);
+      if (p[1] === "enrich") return startEnrichment(s, input(), host);
+      if (p[1] === "enrich-status")
+        return enrichmentStatus(s, p[2] ?? (input() as any).requestKey, host);
+      if (p[1] === "enrich-cancel")
+        return cancelEnrichment(s, p[2] ?? (input() as any).requestKey, host);
       if (p[1] === "search") {
         const value = input() as any;
         if (!value.asOf)
@@ -854,6 +938,15 @@ async function dispatch(s: Store, host: Host, request: OperationInput) {
       result = connect(s, request.input !== undefined ? input() : undefined);
       break;
     case "import-connection":
+      if ((input() as any)?.mode === "preview") {
+        const { mode, ...v } = input() as any;
+        return previewSession(s, v, host);
+      }
+      if ((input() as any)?.mode === "commit") {
+        const { mode, ...v } = input() as any;
+        return commitSession(s, v, host);
+      }
+
       if ((input() as any)?.schemaVersion === 2) {
         const v = z
           .object({

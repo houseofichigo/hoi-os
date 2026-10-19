@@ -25,3 +25,9 @@ For a reusable lesson, read `docs/PROCEDURAL_LESSONS.md`. Obtain the exact skill
 ## Routing and scheduled maintenance (schema 20)
 
 Evaluate schema-20 routing against correct manual selection using the same frozen evidence, model and budget. Report English/French and each route separately. The 120 fictional cases are authored provisional labels until independently human-reviewed; never describe regression accuracy as certified task quality. Exercise duplicate triggers, source/provider revocation, backlog exclusion, safe pause and uncertain paid outcomes. Local template checks are separate from live Codex/n8n schedules or continuously hosted deployment. Keep human factual support and live-provider evidence separate.
+
+## Precise discovery and selected sessions (schema 21)
+
+Use the frozen discovery corpus and `scripts/evaluate-discovery.mjs` to compare legacy matching with claim ranking. Keep development/held-out families separate. Authored labels are provisional until independently reviewed; retrieval scores and empty-result rates are not answer factual-support or abstention certification. Report baseline, candidate and unavailable hybrid variants separately. Measure real corpus size, latency, memory and index bytes on named hardware. The new observation profile remains opt-in until its quality gates pass.
+
+Input examples and coverage limits are in the product’s `docs/KNOWLEDGE_PIPELINES.md`; discover actual operation contracts before calling them.

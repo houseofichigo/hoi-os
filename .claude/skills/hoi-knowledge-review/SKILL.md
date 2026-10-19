@@ -27,3 +27,9 @@ Use `memory list`, `memory get` and `memory history` for inspection. `memory pro
 ## Routing and scheduled maintenance (schema 20)
 
 On schema 20 distinguish mechanical knowledge health from assisted content review. Mechanical checks report changed evidence, missing links, due reviews, duplicate fingerprints and recorded contradictions. Assisted review needs an explicit objective, authorized provider disclosure and budget; it produces cited findings and optional suggested replacement text only. Excerpts are partial coverage, not a whole-document or specialist audit. Contradiction hypotheses remain hypotheses. Preserve dismissal fingerprints; changed evidence can create a linked update. Use existing editors and exact human review for publication or memory decisions. `hoi-automate` can prepare the requested recurring workflow; this skill does not create cron jobs.
+
+## Precise discovery and selected sessions (schema 21)
+
+Use `knowledge health` to distinguish delayed checks, extraction/index gaps, partial enrichment and budget pauses. Inspect `knowledge artifacts` against original passages; generated questions and observations do not establish facts. Optional discovery processing needs a reviewed definition revision or explicit `knowledge enrich-preview` / `knowledge enrich`. Propose corrections through existing review workflows. A pipeline timestamp is not a knowledge-quality score, and a recent import does not supersede an approved source.
+
+Input examples and coverage limits are in the product’s `docs/KNOWLEDGE_PIPELINES.md`; discover actual operation contracts before calling them.

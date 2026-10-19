@@ -22,3 +22,9 @@ Use generated operation contracts in `.hoi/guides/OPERATIONS_REFERENCE.md`; neve
 Manual, host-scheduled and continuously hosted are separate deployment modes. Always-on means a user-operated available engine and scheduler waking bounded jobs, not an autonomous model loop. Verify reboot, secure credential access, backup/restore and actual host behavior before claiming continuous operation. Restored copies pause automations and revoke scheduler credentials.
 
 Report definition ID/version, actual scheduler evidence, last known run, scope and limitations. Do not claim live verification from fixtures. Installation, activation and publication remain separate.
+
+## Precise discovery and selected sessions (schema 21)
+
+On schema 21, `discovery: true` is an explicit reviewed change to an assisted-review recipe; existing definitions stay unchanged. Windows process incrementally within the same $0.25/$25 limits, with pending coverage visible. Use health/status reads and the optional inactive n8n monitor separately from intake. Status-only credentials cannot trigger runs. Verify cadence, grace period, credential binding, saved workflow connections and fictional failure behavior before activation. A stopped host cannot monitor itself; never claim always-on availability from a local template test.
+
+Input examples and coverage limits are in the product’s `docs/KNOWLEDGE_PIPELINES.md`; discover actual operation contracts before calling them.

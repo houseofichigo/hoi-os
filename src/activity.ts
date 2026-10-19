@@ -1,3 +1,5 @@
+import { knowledgeHealth } from "./pipeline-health.js";
+import { enrichmentStatus } from "./knowledge-enrichment.js";
 import { automationHistory } from "./automations.js";
 import { z } from "zod";
 import type { Store } from "./store.js";
@@ -355,6 +357,65 @@ export function suggestionDetail(s: Store, h: Host, id: string) {
 }
 function activityRows(s: Store, h: Host) {
   const rows = suggestionRows(s, h);
+  if (s.schemaVersion >= 21) {
+    for (const c of knowledgeHealth(s, h).connections.filter((x) =>
+      ["delayed", "failed", "partial"].includes(x.state),
+    ))
+      rows.push({
+        id: "pipeline:" + c.id,
+        kind: "pipeline-health",
+        title: c.label,
+        state: "needs-attention",
+        summary: `Connection coverage: ${c.state}`,
+        href: "/hub?view=configuration&section=Automations",
+        category: "imports",
+        bucket: "needs-attention",
+        updatedAt: c.lastSuccess ?? "",
+      });
+    for (const r of s.all(
+      "SELECT request_key,created_at FROM knowledge_enrichment_requests WHERE host=?",
+      h,
+    ))
+      rows.push(
+        ...visible(() => {
+          const j = enrichmentStatus(s, r.request_key, h);
+          return {
+            id: "enrichment:" + r.request_key,
+            kind: "enrichment",
+            title: "Selected knowledge enrichment",
+            state: j.state,
+            summary:
+              j.error ??
+              (j.pendingWindows != null
+                ? `${j.pendingWindows} windows pending`
+                : "Inspect processing status"),
+            href: "/hub?view=knowledge&section=Sources",
+            category: "imports",
+            bucket: bucket(j.state),
+            updatedAt: r.created_at,
+          };
+        }),
+      );
+    for (const r of s.all("SELECT * FROM session_imports WHERE host=?", h))
+      if (r.result) {
+        const result = JSON.parse(r.result),
+          src = s.one("SELECT * FROM sources WHERE id=?", result.sourceId);
+        if (src && s.allowed(src, h))
+          rows.push({
+            id: "session:" + r.request_key,
+            kind: "import",
+            title: "Selected session import",
+            state: r.state,
+            summary: "Original preserved; analysis is a separate action",
+            href:
+              "/hub?view=knowledge&section=Sources&source=" +
+              encodeURIComponent(src.id),
+            category: "imports",
+            bucket: bucket(r.state),
+            updatedAt: r.created_at,
+          });
+      }
+  }
   if (s.schemaVersion >= 20)
     for (const r of automationHistory(s, h, { limit: 100 }).items)
       rows.push({

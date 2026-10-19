@@ -4,6 +4,7 @@ import {
   recordReference,
 } from "./record-evidence.js";
 import { historicalEvidence, historyCutoff } from "./historical-retrieval.js";
+import { connectionCoverage } from "./pipeline-health.js";
 import { artifactEvidence } from "./conversation-artifacts.js";
 import { semanticReferences } from "./semantic.js";
 import { z } from "zod";
@@ -12,14 +13,8 @@ import { type Host } from "./schema.js";
 import { now, sha } from "./files.js";
 import { searchWiki, wikiDetail, wikiSubjects } from "./wiki-core.js";
 
-export const RETRIEVAL_PROFILE = Object.freeze({
-  version: "unified-retrieval-v3",
-  channelLimit: 50,
-  candidateLimit: 100,
-  resultLimit: 10,
-  perSource: 3,
-  rrfConstant: 60,
-});
+import { RETRIEVAL_PROFILE, retrievalProfile } from "./retrieval-profile.js";
+export { RETRIEVAL_PROFILE };
 const optionsSchema = z
   .object({
     query: z.string().trim().max(8000),
@@ -420,9 +415,25 @@ function searchWithinRead(s: Store, input: unknown, h: Host) {
       .filter((e) => e.kind === "source")
       .map((e) => [e.id, e]),
   );
+  let discovery: ReturnType<typeof artifactEvidence> = [],
+    discoveryWarning: string | undefined;
+  try {
+    discovery = artifactEvidence(
+      s,
+      h,
+      v.query,
+      retrievalProfile(s).version === RETRIEVAL_PROFILE.version,
+    );
+  } catch (error: any) {
+    if (!/^SQLITE_(ERROR|CORRUPT|NOTADB)/.test(error.code ?? "")) throw error;
+    discoveryWarning =
+      "Discovery index unavailable; original lexical results remain available. Rebuild discovery through index settings.";
+  }
   channels.push(
-    artifactEvidence(s, h, v.query).flatMap((ref) => {
-      const data = knowledgeEvidence(s, ref, h) as any;
+    discovery.flatMap((ref) => {
+      const { discovery, ...reference } = ref;
+      const data = knowledgeEvidence(s, reference, h) as any;
+      data.discovery = discovery;
       if (
         (v.sourceId && data.sourceId !== v.sourceId) ||
         !matchesProject(s, v.project, data.metadata.project) ||
@@ -449,6 +460,7 @@ function searchWithinRead(s: Store, input: unknown, h: Host) {
       return [
         {
           ...found,
+          data: { ...found.data, discovery },
           reason:
             "Original evidence located through a derived, unreviewed conversation artifact",
         },
@@ -457,7 +469,15 @@ function searchWithinRead(s: Store, input: unknown, h: Host) {
   );
   if (v.expandRelationships && !v.sourceId)
     channels.push(relationshipExpansion(s, h, channels.flat(), v));
-  return finishSearch(s, v, channels, semantic.length > 0);
+  return finishSearch(
+    s,
+    v,
+    channels,
+    semantic.length > 0,
+    undefined,
+    discoveryWarning,
+    connectionCoverage(s, h),
+  );
 }
 function relationshipExpansion(
   s: Store,
@@ -568,6 +588,8 @@ function finishSearch(
   channels: EvidenceItem[][],
   semanticUsed: boolean,
   cutoff?: string,
+  discoveryWarning?: string,
+  connections: any[] = [],
 ) {
   const fused = new Map<string, EvidenceItem>();
   for (const channel of channels)
@@ -578,12 +600,31 @@ function finishSearch(
       )
       .forEach((item, index) => {
         const prior = fused.get(item.id);
-        if (prior) prior.score += 1 / (60 + index + 1);
-        else fused.set(item.id, { ...item, score: 1 / (60 + index + 1) });
+        if (prior) {
+          prior.score += 1 / (RETRIEVAL_PROFILE.rrfConstant + index + 1);
+          if (item.data.discovery)
+            prior.data = { ...prior.data, discovery: item.data.discovery };
+        } else
+          fused.set(item.id, {
+            ...item,
+            score: 1 / (RETRIEVAL_PROFILE.rrfConstant + index + 1),
+          });
       });
+  const fingerprintOf = (item: EvidenceItem) =>
+    sha(
+      (item.kind === "record" ? item.recordId + ":" : "") +
+        normalize(item.excerpt).trim().replace(/\s+/g, " "),
+    );
+  const fingerprints = new Set<string>();
   const candidates = [...fused.values()]
     .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id))
-    .slice(0, 100);
+    .filter((item) => {
+      const f = fingerprintOf(item);
+      if (fingerprints.has(f)) return false;
+      fingerprints.add(f);
+      return true;
+    })
+    .slice(0, RETRIEVAL_PROFILE.candidateLimit);
   const seen = new Set<string>(),
     parents = new Map<string, number>(),
     selected: EvidenceItem[] = [];
@@ -595,13 +636,14 @@ function finishSearch(
     const parent = `${item.kind}:${item.recordId}`;
     if (
       seen.has(fingerprint) ||
-      (!v.sourceId && (parents.get(parent) ?? 0) >= 3)
+      (!v.sourceId && (parents.get(parent) ?? 0) >= RETRIEVAL_PROFILE.perSource)
     )
       continue;
     seen.add(fingerprint);
     parents.set(parent, (parents.get(parent) ?? 0) + 1);
     selected.push(item);
-    if (selected.length >= Math.min(v.limit, 10)) break;
+    if (selected.length >= Math.min(v.limit, RETRIEVAL_PROFILE.resultLimit))
+      break;
   }
   let remaining = s.policy().maxContextChars;
   const allowance = Math.floor(remaining / Math.max(1, selected.length));
@@ -651,7 +693,7 @@ function finishSearch(
           !p ||
           supplied.has(p.id) ||
           remaining <= 0 ||
-          (counts.get(item.recordId) ?? 0) >= 3
+          (counts.get(item.recordId) ?? 0) >= RETRIEVAL_PROFILE.perSource
         )
           continue;
         const quote = p.text.slice(0, Math.min(1200, remaining));
@@ -674,11 +716,17 @@ function finishSearch(
   return {
     query: v.query,
     scope: v.scope,
-    profile: RETRIEVAL_PROFILE.version,
+    profile: retrievalProfile(s).version,
     retrievedAt: now(),
     ...(v.asOf ? { asOf: v.asOf, recordedThrough: cutoff } : {}),
     evidence,
     coverage: {
+      discovery: discoveryWarning
+        ? "unavailable"
+        : v.asOf
+          ? "historical-originals-only"
+          : "available",
+      connections,
       mode: semanticUsed ? "hybrid" : "lexical",
       records:
         v.scope === "workspace"
@@ -698,6 +746,12 @@ function finishSearch(
         evidence.some((e, i) => e.excerpt.length < selected[i].excerpt.length),
     },
     warnings: [
+      ...(discoveryWarning ? [discoveryWarning] : []),
+      ...(connections.some((c) => c.state !== "current")
+        ? [
+            "Connected-source freshness is incomplete; consult coverage states and last successful checks.",
+          ]
+        : []),
       ...(v.asOf
         ? [
             "Historical results reflect recorded state by the requested day; unknown effective dates remain unknown. Legacy records without review timestamps are excluded.",

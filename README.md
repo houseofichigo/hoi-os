@@ -102,3 +102,9 @@ Code and skill instructions are [MIT licensed](LICENSE). Forking and reuse are w
 ## Selective routing and scheduled maintenance (local source upgrade)
 
 Schema 20 adds conservative skill routing and opt-in, scope-bound intake/check/draft automation. The 25-step method and optional Knowledge Hub remain. No schedules activate on install. [Guide](docs/AUTOMATIONS.md) · [Validation and remaining gates](docs/AUTOMATION_VALIDATION.md) · [Codex trigger](integrations/codex/schedule-prompt.md) · [n8n templates](integrations/n8n/README.md).
+
+### Precise knowledge pipelines — schema 21 candidate
+
+[Selected session capture, enrichment and pipeline health](docs/KNOWLEDGE_PIPELINES.md) extend the existing engine and optional Hub. The baseline matcher is corrected; candidate observation ranking remains opt-in. Originals, reviewed memory and wiki authority remain unchanged. This local source upgrade does not update private workspaces or publish a release.
+
+[Schema-21 validation, measured performance and remaining gates](docs/DISCOVERY_VALIDATION.md).

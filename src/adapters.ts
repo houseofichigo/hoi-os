@@ -50,11 +50,11 @@ export function adapterStatus(s: Store) {
     try {
       const guide = installedGuides(manifest.guides);
       const base = `.hoi/guides/${guide.digest}`;
-      documentationStatus = GUIDE_NAMES.some(
+      documentationStatus = Object.keys(guide.files).some(
         (n) => !existsSync(s.path(`${base}/${n}`)),
       )
         ? "missing"
-        : GUIDE_NAMES.some(
+        : Object.keys(guide.files).some(
               (n) =>
                 sha(readFileSync(s.path(`${base}/${n}`))) !== guide.files[n],
             )

@@ -39,6 +39,8 @@ const included = [
   "TRADEMARKS.md",
   "THIRD_PARTY_NOTICES.md",
   "docs/RULES.md",
+  "docs/KNOWLEDGE_PIPELINES.md",
+  "docs/DISCOVERY_VALIDATION.md",
   "docs/FILESYSTEM.md",
   "docs/TOOL_CONVENTIONS.md",
   "docs/OPERATIONS_REFERENCE.md",
@@ -70,6 +72,7 @@ const included = [
   "scripts/skill-trials.mjs",
   "scripts/chief-recipe.mjs",
   "scripts/hub-acceptance.mjs",
+  "scripts/discovery-acceptance.mjs",
   "examples/skill-comparison",
   "examples/chief-of-staff",
 ];

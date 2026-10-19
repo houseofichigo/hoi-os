@@ -127,7 +127,7 @@ test("schema15 migration preserves accepted task histories and permits null proj
   s.db.pragma("user_version=15");
   const before = taskHistory(s, reviewed.taskId, "local");
   migrate(s);
-  assert.equal(s.db.pragma("user_version", { simple: true }), 20);
+  assert.equal(s.db.pragma("user_version", { simple: true }), 21);
   assert.deepEqual(taskHistory(s, reviewed.taskId, "local"), before);
   assert.equal(s.db.pragma("foreign_key_check").length, 0);
 });

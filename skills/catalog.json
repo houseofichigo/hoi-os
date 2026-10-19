@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "compatibility": {
     "engineApiVersion": 1,
-    "workspaceSchema": 20,
+    "workspaceSchema": 21,
     "supportedSchemas": [
       1,
       2,
@@ -23,7 +23,8 @@
       17,
       18,
       19,
-      20
+      20,
+      21
     ],
     "node": ">=22.14.0",
     "channel": "unreleased-local"
@@ -35,7 +36,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -71,7 +72,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -108,7 +109,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -147,7 +148,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -187,7 +188,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -224,7 +225,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -302,7 +303,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -343,7 +344,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -379,7 +380,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -420,7 +421,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -459,7 +460,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -491,7 +492,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -530,7 +531,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -608,7 +609,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -645,7 +646,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -682,7 +683,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -775,7 +776,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -844,7 +845,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -881,7 +882,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -919,7 +920,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -995,7 +996,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -1034,7 +1035,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 20,
+        "verifiedWorkspaceSchema": 21,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"

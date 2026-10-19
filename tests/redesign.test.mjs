@@ -394,7 +394,7 @@ test("schema seven backup restores elsewhere and migrates without losing origina
   copy.close();
   const current = new Store(f.root + "/restored workspace");
   t.after(() => current.close());
-  assert.equal(current.schemaVersion, 20);
+  assert.equal(current.schemaVersion, 21);
   assert.equal(
     current.one("SELECT id FROM sources WHERE id=?", r.sourceId).id,
     r.sourceId,

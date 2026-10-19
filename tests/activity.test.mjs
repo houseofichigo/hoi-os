@@ -200,7 +200,7 @@ test("schema 17 migration adds rebuildable links and progress without inventing 
   const old = new Store(s.root);
   try {
     migrate(old);
-    assert.equal(old.db.pragma("user_version", { simple: true }), 20);
+    assert.equal(old.db.pragma("user_version", { simple: true }), 21);
     assert.equal(old.one("SELECT count(*) n FROM chat_progress").n, 0);
   } finally {
     old.close();

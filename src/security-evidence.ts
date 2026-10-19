@@ -53,6 +53,7 @@ export function buildIdentity(root = PRODUCT_ROOT) {
     else hash.update(`missing-runtime-file:${name}`);
   for (const name of [
     "RULES.md",
+    "KNOWLEDGE_PIPELINES.md",
     "FILESYSTEM.md",
     "TOOL_CONVENTIONS.md",
     "OPERATIONS_REFERENCE.md",

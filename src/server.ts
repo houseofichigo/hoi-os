@@ -94,12 +94,21 @@ export async function serve(
         if (
           pathname === "/api/automation-client/status" &&
           req.method === "GET"
-        )
+        ) {
           result = automationSafeStatus(s, grant.definitionId);
-        else if (
+          if (
+            url.searchParams.get("requireHealthy") === "1" &&
+            ["failed", "delayed", "partial", "unknown"].includes(
+              result.health.state,
+            )
+          )
+            res.statusCode = 503;
+        } else if (
           pathname === "/api/automation-client/run" &&
           req.method === "POST"
         ) {
+          if (grant.access === "status")
+            throw Error("AUTOMATION_OPERATION_DENIED");
           const body = z
             .object({ triggerId: z.string(), snapshot: z.unknown().optional() })
             .strict()

@@ -1,3 +1,4 @@
+import { recoverEnrichment, stopEnrichment } from "./knowledge-enrichment.js";
 import { recoverAutomations, stopAutomations } from "./automations.js";
 import {
   readFileSync,
@@ -88,6 +89,7 @@ export async function createEngineSession(s: Store) {
     closed = false;
   const boot = randomUUID();
   recoverAutomations(s);
+  recoverEnrichment(s);
   try {
     mkdirSync(sessionDir(s.root), { recursive: true, mode: 0o700 });
     protect(sessionDir(s.root), true);
@@ -228,6 +230,7 @@ export async function createEngineSession(s: Store) {
       closed = true;
       accepting = false;
       await tail;
+      await stopEnrichment(s);
       await stopAutomations(s);
       rmSync(sessionDir(s.root), { recursive: true, force: true });
       if (process.platform === "win32")

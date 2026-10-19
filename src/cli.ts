@@ -1,3 +1,4 @@
+import { recoverEnrichment, waitEnrichment } from "./knowledge-enrichment.js";
 import { triggerAutomationClient } from "./automation-client.js";
 import { waitAutomations, recoverAutomations } from "./automations.js";
 import { existsSync } from "node:fs";
@@ -223,7 +224,9 @@ export async function main(args = process.argv.slice(2)) {
       return;
     } else {
       recoverAutomations(s);
+      recoverEnrichment(s);
       result = await executeOperation(s, host, request);
+      await waitEnrichment(s);
       await waitAutomations(s);
     }
     if (command === "automation" && p[1] === "credential" && v.output) {

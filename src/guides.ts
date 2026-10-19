@@ -7,6 +7,7 @@ export const GUIDE_NAMES = [
   "FILESYSTEM.md",
   "TOOL_CONVENTIONS.md",
   "OPERATIONS_REFERENCE.md",
+  "KNOWLEDGE_PIPELINES.md",
 ] as const;
 const manifestSchema = z
   .object({
@@ -34,7 +35,17 @@ export function bundledGuides(root: string) {
 }
 export function installedGuides(raw: unknown) {
   const m = manifestSchema.parse(raw);
-  if (Object.keys(m.files).sort().join() !== [...GUIDE_NAMES].sort().join())
+  if (
+    Object.keys(m.files).some(
+      (n) => !(GUIDE_NAMES as readonly string[]).includes(n),
+    ) ||
+    ![
+      "RULES.md",
+      "FILESYSTEM.md",
+      "TOOL_CONVENTIONS.md",
+      "OPERATIONS_REFERENCE.md",
+    ].every((n) => m.files[n])
+  )
     throw Error("GUIDE_MANIFEST_INVALID");
   return m;
 }

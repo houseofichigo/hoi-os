@@ -129,7 +129,7 @@ test("schema16 migration adds durable send storage without rewriting conversatio
   const copy = new Store(root);
   t.after(() => copy.close());
   migrate(copy);
-  assert.equal(copy.db.pragma("user_version", { simple: true }), 20);
+  assert.equal(copy.db.pragma("user_version", { simple: true }), 21);
   assert.ok(copy.one("SELECT name FROM sqlite_master WHERE name='chat_sends'"));
 });
 

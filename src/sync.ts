@@ -1,3 +1,4 @@
+import { connectionFreshness } from "./pipeline-health.js";
 import { prepareFile } from "./file-work.js";
 import { localSource, recordLocation } from "./local-identity.js";
 import { emailBody } from "./email-text.js";
@@ -113,7 +114,7 @@ export function connections(s: Store, h: Host) {
         from: window.from || c.config.from || null,
         to: window.to || c.config.to || null,
         lastSuccess: c.last_success,
-        state: c.error ? "partial" : c.last_success ? "current" : "unknown",
+        state: connectionFreshness(s, c),
       },
       items:
         s.schemaVersion < 11

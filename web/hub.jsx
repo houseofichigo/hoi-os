@@ -1,3 +1,8 @@
+import {
+  SessionImport,
+  DiscoveryReader,
+  PipelineHealth,
+} from "./knowledge-discovery.jsx";
 import RetrievalStatus from "./retrieval-status.jsx";
 import { WikiLinks } from "./wiki-core.jsx";
 import { requested, focusRecord, useSubview } from "./destination.js";
@@ -173,6 +178,9 @@ export default function Hub({ api, token, views, composer }) {
               Ask about this
             </button>
           )}
+          {detail.source.state === "active" && (
+            <DiscoveryReader api={api} source={detail.source} />
+          )}
           <WikiLinks api={api} subjectId={detail.source.id} />
           <p>
             {detail.source.extractionStatus} ·{" "}
@@ -228,6 +236,7 @@ export default function Hub({ api, token, views, composer }) {
       {tab === "Overview" && (
         <>
           <RetrievalStatus api={api} />
+          <PipelineHealth api={api} />
           <div className="stat-band">
             <p>
               {sources.filter((s) => s.state === "active").length} active
@@ -251,6 +260,7 @@ export default function Hub({ api, token, views, composer }) {
       )}
       {tab === "Sources" && (
         <>
+          <SessionImport api={api} onImported={load} />
           <div className="source-toolbar">
             <label>
               Search sources

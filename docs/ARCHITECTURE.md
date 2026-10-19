@@ -108,3 +108,7 @@ Reviewed procedural lessons use versioned memory with exact skill and evidence r
 ## Selective routing and external scheduling — schema 20
 
 The deterministic router returns a read, pinned skill plan, clarification or unavailable result without executing. Reviewed automation definitions bind scope, access identity, exact skill revisions, provider configuration and budgets. Codex/n8n invoke a dedicated scoped trigger; they cannot use its credential for owner operations. The existing workspace ownership lock plus a unique running-run constraint serialize work. Definitions retain immutable version snapshots; runs, source checkpoints, findings, usage and uncertain outcomes remain durable. Restoration pauses definitions and revokes scheduler grants. The engine adds no scheduler or background service. See [automations](AUTOMATIONS.md).
+
+## Precise discovery and session provenance — schema 21
+
+The baseline artifact matcher now uses meaningful FTS5 fields and exact original references. Versioned observation units and selected-export turn provenance share the existing SQLite/source/artifact model. Original passages remain factual context; generated observations are never independent corroboration. Enrichment uses existing AI jobs, budgets and disclosure checks, with one checkpointed window per invocation. Pipelines report expected-check freshness separately from source effective dates. Candidate observation ranking is opt-in pending independent evaluation. See [Knowledge pipelines](KNOWLEDGE_PIPELINES.md).

@@ -153,7 +153,7 @@ test("schema18 upgrade is additive and preserves memory bytes", (t) => {
   migrate(older);
   older.close();
   const current = new Store(s.root);
-  assert.equal(current.schemaVersion, 20);
+  assert.equal(current.schemaVersion, 21);
   assert.deepEqual(readFileSync(current.path(`memory/${p.id}.md`)), original);
   current.close();
 });

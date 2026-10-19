@@ -32,3 +32,9 @@ Completion evidence: plan hash, selected files/bytes, limits, imported/failed co
 ## Routing and scheduled maintenance (schema 20)
 
 For recurring intake on schema 20, the owner previews and approves one bounded automation definition. Future matching revisions and existing backlog are separate choices. Keep backlog analysis off by default. Report every skipped, partial, unsafe or oversized item and preserve original exports/checksums. A connection has one scheduling owner; external ownership suppresses built-in polling. Never broaden a folder/query/account or reactivate archived content to make a run pass. Generic exports use the versioned `import-connection` envelope and an enabled definition; incoming metadata cannot set permissions.
+
+## Precise discovery and selected sessions (schema 21)
+
+For deliberately selected conversation exports, use `import-connection` preview/commit with the returned digest, expected revision and a stable request key. Preserve namespace/account/conversation identity, roles, unknown timestamps, omissions and the original. System/tool turns are omitted by default; inspect credential-like exclusions. Manual import requires no automation and does not authorize AI disclosure. Never scan native session folders without a separate request.
+
+Input examples and coverage limits are in the product’s `docs/KNOWLEDGE_PIPELINES.md`; discover actual operation contracts before calling them.

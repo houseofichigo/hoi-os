@@ -134,6 +134,10 @@ function restoreGuarded(backupPath: string, workspace: string, guard: string) {
     try {
       const version = (restoredDb.prepare("PRAGMA user_version").get() as any)
         .user_version;
+      if (version >= 21)
+        restoredDb.exec(
+          "UPDATE knowledge_enrichment_requests SET state='uncertain' WHERE state='running'",
+        );
       if (version >= 20)
         restoredDb.transaction(() => {
           restoredDb.exec(

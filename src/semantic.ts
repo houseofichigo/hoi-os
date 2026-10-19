@@ -1,3 +1,5 @@
+import { retrievalProfile, RETRIEVAL_PROFILE } from "./retrieval-profile.js";
+import { discoveryStatus, rebuildDiscovery } from "./conversation-artifacts.js";
 import { embeddingUnitKey, validCachedSegments } from "./embedding-cache.js";
 import { Worker } from "node:worker_threads";
 import { existsSync, mkdirSync, renameSync, createWriteStream } from "node:fs";
@@ -91,6 +93,11 @@ export function indexStatus(s: Store, h: Host) {
       : {};
   return {
     lexical: "available",
+    discovery: {
+      ...discoveryStatus(s, h),
+      profile: retrievalProfile(s).version,
+      experimental: retrievalProfile(s).version === RETRIEVAL_PROFILE.version,
+    },
     domains,
     maintenance: {
       state: maintenance.state ?? "idle",
@@ -147,6 +154,18 @@ async function modelReady(s: Store) {
 export async function installLocalModel(s: Store, h: Host, input: unknown) {
   s.assertSchema(19, "Local model");
   s.assertHost(h);
+  if ((input as any)?.domain === "discovery") {
+    z.object({
+      domain: z.literal("discovery"),
+      requestKey: z.string().min(8).max(200),
+    })
+      .strict()
+      .parse(input);
+    s.assertSchema(21, "Discovery index");
+    if (h !== "local" || s.policy().actions.draft !== "allow")
+      throw Error("POLICY_DENIED");
+    return rebuildDiscovery(s);
+  }
   if (h !== "local" || !enabled(s) || s.policy().actions.draft !== "allow")
     throw Error("SEMANTIC_OPT_IN_REQUIRED");
   const v = z
@@ -378,6 +397,18 @@ export function collectUnits(s: Store, h: Host) {
 export async function rebuildKnowledge(s: Store, h: Host, input: unknown) {
   s.assertSchema(19, "Knowledge indexing");
   s.assertHost(h);
+  if ((input as any)?.domain === "discovery") {
+    z.object({
+      domain: z.literal("discovery"),
+      requestKey: z.string().min(8).max(200),
+    })
+      .strict()
+      .parse(input);
+    s.assertSchema(21, "Discovery index");
+    if (h !== "local" || s.policy().actions.draft !== "allow")
+      throw Error("POLICY_DENIED");
+    return rebuildDiscovery(s);
+  }
   if (h !== "local" || !enabled(s) || s.policy().actions.draft !== "allow")
     throw Error("SEMANTIC_OPT_IN_REQUIRED");
   const v = z

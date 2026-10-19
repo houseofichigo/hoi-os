@@ -47,3 +47,7 @@ Procedural skill lessons use these same files with optional `lesson` metadata: e
 ## Selective routing and automation
 
 Schema 20 automation definitions, grants (hashes only), scheduler observations and run checkpoints reside in the existing SQLite database. Originals remain in dated archives and source revisions; findings use existing Reviews. The optional `.hoi/automation-credentials/` directory is private and excluded from backups. Restoration pauses definitions, revokes scheduler grants and clears observed schedule state; re-review before use. No daemon or alternate memory store is installed.
+
+## Schema-21 discovery records
+
+Selected conversation originals are preserved under the existing dated `archives/` path. Indexed selections use ordinary source revisions and passages. SQLite `session_exports` retains selected turn provenance; `session_imports` journals reviewed, idempotent commits. `knowledge_artifacts` remains the derived artifact owner. `discovery_units` and FTS5 `discovery_search` are disposable projections rebuilt through the engine. `knowledge_enrichment_requests` links manual invocations to existing AI jobs and usage reservations. Do not edit these database tables by hand. Backups retain authoritative payloads/originals; restoration preserves uncertainty and leaves schedules paused.

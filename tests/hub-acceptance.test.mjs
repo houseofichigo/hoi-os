@@ -148,7 +148,7 @@ test(
     );
     assert.equal(result.checks.length, 13);
     assert.ok(result.checks.every((c) => c.status === "passed"));
-    assert.equal(result.schemaVersion, 20);
+    assert.equal(result.schemaVersion, 21);
     assert.match(result.buildId, /^[a-f0-9]{64}$/);
     assert.ok(result.pending.length);
     assert.equal(result.scope.hostSessionsRun, 0);

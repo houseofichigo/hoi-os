@@ -43,6 +43,40 @@ export default function RetrievalStatus({ api }) {
               ? ` · ${status.maintenance.reason.replaceAll("_", " ").toLowerCase()}`
               : ""}
           </p>
+          <label>
+            <input
+              type="checkbox"
+              checked={!!status.discovery?.experimental}
+              disabled={busy}
+              onChange={(e) =>
+                run("knowledge/configure-discovery", {
+                  enabled: e.target.checked,
+                  confirm: true,
+                })
+              }
+            />
+            Use experimental observation ranking
+          </label>
+          <p>
+            The baseline matcher is corrected. Observation ranking remains
+            opt-in pending independent quality review.
+          </p>
+          <p>
+            Discovery index: {status.discovery?.state ?? "unknown"} ·{" "}
+            {status.discovery?.indexed ?? 0} of{" "}
+            {status.discovery?.eligible ?? 0} permitted artifacts.
+          </p>
+          <button
+            disabled={busy}
+            onClick={() =>
+              run("knowledge/rebuild", {
+                domain: "discovery",
+                requestKey: crypto.randomUUID(),
+              })
+            }
+          >
+            Rebuild discovery index
+          </button>
           <ul>
             {Object.entries(status.domains ?? {}).map(([domain, counts]) => (
               <li key={domain}>

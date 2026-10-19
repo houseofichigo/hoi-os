@@ -396,7 +396,7 @@ export async function runAcceptance({ packageRoot = ownRoot, output, signal }) {
       const state = await cli(ws, "local", "engine", "status");
       report.schemaVersion = state.schemaVersion;
       report.apiVersion = state.apiVersion;
-      assert.equal(state.schemaVersion, 20);
+      assert.equal(state.schemaVersion, 21);
     });
     await check(
       "Launcher, authentication and shared engine ownership",

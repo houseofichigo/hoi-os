@@ -388,7 +388,7 @@ test("schema 11 backup restores into separate copy and upgrades without touching
   migrate(copy);
   copy.close();
   const current = new Store(f.root + "/restored");
-  assert.equal(current.schemaVersion, 20);
+  assert.equal(current.schemaVersion, 21);
   assert.equal(
     current.one("SELECT id FROM revisions WHERE id=?", ref.revisionId).id,
     ref.revisionId,

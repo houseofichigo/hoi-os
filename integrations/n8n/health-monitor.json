@@ -1,0 +1,74 @@
+{
+  "name": "HOI \u2014 independent knowledge health monitor",
+  "active": false,
+  "nodes": [
+    {
+      "id": "every-fifteen-minutes",
+      "name": "Check health every 15 minutes",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "*/15 * * * *"
+            }
+          ]
+        },
+        "misfirePolicy": "coalesce_owner"
+      }
+    },
+    {
+      "id": "read-safe-status",
+      "name": "Read safe status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "http://127.0.0.1:REPLACE_WITH_ENGINE_PORT/api/automation-client/status?requireHealthy=1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000,
+      "notes": "Bind a status-only HOI credential. 503 means health is delayed, partial, failed or unknown; inspect the safe response and HOI Activity. No run endpoint is called."
+    }
+  ],
+  "connections": {
+    "Check health every 15 minutes": {
+      "main": [
+        [
+          {
+            "node": "Read safe status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Paris",
+    "saveDataSuccessExecution": "all",
+    "saveDataErrorExecution": "all",
+    "errorWorkflow": "CONFIGURE_REAL_ERROR_WORKFLOW_ID"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "hoiVerification": "local structure only; target-instance validation, credential binding, saved connections and fictional execution required"
+  }
+}

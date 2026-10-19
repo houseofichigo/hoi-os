@@ -1,3 +1,5 @@
+import { DISCOVERY_SQL } from "./discovery-schema.js";
+import { rebuildDiscovery } from "./conversation-artifacts.js";
 import { AUTOMATION_SQL } from "./automation-schema.js";
 import { RETRIEVAL_SQL } from "./retrieval-schema.js";
 import { recoverMemoryWrites } from "./reviewed-memory.js";
@@ -45,9 +47,9 @@ import {
   type Evidence,
 } from "./schema.js";
 
-export const CURRENT_SCHEMA_VERSION = 20;
+export const CURRENT_SCHEMA_VERSION = 21;
 export const SUPPORTED_SCHEMA_VERSIONS = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
 ];
 export const WIKI_SCHEMA_SQL = `CREATE TABLE IF NOT EXISTS wiki_pages(id TEXT PRIMARY KEY,slug TEXT NOT NULL,title TEXT NOT NULL,type TEXT NOT NULL,status TEXT NOT NULL,owner TEXT,entities TEXT NOT NULL,allowed_hosts TEXT NOT NULL,content_path TEXT NOT NULL,effective_date TEXT,reviewed_at TEXT,supersedes TEXT,created_at TEXT NOT NULL,updated_at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS wiki_evidence(id TEXT PRIMARY KEY,page_id TEXT NOT NULL REFERENCES wiki_pages(id),revision_id TEXT NOT NULL,passage_id TEXT NOT NULL,quote TEXT NOT NULL,relation TEXT NOT NULL,created_at TEXT NOT NULL);
@@ -303,6 +305,7 @@ export function initialize(root: string) {
 ${ACTIVITY_SQL}
 ${RETRIEVAL_SQL}
 ${AUTOMATION_SQL}
+${DISCOVERY_SQL}
  ${TASK_SCHEMA_SQL}
  ${INTAKE_SCHEMA_SQL}
  ${MAINTENANCE_SCHEMA_SQL}
@@ -422,6 +425,10 @@ export function migrate(s: Store) {
     if (s.schemaVersion < 18) s.db.exec(ACTIVITY_SQL);
     if (s.schemaVersion < 19) s.db.exec(RETRIEVAL_SQL);
     if (s.schemaVersion < 20) s.db.exec(AUTOMATION_SQL);
+    if (s.schemaVersion < 21) {
+      s.db.exec(DISCOVERY_SQL);
+      rebuildDiscovery(s);
+    }
     s.db.exec(`PRAGMA user_version=${CURRENT_SCHEMA_VERSION}`);
     s.log("schema.migrated", {
       from: s.schemaVersion,

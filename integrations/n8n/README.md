@@ -21,3 +21,9 @@ Sources inspected 2026-10-19 (parameter references, no copied implementation):
 - https://github.com/n8n-io/n8n/blob/master/packages/nodes-base/nodes/Schedule/ScheduleTrigger.node.ts
 - https://github.com/n8n-io/n8n/blob/master/packages/nodes-base/nodes/HttpRequest/V3/Description.ts
 - https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.scheduletrigger/
+
+## Independent health monitor (schema 21)
+
+`health-monitor.json` is a separate inactive 15-minute status workflow. Bind a status-only credential (`automation credential` with `access: status`), which does not revoke the trigger credential and cannot POST a run. `requireHealthy=1` returns 503 for delayed, partial, failed or unknown health. The HTTP error and existing error workflow record the failure without sending notifications. Run this independently of the intake workflow; a same-host outage still prevents self-monitoring. The health response has safe operational status only. Target-instance node/workflow validation, saved-connection inspection, fictional tests, credential binding and explicit publication remain required. No live monitor was activated during implementation.
+
+The monitoring template was checked against the [official Schedule Trigger source](https://github.com/n8n-io/n8n/blob/master/packages/nodes-base/nodes/Schedule/ScheduleTrigger.node.ts) and [HTTP Request documentation](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest/). The available connector exposes no node-schema or workflow-validation tool, so target-instance validation, saved-connection inspection and a fictional execution remain required before activation.

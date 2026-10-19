@@ -1,3 +1,16 @@
+import {
+  previewSession,
+  commitSession,
+  sessionDetail,
+} from "./session-exports.js";
+import {
+  previewEnrichment,
+  startEnrichment,
+  enrichmentStatus,
+  cancelEnrichment,
+} from "./knowledge-enrichment.js";
+import { listArtifacts, configureDiscovery } from "./conversation-artifacts.js";
+import { knowledgeHealth } from "./pipeline-health.js";
 import { routeHarness } from "./harness-routing.js";
 import {
   previewAutomation,
@@ -293,6 +306,12 @@ export const APP_POST_ROUTES = new Set([
   "/api/knowledge/configure-search",
   "/api/knowledge/install-model",
   "/api/knowledge/rebuild",
+  "/api/knowledge/configure-discovery",
+  "/api/knowledge/enrich-preview",
+  "/api/knowledge/enrich",
+  "/api/knowledge/enrich-cancel",
+  "/api/session/preview",
+  "/api/session/commit",
 ]);
 
 export async function appMutation(
@@ -303,6 +322,16 @@ export async function appMutation(
 ) {
   if (!APP_POST_ROUTES.has(pathname)) throw Error("OPERATION_UNKNOWN");
   let result: any;
+  if (pathname === "/api/knowledge/configure-discovery")
+    return configureDiscovery(s, host, body);
+  if (pathname === "/api/session/preview") return previewSession(s, body, host);
+  if (pathname === "/api/session/commit") return commitSession(s, body, host);
+  if (pathname === "/api/knowledge/enrich-preview")
+    return previewEnrichment(s, body, host);
+  if (pathname === "/api/knowledge/enrich")
+    return startEnrichment(s, body, host);
+  if (pathname === "/api/knowledge/enrich-cancel")
+    return cancelEnrichment(s, body.requestKey, host);
   if (pathname === "/api/harness/route") result = routeHarness(s, body, host);
   else if (pathname.startsWith("/api/automations/")) {
     const actions: any = {
@@ -494,6 +523,21 @@ export function appRead(
   const options = { app },
     url = new URL("http://127.0.0.1" + pathname + query);
   let result: any;
+  if (pathname === "/api/knowledge/health") return knowledgeHealth(s, host);
+  if (pathname === "/api/knowledge/artifacts")
+    return listArtifacts(s, host, {
+      ...(url.searchParams.get("sourceId")
+        ? { sourceId: url.searchParams.get("sourceId") }
+        : {}),
+      ...(url.searchParams.get("cursor")
+        ? { cursor: url.searchParams.get("cursor") }
+        : {}),
+      ...(url.searchParams.get("id") ? { id: url.searchParams.get("id") } : {}),
+    });
+  if (pathname === "/api/knowledge/session")
+    return sessionDetail(s, url.searchParams.get("sourceId") ?? "", host);
+  if (pathname === "/api/knowledge/enrich-status")
+    return enrichmentStatus(s, url.searchParams.get("requestKey") ?? "", host);
   if (options.app && pathname === "/api/automations")
     result = automationStatus(s, host);
   else if (options.app && pathname === "/api/automations/history")

@@ -1,3 +1,4 @@
+import { PipelineHealth } from "./knowledge-discovery.jsx";
 import React, { useEffect, useState } from "react";
 import { Drawer } from "./product-ui.jsx";
 import { StatusLabel } from "./shell.jsx";
@@ -100,6 +101,7 @@ export default function Automations({ api }) {
   });
   return (
     <section aria-label="Automations" className="automations">
+      <PipelineHealth api={api} />
       <div className="product-toolbar">
         <div>
           <h2>Automations</h2>
@@ -287,6 +289,9 @@ export default function Automations({ api }) {
                 onChange={(e) =>
                   change({
                     recipe: e.target.value,
+                    discovery: e.target.value.includes("review")
+                      ? form.discovery
+                      : undefined,
                     discloseFutureSources:
                       e.target.value === "intake-review" && form.futureRevisions
                         ? form.discloseFutureSources
@@ -544,6 +549,35 @@ export default function Automations({ api }) {
                     <option key={x}>{x}</option>
                   ))}
                 </select>
+              </label>
+            )}
+            {form.recipe.includes("review") && (
+              <label>
+                <input
+                  type="checkbox"
+                  checked={!!form.discovery}
+                  onChange={(e) => change({ discovery: e.target.checked })}
+                />
+                Create cited discovery observations (new review required)
+              </label>
+            )}
+            {form.scheduler.kind !== "manual" && (
+              <label>
+                Late-check grace (minutes)
+                <input
+                  type="number"
+                  min="1"
+                  max="1440"
+                  value={form.scheduler.graceMinutes ?? 30}
+                  onChange={(e) =>
+                    change({
+                      scheduler: {
+                        ...form.scheduler,
+                        graceMinutes: Number(e.target.value),
+                      },
+                    })
+                  }
+                />
               </label>
             )}
             <button disabled={busy}>Preview scope</button>

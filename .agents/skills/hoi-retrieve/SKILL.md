@@ -17,3 +17,9 @@ Use `context` and `retrieve QUERY` with client/project filters where relevant. R
 Discover engine compatibility and registered operations first. On schema 19, prefer `knowledge search --input <file>` for ranked, bounded source/wiki/approved-memory evidence, then `knowledge evidence --input <file>` to resolve exact references with current permissions. Retain each kind, revision, attribution, effective date and coverage; a reviewed preference is not independent corroboration. Derived conversation summaries locate original passages and must not be cited as independent facts. Local semantic search is optional: report lexical fallback honestly; never download a model or change scope merely to answer a question.
 
 Use `memory list`, `memory get` and `memory history` for inspection. `memory propose --input <file>` requires a unique request key and creates a proposal only. Review and retirement require the local user's exact version/checksum review; assistants cannot self-approve or claim user authorship. Corrections identify the predecessor and preserve history. Do not write memory Markdown directly or create a competing MEMORY.md. On older engines retain supported reads and report the upgrade requirement rather than bypassing review.
+
+## Precise discovery and selected sessions (schema 21)
+
+Discovery returns ranked original passages, not generated statements as authority. Inspect `knowledge artifacts` / `knowledge artifact` and retain discovery provenance. Candidate observation ranking is opt-in pending independent quality review; the corrected baseline remains available. Check `knowledge health` and index coverage before calling information current. Old import dates, recent imports and repeated summaries do not establish authority or independent confirmation.
+
+Input examples and coverage limits are in the product’s `docs/KNOWLEDGE_PIPELINES.md`; discover actual operation contracts before calling them.

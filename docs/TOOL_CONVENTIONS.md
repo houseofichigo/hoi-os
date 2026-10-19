@@ -42,3 +42,7 @@ For skill-improvement observations, `memory propose` accepts `type: procedural` 
 ## Selective routing and automation
 
 Schema 20 adds `harness:route` (plan only) and versioned automation operations; discover generated contracts below. Owner-only save/enable/pause/credential/observe calls remain separate from definition-scoped trigger/status HTTP endpoints. Use a stable trigger identity for retry. Uncertain paid calls retain reservations and must not be blindly repeated. Codex/n8n schedule creation and read-back are external, explicit steps; never infer a running schedule from files. See the packaged AUTOMATIONS guide for deployment limits.
+
+## Schema-21 discovery workflow
+
+Discover `import-connection`, `knowledge:enrich-preview`, `knowledge:enrich`, `knowledge:enrich-status`, `knowledge:enrich-cancel`, `knowledge:artifacts`, `knowledge:artifact` and `knowledge:health` from the registry. Selected session imports use explicit preview/commit modes without requiring an automation. Enrichment returns a durable request identity; poll its status rather than sending another paid request. Changed inputs require a new preview and request key; uncertain outcomes require reconciliation. Returned observations locate original evidence and confer no authority. Candidate observation ranking is opt-in, separately from optional semantic search. See the generated operation reference for current names and [pipeline examples](KNOWLEDGE_PIPELINES.md).

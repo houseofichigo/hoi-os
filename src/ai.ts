@@ -379,7 +379,9 @@ export function cancelAI(s: Store, id: string, h: Host) {
   const job = aiJob(s, id, h);
   if (job.automationRunId && ["queued", "running"].includes(job.state))
     throw Error(
-      "AUTOMATION_PAUSE_REQUIRED: Pause the owning definition in Configuration > Automations; changing an AI row cannot stop that run.",
+      job.automationRunId.startsWith("enrichment:")
+        ? "ENRICHMENT_CANCEL_REQUIRED: Use knowledge:enrich-cancel with the owning request key."
+        : "AUTOMATION_PAUSE_REQUIRED: Pause the owning definition in Configuration > Automations; changing an AI row cannot stop that run.",
     );
   if (!["queued", "running"].includes(job.state))
     return { id, state: job.state };

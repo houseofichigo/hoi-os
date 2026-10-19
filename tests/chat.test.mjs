@@ -262,7 +262,7 @@ test("unfinished runs survive restoration, and schema 5 upgrades without changin
   migrate(old);
   old.close();
   const current = new Store(join(root, "workspace"));
-  assert.equal(current.schemaVersion, 20);
+  assert.equal(current.schemaVersion, 21);
   assert.ok(current.one("SELECT id FROM sources WHERE id=?", source.sourceId));
   current.close();
 });

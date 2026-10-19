@@ -1,3 +1,4 @@
+import { definitionHealth } from "./pipeline-health.js";
 import { z } from "zod";
 import { randomBytes, timingSafeEqual } from "node:crypto";
 import { Store } from "./store.js";
@@ -43,6 +44,7 @@ export const definitionInput = z
       "assisted-review",
       "intake-review",
     ]),
+    discovery: z.boolean().optional(),
     objective: z.string().trim().min(1).max(1000),
     maxItems: z.number().int().min(1).max(100).default(25),
     futureRevisions: z.boolean(),
@@ -62,6 +64,7 @@ export const definitionInput = z
             return false;
           }
         }),
+        graceMinutes: z.number().int().min(1).max(1440).optional(),
         cadence: z
           .enum(["manual", "quarter-hour", "daily", "weekly"])
           .default("manual"),
@@ -70,6 +73,11 @@ export const definitionInput = z
   })
   .strict()
   .superRefine((v, c) => {
+    if (v.discovery && !v.recipe.includes("review"))
+      c.addIssue({
+        code: "custom",
+        message: "Discovery requires an assisted review recipe",
+      });
     if (v.recipe.startsWith("intake") && v.scope.kind === "sources")
       c.addIssue({
         code: "custom",
@@ -445,19 +453,22 @@ export function pauseAutomation(s: Store, raw: unknown, h: Host) {
 }
 export function automationCredential(s: Store, raw: unknown, h: Host) {
   access(s, h, true);
-  const v = controlInput.parse(raw),
+  const v = controlInput
+      .extend({ access: z.enum(["trigger", "status"]).default("trigger") })
+      .parse(raw),
     r = row(s, v.id);
   if (r.version !== v.expectedVersion || r.state !== "enabled")
     throw Error("AUTOMATION_NOT_ENABLED_OR_STALE");
   const token = randomBytes(32).toString("hex");
   s.tx(() => {
     s.exec(
-      "UPDATE automation_grants SET revoked=1 WHERE definition_id=?",
+      "UPDATE automation_grants SET revoked=1 WHERE definition_id=? AND ((id LIKE 'monitorgrant_%')=?)",
       r.id,
+      v.access === "status" ? 1 : 0,
     );
     s.exec(
       "INSERT INTO automation_grants VALUES(?,?,?,?,0,?)",
-      uid("grant"),
+      uid(v.access === "status" ? "monitorgrant" : "grant"),
       r.id,
       r.version,
       sha(token),
@@ -467,8 +478,11 @@ export function automationCredential(s: Store, raw: unknown, h: Host) {
   return {
     definitionId: r.id,
     token,
+    access: v.access,
     notice:
-      "Shown once. Store in the scheduler credential store. This grants only trigger, export submission and safe status for this definition.",
+      v.access === "status"
+        ? "Read-only status credential. It cannot trigger work."
+        : "Shown once. Store in the scheduler credential store. This grants only trigger, export submission and safe status for this definition.",
   };
 }
 export function authenticateAutomation(s: Store, token: string) {
@@ -483,7 +497,11 @@ export function authenticateAutomation(s: Store, token: string) {
   const r = row(s, g.definition_id);
   if (r.state !== "enabled" || r.version !== g.definition_version)
     return undefined;
-  return { definitionId: r.id, version: r.version };
+  return {
+    definitionId: r.id,
+    version: r.version,
+    access: g.id.startsWith("monitorgrant_") ? "status" : "trigger",
+  };
 }
 export function observeScheduler(s: Store, raw: unknown, h: Host) {
   access(s, h, true);
@@ -543,6 +561,7 @@ export function automationStatus(s: Store, h: Host, id?: string): any {
         state: r.state,
         ...r.payload,
         approvedDigest: r.approval_digest,
+        health: definitionHealth(s, r.id),
         schedulerObservation: o
           ? {
               ...JSON.parse(o.payload),
@@ -644,6 +663,8 @@ function safeRun(s: Store, r: any, h?: Host) {
           aiJobIds: cp.aiJobIds ?? [],
           syncRunId: cp.syncRunId ?? null,
           pendingCount: cp.pendingCount ?? 0,
+          pendingWindows: cp.pendingWindows ?? null,
+          artifactIds: cp.artifactIds ?? [],
         }
       : {}),
     notice:
@@ -657,6 +678,7 @@ export function automationSafeStatus(s: Store, id: string) {
   return {
     definitionId: id,
     state: r.state,
+    health: definitionHealth(s, id),
     runs: s
       .all(
         "SELECT * FROM automation_runs WHERE definition_id=? ORDER BY created_at DESC LIMIT 10",
@@ -692,8 +714,9 @@ export function startAutomation(
   s: Store,
   raw: unknown,
   h: Host | null,
-  grant?: { definitionId: string; version: number },
+  grant?: { definitionId: string; version: number; access?: string },
 ) {
+  if (grant?.access === "status") throw Error("AUTOMATION_OPERATION_DENIED");
   if (h) access(s, h, true);
   const v = runInput.parse(raw),
     r = row(s, v.id),
@@ -707,6 +730,11 @@ export function startAutomation(
   checkBinding(s, r);
   if (v.snapshot && d.scope.kind !== "export")
     throw Error("AUTOMATION_EXPORT_SCOPE_REQUIRED");
+  if (
+    s.schemaVersion >= 21 &&
+    s.one("SELECT 1 FROM knowledge_enrichment_requests WHERE state='running'")
+  )
+    throw Error("WORKSPACE_JOB_RUNNING");
   const digest = sha(JSON.stringify(v.snapshot ?? null));
   const triggerKey = v.snapshot
     ? `export:${v.triggerId}`
@@ -894,6 +922,8 @@ async function execute(
           recheck,
         );
         cp.aiJobIds = result.jobIds;
+        cp.artifactIds = result.artifactIds ?? [];
+        cp.pendingWindows = result.pendingWindows ?? 0;
         cp.reviewIds.push(...result.reviewIds);
       }
     }

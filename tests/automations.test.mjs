@@ -843,7 +843,7 @@ test("schema 19 migration and isolated backup restore retain records and interru
   migrate(old);
   old.close();
   const upgraded = new Store(join(root, "workspace"));
-  assert.equal(upgraded.schemaVersion, 20);
+  assert.equal(upgraded.schemaVersion, 21);
   assert.equal(upgraded.one("SELECT id FROM sources").id, src.sourceId);
   const d = setup(upgraded, definition(src.sourceId));
   const credential = automationCredential(
@@ -883,4 +883,51 @@ test("schema 19 migration and isolated backup restore retain records and interru
     false,
   );
   restored.close();
+});
+
+test("monitor-only grants read safe health but cannot trigger or impersonate an engine host", async (t) => {
+  const { s, file } = fixture(t),
+    src = await source(s, file),
+    d = setup(s, definition(src.sourceId));
+  const trigger = automationCredential(
+    s,
+    { id: d.id, expectedVersion: d.version, confirm: true },
+    "local",
+  );
+  const monitor = automationCredential(
+    s,
+    { id: d.id, expectedVersion: d.version, confirm: true, access: "status" },
+    "local",
+  );
+  assert.equal(authenticateAutomation(s, trigger.token).access, "trigger");
+  assert.equal(authenticateAutomation(s, monitor.token).access, "status");
+  const server = await serve(s, "local", resolve("dist/hub"), 0, { hub: true });
+  try {
+    const base = new URL(server.url).origin,
+      headers = {
+        Authorization: "Bearer " + monitor.token,
+        "Content-Type": "application/json",
+      };
+    const status = await fetch(
+      base + "/api/automation-client/status?requireHealthy=1",
+      { headers },
+    );
+    assert.equal(status.status, 503);
+    assert.ok(!JSON.stringify(await status.json()).includes("Atlas"));
+    const denied = await fetch(base + "/api/automation-client/run", {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ triggerId: "monitor_cannot_run" }),
+    });
+    assert.ok(denied.status >= 400);
+    assert.equal(s.one("SELECT count(*) n FROM automation_runs").n, 0);
+    pauseAutomation(
+      s,
+      { id: d.id, expectedVersion: d.version, confirm: true },
+      "local",
+    );
+    assert.equal(authenticateAutomation(s, monitor.token), undefined);
+  } finally {
+    await new Promise((ok) => server.server.close(ok));
+  }
 });
