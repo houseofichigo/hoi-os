@@ -1,0 +1,109 @@
+{
+  "name": "HOI \u2014 trigger",
+  "active": false,
+  "nodes": [
+    {
+      "id": "every-fifteen-minutes",
+      "name": "Every fifteen minutes",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "*/15 * * * *"
+            }
+          ]
+        },
+        "misfirePolicy": "coalesce_owner"
+      }
+    },
+    {
+      "id": "trigger-approved-definition",
+      "name": "Trigger approved definition",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:REPLACE_WITH_ENGINE_PORT/api/automation-client/run",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "options": {
+          "timeout": 15000
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ triggerId: \"n8n-execution:\" + $execution.id }) }}"
+      },
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000
+    },
+    {
+      "id": "read-safe-status",
+      "name": "Read safe status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "http://127.0.0.1:REPLACE_WITH_ENGINE_PORT/api/automation-client/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000
+    }
+  ],
+  "connections": {
+    "Every fifteen minutes": {
+      "main": [
+        [
+          {
+            "node": "Trigger approved definition",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger approved definition": {
+      "main": [
+        [
+          {
+            "node": "Read safe status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Paris",
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "all",
+    "errorWorkflow": "CONFIGURE_REAL_ERROR_WORKFLOW_ID"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "hoiVerification": "local structure only; target-instance validation, credential binding, saved connections and fictional execution required"
+  }
+}

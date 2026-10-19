@@ -28,3 +28,7 @@ For a directory:
 For host exports, use a stable provider/account/object key with `--source-key`. Default classifications remain provisional. Failed extraction retains the original and is not success. Never retry all failures automatically or scan a home directory, disk root, product checkout, credential store or unspecified broad location.
 
 Completion evidence: plan hash, selected files/bytes, limits, imported/failed counts, source/revision IDs for individual files, and unresolved outcomes.
+
+## Routing and scheduled maintenance (schema 20)
+
+For recurring intake on schema 20, the owner previews and approves one bounded automation definition. Future matching revisions and existing backlog are separate choices. Keep backlog analysis off by default. Report every skipped, partial, unsafe or oversized item and preserve original exports/checksums. A connection has one scheduling owner; external ownership suppresses built-in polling. Never broaden a folder/query/account or reactivate archived content to make a run pass. Generic exports use the versioned `import-connection` envelope and an enabled definition; incoming metadata cannot set permissions.

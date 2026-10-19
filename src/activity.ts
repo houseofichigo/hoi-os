@@ -1,3 +1,4 @@
+import { automationHistory } from "./automations.js";
 import { z } from "zod";
 import type { Store } from "./store.js";
 import type { Host } from "./schema.js";
@@ -354,6 +355,19 @@ export function suggestionDetail(s: Store, h: Host, id: string) {
 }
 function activityRows(s: Store, h: Host) {
   const rows = suggestionRows(s, h);
+  if (s.schemaVersion >= 20)
+    for (const r of automationHistory(s, h, { limit: 100 }).items)
+      rows.push({
+        id: "automation:" + r.id,
+        kind: "automation",
+        title: "Scheduled knowledge maintenance",
+        state: r.state,
+        summary: r.error ?? r.stage ?? "Inspect the run",
+        href: "/hub?view=configuration&section=Automations",
+        category: "imports",
+        bucket: bucket(r.state),
+        updatedAt: r.updatedAt,
+      });
   for (const r of s.all(
     "SELECT id,run_id,updated_at FROM ai_jobs ORDER BY updated_at DESC",
   ))

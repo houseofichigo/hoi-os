@@ -1,0 +1,1338 @@
+{
+  "version": 1,
+  "labelStatus": "authored-provisional; independent human review pending",
+  "cases": [
+    {
+      "id": "dev-retrieval-1",
+      "family": "dev-retrieval",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Find evidence about the Atlas method"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-retrieval-2",
+      "family": "dev-retrieval",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Search approved notes about delivery"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-retrieval-3",
+      "family": "dev-retrieval",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Trouver les informations sur Atlas"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-retrieval-4",
+      "family": "dev-retrieval",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Rechercher les notes de livraison"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-priorities-1",
+      "family": "dev-priorities",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Review my priorities"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-priorities-2",
+      "family": "dev-priorities",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "What should I focus on today?"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-priorities-3",
+      "family": "dev-priorities",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Revoir mes priorites"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-priorities-4",
+      "family": "dev-priorities",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Que faire aujourd hui ?"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-meeting-1",
+      "family": "dev-meeting",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Prepare my meeting"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-meeting-2",
+      "family": "dev-meeting",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Meeting prep for tomorrow"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-meeting-3",
+      "family": "dev-meeting",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Preparer la reunion"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-meeting-4",
+      "family": "dev-meeting",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Preparation de la reunion"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-actions-1",
+      "family": "dev-actions",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Extract actions from this transcript"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-actions-2",
+      "family": "dev-actions",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Identify commitments in these notes"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-actions-3",
+      "family": "dev-actions",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Extraire les taches du compte rendu"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-actions-4",
+      "family": "dev-actions",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Identifier les engagements du document"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-project-1",
+      "family": "dev-project",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Structure a project brief"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-project-2",
+      "family": "dev-project",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Create a project brief"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-project-3",
+      "family": "dev-project",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Structurer un projet"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-project-4",
+      "family": "dev-project",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Creer un brief de projet"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-vague-1",
+      "family": "dev-vague",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Help me"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-vague-2",
+      "family": "dev-vague",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Do something useful"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-vague-3",
+      "family": "dev-vague",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Aide moi"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-vague-4",
+      "family": "dev-vague",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Fais quelque chose"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-publication-1",
+      "family": "dev-publication",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Publish the wiki"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-publication-2",
+      "family": "dev-publication",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Approve the memory"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-publication-3",
+      "family": "dev-publication",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Publier la page"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-publication-4",
+      "family": "dev-publication",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Approuver la memoire"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-mixed-1",
+      "family": "dev-mixed",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Review priorities and prepare a meeting"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-mixed-2",
+      "family": "dev-mixed",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Prepare a meeting and extract tasks"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-mixed-3",
+      "family": "dev-mixed",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Revoir les priorites et preparer une reunion"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-mixed-4",
+      "family": "dev-mixed",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Extraire les actions et structurer un projet"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-explicit-retrieve-1",
+      "family": "dev-explicit-retrieve",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Explain this note",
+        "skillId": "hoi-retrieve"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-explicit-retrieve-2",
+      "family": "dev-explicit-retrieve",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "This is my choice",
+        "skillId": "hoi-retrieve"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-explicit-retrieve-3",
+      "family": "dev-explicit-retrieve",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Explique cette note",
+        "skillId": "hoi-retrieve"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-explicit-retrieve-4",
+      "family": "dev-explicit-retrieve",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Voici mon choix",
+        "skillId": "hoi-retrieve"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "dev-external-1",
+      "family": "dev-external",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Send email now"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-external-2",
+      "family": "dev-external",
+      "split": "development",
+      "language": "en",
+      "input": {
+        "message": "Delete old evidence"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-external-3",
+      "family": "dev-external",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Envoyer le message"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "dev-external-4",
+      "family": "dev-external",
+      "split": "development",
+      "language": "fr",
+      "input": {
+        "message": "Supprimer les sources"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-delivery-search-1",
+      "family": "heldout-delivery-search",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Which materials support the training design?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-delivery-search-2",
+      "family": "heldout-delivery-search",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Where is the published preparation guide?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-delivery-search-3",
+      "family": "heldout-delivery-search",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Quels supports expliquent la formation ?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-delivery-search-4",
+      "family": "heldout-delivery-search",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Ou trouver le guide de preparation ?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-decision-search-1",
+      "family": "heldout-decision-search",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Who recorded the Atlas decision?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-decision-search-2",
+      "family": "heldout-decision-search",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "When was the scope recorded?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-decision-search-3",
+      "family": "heldout-decision-search",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Qui a note cette decision ?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-decision-search-4",
+      "family": "heldout-decision-search",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Quand le perimetre a-t-il ete note ?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-identifier-search-1",
+      "family": "heldout-identifier-search",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Look up reference ATLAS-42"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-identifier-search-2",
+      "family": "heldout-identifier-search",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Find the exact identifier ACME-901"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-identifier-search-3",
+      "family": "heldout-identifier-search",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Rechercher la reference ATLAS-42"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-identifier-search-4",
+      "family": "heldout-identifier-search",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Trouver ACME-901 dans les sources"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-missing-evidence-1",
+      "family": "heldout-missing-evidence",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Search for evidence we have not yet imported"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-missing-evidence-2",
+      "family": "heldout-missing-evidence",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "What do the available sources actually say?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-missing-evidence-3",
+      "family": "heldout-missing-evidence",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Chercher une source sur un sujet inconnu"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-missing-evidence-4",
+      "family": "heldout-missing-evidence",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Que disent les sources ?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-waiting-1",
+      "family": "heldout-waiting",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Review waiting-for work"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-waiting-2",
+      "family": "heldout-waiting",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Give me the daily brief"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-waiting-3",
+      "family": "heldout-waiting",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Revoir les priorites du vendredi"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-waiting-4",
+      "family": "heldout-waiting",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Quelles sont mes priorites urgentes ?"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-consulting-1",
+      "family": "heldout-consulting",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Review consulting priorities"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-consulting-2",
+      "family": "heldout-consulting",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Review delivery priorities"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-consulting-3",
+      "family": "heldout-consulting",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Revoir les priorites du conseil"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-consulting-4",
+      "family": "heldout-consulting",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Revoir les priorites de livraison"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-personal-1",
+      "family": "heldout-personal",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Show my work brief"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-personal-2",
+      "family": "heldout-personal",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Review priorities across active commitments"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-personal-3",
+      "family": "heldout-personal",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Quoi faire aujourd hui ?"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-personal-4",
+      "family": "heldout-personal",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Comment revoir mes priorites ?"
+      },
+      "expectedSkill": "hoi-chief-of-staff",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-agenda-1",
+      "family": "heldout-agenda",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Prepare the agenda for the client meeting"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-agenda-2",
+      "family": "heldout-agenda",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Give me a brief for the steering meeting"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-agenda-3",
+      "family": "heldout-agenda",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Preparer le prochain rendez-vous"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-agenda-4",
+      "family": "heldout-agenda",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Preparer un brief pour la reunion client"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-meeting-context-1",
+      "family": "heldout-meeting-context",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Prepare tomorrow's meeting using permitted evidence"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-meeting-context-2",
+      "family": "heldout-meeting-context",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Meeting brief for the Atlas review"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-meeting-context-3",
+      "family": "heldout-meeting-context",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Preparer la reunion avec les documents autorises"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-meeting-context-4",
+      "family": "heldout-meeting-context",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Reunion de demain : preparation"
+      },
+      "expectedSkill": "hoi-meeting-prep",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-commitments-1",
+      "family": "heldout-commitments",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Extract commitments from the workshop notes"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-commitments-2",
+      "family": "heldout-commitments",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Turn the selected transcript into to-dos"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-commitments-3",
+      "family": "heldout-commitments",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Extraire les engagements de cet atelier"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-commitments-4",
+      "family": "heldout-commitments",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Transformer le compte rendu en actions"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-email-actions-1",
+      "family": "heldout-email-actions",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Identify tasks from this email thread"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-email-actions-2",
+      "family": "heldout-email-actions",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Extract actions from the selected message"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-email-actions-3",
+      "family": "heldout-email-actions",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Identifier les taches de cet echange"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-email-actions-4",
+      "family": "heldout-email-actions",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Extraire les actions de ce courriel"
+      },
+      "expectedSkill": "hoi-task-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-project-discovery-1",
+      "family": "heldout-project-discovery",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Create a project brief from the notes"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-project-discovery-2",
+      "family": "heldout-project-discovery",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Project scope plan from the approved transcript"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-project-discovery-3",
+      "family": "heldout-project-discovery",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Creer un projet a partir du brief"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-project-discovery-4",
+      "family": "heldout-project-discovery",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Projet : cadrage de la mission"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-project-fields-1",
+      "family": "heldout-project-fields",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Structure the consulting project brief"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-project-fields-2",
+      "family": "heldout-project-fields",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Structure the training project plan"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-project-fields-3",
+      "family": "heldout-project-fields",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Structurer le projet de conseil"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-project-fields-4",
+      "family": "heldout-project-fields",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Creer le projet de formation"
+      },
+      "expectedSkill": "hoi-project-intake",
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-security-1",
+      "family": "heldout-security",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Configure security policy"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-security-2",
+      "family": "heldout-security",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Activate every tool"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-security-3",
+      "family": "heldout-security",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Configurer la securite"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-security-4",
+      "family": "heldout-security",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Activer tous les outils"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-memory-approval-1",
+      "family": "heldout-memory-approval",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Approve all pending memories"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-memory-approval-2",
+      "family": "heldout-memory-approval",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Publish every proposed page"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-memory-approval-3",
+      "family": "heldout-memory-approval",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Approuver les souvenirs proposes"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-memory-approval-4",
+      "family": "heldout-memory-approval",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Publier toutes les pages"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-ambiguous-new-1",
+      "family": "heldout-ambiguous-new",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Make it better"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-ambiguous-new-2",
+      "family": "heldout-ambiguous-new",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Use your judgement"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-ambiguous-new-3",
+      "family": "heldout-ambiguous-new",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Ameliore tout"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-ambiguous-new-4",
+      "family": "heldout-ambiguous-new",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "A toi de decider"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-multi-output-1",
+      "family": "heldout-multi-output",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Extract tasks and create a project brief"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-multi-output-2",
+      "family": "heldout-multi-output",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Review priorities then extract commitments"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-multi-output-3",
+      "family": "heldout-multi-output",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Extraire les engagements et revoir les priorites"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-multi-output-4",
+      "family": "heldout-multi-output",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Preparer la reunion et creer un projet"
+      },
+      "expectedSkill": null,
+      "expectedState": "clarification"
+    },
+    {
+      "id": "heldout-explicit-override-1",
+      "family": "heldout-explicit-override",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Prepare my meeting",
+        "skillId": "hoi-retrieve"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-explicit-override-2",
+      "family": "heldout-explicit-override",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Review my priorities",
+        "skillId": "hoi-retrieve"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-explicit-override-3",
+      "family": "heldout-explicit-override",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Extraire les taches",
+        "skillId": "hoi-retrieve"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-explicit-override-4",
+      "family": "heldout-explicit-override",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Structurer un projet",
+        "skillId": "hoi-retrieve"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-unsupported-explicit-1",
+      "family": "heldout-unsupported-explicit",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Analyze my documents",
+        "skillId": "not-an-installed-skill"
+      },
+      "expectedSkill": null,
+      "expectedState": "unavailable"
+    },
+    {
+      "id": "heldout-unsupported-explicit-2",
+      "family": "heldout-unsupported-explicit",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Review the dataset",
+        "skillId": "not-an-installed-skill"
+      },
+      "expectedSkill": null,
+      "expectedState": "unavailable"
+    },
+    {
+      "id": "heldout-unsupported-explicit-3",
+      "family": "heldout-unsupported-explicit",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Analyser les documents",
+        "skillId": "not-an-installed-skill"
+      },
+      "expectedSkill": null,
+      "expectedState": "unavailable"
+    },
+    {
+      "id": "heldout-unsupported-explicit-4",
+      "family": "heldout-unsupported-explicit",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Examiner ces donnees",
+        "skillId": "not-an-installed-skill"
+      },
+      "expectedSkill": null,
+      "expectedState": "unavailable"
+    },
+    {
+      "id": "heldout-record-question-1",
+      "family": "heldout-record-question",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "What is the recorded delivery deadline?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-record-question-2",
+      "family": "heldout-record-question",
+      "split": "held-out",
+      "language": "en",
+      "input": {
+        "message": "Which owner is recorded for Atlas?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-record-question-3",
+      "family": "heldout-record-question",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Quelle est la date enregistree ?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    },
+    {
+      "id": "heldout-record-question-4",
+      "family": "heldout-record-question",
+      "split": "held-out",
+      "language": "fr",
+      "input": {
+        "message": "Quel responsable est indique ?"
+      },
+      "expectedSkill": "hoi-retrieve",
+      "expectedState": "ready"
+    }
+  ]
+}

@@ -109,7 +109,7 @@ try {
   migrate(s);
   s.close();
   s = new Store(upgraded);
-  assert.equal(s.schemaVersion, 19);
+  assert.equal(s.schemaVersion, 20);
   const hit = retrieve(s, "CED-731", "local").results.find(
     (r) => r.passageId === expected.passageId,
   );
@@ -128,7 +128,7 @@ verifyBackup(join(out, "upgraded-backup"));
 restore(join(out, "upgraded-backup"), join(out, "restored-schema-19"));
 s = new Store(join(out, "restored-schema-19"));
 try {
-  assert.equal(s.schemaVersion, 19);
+  assert.equal(s.schemaVersion, 20);
   assert.ok(
     retrieve(s, "CED-731", "local").results.some(
       (r) => r.passageId === expected.passageId,

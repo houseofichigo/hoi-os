@@ -45,7 +45,7 @@ test("candidate destinations cannot overwrite history or overlap product sources
     /PACKAGE_OUTPUT_EXISTS/,
   );
 });
-test("complete candidate contains exact Hub bytes, 21 skills, reproducible hashes and no publishing workflow", async (t) => {
+test("complete candidate contains exact Hub bytes, 22 skills, reproducible hashes and no publishing workflow", async (t) => {
   const scratch = mkdtempSync(join(tmpdir(), "hoi-candidate-"));
   t.after(() => rmSync(scratch, { recursive: true, force: true }));
   const one = join(scratch, "one"),

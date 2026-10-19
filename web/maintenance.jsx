@@ -143,6 +143,16 @@ function Review({ r, choices, busy, act }) {
         </select>
       </label>
       <p>{selected.content}</p>
+      {r.proposedText && (
+        <section>
+          <h4>Suggested draft · not published</h4>
+          <p>{r.proposedText}</p>
+          <p>
+            Coverage: bounded excerpts. Open the wiki editor to prepare a
+            reviewed change.
+          </p>
+        </section>
+      )}
       <details>
         <summary>Supporting quotations</summary>
         {selected.evidence.map((e, i) => (

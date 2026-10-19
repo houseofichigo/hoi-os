@@ -1,3 +1,4 @@
+import Automations from "./automations.jsx";
 import { surfacePath } from "./destination.js";
 import Onboarding from "./onboarding.jsx";
 import { GoogleWritePolicy } from "./google-write-policy.jsx";
@@ -12,6 +13,7 @@ export default function Configuration({ api }) {
     [
       "Onboarding",
       "Connections",
+      "Automations",
       "Skills & capabilities",
       "Assistant & search",
       "Security",
@@ -564,6 +566,7 @@ export default function Configuration({ api }) {
           ))}
         </>
       )}
+      {tab === "Automations" && <Automations api={api} />}
       {tab === "Onboarding" && <Onboarding api={api} />}
       {tab === "Workspace & recovery" && (
         <>

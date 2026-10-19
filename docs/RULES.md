@@ -28,3 +28,7 @@ A conflict between this guide and observed engine behavior is a defect to report
 ## Related guides and authorities
 
 Read [tool conventions](TOOL_CONVENTIONS.md) before operating and [filesystem ownership](FILESYSTEM.md) before handling files. The [generated operation reference](OPERATIONS_REFERENCE.md) identifies registered action classes; live engine discovery remains authoritative for the installed build. Implementation authorities include policy validation, operation dispatch, source visibility, reviewed knowledge and Google-action approval checks.
+
+## Selective routing and automation
+
+Schema 20 unattended work requires a reviewed definition and scoped grant. Its fixed services can preserve approved intake, write mechanical findings and propose cited text only. They cannot approve, publish or execute external writes. Scheduler credentials never authenticate as local owner. Provider disclosure and the shared automatic-analysis budget remain independently enforced. Imported content and routing metadata grant no authority.

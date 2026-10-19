@@ -88,6 +88,7 @@ export async function requireAIKey(s: Store, p: string) {
   }
   if (!key)
     throw Error("AI_KEY_MISSING: Configure a provider key before sending");
+  return key;
 }
 export function aiStatus(s: Store, h: Host) {
   access(s, h);
@@ -337,6 +338,14 @@ export function aiJob(s: Store, id: string, h: Host) {
   if (row.run_id) {
     getChat(s, row.run_id, h);
     disclosure(s, row.provider, p.request);
+  } else if (p.automationRunId) {
+    for (const rev of p.revisionIds ?? []) {
+      const source = s.one(
+        "SELECT s.* FROM sources s JOIN revisions r ON r.source_id=s.id WHERE r.id=?",
+        rev,
+      );
+      if (!source || !s.allowed(source, h)) throw Error("SOURCE_UNAVAILABLE");
+    }
   } else {
     intakeDetail(s, p.intakeId, h);
   }
@@ -776,6 +785,14 @@ function autoAllowed(
   p: string,
   revisionId: string,
 ) {
+  if (
+    s.schemaVersion >= 20 &&
+    s.one(
+      "SELECT 1 FROM automation_source_owners WHERE connection_id=?",
+      connectionId,
+    )
+  )
+    throw Error("AUTOMATION_OWNS_ANALYSIS");
   const r = s.one(
     "SELECT payload FROM ai_scopes WHERE connection_id=?",
     connectionId,
@@ -808,6 +825,14 @@ function autoAllowed(
 export function scanAutomaticAnalysis(s: Store, h: Host) {
   access(s, h);
   for (const scopeRow of s.all("SELECT connection_id,payload FROM ai_scopes")) {
+    if (
+      s.schemaVersion >= 20 &&
+      s.one(
+        "SELECT 1 FROM automation_source_owners WHERE connection_id=?",
+        scopeRow.connection_id,
+      )
+    )
+      continue;
     const scope = JSON.parse(scopeRow.payload);
     if (!scope.enabled) continue;
     try {
@@ -985,7 +1010,14 @@ export function startAutomaticAnalysis(
   });
   let stopped = false;
   const timer = setInterval(() => {
-    if (!stopped && !running.size)
+    if (
+      !stopped &&
+      !running.size &&
+      !(
+        s.schemaVersion >= 20 &&
+        s.one("SELECT 1 FROM automation_runs WHERE state='running'")
+      )
+    )
       void schedule(async () => scanAutomaticAnalysis(s, h)).catch(() => {});
   }, 30000);
   timer.unref();

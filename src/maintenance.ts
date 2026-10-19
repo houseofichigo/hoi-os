@@ -41,6 +41,14 @@ function objects(s: Store): any[] {
   ];
 }
 function visible(s: Store, o: any, h: Host) {
+  if (o.kind === "source") {
+    const source = s.one("SELECT * FROM sources WHERE id=?", o.id);
+    return (
+      !!source &&
+      s.allowed(source, h) &&
+      s.evidenceVisible(o.evidence, h, false)
+    );
+  }
   if (o.kind === "memory" && !s.memoryAllowed(o.snapshot, h, false))
     return false;
   if (s.schemaVersion >= 15 && o.kind === "wiki") {
@@ -166,9 +174,11 @@ function rowVisible(s: Store, row: any, h: Host) {
     f.targets.every(
       (o: any) =>
         visible(s, o, h) &&
-        objects(s).some(
-          (current) => current.id === o.id && visible(s, current, h),
-        ),
+        (o.kind === "source"
+          ? visible(s, o, h)
+          : objects(s).some(
+              (current) => current.id === o.id && visible(s, current, h),
+            )),
     ) &&
     (!row.decision ||
       !JSON.parse(row.decision).replacementId ||
@@ -178,10 +188,28 @@ function rowVisible(s: Store, row: any, h: Host) {
       ))
   );
 }
-export function scanKnowledge(s: Store, h: Host) {
+export function scanKnowledge(s: Store, h: Host, revisionIds?: string[]) {
   access(s, h, true);
+  const sourceIds = revisionIds
+    ? new Set(
+        revisionIds.map(
+          (rev) =>
+            s.one("SELECT source_id FROM revisions WHERE id=?", rev)?.source_id,
+        ),
+      )
+    : null;
+  const relevant = findings(s, h).filter(
+    (f) =>
+      !sourceIds ||
+      f.evidence.some((e: any) =>
+        sourceIds.has(
+          s.one("SELECT source_id FROM revisions WHERE id=?", e.revisionId)
+            ?.source_id,
+        ),
+      ),
+  );
   return s.tx(() => {
-    for (const f of findings(s, h))
+    for (const f of relevant)
       s.exec(
         "INSERT OR IGNORE INTO knowledge_reviews VALUES(?,?,?,?,?,?,?)",
         f.id,
@@ -192,7 +220,10 @@ export function scanKnowledge(s: Store, h: Host) {
         null,
         now(),
       );
-    return listKnowledgeReviews(s, h);
+    const keys = new Set(relevant.map((f) => f.id));
+    return listKnowledgeReviews(s, h).filter(
+      (f) => !sourceIds || keys.has(f.id),
+    );
   });
 }
 export function listKnowledgeReviews(s: Store, h: Host) {
@@ -205,7 +236,7 @@ export function listKnowledgeReviews(s: Store, h: Host) {
       id: r.id,
       version: r.version,
       state: r.state,
-      current: current.has(r.fingerprint),
+      current: current.has(r.fingerprint) || assistedCurrent(s, r, h),
       ...JSON.parse(r.payload),
       decision: r.decision ? JSON.parse(r.decision) : null,
     }));
@@ -294,12 +325,17 @@ export function reviewKnowledge(s: Store, input: unknown, h: Host) {
     }
     if (
       row.version !== v.expectedVersion ||
-      !findings(s, h).some((f) => f.fingerprint === row.fingerprint)
+      (!findings(s, h).some((f) => f.fingerprint === row.fingerprint) &&
+        !assistedCurrent(s, row, h))
     )
       throw Error("STALE_VERSION: Knowledge or evidence changed; scan again");
     const f = JSON.parse(row.payload),
       target = f.targets.find((o: any) => o.id === v.targetId);
     if (!target) throw Error("Target outside finding");
+    if (target.kind === "source" && !["keep", "reject"].includes(v.action))
+      throw Error(
+        "SOURCE_REVIEW_USE_EXISTING_EDITOR: Source archive requires its impact preview; content suggestions remain drafts",
+      );
     if (["update", "merge", "supersede"].includes(v.action)) {
       const replacement = objects(s).find((o) => o.id === v.replacementId);
       if (
@@ -367,4 +403,89 @@ export function knowledgeDates(s: Store, h: Host) {
         o.id,
       ) || { effectiveDate: null, recordedAt: null }),
     }));
+}
+
+function assistedCurrent(s: Store, row: any, h: Host) {
+  const f = JSON.parse(row.payload);
+  return (
+    f.origin === "assisted-review" &&
+    rowVisible(s, row, h) &&
+    f.targets.every(
+      (t: any) =>
+        s.one("SELECT current_revision FROM sources WHERE id=?", t.id)
+          ?.current_revision === t.snapshot.current_revision,
+    )
+  );
+}
+export function saveAssistedFindings(
+  s: Store,
+  h: Host,
+  findings: any[],
+  instructionDigest: string,
+) {
+  access(s, h, true);
+  const ids: string[] = [];
+  for (const f of findings) {
+    const source = s.one("SELECT * FROM sources WHERE id=?", f.sourceId);
+    if (!source || !s.allowed(source, h)) throw Error("SOURCE_UNAVAILABLE");
+    s.validateEvidence(f.evidence, h, true);
+    const fingerprint = sha(
+      JSON.stringify([
+        "assisted-review",
+        source.id,
+        source.current_revision,
+        instructionDigest,
+        f.kind,
+      ]),
+    );
+    const id = "review_" + fingerprint;
+    const related = s
+      .all(
+        "SELECT id FROM knowledge_reviews WHERE json_extract(payload,'$.origin')='assisted-review' AND json_extract(payload,'$.sourceId')=? AND json_extract(payload,'$.type')=?",
+        source.id,
+        f.kind,
+      )
+      .map((r) => r.id)
+      .filter((x) => x !== id);
+    const payload = {
+      id,
+      fingerprint,
+      origin: "assisted-review",
+      sourceId: source.id,
+      type: f.kind,
+      explanation: f.explanation,
+      reason: f.explanation,
+      proposedText: f.suggestedText ?? null,
+      coverage: "bounded-excerpts",
+      instructionDigest,
+      updates: related,
+      evidence: f.evidence,
+      targets: [
+        {
+          id: source.id,
+          kind: "source",
+          title: source.title,
+          content: f.explanation,
+          state: "unreviewed",
+          allowedHosts: JSON.parse(source.metadata).allowedHosts,
+          evidence: f.evidence,
+          snapshot: { current_revision: source.current_revision },
+        },
+      ],
+      affectedRecords: [{ id: source.id, kind: "source" }],
+      recommendedAction: "verify",
+    };
+    s.exec(
+      "INSERT OR IGNORE INTO knowledge_reviews VALUES(?,?,?,?,?,?,?)",
+      id,
+      fingerprint,
+      JSON.stringify(payload),
+      "pending",
+      1,
+      null,
+      now(),
+    );
+    ids.push(id);
+  }
+  return ids;
 }

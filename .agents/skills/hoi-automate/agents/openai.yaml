@@ -1,0 +1,4 @@
+interface:
+  display_name: "Governed automation"
+  short_description: "Scope recurring intake, checks and drafts for review"
+  default_prompt: "Use $hoi-automate to prepare a bounded automation and explain the approvals and scheduler verification needed before it runs."

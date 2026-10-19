@@ -224,7 +224,7 @@ test("dismissed source findings stay dismissed across freshness refresh; schema 
   migrate(before);
   before.close();
   const after = new Store(copy);
-  assert.equal(after.schemaVersion, 19);
+  assert.equal(after.schemaVersion, 20);
   assert.equal(after.one("SELECT COUNT(*) n FROM sources").n, 1);
   after.close();
 });

@@ -1,3 +1,4 @@
+import { recoverAutomations, stopAutomations } from "./automations.js";
 import {
   readFileSync,
   existsSync,
@@ -86,6 +87,7 @@ export async function createEngineSession(s: Store) {
     tail: Promise<unknown> = Promise.resolve(),
     closed = false;
   const boot = randomUUID();
+  recoverAutomations(s);
   try {
     mkdirSync(sessionDir(s.root), { recursive: true, mode: 0o700 });
     protect(sessionDir(s.root), true);
@@ -152,6 +154,9 @@ export async function createEngineSession(s: Store) {
         return Promise.reject(Error("REQUEST_ID_INVALID"));
       const control = raw as any;
       if (
+        (control?.command === "automation" && control?.args?.[0] === "pause") ||
+        (control?.command === "app-action" &&
+          control?.args?.[0] === "/api/automations/pause") ||
         (control?.command === "jobs" &&
           ["cancel", "list", undefined].includes(control?.args?.[0])) ||
         (control?.command === "app-action" &&
@@ -223,6 +228,7 @@ export async function createEngineSession(s: Store) {
       closed = true;
       accepting = false;
       await tail;
+      await stopAutomations(s);
       rmSync(sessionDir(s.root), { recursive: true, force: true });
       if (process.platform === "win32")
         for (const h of credentials.keys()) {

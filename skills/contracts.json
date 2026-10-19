@@ -42,7 +42,41 @@
     "optionalConnections": [
       "gmail",
       "calendar"
-    ]
+    ],
+    "routing": {
+      "intents": [
+        "priorities"
+      ],
+      "requiredInputs": [],
+      "contextDomains": [
+        "tasks",
+        "projects",
+        "calendar"
+      ],
+      "outputType": "priority-brief",
+      "permittedOperations": [
+        "daily:view",
+        "task:list"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "missing-input",
+        "permission-denied",
+        "budget-exhausted",
+        "changed-instructions"
+      ],
+      "evaluationRefs": [
+        "examples/routing/cases.json"
+      ],
+      "examples": [
+        "Review my priorities."
+      ]
+    }
   },
   "hoi-connect": {
     "requiredOperations": [
@@ -97,7 +131,43 @@
       "calendar",
       "gmail",
       "drive"
-    ]
+    ],
+    "routing": {
+      "intents": [
+        "meeting-preparation"
+      ],
+      "requiredInputs": [
+        "meetingId"
+      ],
+      "contextDomains": [
+        "calendar",
+        "knowledge",
+        "tasks"
+      ],
+      "outputType": "meeting-brief",
+      "permittedOperations": [
+        "daily:meeting",
+        "knowledge:search"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "missing-input",
+        "permission-denied",
+        "budget-exhausted",
+        "changed-instructions"
+      ],
+      "evaluationRefs": [
+        "examples/routing/cases.json"
+      ],
+      "examples": [
+        "Prepare my meeting."
+      ]
+    }
   },
   "hoi-onboard": {
     "requiredOperations": [
@@ -117,7 +187,40 @@
     "requiredOperations": [
       "retrieve"
     ],
-    "optionalConnections": []
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "supported-information"
+      ],
+      "requiredInputs": [],
+      "contextDomains": [
+        "knowledge",
+        "memory"
+      ],
+      "outputType": "evidence-bundle",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "missing-input",
+        "permission-denied",
+        "budget-exhausted",
+        "changed-instructions"
+      ],
+      "evaluationRefs": [
+        "examples/routing/cases.json"
+      ],
+      "examples": [
+        "Find evidence about the delivery method."
+      ]
+    }
   },
   "hoi-security": {
     "requiredOperations": [
@@ -147,7 +250,58 @@
       "intake:list",
       "task:proposals"
     ],
-    "optionalConnections": []
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "project-brief"
+      ],
+      "requiredInputs": [
+        "project_title",
+        "client_name",
+        "objective",
+        "scope_in",
+        "scope_out",
+        "deliverables",
+        "phases",
+        "risks",
+        "impact",
+        "tech_stack",
+        "next_steps",
+        "priority",
+        "start_date",
+        "due_date",
+        "status",
+        "owner",
+        "tags"
+      ],
+      "contextDomains": [
+        "knowledge",
+        "projects"
+      ],
+      "outputType": "project-brief-17-fields",
+      "permittedOperations": [
+        "intake:list",
+        "task:proposals"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "missing-input",
+        "permission-denied",
+        "budget-exhausted",
+        "changed-instructions"
+      ],
+      "evaluationRefs": [
+        "examples/routing/cases.json"
+      ],
+      "examples": [
+        "Structure a project brief."
+      ]
+    }
   },
   "hoi-task-intake": {
     "requiredOperations": [
@@ -158,7 +312,41 @@
     "optionalConnections": [
       "gmail",
       "calendar"
-    ]
+    ],
+    "routing": {
+      "intents": [
+        "extract-commitments"
+      ],
+      "requiredInputs": [
+        "sourceId"
+      ],
+      "contextDomains": [
+        "knowledge"
+      ],
+      "outputType": "task-proposals",
+      "permittedOperations": [
+        "intake:prepare",
+        "intake:submit"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "missing-input",
+        "permission-denied",
+        "budget-exhausted",
+        "changed-instructions"
+      ],
+      "evaluationRefs": [
+        "examples/routing/cases.json"
+      ],
+      "examples": [
+        "Extract actions from this transcript."
+      ]
+    }
   },
   "hoi-wiki-author": {
     "requiredOperations": [
@@ -166,6 +354,14 @@
       "wiki:save",
       "wiki:compare",
       "wiki:search"
+    ],
+    "optionalConnections": []
+  },
+  "hoi-automate": {
+    "requiredOperations": [
+      "automation:status",
+      "automation:history",
+      "harness:route"
     ],
     "optionalConnections": []
   }

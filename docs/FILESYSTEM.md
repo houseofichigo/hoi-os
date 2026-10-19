@@ -43,3 +43,7 @@ See [governance](RULES.md), [tool conventions](TOOL_CONVENTIONS.md) and the [ope
 Procedural skill lessons use these same files with optional `lesson` metadata: exact skill revision/checksum, scope, limitations and observation type. Source reports stay preserved originals. There is no new skill-memory folder; lesson approval does not write skill files or adapter folders. Lessons remain explicitly inspectable while excluded from default factual retrieval. See the product’s `docs/PROCEDURAL_LESSONS.md` for the review workflow.
 
 `.hoi/models/<model-fingerprint>/` holds the optional verified local embedding model. It is distinct from configuration under `models/`. Search units, vector generations and derived conversation artifacts are stored in SQLite and remain rebuildable; derived summaries do not replace originals or approved records. Downloaded model files are never required for lexical reads. Existing backup verification includes workspace files, including installed model files; do not assume model caches are omitted from backup size.
+
+## Selective routing and automation
+
+Schema 20 automation definitions, grants (hashes only), scheduler observations and run checkpoints reside in the existing SQLite database. Originals remain in dated archives and source revisions; findings use existing Reviews. The optional `.hoi/automation-credentials/` directory is private and excluded from backups. Restoration pauses definitions, revokes scheduler grants and clears observed schedule state; re-review before use. No daemon or alternate memory store is installed.

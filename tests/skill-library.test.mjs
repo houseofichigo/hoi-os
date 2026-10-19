@@ -348,7 +348,7 @@ test("schema 13 migration and backup restoration preserve skills and prior works
   migrate(old);
   old.close();
   const current = new Store(join(root, "workspace"));
-  assert.equal(current.schemaVersion, 19);
+  assert.equal(current.schemaVersion, 20);
   const d = activate(current, create(current));
   backup(current, join(root, "backup"));
   await restore(join(root, "backup"), join(root, "restored"));

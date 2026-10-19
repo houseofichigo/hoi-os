@@ -1,3 +1,5 @@
+import { triggerAutomationClient } from "./automation-client.js";
+import { waitAutomations, recoverAutomations } from "./automations.js";
 import { existsSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -13,6 +15,7 @@ import { serve } from "./server.js";
 import { Store, initialize } from "./store.js";
 const strings = [
   "request-id",
+  "credential-file",
   "workspace",
   "host",
   "input",
@@ -75,6 +78,20 @@ export async function main(args = process.argv.slice(2)) {
     if (!v.input) throw Error("--input file is required");
     return readYaml(resolve(String(v.input)));
   };
+  if (command === "automation" && p[1] === "trigger") {
+    if (!v["credential-file"])
+      throw Error(
+        "--credential-file is required; never put tokens in arguments or prompts",
+      );
+    print(
+      await triggerAutomationClient(
+        root,
+        String(v["credential-file"]),
+        input(),
+      ),
+    );
+    return;
+  }
   if (command === "init") {
     print(initialize(root));
     return;
@@ -130,7 +147,18 @@ export async function main(args = process.argv.slice(2)) {
       v["request-id"] as string | undefined,
     );
     if (remote.connected) {
-      print(remote.result);
+      if (
+        command === "automation" &&
+        p[1] === "credential" &&
+        v.output &&
+        remote.result?.token
+      ) {
+        atomic(resolve(String(v.output)), remote.result.token);
+        print({
+          definitionId: remote.result.definitionId,
+          credentialFile: resolve(String(v.output)),
+        });
+      } else print(remote.result);
       return;
     }
   }
@@ -193,9 +221,19 @@ export async function main(args = process.argv.slice(2)) {
         );
       return;
     } else {
+      recoverAutomations(s);
       result = await executeOperation(s, host, request);
+      await waitAutomations(s);
     }
-    print(result);
+    if (command === "automation" && p[1] === "credential" && v.output) {
+      atomic(resolve(String(v.output)), result.token);
+      print({
+        definitionId: result.definitionId,
+        credentialFile: resolve(String(v.output)),
+        notice:
+          "Private credential saved. Do not place it in prompts, exports or version control.",
+      });
+    } else print(result);
   } finally {
     if (release) release();
     if (!keepOpen) s.close();

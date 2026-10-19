@@ -168,7 +168,7 @@ test("schema six migration preserves records", async (t) => {
   migrate(old);
   old.close();
   const current = new Store(f.s.root);
-  assert.equal(current.schemaVersion, 19);
+  assert.equal(current.schemaVersion, 20);
   assert.deepEqual(current.all("SELECT * FROM calendar_actions"), []);
   current.close();
 });

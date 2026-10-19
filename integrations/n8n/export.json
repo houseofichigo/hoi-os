@@ -1,0 +1,125 @@
+{
+  "name": "HOI \u2014 export",
+  "active": false,
+  "nodes": [
+    {
+      "id": "manual-test",
+      "name": "Manual test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "submit-selected-snapshot",
+      "name": "Submit selected snapshot",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:REPLACE_WITH_ENGINE_PORT/api/automation-client/run",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "options": {
+          "timeout": 15000
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ triggerId: \"n8n-execution:\" + $execution.id, snapshot: $json.snapshot }) }}"
+      },
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000
+    },
+    {
+      "id": "read-safe-status",
+      "name": "Read safe status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "http://127.0.0.1:REPLACE_WITH_ENGINE_PORT/api/automation-client/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000
+    }
+  ],
+  "connections": {
+    "Manual test": {
+      "main": [
+        [
+          {
+            "node": "Submit selected snapshot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Submit selected snapshot": {
+      "main": [
+        [
+          {
+            "node": "Read safe status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Paris",
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "all",
+    "errorWorkflow": "CONFIGURE_REAL_ERROR_WORKFLOW_ID"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "hoiVerification": "local structure only; target-instance validation, credential binding, saved connections and fictional execution required"
+  },
+  "pinData": {
+    "Manual test": [
+      {
+        "json": {
+          "snapshot": {
+            "schemaVersion": 2,
+            "namespace": "fictional-notes",
+            "account": "demo-account",
+            "scope": "approved-folder",
+            "objectId": "example-1",
+            "title": "Fictional delivery note",
+            "contentType": "document",
+            "text": "The fictional Atlas workshop covers source review.",
+            "observedAt": "2026-10-19T08:00:00Z",
+            "updatedAt": null,
+            "revision": null,
+            "coverage": "partial",
+            "original": {
+              "mediaType": "text/plain",
+              "text": "The fictional Atlas workshop covers source review."
+            }
+          }
+        }
+      }
+    ]
+  }
+}

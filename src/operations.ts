@@ -1,3 +1,16 @@
+import { routeHarness } from "./harness-routing.js";
+import {
+  previewAutomation,
+  saveAutomation,
+  enableAutomation,
+  pauseAutomation,
+  startAutomation,
+  automationStatus,
+  automationHistory,
+  automationCredential,
+  observeScheduler,
+  releaseAutomationConnection,
+} from "./automations.js";
 import {
   prepareSemanticQuery,
   indexStatus,
@@ -242,6 +255,19 @@ const json: z.ZodType<any> = z.lazy(() =>
 );
 export const operationOutput = json;
 const subcommands: Record<string, string[]> = {
+  harness: ["route"],
+  automation: [
+    "preview",
+    "save",
+    "enable",
+    "pause",
+    "run",
+    "status",
+    "history",
+    "credential",
+    "observe",
+    "release-connection",
+  ],
   skills: [
     "",
     "list",
@@ -375,12 +401,12 @@ const subcommands: Record<string, string[]> = {
   ],
 };
 const commands = new Set(
-  "memory activity suggestions google-policy email-actions ai inbox skills views preferences processing entity-merge jobs adapter engine app-action app-read calendar security configuration dashboard records source sync chat knowledge daily intake project task health doctor audit diagnostics ocr onboard context connect import-connection ingest-plan ingest retrieve query-data entity relate capture review-memory consolidate organize approve build-capability run evaluate reindex backup upgrade wiki".split(
+  "harness automation memory activity suggestions google-policy email-actions ai inbox skills views preferences processing entity-merge jobs adapter engine app-action app-read calendar security configuration dashboard records source sync chat knowledge daily intake project task health doctor audit diagnostics ocr onboard context connect import-connection ingest-plan ingest retrieve query-data entity relate capture review-memory consolidate organize approve build-capability run evaluate reindex backup upgrade wiki".split(
     " ",
   ),
 );
 const reads = new Set(
-  "memory:compare memory:list memory:get memory:history activity: activity:list activity:get suggestions: suggestions:list suggestions:get chat:results onboard:status google-policy: email-actions: email-actions:list ai: ai:status ai:job inbox: inbox:get inbox:email-candidates skills: skills:list skills:get views:client views:project views:training preferences: preferences:get processing: processing:list entity-merge: entity-merge:list jobs: jobs:list adapter: adapter:status engine: engine:status engine:operations app-read security configuration dashboard health doctor audit diagnostics context ingest-plan retrieve query-data consolidate calendar:list calendar: records:client records:project records:training source: source:list source:get source:impact sync: sync:list chat: chat:status chat:get chat:conversations chat:conversation chat:evidence knowledge:index-status knowledge:search knowledge:evidence knowledge:dates knowledge: knowledge:list knowledge:replacements daily: daily:view intake: intake:list intake:mentions intake:decisions project: project:list project:get task: task:list task:proposals task:get task:history wiki: wiki:list wiki:get wiki:contradictions wiki:pages wiki:page wiki:compare wiki:history wiki:node wiki:taxonomy wiki:search wiki:templates wiki:backlinks".split(
+  "harness:route automation:preview automation:status automation:history memory:compare memory:list memory:get memory:history activity: activity:list activity:get suggestions: suggestions:list suggestions:get chat:results onboard:status google-policy: email-actions: email-actions:list ai: ai:status ai:job inbox: inbox:get inbox:email-candidates skills: skills:list skills:get views:client views:project views:training preferences: preferences:get processing: processing:list entity-merge: entity-merge:list jobs: jobs:list adapter: adapter:status engine: engine:status engine:operations app-read security configuration dashboard health doctor audit diagnostics context ingest-plan retrieve query-data consolidate calendar:list calendar: records:client records:project records:training source: source:list source:get source:impact sync: sync:list chat: chat:status chat:get chat:conversations chat:conversation chat:evidence knowledge:index-status knowledge:search knowledge:evidence knowledge:dates knowledge: knowledge:list knowledge:replacements daily: daily:view intake: intake:list intake:mentions intake:decisions project: project:list project:get task: task:list task:proposals task:get task:history wiki: wiki:list wiki:get wiki:contradictions wiki:pages wiki:page wiki:compare wiki:history wiki:node wiki:taxonomy wiki:search wiki:templates wiki:backlinks".split(
     " ",
   ),
 );
@@ -417,6 +443,8 @@ export function operationInfo(raw: unknown) {
     requiredPermission: action,
     idempotency: read ? "read-only" : "request-receipt",
     inputSchema:
+      r.command === "harness" ? "RouteInput/v1 (strict routeInput)" :
+      r.command === "automation" ? ({preview:"AutomationDefinition/v1",save:"AutomationSave/v1 (expectedVersion, previewDigest)",enable:"AutomationControl/v1 (expectedVersion, digest, confirm)",pause:"AutomationControl/v1 (expectedVersion, confirm)",run:"AutomationRun/v1 (triggerId, optional ExternalSourceSnapshot/v2)",status:"AutomationStatus/v1 (optional id)",history:"AutomationHistory/v1 (id, cursor, limit)",credential:"AutomationControl/v1 (expectedVersion, confirm)",observe:"SchedulerObservation/v1 (version, actual identity and read-back)","release-connection":"AutomationControl/v1 (paused, expectedVersion, confirm)"}[sub]??"AutomationInput/v1") :
       (r.command === "chat" && sub === "send") ||
       (r.command === "app-action" && sub === "/api/chat/send")
         ? "ChatSend/v1 (strict sendInput)"
@@ -457,6 +485,32 @@ async function dispatch(s: Store, host: Host, request: OperationInput) {
   };
   let result: any;
   switch (command) {
+    case "harness":
+      return routeHarness(s, input(), host);
+    case "automation":
+      switch (p[1]) {
+        case "preview":
+          return previewAutomation(s, input(), host);
+        case "save":
+          return saveAutomation(s, input(), host);
+        case "enable":
+          return enableAutomation(s, input(), host);
+        case "pause":
+          return pauseAutomation(s, input(), host);
+        case "run":
+          return startAutomation(s, input(), host);
+        case "status":
+          return automationStatus(s, host, p[2]);
+        case "history":
+          return automationHistory(s, host, request.input ?? {});
+        case "credential":
+          return automationCredential(s, input(), host);
+        case "observe":
+          return observeScheduler(s, input(), host);
+        case "release-connection":
+          return releaseAutomationConnection(s, input(), host);
+      }
+      break;
     case "entity-merge":
       result =
         p[1] === "review"
@@ -800,6 +854,22 @@ async function dispatch(s: Store, host: Host, request: OperationInput) {
       result = connect(s, request.input !== undefined ? input() : undefined);
       break;
     case "import-connection":
+      if ((input() as any)?.schemaVersion === 2) {
+        const v = z
+          .object({
+            schemaVersion: z.literal(2),
+            automationId: z.string(),
+            triggerId: z.string(),
+            snapshot: z.unknown(),
+          })
+          .strict()
+          .parse(input());
+        return startAutomation(
+          s,
+          { id: v.automationId, triggerId: v.triggerId, snapshot: v.snapshot },
+          host,
+        );
+      }
       result = await importConnection(s, input(), host);
       break;
     case "ingest-plan":

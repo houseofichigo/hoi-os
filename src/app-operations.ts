@@ -1,3 +1,16 @@
+import { routeHarness } from "./harness-routing.js";
+import {
+  previewAutomation,
+  saveAutomation,
+  enableAutomation,
+  pauseAutomation,
+  startAutomation,
+  automationStatus,
+  automationHistory,
+  automationCredential,
+  observeScheduler,
+  releaseAutomationConnection,
+} from "./automations.js";
 import {
   indexStatus,
   configureSemantic,
@@ -184,6 +197,17 @@ import {
 } from "./workspace.js";
 
 export const APP_POST_ROUTES = new Set([
+  "/api/harness/route",
+  ...[
+    "preview",
+    "save",
+    "enable",
+    "pause",
+    "run",
+    "credential",
+    "observe",
+    "release-connection",
+  ].map((x) => "/api/automations/" + x),
   "/api/onboarding/save",
   "/api/onboarding/backup",
   "/api/google-policy/review",
@@ -279,7 +303,20 @@ export async function appMutation(
 ) {
   if (!APP_POST_ROUTES.has(pathname)) throw Error("OPERATION_UNKNOWN");
   let result: any;
-  if (pathname === "/api/onboarding/save")
+  if (pathname === "/api/harness/route") result = routeHarness(s, body, host);
+  else if (pathname.startsWith("/api/automations/")) {
+    const actions: any = {
+      preview: previewAutomation,
+      save: saveAutomation,
+      enable: enableAutomation,
+      pause: pauseAutomation,
+      run: startAutomation,
+      credential: automationCredential,
+      observe: observeScheduler,
+      "release-connection": releaseAutomationConnection,
+    };
+    result = actions[pathname.split("/").pop()!](s, body, host);
+  } else if (pathname === "/api/onboarding/save")
     result = saveOnboarding(s, body, host);
   else if (pathname === "/api/onboarding/backup")
     result = onboardingBackup(s, host);
@@ -457,7 +494,16 @@ export function appRead(
   const options = { app },
     url = new URL("http://127.0.0.1" + pathname + query);
   let result: any;
-  if (options.app && pathname === "/api/onboarding")
+  if (options.app && pathname === "/api/automations")
+    result = automationStatus(s, host);
+  else if (options.app && pathname === "/api/automations/history")
+    result = automationHistory(s, host, {
+      ...(url.searchParams.get("id") ? { id: url.searchParams.get("id") } : {}),
+      ...(url.searchParams.get("cursor")
+        ? { cursor: url.searchParams.get("cursor") }
+        : {}),
+    });
+  else if (options.app && pathname === "/api/onboarding")
     result = onboarding(s, host);
   else if (pathname === "/api/knowledge/index-status")
     result = indexStatus(s, host);

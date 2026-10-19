@@ -1,0 +1,27 @@
+{
+  "name": "HOI \u2014 automation error history",
+  "active": false,
+  "nodes": [
+    {
+      "id": "record-failed-execution",
+      "name": "Record failed execution",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Paris",
+    "saveDataSuccessExecution": "all",
+    "saveDataErrorExecution": "all"
+  },
+  "meta": {
+    "hoiVerification": "Bind as the actual error workflow after instance validation and publication. No outgoing notifications."
+  }
+}

@@ -653,7 +653,32 @@ export async function controlConnection(s: Store, input: unknown, h: Host) {
   return { id: c.id };
 }
 const locks = new Set<string>();
-export async function syncConnection(s: Store, key: string, h: Host) {
+export async function syncConnection(
+  s: Store,
+  key: string,
+  h: Host,
+  automation?: {
+    automationId: string;
+    check: () => void;
+    baselineItems: any[];
+    importBacklog: boolean;
+    futureRevisions: boolean;
+  },
+) {
+  if (s.schemaVersion >= 20) {
+    const owner = s.one(
+      "SELECT definition_id FROM automation_source_owners WHERE connection_id=?",
+      key,
+    );
+    if (owner && owner.definition_id !== automation?.automationId)
+      throw Error("AUTOMATION_OWNS_CONNECTION");
+    if (
+      !automation &&
+      s.one("SELECT 1 FROM automation_runs WHERE state='running'")
+    )
+      throw Error("AUTOMATION_WORKSPACE_BUSY");
+  }
+  automation?.check();
   access(s, h, true);
   const c = connection(s, key, h);
   if (c.state !== "active")
@@ -741,6 +766,22 @@ export async function syncConnection(s: Store, key: string, h: Host) {
       );
     }
     for (const item of items) {
+      automation?.check();
+      if (automation) {
+        const original = automation.baselineItems.find((x) => x.id === item.id);
+        const old = original && original.stamp === item.stamp;
+        if (
+          (old && !automation.importBacklog) ||
+          (!old && !automation.futureRevisions)
+        ) {
+          mark(
+            item,
+            "skipped",
+            old ? "BACKLOG_EXCLUDED" : "FUTURE_REVISIONS_DENIED",
+          );
+          continue;
+        }
+      }
       access(s, h, true);
       mark(item, "processing");
       if (item.reason) {
@@ -1153,9 +1194,23 @@ export function startSync(
     );
   let stopped = false;
   const tick = async () => {
-    if (stopped || locks.has(s.root)) return;
+    if (
+      stopped ||
+      locks.has(s.root) ||
+      (s.schemaVersion >= 20 &&
+        s.one("SELECT 1 FROM automation_runs WHERE state='running'"))
+    )
+      return;
     for (const c of connections(s, h).filter((c) => c.state === "active")) {
       if (stopped) break;
+      if (
+        s.schemaVersion >= 20 &&
+        s.one(
+          "SELECT 1 FROM automation_source_owners WHERE connection_id=?",
+          c.id,
+        )
+      )
+        continue;
       try {
         await schedule(() => syncConnection(s, c.id, h));
       } catch {}

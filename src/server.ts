@@ -1,4 +1,9 @@
 import { startIndexMaintenance } from "./index-maintenance.js";
+import {
+  authenticateAutomation,
+  startAutomation,
+  automationSafeStatus,
+} from "./automations.js";
 import { stopAI, startAutomaticAnalysis } from "./ai.js";
 import { randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
 import { existsSync, readFileSync, rmSync, statSync } from "node:fs";
@@ -75,6 +80,43 @@ export async function serve(
         throw Error("Untrusted origin");
       const url = new URL(req.url ?? "/", origin),
         pathname = decodeURIComponent(url.pathname);
+      if (options.app && pathname.startsWith("/api/automation-client/")) {
+        const grant = authenticateAutomation(
+          s,
+          (req.headers.authorization || "").replace(/^Bearer /, ""),
+        );
+        if (!grant) {
+          res.writeHead(401);
+          res.end(JSON.stringify({ error: "AUTOMATION_AUTH_REQUIRED" }));
+          return;
+        }
+        let result;
+        if (
+          pathname === "/api/automation-client/status" &&
+          req.method === "GET"
+        )
+          result = automationSafeStatus(s, grant.definitionId);
+        else if (
+          pathname === "/api/automation-client/run" &&
+          req.method === "POST"
+        ) {
+          const body = z
+            .object({ triggerId: z.string(), snapshot: z.unknown().optional() })
+            .strict()
+            .parse(await readBody(req));
+          result = await engine!.enqueue(() =>
+            startAutomation(
+              s,
+              { ...body, id: grant.definitionId },
+              null,
+              grant,
+            ),
+          );
+        } else throw Error("AUTOMATION_OPERATION_DENIED");
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify(result));
+        return;
+      }
       if (options.app && pathname.startsWith("/api/engine/")) {
         const caller = engine!.authenticate(
           (req.headers.authorization || "").replace(/^Bearer /, ""),

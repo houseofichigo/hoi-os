@@ -15,3 +15,7 @@ Inspect the actual current host's available read tools. Only mark a connector av
 ## Recurring work
 
 Method step 20 (historical hoi-automate) defines desired timing, bounded source scope, spending and draft outputs. This skill does not create a scheduler. Use a supported host scheduler only when the user explicitly requests scheduling; keep its actual job ID and read-back state. If unavailable, give a manual prompt and report not scheduled. A local register, skill file or successful evaluation cannot establish active/paused state. Verify pause/removal at the scheduler; do not infer it from editing Markdown. Engine intake/analysis jobs retain their own controls and do not authorize a new background watcher.
+
+## Routing and scheduled maintenance (schema 20)
+
+Schema 20 adds reviewed export namespaces and scoped scheduler credentials. An export schema does not prove a live Notion, Slack or MCP connector. Verify the actual selected account/tool read before importing a normalized snapshot; keep unknown timestamps and partial coverage explicit. Engine authorization and Codex/n8n schedule availability are separate. Use `hoi-automate` for requested scheduling and record actual read-back evidence. Never use a scheduler grant as a local-owner credential.

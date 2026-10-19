@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "compatibility": {
     "engineApiVersion": 1,
-    "workspaceSchema": 19,
+    "workspaceSchema": 20,
     "supportedSchemas": [
       1,
       2,
@@ -22,7 +22,8 @@
       16,
       17,
       18,
-      19
+      19,
+      20
     ],
     "node": ">=22.14.0",
     "channel": "unreleased-local"
@@ -34,7 +35,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -70,7 +71,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -103,11 +104,50 @@
       ]
     },
     {
+      "name": "hoi-automate",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 20,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "automation:status",
+        "automation:history",
+        "harness:route"
+      ],
+      "optionalConnections": [],
+      "description": "Prepare and inspect scoped HOI automations for recurring intake, knowledge checks and reviewable drafts; configure Codex or n8n schedules only when explicitly requested, verify their actual state and pause or diagnose failed runs.",
+      "presentation": {
+        "displayName": "Governed automation",
+        "shortDescription": "Review recurring intake, checks and drafts.",
+        "category": "Setup",
+        "icon": "setup",
+        "examples": [
+          "Prepare a daily knowledge-health automation.",
+          "Inspect an automation before resuming."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml"
+      ]
+    },
+    {
       "name": "hoi-build-capability",
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -147,7 +187,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -184,7 +224,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -198,6 +238,40 @@
         "gmail",
         "calendar"
       ],
+      "routing": {
+        "intents": [
+          "priorities"
+        ],
+        "requiredInputs": [],
+        "contextDomains": [
+          "tasks",
+          "projects",
+          "calendar"
+        ],
+        "outputType": "priority-brief",
+        "permittedOperations": [
+          "daily:view",
+          "task:list"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "missing-input",
+          "permission-denied",
+          "budget-exhausted",
+          "changed-instructions"
+        ],
+        "evaluationRefs": [
+          "examples/routing/cases.json"
+        ],
+        "examples": [
+          "Review my priorities."
+        ]
+      },
       "description": "Use when requested to prepare a daily HOI work brief, review promises and waiting-for tasks, prepare an exact meeting instance, and suggest local preparation time from confirmed calendar exports.",
       "presentation": {
         "displayName": "Chief of Staff",
@@ -228,7 +302,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -269,7 +343,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -305,7 +379,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -346,7 +420,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -385,7 +459,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -417,7 +491,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -456,7 +530,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -470,6 +544,42 @@
         "gmail",
         "drive"
       ],
+      "routing": {
+        "intents": [
+          "meeting-preparation"
+        ],
+        "requiredInputs": [
+          "meetingId"
+        ],
+        "contextDomains": [
+          "calendar",
+          "knowledge",
+          "tasks"
+        ],
+        "outputType": "meeting-brief",
+        "permittedOperations": [
+          "daily:meeting",
+          "knowledge:search"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "missing-input",
+          "permission-denied",
+          "budget-exhausted",
+          "changed-instructions"
+        ],
+        "evaluationRefs": [
+          "examples/routing/cases.json"
+        ],
+        "examples": [
+          "Prepare my meeting."
+        ]
+      },
       "description": "Use when requested to prepare a cited client meeting brief using HOI knowledge and available read-only host connections.",
       "presentation": {
         "displayName": "Meeting preparation",
@@ -498,7 +608,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -535,7 +645,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -572,7 +682,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -582,6 +692,57 @@
         "task:proposals"
       ],
       "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "project-brief"
+        ],
+        "requiredInputs": [
+          "project_title",
+          "client_name",
+          "objective",
+          "scope_in",
+          "scope_out",
+          "deliverables",
+          "phases",
+          "risks",
+          "impact",
+          "tech_stack",
+          "next_steps",
+          "priority",
+          "start_date",
+          "due_date",
+          "status",
+          "owner",
+          "tags"
+        ],
+        "contextDomains": [
+          "knowledge",
+          "projects"
+        ],
+        "outputType": "project-brief-17-fields",
+        "permittedOperations": [
+          "intake:list",
+          "task:proposals"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "missing-input",
+          "permission-denied",
+          "budget-exhausted",
+          "changed-instructions"
+        ],
+        "evaluationRefs": [
+          "examples/routing/cases.json"
+        ],
+        "examples": [
+          "Structure a project brief."
+        ]
+      },
       "description": "Extract a complete project brief from a transcript or user input, clarify missing fields, and validate the exact 17-field project Action contract before an explicitly requested submission. Individual tasks use HOI task proposals separately.",
       "presentation": {
         "displayName": "Project brief",
@@ -614,7 +775,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -623,6 +784,39 @@
         "retrieve"
       ],
       "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "supported-information"
+        ],
+        "requiredInputs": [],
+        "contextDomains": [
+          "knowledge",
+          "memory"
+        ],
+        "outputType": "evidence-bundle",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "missing-input",
+          "permission-denied",
+          "budget-exhausted",
+          "changed-instructions"
+        ],
+        "evaluationRefs": [
+          "examples/routing/cases.json"
+        ],
+        "examples": [
+          "Find evidence about the delivery method."
+        ]
+      },
       "description": "Use when requested to find source-backed information and bounded context in HOI OS.",
       "presentation": {
         "displayName": "Evidence search",
@@ -650,7 +844,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -687,7 +881,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -725,7 +919,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -739,6 +933,40 @@
         "gmail",
         "calendar"
       ],
+      "routing": {
+        "intents": [
+          "extract-commitments"
+        ],
+        "requiredInputs": [
+          "sourceId"
+        ],
+        "contextDomains": [
+          "knowledge"
+        ],
+        "outputType": "task-proposals",
+        "permittedOperations": [
+          "intake:prepare",
+          "intake:submit"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "missing-input",
+          "permission-denied",
+          "budget-exhausted",
+          "changed-instructions"
+        ],
+        "evaluationRefs": [
+          "examples/routing/cases.json"
+        ],
+        "examples": [
+          "Extract actions from this transcript."
+        ]
+      },
       "description": "Use when requested to extract evidence-backed to-do proposals from selected transcripts, briefs, Gmail messages or Calendar context; check existing commitments and route ambiguous duplicates to review without approving tasks or changing calendars.",
       "presentation": {
         "displayName": "Extract to-dos",
@@ -767,7 +995,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"
@@ -806,7 +1034,7 @@
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
         "engineApiVersion": 1,
-        "verifiedWorkspaceSchema": 19,
+        "verifiedWorkspaceSchema": 20,
         "runtimeVerification": "synthetic-package-checks-only",
         "freshCodexSession": "pending",
         "freshClaudeCodeSession": "pending"

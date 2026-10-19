@@ -40,6 +40,7 @@ export function backup(s: Store, destination: string) {
       if (
         name.startsWith(".hoi/lock") ||
         name.startsWith(".hoi/engine-session/") ||
+        name.startsWith(".hoi/automation-credentials/") ||
         name === ".hoi/last-backup.json" ||
         name.startsWith(".hoi/recovered-lock") ||
         name.startsWith(".hoi/recovery-lock") ||
@@ -129,6 +130,22 @@ function restoreGuarded(backupPath: string, workspace: string, guard: string) {
     atomic(join(stage, "manifest.json"), JSON.stringify(manifest));
     verifyBackup(stage);
     rmSync(join(stage, "manifest.json"));
+    const restoredDb = new Database(join(stage, ".hoi/os.sqlite"));
+    try {
+      const version = (restoredDb.prepare("PRAGMA user_version").get() as any)
+        .user_version;
+      if (version >= 20)
+        restoredDb.transaction(() => {
+          restoredDb.exec(
+            "UPDATE automation_grants SET revoked=1; UPDATE automation_definitions SET state='paused',version=version+1,approval_digest=NULL; DELETE FROM automation_schedule_observations;",
+          );
+          restoredDb.exec(
+            "UPDATE automation_runs SET state='interrupted' WHERE state='running';",
+          );
+        })();
+    } finally {
+      restoredDb.close();
+    }
     atomic(
       join(guard, "journal.json"),
       JSON.stringify({ target, stage, previous }),
@@ -164,6 +181,7 @@ export function verifyBackup(backupPath: string) {
     throw Error("Invalid backup manifest");
   for (const [name, checksum] of Object.entries(manifest.files)) {
     if (
+      name.startsWith(".hoi/automation-credentials/") ||
       name.split(/[\\/]/).some((p) => p === ".secrets" || p.startsWith(".env"))
     )
       throw Error("Backup includes excluded credentials");

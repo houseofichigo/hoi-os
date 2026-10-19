@@ -1,0 +1,13 @@
+{
+  "label": "Fictional document health",
+  "scope": {"kind": "export", "namespace": "fictional-notes", "account": "demo-account", "scope": "approved-folder", "contentTypes": ["document"]},
+  "accessHost": "local",
+  "recipe": "intake-health",
+  "objective": "Check the evidence affected by this selected export.",
+  "maxItems": 25,
+  "futureRevisions": true,
+  "importBacklog": false,
+  "analyzeBacklog": false,
+  "maxCost": 0.25,
+  "scheduler": {"kind": "n8n", "timezone": "Europe/Paris", "cadence": "quarter-hour"}
+}
