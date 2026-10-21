@@ -1,0 +1,5 @@
+interface:
+  display_name: Support response draft
+  short_description: Draft support response draft with evidence
+  default_prompt: Use $hoi-support-response for this selected client. Draft a
+    support response grounded in approved policy and knowledge.

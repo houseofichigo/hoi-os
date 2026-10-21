@@ -33,7 +33,7 @@ Use a separate fictional workspace first. The optional Knowledge Hub opens throu
 
 ## Phase 4 — Equip
 
-16. **Author one role skill.** Draft a procedure using existing operations, input requirements, examples and failure handling. Gate: draft status, exact version and no extra permissions; import does not activate it.
+16. **Equip and customize expertise.** Choose relevant expertise plugins after selected files and operating-model documents are reviewed. Use `hoi-expertise-customize` to prepare, compare and review a private client profile; select one specialist for the first task. Author a role skill only where the catalogue lacks a method. Gate: exact versions, source provenance, unresolved gaps and no new permissions; profile review and import do not activate tools. See [expertise guide](../docs/EXPERTISE_PLUGINS.md).
 17. **Freeze expected outcomes.** Independently review evidence, required/forbidden facts and output standards. Separate development and held-out scenarios. Gate: nonempty checks and a frozen context fingerprint. Candidate authors must not inspect held-out answers.
 18. **Compare and review.** Use the [offline comparison contract](../docs/SKILL_IMPROVEMENT.md) to reject stale or incompatible results; inspect factual support separately. Gate: independent review plus the existing explicit activation operation. Repeated model agreement never activates a skill automatically.
 

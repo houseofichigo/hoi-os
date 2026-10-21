@@ -368,5 +368,1629 @@
   "hoi-company-onboarding": {
     "requiredOperations": [],
     "optionalConnections": []
+  },
+  "hoi-competitor-research": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "competitor research",
+        "recherche concurrentielle",
+        "compare selected competitors for our target market"
+      ],
+      "requiredInputs": [
+        "market",
+        "competitors"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "competitor-research-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Market or competitor identity is ambiguous",
+        "Required research is unavailable; deliver only supported coverage"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-competitor-research/references/evaluation.json"
+      ],
+      "examples": [
+        "Compare selected competitors for our target market."
+      ]
+    }
+  },
+  "hoi-positioning-brief": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "positioning brief",
+        "brief de positionnement",
+        "draft a positioning brief for the supplied offering and audience"
+      ],
+      "requiredInputs": [
+        "offering",
+        "audience"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "positioning-brief-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Offering or audience is missing",
+        "A proposed claim requires evidence the client has not supplied"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-positioning-brief/references/evaluation.json"
+      ],
+      "examples": [
+        "Draft a positioning brief for the supplied offering and audience."
+      ]
+    }
+  },
+  "hoi-content-strategy": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "content strategy",
+        "strategie de contenu",
+        "plan a content strategy from audience questions and approved knowledge"
+      ],
+      "requiredInputs": [
+        "audience",
+        "objective"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "content-strategy-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Channel or audience constraints conflict",
+        "Requested volume would require unsupported claims"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-content-strategy/references/evaluation.json"
+      ],
+      "examples": [
+        "Plan a content strategy from audience questions and approved knowledge."
+      ]
+    }
+  },
+  "hoi-account-research": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "account research",
+        "recherche de compte",
+        "research the selected account for a business conversation"
+      ],
+      "requiredInputs": [
+        "account",
+        "objective"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "account-research-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Account identity is ambiguous",
+        "Requested sources exceed the selected scope"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-account-research/references/evaluation.json"
+      ],
+      "examples": [
+        "Research the selected account for a business conversation."
+      ]
+    }
+  },
+  "hoi-discovery-preparation": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "discovery preparation",
+        "preparation de decouverte",
+        "prepare a discovery conversation for an account and objective"
+      ],
+      "requiredInputs": [
+        "account",
+        "objective"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "discovery-preparation-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "The requested objective conflicts with recorded client intent",
+        "Confidential account context is unavailable"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-discovery-preparation/references/evaluation.json"
+      ],
+      "examples": [
+        "Prepare a discovery conversation for an account and objective."
+      ]
+    }
+  },
+  "hoi-client-review": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "client relationship review",
+        "revue de relation client",
+        "review client outcomes and relationship risks from selected records"
+      ],
+      "requiredInputs": [
+        "client",
+        "period"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "client-review-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Success criteria are absent",
+        "Evidence is incomplete; present a partial review"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-client-review/references/evaluation.json"
+      ],
+      "examples": [
+        "Review client outcomes and relationship risks from selected records."
+      ]
+    }
+  },
+  "hoi-finance-variance": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "financial variance analysis",
+        "analyse des ecarts budgetaires",
+        "explain budget versus actual for the selected period"
+      ],
+      "requiredInputs": [
+        "period",
+        "currency"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "finance-variance-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Currency, period or arithmetic inputs are invalid",
+        "A reconciliation mismatch prevents a reliable total"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-finance-variance/references/evaluation.json"
+      ],
+      "examples": [
+        "Explain budget versus actual for the selected period."
+      ]
+    }
+  },
+  "hoi-close-preparation": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "close preparation",
+        "preparation de cloture",
+        "prepare the period-close checklist from supplied accounting policies"
+      ],
+      "requiredInputs": [
+        "period",
+        "accountingBasis"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "close-preparation-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Accounting basis or entity is unclear",
+        "Period completeness cannot be established"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-close-preparation/references/evaluation.json"
+      ],
+      "examples": [
+        "Prepare the period-close checklist from supplied accounting policies."
+      ]
+    }
+  },
+  "hoi-cash-scenarios": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "cash-flow scenarios",
+        "scenarios de tresorerie",
+        "prepare cash-flow scenarios from approved balances and commitments"
+      ],
+      "requiredInputs": [
+        "period",
+        "currency"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "cash-scenarios-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Opening balance or period is missing",
+        "Mixed currencies lack an approved conversion basis"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-cash-scenarios/references/evaluation.json"
+      ],
+      "examples": [
+        "Prepare cash-flow scenarios from approved balances and commitments."
+      ]
+    }
+  },
+  "hoi-contract-issues": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "contract issue spotting",
+        "points de vigilance contractuels",
+        "identify contract issues against the selected review playbook"
+      ],
+      "requiredInputs": [
+        "jurisdiction",
+        "reviewObjective"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "contract-issues-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Jurisdiction or operative version is ambiguous",
+        "A professional conclusion is requested beyond available authority"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-contract-issues/references/evaluation.json"
+      ],
+      "examples": [
+        "Identify contract issues against the selected review playbook."
+      ]
+    }
+  },
+  "hoi-obligation-map": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "contract obligation mapping",
+        "cartographie des obligations",
+        "extract obligations from the selected agreement"
+      ],
+      "requiredInputs": [
+        "agreementVersion",
+        "reviewObjective"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "obligation-map-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Agreement version is unclear",
+        "A referenced appendix or triggering event is missing"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-obligation-map/references/evaluation.json"
+      ],
+      "examples": [
+        "Extract obligations from the selected agreement."
+      ]
+    }
+  },
+  "hoi-policy-review": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "policy consistency review",
+        "revue de coherence des politiques",
+        "review a policy against selected internal requirements"
+      ],
+      "requiredInputs": [
+        "policyVersion",
+        "reviewObjective"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "policy-review-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Applicable policy version is missing",
+        "Specialist correctness cannot be established"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-policy-review/references/evaluation.json"
+      ],
+      "examples": [
+        "Review a policy against selected internal requirements."
+      ]
+    }
+  },
+  "hoi-threat-model": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "threat modelling",
+        "modele de menaces",
+        "prepare a threat model for the selected system boundary"
+      ],
+      "requiredInputs": [
+        "systemScope",
+        "assets"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "threat-model-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "System ownership or scope is unclear",
+        "Testing would exceed authorization"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-threat-model/references/evaluation.json"
+      ],
+      "examples": [
+        "Prepare a threat model for the selected system boundary."
+      ]
+    }
+  },
+  "hoi-control-evidence": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "control evidence assessment",
+        "evaluation des preuves de controle",
+        "map selected evidence to the agreed controls"
+      ],
+      "requiredInputs": [
+        "frameworkVersion",
+        "systemScope"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "control-evidence-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Framework version or scope is unclear",
+        "Required evidence is inaccessible"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-control-evidence/references/evaluation.json"
+      ],
+      "examples": [
+        "Map selected evidence to the agreed controls."
+      ]
+    }
+  },
+  "hoi-incident-triage": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "incident triage brief",
+        "brief de triage incident",
+        "prepare an incident triage brief from selected observations"
+      ],
+      "requiredInputs": [
+        "incidentScope",
+        "observations"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "incident-triage-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Live containment requires authority not supplied",
+        "Sensitive evidence cannot be accessed in this context"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-incident-triage/references/evaluation.json"
+      ],
+      "examples": [
+        "Prepare an incident triage brief from selected observations."
+      ]
+    }
+  },
+  "hoi-role-clarity": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "role clarity brief",
+        "clarification des roles",
+        "clarify responsibilities and handoffs for a selected role"
+      ],
+      "requiredInputs": [
+        "role",
+        "objective"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "role-clarity-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Role owner or organizational scope is unclear",
+        "Sensitive personnel information is outside scope"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-role-clarity/references/evaluation.json"
+      ],
+      "examples": [
+        "Clarify responsibilities and handoffs for a selected role."
+      ]
+    }
+  },
+  "hoi-employee-onboarding": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "employee onboarding plan",
+        "plan integration collaborateur",
+        "prepare an onboarding plan for a supplied role"
+      ],
+      "requiredInputs": [
+        "role",
+        "startContext"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "employee-onboarding-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Role or start context is missing",
+        "The plan would disclose unauthorized personnel records"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-employee-onboarding/references/evaluation.json"
+      ],
+      "examples": [
+        "Prepare an onboarding plan for a supplied role."
+      ]
+    }
+  },
+  "hoi-people-policy-draft": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "people policy preparation",
+        "preparation politique rh",
+        "draft a people policy from confirmed operating decisions"
+      ],
+      "requiredInputs": [
+        "policyObjective",
+        "jurisdiction"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "people-policy-draft-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Jurisdiction is unknown",
+        "The request requires a binding employment determination"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-people-policy-draft/references/evaluation.json"
+      ],
+      "examples": [
+        "Draft a people policy from confirmed operating decisions."
+      ]
+    }
+  },
+  "hoi-product-requirements": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "product requirements brief",
+        "cadrage des exigences produit",
+        "turn the supplied user problem into testable requirements"
+      ],
+      "requiredInputs": [
+        "userProblem",
+        "desiredOutcome"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "product-requirements-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "The user outcome is unclear",
+        "Requirements conflict with supplied constraints"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-product-requirements/references/evaluation.json"
+      ],
+      "examples": [
+        "Turn the supplied user problem into testable requirements."
+      ]
+    }
+  },
+  "hoi-architecture-decision": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "architecture decision brief",
+        "decision architecture",
+        "compare technical options for the selected decision"
+      ],
+      "requiredInputs": [
+        "decision",
+        "constraints"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "architecture-decision-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Critical system constraints are missing",
+        "The decision needs unavailable security or operational evidence"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-architecture-decision/references/evaluation.json"
+      ],
+      "examples": [
+        "Compare technical options for the selected decision."
+      ]
+    }
+  },
+  "hoi-acceptance-review": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "delivery acceptance review",
+        "revue acceptation livraison",
+        "review a delivery against its agreed acceptance criteria"
+      ],
+      "requiredInputs": [
+        "acceptanceCriteria",
+        "deliveryEvidence"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "acceptance-review-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Criteria or delivered version are ambiguous",
+        "Required acceptance evidence is absent"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-acceptance-review/references/evaluation.json"
+      ],
+      "examples": [
+        "Review a delivery against its agreed acceptance criteria."
+      ]
+    }
+  },
+  "hoi-learning-design": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "learning design brief",
+        "conception pedagogique",
+        "design a learning sequence for supplied learner outcomes"
+      ],
+      "requiredInputs": [
+        "learners",
+        "learningOutcomes"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "learning-design-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Outcomes are too vague to assess",
+        "Necessary prerequisite material is unavailable"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-learning-design/references/evaluation.json"
+      ],
+      "examples": [
+        "Design a learning sequence for supplied learner outcomes."
+      ]
+    }
+  },
+  "hoi-practice-design": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "practice activity design",
+        "conception exercice",
+        "create a practice activity for a defined learning outcome"
+      ],
+      "requiredInputs": [
+        "learningOutcome",
+        "learnerContext"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "practice-design-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "The requested outcome cannot be observed",
+        "The scenario would require unsafe or unauthorized actions"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-practice-design/references/evaluation.json"
+      ],
+      "examples": [
+        "Create a practice activity for a defined learning outcome."
+      ]
+    }
+  },
+  "hoi-assessment-review": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "assessment alignment review",
+        "revue alignement evaluation",
+        "review an assessment against learning outcomes and policy"
+      ],
+      "requiredInputs": [
+        "learningOutcomes",
+        "assessment"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "assessment-review-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Assessment policy is missing",
+        "High-stakes decisions require qualified review"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-assessment-review/references/evaluation.json"
+      ],
+      "examples": [
+        "Review an assessment against learning outcomes and policy."
+      ]
+    }
+  },
+  "hoi-design-brief": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "design brief",
+        "brief de design",
+        "prepare a design brief for the selected audience and surface"
+      ],
+      "requiredInputs": [
+        "audience",
+        "surface"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "design-brief-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Audience or surface is ambiguous",
+        "Required brand rights or assets are unavailable"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-design-brief/references/evaluation.json"
+      ],
+      "examples": [
+        "Prepare a design brief for the selected audience and surface."
+      ]
+    }
+  },
+  "hoi-communication-brief": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "communication brief",
+        "brief de communication",
+        "draft a communication brief for a defined audience and objective"
+      ],
+      "requiredInputs": [
+        "audience",
+        "objective"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "communication-brief-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Essential claims lack evidence",
+        "Recipient scope or communication purpose is unclear"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-communication-brief/references/evaluation.json"
+      ],
+      "examples": [
+        "Draft a communication brief for a defined audience and objective."
+      ]
+    }
+  },
+  "hoi-ux-content-review": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "ux and content review",
+        "revue ux contenu",
+        "review a user flow for clarity accessibility and recovery"
+      ],
+      "requiredInputs": [
+        "userTask",
+        "surfaceEvidence"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "ux-content-review-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Only partial screens are available; constrain conclusions",
+        "Runtime validation would require unavailable access"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-ux-content-review/references/evaluation.json"
+      ],
+      "examples": [
+        "Review a user flow for clarity accessibility and recovery."
+      ]
+    }
+  },
+  "hoi-metric-definition": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "metric definition",
+        "definition indicateur",
+        "define an auditable metric for the selected business question"
+      ],
+      "requiredInputs": [
+        "businessQuestion",
+        "population"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "metric-definition-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Population or purpose is ambiguous",
+        "Required data is outside authorized scope"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-metric-definition/references/evaluation.json"
+      ],
+      "examples": [
+        "Define an auditable metric for the selected business question."
+      ]
+    }
+  },
+  "hoi-data-quality-review": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "data quality review",
+        "revue qualite donnees",
+        "review selected data for completeness consistency and duplication"
+      ],
+      "requiredInputs": [
+        "dataset",
+        "reviewObjective"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "data-quality-review-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "The selected dataset cannot be inspected",
+        "Sampling limits prevent a whole-dataset claim"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-data-quality-review/references/evaluation.json"
+      ],
+      "examples": [
+        "Review selected data for completeness consistency and duplication."
+      ]
+    }
+  },
+  "hoi-analysis-plan": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "analysis plan",
+        "plan analyse",
+        "plan an analysis to answer a defined decision question"
+      ],
+      "requiredInputs": [
+        "decisionQuestion",
+        "availableData"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "analysis-plan-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Data cannot identify the requested causal effect",
+        "The objective invites unsupported sensitive inference"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-analysis-plan/references/evaluation.json"
+      ],
+      "examples": [
+        "Plan an analysis to answer a defined decision question."
+      ]
+    }
+  },
+  "hoi-vendor-criteria": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "vendor evaluation criteria",
+        "criteres evaluation fournisseur",
+        "define vendor criteria for a supplied purchasing need"
+      ],
+      "requiredInputs": [
+        "purchaseNeed",
+        "constraints"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "vendor-criteria-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Purchasing objective is unclear",
+        "Weights or constraints require an owner decision"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-vendor-criteria/references/evaluation.json"
+      ],
+      "examples": [
+        "Define vendor criteria for a supplied purchasing need."
+      ]
+    }
+  },
+  "hoi-vendor-comparison": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "vendor proposal comparison",
+        "comparaison fournisseurs",
+        "compare selected vendor proposals against approved criteria"
+      ],
+      "requiredInputs": [
+        "criteria",
+        "proposals"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "vendor-comparison-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Proposals cover materially different scopes",
+        "Required comparison assumptions are unapproved"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-vendor-comparison/references/evaluation.json"
+      ],
+      "examples": [
+        "Compare selected vendor proposals against approved criteria."
+      ]
+    }
+  },
+  "hoi-vendor-review": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "vendor performance review",
+        "revue performance fournisseur",
+        "review a vendor against supplied commitments and service evidence"
+      ],
+      "requiredInputs": [
+        "vendor",
+        "period"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "vendor-review-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Contract or service scope is missing",
+        "Legal interpretation is needed for a disputed obligation"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-vendor-review/references/evaluation.json"
+      ],
+      "examples": [
+        "Review a vendor against supplied commitments and service evidence."
+      ]
+    }
+  },
+  "hoi-support-triage": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "support case triage",
+        "triage demande support",
+        "triage a selected support case using the approved service policy"
+      ],
+      "requiredInputs": [
+        "case",
+        "servicePolicy"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "support-triage-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Identity-sensitive action requires verification",
+        "The case exceeds approved support scope"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-support-triage/references/evaluation.json"
+      ],
+      "examples": [
+        "Triage a selected support case using the approved service policy."
+      ]
+    }
+  },
+  "hoi-support-response": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "support response draft",
+        "brouillon reponse support",
+        "draft a support response grounded in approved policy and knowledge"
+      ],
+      "requiredInputs": [
+        "case",
+        "responseObjective"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "support-response-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "The answer requires unverified account access",
+        "Policy and requested remedy conflict"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-support-response/references/evaluation.json"
+      ],
+      "examples": [
+        "Draft a support response grounded in approved policy and knowledge."
+      ]
+    }
+  },
+  "hoi-support-knowledge": {
+    "requiredOperations": [
+      "knowledge:search",
+      "knowledge:evidence"
+    ],
+    "optionalConnections": [],
+    "routing": {
+      "intents": [
+        "support knowledge proposal",
+        "proposition article support",
+        "propose a reusable support article from selected resolved cases"
+      ],
+      "requiredInputs": [
+        "cases",
+        "topic"
+      ],
+      "contextDomains": [
+        "sources",
+        "wiki",
+        "memory",
+        "records"
+      ],
+      "outputType": "support-knowledge-draft",
+      "permittedOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "exclusions": [
+        "approval",
+        "publication",
+        "external-write",
+        "recursive-delegation"
+      ],
+      "stopConditions": [
+        "Resolution is not evidenced",
+        "Steps require unsafe or unauthorized access"
+      ],
+      "evaluationRefs": [
+        "skills/hoi-support-knowledge/references/evaluation.json"
+      ],
+      "examples": [
+        "Propose a reusable support article from selected resolved cases."
+      ]
+    }
+  },
+  "hoi-expertise-customize": {
+    "requiredOperations": [],
+    "optionalConnections": []
   }
 }

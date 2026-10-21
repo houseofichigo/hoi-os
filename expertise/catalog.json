@@ -1,0 +1,1655 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "status": "local-candidate",
+  "method": "One focused skill per request; bounded explicit workflows; no recursive delegation",
+  "defaults": {
+    "autoInstall": false,
+    "autoActivate": false,
+    "schedulesEnabled": false
+  },
+  "packs": [
+    {
+      "id": "chief-of-staff",
+      "name": "hoi-chief-of-staff",
+      "displayName": "HOI Chief of Staff",
+      "version": "0.1.0",
+      "purpose": "Priorities, exact meeting preparation and reviewed expertise setup.",
+      "clientFields": {
+        "planningHorizon": "Planning horizon supplied by the owner",
+        "decisionCriteria": "How the owner weighs urgency, impact and dependencies",
+        "reviewRoles": "Descriptive review contacts; not permission grants"
+      },
+      "sources": [],
+      "skills": [
+        "hoi-chief-of-staff",
+        "hoi-meeting-prep",
+        "hoi-expertise-customize"
+      ],
+      "tasks": []
+    },
+    {
+      "id": "knowledge-research",
+      "name": "hoi-knowledge-research",
+      "displayName": "HOI Knowledge & Research",
+      "version": "0.1.0",
+      "purpose": "Grounded retrieval, knowledge review and wiki drafting.",
+      "clientFields": {
+        "preferredLanguages": "Languages to search and present",
+        "sourcePreferences": "Preferred evidence types and known coverage limits",
+        "reviewCadence": "Desired review interval, not an enabled schedule"
+      },
+      "sources": [],
+      "skills": [
+        "hoi-retrieve",
+        "hoi-knowledge-review",
+        "hoi-wiki-author"
+      ],
+      "tasks": []
+    },
+    {
+      "id": "projects-operations",
+      "name": "hoi-projects-operations",
+      "displayName": "HOI Projects & Operations",
+      "version": "0.1.0",
+      "purpose": "Project intake, commitment extraction and working-copy organization.",
+      "clientFields": {
+        "deliveryModel": "How work is delivered and accepted",
+        "completionCriteria": "What counts as accepted or completed work",
+        "planningConventions": "Milestone and dependency conventions"
+      },
+      "sources": [],
+      "skills": [
+        "hoi-project-intake",
+        "hoi-task-intake",
+        "hoi-organize"
+      ],
+      "tasks": []
+    },
+    {
+      "id": "marketing-brand",
+      "name": "hoi-marketing-brand",
+      "displayName": "HOI Marketing & Brand",
+      "version": "0.1.0",
+      "purpose": "Evidence-led market research, positioning and content planning.",
+      "clientFields": {
+        "audiences": "Intended buyers/users and excluded segments",
+        "offerings": "Current approved products or services",
+        "brandReference": "Stable reference to reviewed brand guidance",
+        "approvedClaims": "Claims with supporting evidence",
+        "channels": "Selected communication channels"
+      },
+      "sources": [
+        "kostja94/marketing-skills"
+      ],
+      "skills": [
+        "hoi-competitor-research",
+        "hoi-positioning-brief",
+        "hoi-content-strategy"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-competitor-research",
+          "title": "Competitor research",
+          "description": "Use when asked to compare selected competitors for our target market. Not a substitute for private market data or authorization to contact competitors.",
+          "example": "Compare selected competitors for our target market.",
+          "phrases": [
+            "competitor research",
+            "recherche concurrentielle",
+            "compare selected competitors for our target market"
+          ],
+          "requiredInputs": [
+            "market",
+            "competitors"
+          ],
+          "method": [
+            "Separate client facts, competitor claims and analyst hypotheses; agree comparison dimensions before collecting examples.",
+            "Use selected evidence and permitted research; record date, locale, offer tier and comparable unit for every price or feature claim.",
+            "Compare substitutes as well as named competitors, without inventing private metrics. Mark unavailable dimensions unknown.",
+            "Identify supported differentiation and questions to test; preserve the difference between absence of evidence and evidence of absence."
+          ],
+          "output": [
+            "Comparison by agreed dimension with exact sources",
+            "Supported differences and unknowns",
+            "Testable positioning opportunities"
+          ],
+          "checks": [
+            "Prices share comparable periods and units or are flagged incomparable",
+            "Every material competitor claim has a source/date",
+            "No market-share or revenue estimate without a disclosed basis"
+          ],
+          "stopConditions": [
+            "Market or competitor identity is ambiguous",
+            "Required research is unavailable; deliver only supported coverage"
+          ],
+          "exclusions": "Not a substitute for private market data or authorization to contact competitors."
+        },
+        {
+          "skillId": "hoi-positioning-brief",
+          "title": "Positioning brief",
+          "description": "Use when asked to draft a positioning brief for the supplied offering and audience. Not for legal approval of advertising claims or automatic campaign publication.",
+          "example": "Draft a positioning brief for the supplied offering and audience.",
+          "phrases": [
+            "positioning brief",
+            "brief de positionnement",
+            "draft a positioning brief for the supplied offering and audience"
+          ],
+          "requiredInputs": [
+            "offering",
+            "audience"
+          ],
+          "method": [
+            "Describe the audience problem and alternatives using supplied evidence; distinguish buyer from user where relevant.",
+            "Map each differentiator to a substantiating source and a client constraint. Reject unsupported superlatives.",
+            "Develop materially different positioning options and explain their tradeoffs against the requested outcome.",
+            "Propose a bounded validation experiment with a measurable signal; label untested options as hypotheses."
+          ],
+          "output": [
+            "Audience/problem/alternative framing",
+            "Positioning options and claim-to-evidence map",
+            "Recommended test and unresolved questions"
+          ],
+          "checks": [
+            "Approved claims are distinguished from proposed claims",
+            "No fictional testimonials or customer logos",
+            "Recommendations reflect the client business model"
+          ],
+          "stopConditions": [
+            "Offering or audience is missing",
+            "A proposed claim requires evidence the client has not supplied"
+          ],
+          "exclusions": "Not for legal approval of advertising claims or automatic campaign publication."
+        },
+        {
+          "skillId": "hoi-content-strategy",
+          "title": "Content strategy",
+          "description": "Use when asked to plan a content strategy from audience questions and approved knowledge. Not for automatic posting or fabricated SEO volumes.",
+          "example": "Plan a content strategy from audience questions and approved knowledge.",
+          "phrases": [
+            "content strategy",
+            "strategie de contenu",
+            "plan a content strategy from audience questions and approved knowledge"
+          ],
+          "requiredInputs": [
+            "audience",
+            "objective"
+          ],
+          "method": [
+            "Group evidenced audience questions by intent and journey stage. Do not invent demand volumes.",
+            "Inventory existing useful material and identify update/reuse opportunities before proposing new content.",
+            "Prioritize briefs by the stated objective, evidence availability and production constraints; explain any scoring rubric.",
+            "Specify source material, channel, desired response and evaluation signal for each brief. Leave owners/dates proposed unless supplied."
+          ],
+          "output": [
+            "Prioritized topic/brief backlog",
+            "Evidence and reuse references",
+            "Measurement plan with coverage limits"
+          ],
+          "checks": [
+            "Topics answer identifiable audience needs",
+            "Every numerical priority score has a defined basis",
+            "Publication remains a separate reviewed action"
+          ],
+          "stopConditions": [
+            "Channel or audience constraints conflict",
+            "Requested volume would require unsupported claims"
+          ],
+          "exclusions": "Not for automatic posting or fabricated SEO volumes."
+        }
+      ]
+    },
+    {
+      "id": "sales-client-success",
+      "name": "hoi-sales-client-success",
+      "displayName": "HOI Sales & Client Success",
+      "version": "0.1.0",
+      "purpose": "Account research, discovery preparation and relationship reviews.",
+      "clientFields": {
+        "idealCustomer": "Evidence-based target customer description",
+        "salesStages": "Stage definitions and observable entry/exit evidence",
+        "offerings": "Approved offer and pricing references",
+        "relationshipModel": "Project, subscription or other relationship model",
+        "successMeasures": "Client-confirmed outcomes"
+      },
+      "sources": [
+        "zarif3624/gtm-skills",
+        "gaintrace/customer-success-skills"
+      ],
+      "skills": [
+        "hoi-account-research",
+        "hoi-discovery-preparation",
+        "hoi-client-review"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-account-research",
+          "title": "Account research",
+          "description": "Use when asked to research the selected account for a business conversation. Not for bulk prospect scraping or unsolicited outreach.",
+          "example": "Research the selected account for a business conversation.",
+          "phrases": [
+            "account research",
+            "recherche de compte",
+            "research the selected account for a business conversation"
+          ],
+          "requiredInputs": [
+            "account",
+            "objective"
+          ],
+          "method": [
+            "Resolve the selected organization and permitted account records before combining information.",
+            "Separate observed facts, attributed reports, hypotheses and unknowns; keep dates and sources.",
+            "Relate supported business priorities to the supplied offering without assuming need, budget or purchasing authority.",
+            "Prepare relevant questions and a concise conversation angle; identify what must be confirmed directly."
+          ],
+          "output": [
+            "Account evidence brief",
+            "Fit hypotheses and missing information",
+            "Suggested conversation questions"
+          ],
+          "checks": [
+            "No similarly named account merged by title alone",
+            "Personal details are relevant and authorized",
+            "Budget, authority and intent are never inferred as facts"
+          ],
+          "stopConditions": [
+            "Account identity is ambiguous",
+            "Requested sources exceed the selected scope"
+          ],
+          "exclusions": "Not for bulk prospect scraping or unsolicited outreach."
+        },
+        {
+          "skillId": "hoi-discovery-preparation",
+          "title": "Discovery preparation",
+          "description": "Use when asked to prepare a discovery conversation for an account and objective. Not for autonomous qualification decisions or sending invitations.",
+          "example": "Prepare a discovery conversation for an account and objective.",
+          "phrases": [
+            "discovery preparation",
+            "preparation de decouverte",
+            "prepare a discovery conversation for an account and objective"
+          ],
+          "requiredInputs": [
+            "account",
+            "objective"
+          ],
+          "method": [
+            "Reuse confirmed account context instead of re-asking known questions.",
+            "Translate uncertainties about outcomes, current process, stakeholders and constraints into neutral questions.",
+            "Order questions by decisions they enable; avoid leading the client toward an assumed solution.",
+            "Define observable next-step criteria and a note structure separating client statements from interpretation."
+          ],
+          "output": [
+            "Conversation objective and prioritized questions",
+            "Evidence-linked known context",
+            "Decision and next-step capture template"
+          ],
+          "checks": [
+            "Questions target missing information",
+            "No invented stakeholder authority or urgency",
+            "The agenda fits supplied time constraints"
+          ],
+          "stopConditions": [
+            "The requested objective conflicts with recorded client intent",
+            "Confidential account context is unavailable"
+          ],
+          "exclusions": "Not for autonomous qualification decisions or sending invitations."
+        },
+        {
+          "skillId": "hoi-client-review",
+          "title": "Client relationship review",
+          "description": "Use when asked to review client outcomes and relationship risks from selected records. Not for automatic renewal outreach, account changes or contract decisions.",
+          "example": "Review client outcomes and relationship risks from selected records.",
+          "phrases": [
+            "client relationship review",
+            "revue de relation client",
+            "review client outcomes and relationship risks from selected records"
+          ],
+          "requiredInputs": [
+            "client",
+            "period"
+          ],
+          "method": [
+            "Identify the relationship model and agreed outcomes; do not apply subscription metrics to project work without justification.",
+            "Compare commitments and delivered evidence for the stated period, distinguishing accepted work from proposals.",
+            "Describe risks using observable signals, freshness and coverage; label interpretation and avoid invented health scores.",
+            "Prepare a review agenda, unresolved issues and proposed follow-up work with sources."
+          ],
+          "output": [
+            "Outcome and commitment comparison",
+            "Evidence-based risks and open questions",
+            "Review agenda and follow-up proposals"
+          ],
+          "checks": [
+            "Period and source coverage are explicit",
+            "No churn prediction or score without a validated model/basis",
+            "Accepted work is not duplicated as a new commitment"
+          ],
+          "stopConditions": [
+            "Success criteria are absent",
+            "Evidence is incomplete; present a partial review"
+          ],
+          "exclusions": "Not for automatic renewal outreach, account changes or contract decisions."
+        }
+      ]
+    },
+    {
+      "id": "finance-reporting",
+      "name": "hoi-finance-reporting",
+      "displayName": "HOI Finance & Business Reporting",
+      "version": "0.1.0",
+      "purpose": "Read-only variance, close preparation and cash scenarios.",
+      "clientFields": {
+        "baseCurrency": "Reporting currency; never infer",
+        "accountingBasis": "Cash/accrual and supplied reporting conventions",
+        "fiscalCalendar": "Fiscal periods and boundaries",
+        "materiality": "Approved analysis threshold; does not waive review",
+        "accountMap": "Reference to the current chart of accounts"
+      },
+      "sources": [
+        "Amazon-Quick/Amazon-Quick-official-catalog"
+      ],
+      "skills": [
+        "hoi-finance-variance",
+        "hoi-close-preparation",
+        "hoi-cash-scenarios"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-finance-variance",
+          "title": "Financial variance analysis",
+          "description": "Use when asked to explain budget versus actual for the selected period. Not for investment advice, statutory assurance, journal posting or payments.",
+          "example": "Explain budget versus actual for the selected period.",
+          "phrases": [
+            "financial variance analysis",
+            "analyse des ecarts budgetaires",
+            "explain budget versus actual for the selected period"
+          ],
+          "requiredInputs": [
+            "period",
+            "currency"
+          ],
+          "method": [
+            "Validate selected rows, units, currency, period, sign conventions and duplicate keys before calculating.",
+            "Use the bundled deterministic variance helper for compatible budget/actual rows; otherwise use a verified calculation tool and retain inputs/formulas.",
+            "Separate calculated differences from explanations. Link proposed causes to evidence; correlation alone is not a cause.",
+            "Explain material exceptions using the client threshold and show unclassified rows and unreconciled totals."
+          ],
+          "output": [
+            "Reconciled budget/actual/variance table",
+            "Supported explanations and hypotheses",
+            "Exceptions and questions for review"
+          ],
+          "checks": [
+            "Totals reconcile to the selected input",
+            "Zero budgets have no fabricated percentage",
+            "Mixed currencies or periods are not silently combined"
+          ],
+          "stopConditions": [
+            "Currency, period or arithmetic inputs are invalid",
+            "A reconciliation mismatch prevents a reliable total"
+          ],
+          "exclusions": "Not for investment advice, statutory assurance, journal posting or payments."
+        },
+        {
+          "skillId": "hoi-close-preparation",
+          "title": "Close preparation",
+          "description": "Use when asked to prepare the period-close checklist from supplied accounting policies. Not for preparing filings, certifying accounts or executing ledger changes.",
+          "example": "Prepare the period-close checklist from supplied accounting policies.",
+          "phrases": [
+            "close preparation",
+            "preparation de cloture",
+            "prepare the period-close checklist from supplied accounting policies"
+          ],
+          "requiredInputs": [
+            "period",
+            "accountingBasis"
+          ],
+          "method": [
+            "Identify the selected entity, period and approved close policy; keep unsupported requirements unknown.",
+            "Map supplied balances, reconciliations and supporting records to required close activities.",
+            "Distinguish completed work with receipts from reported completion and missing evidence.",
+            "Draft an ordered exception/checklist with dependencies and reviewer questions; do not invent approval, owners or due dates."
+          ],
+          "output": [
+            "Period-specific close checklist",
+            "Evidence gaps and unresolved exceptions",
+            "Proposed review sequence"
+          ],
+          "checks": [
+            "Every completed item has an evidence basis",
+            "The checklist uses the client policy, not a generic calendar",
+            "No entries are posted or marked approved"
+          ],
+          "stopConditions": [
+            "Accounting basis or entity is unclear",
+            "Period completeness cannot be established"
+          ],
+          "exclusions": "Not for preparing filings, certifying accounts or executing ledger changes."
+        },
+        {
+          "skillId": "hoi-cash-scenarios",
+          "title": "Cash-flow scenarios",
+          "description": "Use when asked to prepare cash-flow scenarios from approved balances and commitments. Not for initiating transfers, prioritizing creditors as legal advice or guaranteed forecasts.",
+          "example": "Prepare cash-flow scenarios from approved balances and commitments.",
+          "phrases": [
+            "cash-flow scenarios",
+            "scenarios de tresorerie",
+            "prepare cash-flow scenarios from approved balances and commitments"
+          ],
+          "requiredInputs": [
+            "period",
+            "currency"
+          ],
+          "method": [
+            "Reconcile the opening cash balance and time horizon from selected records.",
+            "Separate committed inflows/outflows from uncertain forecasts; retain timing assumptions and currency.",
+            "Calculate scenarios with explicit assumptions, avoiding double-counting invoices and their payments.",
+            "Show ending balances, sensitivity to key assumptions and missing commitments; forecasts remain scenarios."
+          ],
+          "output": [
+            "Opening-to-closing cash bridge",
+            "Assumption-labelled scenarios",
+            "Sensitivity and missing-data register"
+          ],
+          "checks": [
+            "Arithmetic reconciles",
+            "Committed and speculative flows remain distinguishable",
+            "No invented probability or exchange rate"
+          ],
+          "stopConditions": [
+            "Opening balance or period is missing",
+            "Mixed currencies lack an approved conversion basis"
+          ],
+          "exclusions": "Not for initiating transfers, prioritizing creditors as legal advice or guaranteed forecasts."
+        }
+      ]
+    },
+    {
+      "id": "legal-contracts",
+      "name": "hoi-legal-contracts",
+      "displayName": "HOI Legal & Contracts",
+      "version": "0.1.0",
+      "purpose": "Contract issue spotting, obligation mapping and policy review drafts.",
+      "clientFields": {
+        "jurisdictions": "Applicable jurisdictions supplied by the client",
+        "legalPlaybook": "Approved legal playbook reference",
+        "contractTypes": "Supported document types",
+        "reviewContact": "Qualified reviewer contact; not delegated authority",
+        "riskPositions": "Recorded negotiation positions"
+      },
+      "sources": [
+        "anthropics/claude-for-legal"
+      ],
+      "skills": [
+        "hoi-contract-issues",
+        "hoi-obligation-map",
+        "hoi-policy-review"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-contract-issues",
+          "title": "Contract issue spotting",
+          "description": "Use when asked to identify contract issues against the selected review playbook. Not legal advice, signature authority or automatic contract approval.",
+          "example": "Identify contract issues against the selected review playbook.",
+          "phrases": [
+            "contract issue spotting",
+            "points de vigilance contractuels",
+            "identify contract issues against the selected review playbook"
+          ],
+          "requiredInputs": [
+            "jurisdiction",
+            "reviewObjective"
+          ],
+          "method": [
+            "Identify the document version, parties as written, jurisdiction and review objective.",
+            "Compare clauses to the supplied playbook with exact section references; keep absent clauses distinct from unclear text.",
+            "Describe business consequences and questions; distinguish playbook deviation from a legal conclusion.",
+            "Draft an issue table for qualified review, with possible negotiation language clearly marked proposed."
+          ],
+          "output": [
+            "Clause-linked issue table",
+            "Playbook deviations and missing context",
+            "Questions and proposed alternatives"
+          ],
+          "checks": [
+            "Citations resolve to exact clauses",
+            "No claim of enforceability without qualified assessment",
+            "Jurisdiction and document version are explicit"
+          ],
+          "stopConditions": [
+            "Jurisdiction or operative version is ambiguous",
+            "A professional conclusion is requested beyond available authority"
+          ],
+          "exclusions": "Not legal advice, signature authority or automatic contract approval."
+        },
+        {
+          "skillId": "hoi-obligation-map",
+          "title": "Contract obligation mapping",
+          "description": "Use when asked to extract obligations from the selected agreement. Not for accepting commitments, interpreting disputed legal duties or sending notices.",
+          "example": "Extract obligations from the selected agreement.",
+          "phrases": [
+            "contract obligation mapping",
+            "cartographie des obligations",
+            "extract obligations from the selected agreement"
+          ],
+          "requiredInputs": [
+            "agreementVersion",
+            "reviewObjective"
+          ],
+          "method": [
+            "Extract who must do what, for whom, under which condition, with exact clause references.",
+            "Keep deadlines verbatim and distinguish fixed dates from event-relative triggers.",
+            "Flag ambiguous parties, cross-references, exceptions and missing triggering events.",
+            "Prepare reviewable obligation records; do not turn them into accepted tasks without the existing review workflow."
+          ],
+          "output": [
+            "Clause-to-obligation map",
+            "Conditional deadlines and unresolved triggers",
+            "Proposed operational follow-ups"
+          ],
+          "checks": [
+            "No invented deadline or responsible person",
+            "Exceptions and termination conditions retained",
+            "Extracted commitments remain proposals"
+          ],
+          "stopConditions": [
+            "Agreement version is unclear",
+            "A referenced appendix or triggering event is missing"
+          ],
+          "exclusions": "Not for accepting commitments, interpreting disputed legal duties or sending notices."
+        },
+        {
+          "skillId": "hoi-policy-review",
+          "title": "Policy consistency review",
+          "description": "Use when asked to review a policy against selected internal requirements. Not for publishing policy or determining regulatory compliance.",
+          "example": "Review a policy against selected internal requirements.",
+          "phrases": [
+            "policy consistency review",
+            "revue de coherence des politiques",
+            "review a policy against selected internal requirements"
+          ],
+          "requiredInputs": [
+            "policyVersion",
+            "reviewObjective"
+          ],
+          "method": [
+            "Identify the policy owner, scope, effective date and comparison sources.",
+            "Check internal consistency, referenced procedures, defined responsibilities and missing decision paths.",
+            "Separate textual inconsistency from suspected regulatory issues; use current official sources only when permitted and relevant.",
+            "Prepare proposed corrections with source links and a qualified-review queue where needed."
+          ],
+          "output": [
+            "Consistency findings and evidence",
+            "Proposed corrections",
+            "Specialist review questions"
+          ],
+          "checks": [
+            "No compliance certification from a checklist",
+            "Current and superseded policies remain distinct",
+            "Every suggested requirement has an identified basis"
+          ],
+          "stopConditions": [
+            "Applicable policy version is missing",
+            "Specialist correctness cannot be established"
+          ],
+          "exclusions": "Not for publishing policy or determining regulatory compliance."
+        }
+      ]
+    },
+    {
+      "id": "security-compliance",
+      "name": "hoi-security-compliance",
+      "displayName": "HOI Security & Compliance",
+      "version": "0.1.0",
+      "purpose": "Threat modelling, control evidence and incident triage preparation.",
+      "clientFields": {
+        "systemScope": "Systems and trust boundaries in scope",
+        "frameworks": "Selected standards and licensed reference versions",
+        "dataClasses": "Approved data classification references",
+        "incidentPolicy": "Current incident/escalation procedure",
+        "reviewRoles": "Authorized security contacts, descriptive only"
+      },
+      "sources": [
+        "GRCEngClub/claude-grc-engineering"
+      ],
+      "skills": [
+        "hoi-threat-model",
+        "hoi-control-evidence",
+        "hoi-incident-triage"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-threat-model",
+          "title": "Threat modelling",
+          "description": "Use when asked to prepare a threat model for the selected system boundary. Not authorization for scanning, exploitation or production changes.",
+          "example": "Prepare a threat model for the selected system boundary.",
+          "phrases": [
+            "threat modelling",
+            "modele de menaces",
+            "prepare a threat model for the selected system boundary"
+          ],
+          "requiredInputs": [
+            "systemScope",
+            "assets"
+          ],
+          "method": [
+            "Map supplied assets, actors, data flows and trust boundaries; explicitly mark unknown architecture.",
+            "Identify plausible misuse paths grounded in the actual boundary, including instruction injection and cross-account access where relevant.",
+            "Separate existing controls evidenced by configuration from proposed mitigations.",
+            "Prioritize review using an explained impact/likelihood rubric and propose validation work."
+          ],
+          "output": [
+            "Boundary and asset model",
+            "Threat/control/evidence table",
+            "Mitigation and validation proposals"
+          ],
+          "checks": [
+            "No invented architecture or tested status",
+            "Threat hypotheses are labelled",
+            "No active probing or exploitation performed"
+          ],
+          "stopConditions": [
+            "System ownership or scope is unclear",
+            "Testing would exceed authorization"
+          ],
+          "exclusions": "Not authorization for scanning, exploitation or production changes."
+        },
+        {
+          "skillId": "hoi-control-evidence",
+          "title": "Control evidence assessment",
+          "description": "Use when asked to map selected evidence to the agreed controls. Not an audit opinion, certification or permission to alter systems.",
+          "example": "Map selected evidence to the agreed controls.",
+          "phrases": [
+            "control evidence assessment",
+            "evaluation des preuves de controle",
+            "map selected evidence to the agreed controls"
+          ],
+          "requiredInputs": [
+            "frameworkVersion",
+            "systemScope"
+          ],
+          "method": [
+            "Use the selected licensed framework/control identifiers and assessment scope.",
+            "Map each control to exact observed evidence, period and owner; avoid treating a policy as proof of execution.",
+            "Distinguish implemented, partially evidenced, missing and not assessed; report why.",
+            "Draft gaps and bounded remediation proposals without asserting certification."
+          ],
+          "output": [
+            "Control-to-evidence matrix",
+            "Coverage and freshness limitations",
+            "Remediation proposals"
+          ],
+          "checks": [
+            "Every status has a stated evidence basis",
+            "Unlicensed standard text is not reproduced",
+            "No green score substitutes for evidence"
+          ],
+          "stopConditions": [
+            "Framework version or scope is unclear",
+            "Required evidence is inaccessible"
+          ],
+          "exclusions": "Not an audit opinion, certification or permission to alter systems."
+        },
+        {
+          "skillId": "hoi-incident-triage",
+          "title": "Incident triage brief",
+          "description": "Use when asked to prepare an incident triage brief from selected observations. Not for autonomous incident response, public notification or attribution of an attacker.",
+          "example": "Prepare an incident triage brief from selected observations.",
+          "phrases": [
+            "incident triage brief",
+            "brief de triage incident",
+            "prepare an incident triage brief from selected observations"
+          ],
+          "requiredInputs": [
+            "incidentScope",
+            "observations"
+          ],
+          "method": [
+            "Preserve the supplied observations, timestamps/timezones and their provenance.",
+            "Separate observed impact from suspected cause and unverified compromise.",
+            "Map the situation to the approved incident policy and identify escalation questions.",
+            "Draft safe containment options and evidence-preservation needs for the authorized responder; do not execute changes."
+          ],
+          "output": [
+            "Observation timeline",
+            "Impact/uncertainty assessment",
+            "Escalation and containment options"
+          ],
+          "checks": [
+            "No destruction or alteration of evidence",
+            "No guessed root cause presented as fact",
+            "Notification deadlines are sourced, not invented"
+          ],
+          "stopConditions": [
+            "Live containment requires authority not supplied",
+            "Sensitive evidence cannot be accessed in this context"
+          ],
+          "exclusions": "Not for autonomous incident response, public notification or attribution of an attacker."
+        }
+      ]
+    },
+    {
+      "id": "people-hr",
+      "name": "hoi-people-hr",
+      "displayName": "HOI People & HR",
+      "version": "0.1.0",
+      "purpose": "Role clarity, onboarding plans and policy preparation.",
+      "clientFields": {
+        "organizationModel": "Teams and role ownership references",
+        "employmentJurisdictions": "Applicable locations; unknown stays unknown",
+        "peoplePolicies": "Reviewed people-policy references",
+        "roleFramework": "Approved responsibility/competency framework",
+        "reviewContacts": "HR and line-manager reviewers"
+      },
+      "sources": [
+        "Amazon-Quick/Amazon-Quick-official-catalog"
+      ],
+      "skills": [
+        "hoi-role-clarity",
+        "hoi-employee-onboarding",
+        "hoi-people-policy-draft"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-role-clarity",
+          "title": "Role clarity brief",
+          "description": "Use when asked to clarify responsibilities and handoffs for a selected role. Not for hiring, promotion, dismissal or automated employee scoring.",
+          "example": "Clarify responsibilities and handoffs for a selected role.",
+          "phrases": [
+            "role clarity brief",
+            "clarification des roles",
+            "clarify responsibilities and handoffs for a selected role"
+          ],
+          "requiredInputs": [
+            "role",
+            "objective"
+          ],
+          "method": [
+            "Compare the role’s stated purpose with supplied examples of actual work.",
+            "Map responsibilities, handoffs, decision rights and dependencies without granting new authority.",
+            "Highlight overlaps and unowned work as questions for the responsible manager.",
+            "Draft a role brief and success evidence agreed with the person rather than inferring performance."
+          ],
+          "output": [
+            "Role outcome and responsibility map",
+            "Handoff/ownership questions",
+            "Proposed success evidence"
+          ],
+          "checks": [
+            "Role description is distinct from actual permission",
+            "No protected-characteristic inference",
+            "No individual performance verdict from sparse records"
+          ],
+          "stopConditions": [
+            "Role owner or organizational scope is unclear",
+            "Sensitive personnel information is outside scope"
+          ],
+          "exclusions": "Not for hiring, promotion, dismissal or automated employee scoring."
+        },
+        {
+          "skillId": "hoi-employee-onboarding",
+          "title": "Employee onboarding plan",
+          "description": "Use when asked to prepare an onboarding plan for a supplied role. Not for repeating company-wide interviews or automatically creating user accounts.",
+          "example": "Prepare an onboarding plan for a supplied role.",
+          "phrases": [
+            "employee onboarding plan",
+            "plan integration collaborateur",
+            "prepare an onboarding plan for a supplied role"
+          ],
+          "requiredInputs": [
+            "role",
+            "startContext"
+          ],
+          "method": [
+            "Reuse the reviewed company/member foundation and identify only role-specific gaps.",
+            "Sequence learning, shadowing, access requests and first useful outcomes using supplied constraints.",
+            "Label account access as a request until verified; keep mandatory policy acknowledgements separate from learning activities.",
+            "Draft checkpoints with evidence of readiness and questions for the manager."
+          ],
+          "output": [
+            "Role-specific onboarding sequence",
+            "Access and policy request list",
+            "Readiness checkpoints"
+          ],
+          "checks": [
+            "No account or permission is provisioned",
+            "Dates and owners are supplied or visibly proposed",
+            "Completion requires evidence, not checkbox generation"
+          ],
+          "stopConditions": [
+            "Role or start context is missing",
+            "The plan would disclose unauthorized personnel records"
+          ],
+          "exclusions": "Not for repeating company-wide interviews or automatically creating user accounts."
+        },
+        {
+          "skillId": "hoi-people-policy-draft",
+          "title": "People policy preparation",
+          "description": "Use when asked to draft a people policy from confirmed operating decisions. Not legal advice or authority to change employment terms.",
+          "example": "Draft a people policy from confirmed operating decisions.",
+          "phrases": [
+            "people policy preparation",
+            "preparation politique rh",
+            "draft a people policy from confirmed operating decisions"
+          ],
+          "requiredInputs": [
+            "policyObjective",
+            "jurisdiction"
+          ],
+          "method": [
+            "Identify confirmed owner decisions, applicable jurisdiction and current policy references.",
+            "Draft scope, responsibilities, process and exception handling while keeping unresolved decisions explicit.",
+            "Check consistency with adjacent policies and identify where qualified employment review is needed.",
+            "Prepare a version comparison and review questions; publication remains separate."
+          ],
+          "output": [
+            "Policy draft with sources",
+            "Unresolved decisions and review owners",
+            "Change comparison"
+          ],
+          "checks": [
+            "No invented statutory entitlement or deadline",
+            "Proposals cannot masquerade as approved policy",
+            "Sensitive cases are minimized and attributed"
+          ],
+          "stopConditions": [
+            "Jurisdiction is unknown",
+            "The request requires a binding employment determination"
+          ],
+          "exclusions": "Not legal advice or authority to change employment terms."
+        }
+      ]
+    },
+    {
+      "id": "product-technology",
+      "name": "hoi-product-technology",
+      "displayName": "HOI Product & Technology",
+      "version": "0.1.0",
+      "purpose": "Requirements, architecture decisions and delivery acceptance.",
+      "clientFields": {
+        "productGoals": "Confirmed user outcomes and product constraints",
+        "technologyContext": "Current systems and supported interfaces",
+        "nonFunctionalNeeds": "Availability, accessibility, privacy and performance requirements",
+        "deliveryStandards": "Definition of done and review practices",
+        "decisionOwners": "Product/technical review contacts"
+      },
+      "sources": [
+        "github/spec-kit"
+      ],
+      "skills": [
+        "hoi-product-requirements",
+        "hoi-architecture-decision",
+        "hoi-acceptance-review"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-product-requirements",
+          "title": "Product requirements brief",
+          "description": "Use when asked to turn the supplied user problem into testable requirements. Not authorization to deploy, replace a platform or broaden scope.",
+          "example": "Turn the supplied user problem into testable requirements.",
+          "phrases": [
+            "product requirements brief",
+            "cadrage des exigences produit",
+            "turn the supplied user problem into testable requirements"
+          ],
+          "requiredInputs": [
+            "userProblem",
+            "desiredOutcome"
+          ],
+          "method": [
+            "Separate the evidenced user problem from a proposed solution.",
+            "Describe actors, current workflow, constraints and explicit non-goals.",
+            "Translate the outcome into observable acceptance scenarios, including failure and recovery states.",
+            "List unresolved decisions and dependencies without inventing integrations or business rules."
+          ],
+          "output": [
+            "Problem and scope statement",
+            "Prioritized requirements and acceptance scenarios",
+            "Dependencies and unresolved decisions"
+          ],
+          "checks": [
+            "Requirements trace to stated needs",
+            "No unsupported feature or provider assumption",
+            "Acceptance checks observe outcomes, not implementation wording"
+          ],
+          "stopConditions": [
+            "The user outcome is unclear",
+            "Requirements conflict with supplied constraints"
+          ],
+          "exclusions": "Not authorization to deploy, replace a platform or broaden scope."
+        },
+        {
+          "skillId": "hoi-architecture-decision",
+          "title": "Architecture decision brief",
+          "description": "Use when asked to compare technical options for the selected decision. Not authority for production changes or an untested performance guarantee.",
+          "example": "Compare technical options for the selected decision.",
+          "phrases": [
+            "architecture decision brief",
+            "decision architecture",
+            "compare technical options for the selected decision"
+          ],
+          "requiredInputs": [
+            "decision",
+            "constraints"
+          ],
+          "method": [
+            "Inspect supplied current architecture and distinguish implemented facts from proposals.",
+            "Compare a small relevant set of options against the actual constraints and migration burden.",
+            "Record evidence, tradeoffs, operational ownership, failure modes and reversibility.",
+            "Recommend a bounded next experiment and a decision record with explicit unknowns."
+          ],
+          "output": [
+            "Options and tradeoff comparison",
+            "Proposed decision with evidence",
+            "Validation and rollback considerations"
+          ],
+          "checks": [
+            "No invented benchmark or integration support",
+            "Existing capabilities considered before replacement",
+            "Cost and effort estimates disclose assumptions"
+          ],
+          "stopConditions": [
+            "Critical system constraints are missing",
+            "The decision needs unavailable security or operational evidence"
+          ],
+          "exclusions": "Not authority for production changes or an untested performance guarantee."
+        },
+        {
+          "skillId": "hoi-acceptance-review",
+          "title": "Delivery acceptance review",
+          "description": "Use when asked to review a delivery against its agreed acceptance criteria. Not for deploying, merging or approving a release automatically.",
+          "example": "Review a delivery against its agreed acceptance criteria.",
+          "phrases": [
+            "delivery acceptance review",
+            "revue acceptation livraison",
+            "review a delivery against its agreed acceptance criteria"
+          ],
+          "requiredInputs": [
+            "acceptanceCriteria",
+            "deliveryEvidence"
+          ],
+          "method": [
+            "Freeze the agreed criteria and identify the actual delivered version.",
+            "Map each criterion to observed evidence or an explicit not-tested state.",
+            "Separate implementation completeness, test results and business acceptance.",
+            "Prepare a decision brief listing material defects and remaining validation; do not approve the release yourself."
+          ],
+          "output": [
+            "Criterion-to-evidence matrix",
+            "Defects and unverified areas",
+            "Review recommendation"
+          ],
+          "checks": [
+            "No test is marked passed without a result",
+            "The reviewed version is explicit",
+            "Business approval is separate from technical checks"
+          ],
+          "stopConditions": [
+            "Criteria or delivered version are ambiguous",
+            "Required acceptance evidence is absent"
+          ],
+          "exclusions": "Not for deploying, merging or approving a release automatically."
+        }
+      ]
+    },
+    {
+      "id": "learning-training",
+      "name": "hoi-learning-training",
+      "displayName": "HOI Learning & Training",
+      "version": "0.1.0",
+      "purpose": "Learning design, practice activities and assessment review.",
+      "clientFields": {
+        "learners": "Audience and relevant prior knowledge",
+        "learningOutcomes": "Observable desired capabilities",
+        "deliveryConstraints": "Format, accessibility and time constraints",
+        "assessmentPolicy": "Approved assessment and feedback policy",
+        "materialReferences": "Current approved learning material"
+      },
+      "sources": [
+        "carpentries/lesson-development-training"
+      ],
+      "skills": [
+        "hoi-learning-design",
+        "hoi-practice-design",
+        "hoi-assessment-review"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-learning-design",
+          "title": "Learning design brief",
+          "description": "Use when asked to design a learning sequence for supplied learner outcomes. Not for claiming learning effectiveness before learner evaluation.",
+          "example": "Design a learning sequence for supplied learner outcomes.",
+          "phrases": [
+            "learning design brief",
+            "conception pedagogique",
+            "design a learning sequence for supplied learner outcomes"
+          ],
+          "requiredInputs": [
+            "learners",
+            "learningOutcomes"
+          ],
+          "method": [
+            "Start from observable outcomes and known learner prerequisites.",
+            "Map each outcome to practice and evidence of learning before choosing explanatory content.",
+            "Sequence concepts and activities around likely misconceptions and supplied delivery constraints.",
+            "Include accessibility adaptations and a pilot/review plan; distinguish estimated timings from observed timings."
+          ],
+          "output": [
+            "Outcome/practice/assessment alignment",
+            "Learning sequence and prerequisites",
+            "Pilot and accessibility considerations"
+          ],
+          "checks": [
+            "Every activity serves an outcome",
+            "No invented certification requirement",
+            "Prerequisites match the audience evidence"
+          ],
+          "stopConditions": [
+            "Outcomes are too vague to assess",
+            "Necessary prerequisite material is unavailable"
+          ],
+          "exclusions": "Not for claiming learning effectiveness before learner evaluation."
+        },
+        {
+          "skillId": "hoi-practice-design",
+          "title": "Practice activity design",
+          "description": "Use when asked to create a practice activity for a defined learning outcome. Not for automated grading or assessment-policy changes.",
+          "example": "Create a practice activity for a defined learning outcome.",
+          "phrases": [
+            "practice activity design",
+            "conception exercice",
+            "create a practice activity for a defined learning outcome"
+          ],
+          "requiredInputs": [
+            "learningOutcome",
+            "learnerContext"
+          ],
+          "method": [
+            "Choose a realistic bounded scenario that exercises the intended capability.",
+            "Provide only the context and resources a learner legitimately needs; avoid embedding the answer in the prompt.",
+            "Define observable success criteria, common errors and feedback paths.",
+            "Separate learner instructions, facilitator notes and solution material; use fictional data."
+          ],
+          "output": [
+            "Learner activity",
+            "Facilitator guidance and feedback",
+            "Success criteria and solution notes"
+          ],
+          "checks": [
+            "Activity tests the named capability",
+            "Answer material is clearly separated",
+            "No private client data used as a fixture"
+          ],
+          "stopConditions": [
+            "The requested outcome cannot be observed",
+            "The scenario would require unsafe or unauthorized actions"
+          ],
+          "exclusions": "Not for automated grading or assessment-policy changes."
+        },
+        {
+          "skillId": "hoi-assessment-review",
+          "title": "Assessment alignment review",
+          "description": "Use when asked to review an assessment against learning outcomes and policy. Not for autonomous learner scoring or certification decisions.",
+          "example": "Review an assessment against learning outcomes and policy.",
+          "phrases": [
+            "assessment alignment review",
+            "revue alignement evaluation",
+            "review an assessment against learning outcomes and policy"
+          ],
+          "requiredInputs": [
+            "learningOutcomes",
+            "assessment"
+          ],
+          "method": [
+            "Map questions/tasks to outcomes and the intended level of performance.",
+            "Check clarity, answerability from taught material, scoring consistency and avoidable linguistic/access barriers.",
+            "Identify ambiguous items and unsupported scoring claims; distinguish editorial review from psychometric validity.",
+            "Propose revisions and a pilot plan without changing an active assessment or pass threshold."
+          ],
+          "output": [
+            "Item-to-outcome map",
+            "Quality findings and proposed revisions",
+            "Pilot and validation needs"
+          ],
+          "checks": [
+            "No validity claim from textual review alone",
+            "Correct answers have an explicit basis",
+            "Active scores and thresholds remain unchanged"
+          ],
+          "stopConditions": [
+            "Assessment policy is missing",
+            "High-stakes decisions require qualified review"
+          ],
+          "exclusions": "Not for autonomous learner scoring or certification decisions."
+        }
+      ]
+    },
+    {
+      "id": "design-communication",
+      "name": "hoi-design-communication",
+      "displayName": "HOI Design & Communication",
+      "version": "0.1.0",
+      "purpose": "Design briefs, UX/content reviews and message architecture.",
+      "clientFields": {
+        "brandReference": "Client brand source and permitted assets",
+        "audiences": "Audience and accessibility needs",
+        "voice": "Approved tone and terminology",
+        "channels": "Target surfaces and constraints",
+        "claimsPolicy": "Approved claims and review boundaries"
+      },
+      "sources": [
+        "dragonoasis/open-design-agent"
+      ],
+      "skills": [
+        "hoi-design-brief",
+        "hoi-communication-brief",
+        "hoi-ux-content-review"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-design-brief",
+          "title": "Design brief",
+          "description": "Use when asked to prepare a design brief for the selected audience and surface. Not for redesigning unrelated surfaces or claiming a prototype is usability-tested.",
+          "example": "Prepare a design brief for the selected audience and surface.",
+          "phrases": [
+            "design brief",
+            "brief de design",
+            "prepare a design brief for the selected audience and surface"
+          ],
+          "requiredInputs": [
+            "audience",
+            "surface"
+          ],
+          "method": [
+            "Identify the user task, intended response and evidence about the current experience.",
+            "Read the selected client brand source; do not substitute HOI company colors or another client’s assets.",
+            "Specify information hierarchy, content needs, interaction states and accessibility constraints.",
+            "Present distinct directions when useful, with reasons and a validation approach rather than arbitrary decoration."
+          ],
+          "output": [
+            "Audience/task/surface brief",
+            "Content and interaction requirements",
+            "Design directions and validation questions"
+          ],
+          "checks": [
+            "Client branding is explicit",
+            "No copied third-party assets or fabricated testimonials",
+            "Failure/empty/loading states are considered where applicable"
+          ],
+          "stopConditions": [
+            "Audience or surface is ambiguous",
+            "Required brand rights or assets are unavailable"
+          ],
+          "exclusions": "Not for redesigning unrelated surfaces or claiming a prototype is usability-tested."
+        },
+        {
+          "skillId": "hoi-communication-brief",
+          "title": "Communication brief",
+          "description": "Use when asked to draft a communication brief for a defined audience and objective. Not for autonomous external communication or impersonating an approver.",
+          "example": "Draft a communication brief for a defined audience and objective.",
+          "phrases": [
+            "communication brief",
+            "brief de communication",
+            "draft a communication brief for a defined audience and objective"
+          ],
+          "requiredInputs": [
+            "audience",
+            "objective"
+          ],
+          "method": [
+            "Identify what the audience needs to know or do and the approved factual basis.",
+            "Separate the central message, supporting proof and uncertain points.",
+            "Adapt structure and vocabulary to the channel and accessibility needs; preserve meaning across languages.",
+            "Draft the message and a review checklist for claims, recipients and requested response."
+          ],
+          "output": [
+            "Message hierarchy and evidence",
+            "Channel-specific draft",
+            "Review questions and proposed next step"
+          ],
+          "checks": [
+            "No invented quote, endorsement or commitment",
+            "Tone follows client guidance",
+            "Drafting does not send or publish"
+          ],
+          "stopConditions": [
+            "Essential claims lack evidence",
+            "Recipient scope or communication purpose is unclear"
+          ],
+          "exclusions": "Not for autonomous external communication or impersonating an approver."
+        },
+        {
+          "skillId": "hoi-ux-content-review",
+          "title": "UX and content review",
+          "description": "Use when asked to review a user flow for clarity accessibility and recovery. Not for silently changing code or certifying accessibility.",
+          "example": "Review a user flow for clarity accessibility and recovery.",
+          "phrases": [
+            "ux and content review",
+            "revue ux contenu",
+            "review a user flow for clarity accessibility and recovery"
+          ],
+          "requiredInputs": [
+            "userTask",
+            "surfaceEvidence"
+          ],
+          "method": [
+            "Follow the supplied user flow and distinguish observed interface behavior from screenshot-only inference.",
+            "Check hierarchy, labels, keyboard/focus behavior, errors, empty states and recovery where evidence is available.",
+            "Prioritize findings by impact on the stated task; give a concrete example and correction for each.",
+            "Separate verified defects, hypotheses and not-tested accessibility requirements."
+          ],
+          "output": [
+            "Task-focused findings",
+            "Evidence and proposed corrections",
+            "Validation checklist"
+          ],
+          "checks": [
+            "No WCAG compliance claim from screenshots alone",
+            "No invented interaction observations",
+            "Recommendations preserve the user task and client brand"
+          ],
+          "stopConditions": [
+            "Only partial screens are available; constrain conclusions",
+            "Runtime validation would require unavailable access"
+          ],
+          "exclusions": "Not for silently changing code or certifying accessibility."
+        }
+      ]
+    },
+    {
+      "id": "data-analytics",
+      "name": "hoi-data-analytics",
+      "displayName": "HOI Data & Analytics",
+      "version": "0.1.0",
+      "purpose": "Metric definitions, data-quality review and analysis plans.",
+      "clientFields": {
+        "metricDefinitions": "Approved metric formulas and grain",
+        "dataSources": "Authorized data references and coverage",
+        "reportingCalendar": "Reporting periods and timezone",
+        "privacyConstraints": "Applicable minimization constraints",
+        "analysisObjectives": "Decisions the analysis supports"
+      },
+      "sources": [
+        "dbt-labs/dbt-agent-skills"
+      ],
+      "skills": [
+        "hoi-metric-definition",
+        "hoi-data-quality-review",
+        "hoi-analysis-plan"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-metric-definition",
+          "title": "Metric definition",
+          "description": "Use when asked to define an auditable metric for the selected business question. Not for claiming metric values without data or executing warehouse writes.",
+          "example": "Define an auditable metric for the selected business question.",
+          "phrases": [
+            "metric definition",
+            "definition indicateur",
+            "define an auditable metric for the selected business question"
+          ],
+          "requiredInputs": [
+            "businessQuestion",
+            "population"
+          ],
+          "method": [
+            "Identify the decision, entity grain, eligible population and time window.",
+            "Specify numerator, denominator, exclusions, units, timezone and treatment of missing values.",
+            "Resolve join/deduplication assumptions before describing an implementation.",
+            "Provide worked fictional examples and validation expectations; separate definition from observed performance."
+          ],
+          "output": [
+            "Metric contract",
+            "Worked examples and edge cases",
+            "Data and validation requirements"
+          ],
+          "checks": [
+            "Denominator and grain are explicit",
+            "No invented baseline or target",
+            "Zero/missing populations have defined behavior"
+          ],
+          "stopConditions": [
+            "Population or purpose is ambiguous",
+            "Required data is outside authorized scope"
+          ],
+          "exclusions": "Not for claiming metric values without data or executing warehouse writes."
+        },
+        {
+          "skillId": "hoi-data-quality-review",
+          "title": "Data quality review",
+          "description": "Use when asked to review selected data for completeness consistency and duplication. Not for destructive cleaning or asserting statistical representativeness without evidence.",
+          "example": "Review selected data for completeness consistency and duplication.",
+          "phrases": [
+            "data quality review",
+            "revue qualite donnees",
+            "review selected data for completeness consistency and duplication"
+          ],
+          "requiredInputs": [
+            "dataset",
+            "reviewObjective"
+          ],
+          "method": [
+            "Inspect the selected schema, grain and coverage before proposing checks.",
+            "Evaluate missingness, duplicate keys, types, ranges and relationships using supported read-only tools.",
+            "Record check definitions, observed counts, samples and limitations; do not silently correct source rows.",
+            "Prioritize issues by effect on the intended decision and propose recoverable fixes."
+          ],
+          "output": [
+            "Check definitions and observed results",
+            "Impact and coverage limitations",
+            "Correction proposals"
+          ],
+          "checks": [
+            "Counts reconcile with the selected sample/full scope",
+            "Missingness is not silently imputed",
+            "No private rows reproduced unnecessarily"
+          ],
+          "stopConditions": [
+            "The selected dataset cannot be inspected",
+            "Sampling limits prevent a whole-dataset claim"
+          ],
+          "exclusions": "Not for destructive cleaning or asserting statistical representativeness without evidence."
+        },
+        {
+          "skillId": "hoi-analysis-plan",
+          "title": "Analysis plan",
+          "description": "Use when asked to plan an analysis to answer a defined decision question. Not for automatic model deployment or fabricated statistical significance.",
+          "example": "Plan an analysis to answer a defined decision question.",
+          "phrases": [
+            "analysis plan",
+            "plan analyse",
+            "plan an analysis to answer a defined decision question"
+          ],
+          "requiredInputs": [
+            "decisionQuestion",
+            "availableData"
+          ],
+          "method": [
+            "Distinguish descriptive, predictive and causal questions.",
+            "Identify the unit of analysis, time window, comparison and plausible confounders.",
+            "Define checks, methods, uncertainty reporting and useful visual summaries before inspecting outcomes.",
+            "Specify what results would support a decision and where the data cannot answer the question."
+          ],
+          "output": [
+            "Question-to-method plan",
+            "Data checks and uncertainty treatment",
+            "Decision criteria and limitations"
+          ],
+          "checks": [
+            "Causal claims require an appropriate design",
+            "No method selected solely for sophistication",
+            "Known missing coverage is explicit"
+          ],
+          "stopConditions": [
+            "Data cannot identify the requested causal effect",
+            "The objective invites unsupported sensitive inference"
+          ],
+          "exclusions": "Not for automatic model deployment or fabricated statistical significance."
+        }
+      ]
+    },
+    {
+      "id": "procurement-vendors",
+      "name": "hoi-procurement-vendors",
+      "displayName": "HOI Procurement & Vendor Management",
+      "version": "0.1.0",
+      "purpose": "Vendor criteria, proposal comparison and review preparation.",
+      "clientFields": {
+        "purchaseObjectives": "Business need and scope",
+        "evaluationCriteria": "Reviewed criteria and weights",
+        "commercialConstraints": "Budget, currency and contract constraints",
+        "vendorPolicies": "Approved procurement/security requirements",
+        "reviewRoles": "Procurement and specialist review contacts"
+      },
+      "sources": [
+        "open-contracting/standard"
+      ],
+      "skills": [
+        "hoi-vendor-criteria",
+        "hoi-vendor-comparison",
+        "hoi-vendor-review"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-vendor-criteria",
+          "title": "Vendor evaluation criteria",
+          "description": "Use when asked to define vendor criteria for a supplied purchasing need. Not for awarding contracts or issuing binding procurement terms.",
+          "example": "Define vendor criteria for a supplied purchasing need.",
+          "phrases": [
+            "vendor evaluation criteria",
+            "criteres evaluation fournisseur",
+            "define vendor criteria for a supplied purchasing need"
+          ],
+          "requiredInputs": [
+            "purchaseNeed",
+            "constraints"
+          ],
+          "method": [
+            "Describe the desired outcome and mandatory constraints separately from preferences.",
+            "Define evidence required for each criterion and how it will be assessed.",
+            "Set weights only from supplied priorities or present proposed weights for review.",
+            "Prepare a consistent request/question set and identify conflicts of interest or missing decision owners."
+          ],
+          "output": [
+            "Must-have and weighted criteria",
+            "Evidence/question set",
+            "Review and decision responsibilities"
+          ],
+          "checks": [
+            "No hidden weighting or invented mandate",
+            "Criteria are comparable across vendors",
+            "Mandatory failures are not hidden by average scores"
+          ],
+          "stopConditions": [
+            "Purchasing objective is unclear",
+            "Weights or constraints require an owner decision"
+          ],
+          "exclusions": "Not for awarding contracts or issuing binding procurement terms."
+        },
+        {
+          "skillId": "hoi-vendor-comparison",
+          "title": "Vendor proposal comparison",
+          "description": "Use when asked to compare selected vendor proposals against approved criteria. Not for vendor selection approval or executing purchases.",
+          "example": "Compare selected vendor proposals against approved criteria.",
+          "phrases": [
+            "vendor proposal comparison",
+            "comparaison fournisseurs",
+            "compare selected vendor proposals against approved criteria"
+          ],
+          "requiredInputs": [
+            "criteria",
+            "proposals"
+          ],
+          "method": [
+            "Normalize the scope, currency, period, quantities and commercial assumptions before comparing prices.",
+            "Map proposal claims to evidence and mark unverified promises.",
+            "Apply approved weights transparently; show mandatory exceptions and missing answers separately.",
+            "Prepare options and clarification questions, preserving the final purchasing decision for the owner."
+          ],
+          "output": [
+            "Comparable cost/scope table",
+            "Criterion scores with evidence and assumptions",
+            "Exceptions and clarification questions"
+          ],
+          "checks": [
+            "No fabricated reference checks",
+            "Costs use a consistent basis or are labelled incomparable",
+            "Missing evidence is not scored as confirmed capability"
+          ],
+          "stopConditions": [
+            "Proposals cover materially different scopes",
+            "Required comparison assumptions are unapproved"
+          ],
+          "exclusions": "Not for vendor selection approval or executing purchases."
+        },
+        {
+          "skillId": "hoi-vendor-review",
+          "title": "Vendor performance review",
+          "description": "Use when asked to review a vendor against supplied commitments and service evidence. Not for terminating suppliers, changing contracts or sending notices.",
+          "example": "Review a vendor against supplied commitments and service evidence.",
+          "phrases": [
+            "vendor performance review",
+            "revue performance fournisseur",
+            "review a vendor against supplied commitments and service evidence"
+          ],
+          "requiredInputs": [
+            "vendor",
+            "period"
+          ],
+          "method": [
+            "Resolve the vendor, contract/service version and agreed measures.",
+            "Compare actual records with commitments, separating reported incidents from verified outcomes.",
+            "Identify recurring gaps, dependencies and evidence needed for escalation.",
+            "Draft a review agenda and improvement proposals without asserting contractual breach as a legal conclusion."
+          ],
+          "output": [
+            "Commitment-to-performance comparison",
+            "Evidence gaps and recurring issues",
+            "Review agenda and proposed improvements"
+          ],
+          "checks": [
+            "Period and service coverage are explicit",
+            "No invented SLA or breach finding",
+            "Commercial notices remain separate actions"
+          ],
+          "stopConditions": [
+            "Contract or service scope is missing",
+            "Legal interpretation is needed for a disputed obligation"
+          ],
+          "exclusions": "Not for terminating suppliers, changing contracts or sending notices."
+        }
+      ]
+    },
+    {
+      "id": "customer-support",
+      "name": "hoi-customer-support",
+      "displayName": "HOI Customer Support & Service Quality",
+      "version": "0.1.0",
+      "purpose": "Case triage, response drafts and recurring-issue knowledge.",
+      "clientFields": {
+        "supportScope": "Products/services and supported channels",
+        "servicePolicies": "Approved response, refund and escalation policies",
+        "voice": "Client support tone and terminology",
+        "escalationContacts": "Authorized escalation contacts",
+        "knowledgeReferences": "Current approved support material"
+      },
+      "sources": [
+        "chatwoot/chatwoot"
+      ],
+      "skills": [
+        "hoi-support-triage",
+        "hoi-support-response",
+        "hoi-support-knowledge"
+      ],
+      "tasks": [
+        {
+          "skillId": "hoi-support-triage",
+          "title": "Support case triage",
+          "description": "Use when asked to triage a selected support case using the approved service policy. Not for automatically closing cases or making account/security changes.",
+          "example": "Triage a selected support case using the approved service policy.",
+          "phrases": [
+            "support case triage",
+            "triage demande support",
+            "triage a selected support case using the approved service policy"
+          ],
+          "requiredInputs": [
+            "case",
+            "servicePolicy"
+          ],
+          "method": [
+            "Identify the customer-reported issue, affected product/version and current impact.",
+            "Separate known facts from diagnostic hypotheses and collect only information needed for the next decision.",
+            "Apply the supplied severity/escalation policy; do not invent service commitments.",
+            "Draft the next safe diagnostic step or escalation brief, preserving case identity and sensitive-data limits."
+          ],
+          "output": [
+            "Case summary and supported severity",
+            "Missing information and next diagnostic step",
+            "Escalation brief where needed"
+          ],
+          "checks": [
+            "No unrelated accounts combined",
+            "No refund or access change promised",
+            "Diagnostic steps do not bypass security"
+          ],
+          "stopConditions": [
+            "Identity-sensitive action requires verification",
+            "The case exceeds approved support scope"
+          ],
+          "exclusions": "Not for automatically closing cases or making account/security changes."
+        },
+        {
+          "skillId": "hoi-support-response",
+          "title": "Support response draft",
+          "description": "Use when asked to draft a support response grounded in approved policy and knowledge. Not for sending replies or approving refunds.",
+          "example": "Draft a support response grounded in approved policy and knowledge.",
+          "phrases": [
+            "support response draft",
+            "brouillon reponse support",
+            "draft a support response grounded in approved policy and knowledge"
+          ],
+          "requiredInputs": [
+            "case",
+            "responseObjective"
+          ],
+          "method": [
+            "Use the selected case, approved knowledge and service policy; retain uncertainty about unverified causes.",
+            "Acknowledge the actual problem without admitting unsupported liability or promising unavailable remedies.",
+            "Give clear, safe next steps and request only necessary missing information.",
+            "Review recipients, sensitive content and commitments; deliver an editable draft without sending it."
+          ],
+          "output": [
+            "Response draft",
+            "Supporting references",
+            "Unresolved questions and review notes"
+          ],
+          "checks": [
+            "Instructions are supported by current material",
+            "No invented refund, timeline or resolution",
+            "No secrets requested or repeated"
+          ],
+          "stopConditions": [
+            "The answer requires unverified account access",
+            "Policy and requested remedy conflict"
+          ],
+          "exclusions": "Not for sending replies or approving refunds."
+        },
+        {
+          "skillId": "hoi-support-knowledge",
+          "title": "Support knowledge proposal",
+          "description": "Use when asked to propose a reusable support article from selected resolved cases. Not for promoting every conversation into approved knowledge.",
+          "example": "Propose a reusable support article from selected resolved cases.",
+          "phrases": [
+            "support knowledge proposal",
+            "proposition article support",
+            "propose a reusable support article from selected resolved cases"
+          ],
+          "requiredInputs": [
+            "cases",
+            "topic"
+          ],
+          "method": [
+            "Confirm what the case evidence actually establishes; a proposed fix is not a verified resolution.",
+            "Identify the applicable versions, symptoms, prerequisites and known limitations.",
+            "Draft reproducible safe steps with exact evidence links and escalation conditions.",
+            "Search existing knowledge before proposing a new page; prepare a wiki draft or change proposal through existing review."
+          ],
+          "output": [
+            "Article/update draft",
+            "Resolution evidence and applicability",
+            "Review and validation questions"
+          ],
+          "checks": [
+            "Unverified fixes are labelled",
+            "Private customer details are removed from reusable text",
+            "No automatic wiki publication"
+          ],
+          "stopConditions": [
+            "Resolution is not evidenced",
+            "Steps require unsafe or unauthorized access"
+          ],
+          "exclusions": "Not for promoting every conversation into approved knowledge."
+        }
+      ]
+    }
+  ]
+}

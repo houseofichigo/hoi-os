@@ -45,7 +45,7 @@ test("candidate destinations cannot overwrite history or overlap product sources
     /PACKAGE_OUTPUT_EXISTS/,
   );
 });
-test("complete candidate contains exact Hub bytes, 23 skills, reproducible hashes and no publishing workflow", async (t) => {
+test("complete candidate contains exact Hub bytes, 60 skills, reproducible hashes and no publishing workflow", async (t) => {
   const scratch = mkdtempSync(join(tmpdir(), "hoi-candidate-"));
   t.after(() => rmSync(scratch, { recursive: true, force: true }));
   const one = join(scratch, "one"),
@@ -59,8 +59,8 @@ test("complete candidate contains exact Hub bytes, 23 skills, reproducible hashe
   assert.equal(result.state, "local-unreleased-candidate");
   assert.deepEqual(result.skillCounts, {
     installer: 1,
-    operational: 22,
-    total: 23,
+    operational: 59,
+    total: 60,
   });
   assert.equal(result.gates.publication, "not-performed");
   for (const line of readFileSync(join(one, "SHA256SUMS"), "utf8")

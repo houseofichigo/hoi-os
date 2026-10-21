@@ -8,7 +8,7 @@ Generated from package, protocol, schema and skill manifests. Do not edit by han
 - Current workspace schema: 21.
 - Readable/upgradeable schemas: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21.
 - Node: >=22.14.0 (developer/browser installation).
-- Bundled instructions: 23 skills, including 22 operational skills and one installer guide.
+- Bundled instructions: 60 skills, including 59 operational skills and one installer guide.
 - Adapters: optional Codex and Claude Code, scoped to the private workspace.
 - Optional interface: independently packaged Knowledge Hub; Node/native dependencies required. The legacy business app and Electron runtime are retired. Clean-host/platform verification remains separate.
 

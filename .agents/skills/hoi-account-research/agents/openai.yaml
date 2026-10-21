@@ -1,0 +1,5 @@
+interface:
+  display_name: Account research
+  short_description: Draft account research with evidence
+  default_prompt: Use $hoi-account-research for this selected client. Research the
+    selected account for a business conversation.

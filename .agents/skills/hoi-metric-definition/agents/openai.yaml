@@ -1,0 +1,5 @@
+interface:
+  display_name: Metric definition
+  short_description: Draft metric definition with evidence
+  default_prompt: Use $hoi-metric-definition for this selected client. Define an
+    auditable metric for the selected business question.

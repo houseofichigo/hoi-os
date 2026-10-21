@@ -1,0 +1,49 @@
+{
+  "author": "House of Ichigo",
+  "version": "0.1.0",
+  "authorship": "Original HOI instructions; conceptual references only, no upstream code or prose copied.",
+  "references": [
+    {
+      "repository": "zarif3624/gtm-skills",
+      "url": "https://github.com/zarif3624/gtm-skills",
+      "checkedOn": "2026-10-21",
+      "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/zarif3624/gtm-skills/blob/920c5ac06ac58b49d40b81eede960b2cb5635c7f/README.md",
+          "sha256": "4ab56b069eb389fbd31cab189fd54ce1e34f7dfe8276a4b8c41a8bf323b8e5fd"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/zarif3624/gtm-skills/blob/920c5ac06ac58b49d40b81eede960b2cb5635c7f/LICENSE",
+          "sha256": "5805b72bb6c0c4b44e600a352cdf9e5e50d1f01fa1c1f111cd8a5355960c7ca0"
+        }
+      ],
+      "commit": "920c5ac06ac58b49d40b81eede960b2cb5635c7f",
+      "status": "reference-pinned",
+      "licenseAssessment": "MIT"
+    },
+    {
+      "repository": "gaintrace/customer-success-skills",
+      "url": "https://github.com/gaintrace/customer-success-skills",
+      "checkedOn": "2026-10-21",
+      "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/gaintrace/customer-success-skills/blob/25ea90726e57e6c531b3661e7b67f223de92cb0c/README.md",
+          "sha256": "13e550b138b866e5210d2a8808e036bb0005ac270507b2fe294781441b74bb4d"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/gaintrace/customer-success-skills/blob/25ea90726e57e6c531b3661e7b67f223de92cb0c/LICENSE",
+          "sha256": "7192d78d4144771f99c6c68ed5037850334df3c67acb043fa53bb8e5c38610bb"
+        }
+      ],
+      "commit": "25ea90726e57e6c531b3661e7b67f223de92cb0c",
+      "status": "reference-pinned",
+      "licenseAssessment": "MIT"
+    }
+  ]
+}

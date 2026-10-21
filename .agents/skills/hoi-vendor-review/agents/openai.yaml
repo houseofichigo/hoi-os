@@ -1,0 +1,5 @@
+interface:
+  display_name: Vendor performance review
+  short_description: Draft vendor performance review with evidence
+  default_prompt: Use $hoi-vendor-review for this selected client. Review a vendor
+    against supplied commitments and service evidence.

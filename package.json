@@ -13,8 +13,8 @@
     "setup": "node scripts/setup.mjs",
     "build": "tsc -p tsconfig.json && vite build",
     "build:core": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test tests/*.test.mjs",
-    "check": "npm test && node scripts/sync-skills.mjs --check && npm run docs:check",
+    "test": "npm run build && node --test --test-concurrency=4 tests/*.test.mjs",
+    "check": "npm test && node scripts/sync-skills.mjs --check && npm run docs:check && npm run expertise:check",
     "skills:sync": "node scripts/sync-skills.mjs",
     "demo": "node scripts/hub-demo.mjs",
     "format": "prettier --write src web scripts tests docs README.md AGENTS.md .github",
@@ -33,7 +33,10 @@
     "build:hub": "npm run build",
     "hub:stage": "npm run build:hub && node scripts/hub-stage.mjs",
     "hub:acceptance": "node scripts/hub-acceptance.mjs",
-    "package:candidate": "npm run build:hub && node scripts/package-candidate.mjs"
+    "package:candidate": "npm run build:hub && node scripts/package-candidate.mjs",
+    "expertise:sync": "node scripts/sync-expertise.mjs",
+    "expertise:check": "node scripts/sync-expertise.mjs --check",
+    "expertise:package": "node scripts/package-expertise.mjs"
   },
   "dependencies": {
     "@huggingface/transformers": "4.3.1",

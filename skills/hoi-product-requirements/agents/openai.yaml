@@ -1,0 +1,5 @@
+interface:
+  display_name: Product requirements brief
+  short_description: Draft product requirements brief with evidence
+  default_prompt: Use $hoi-product-requirements for this selected client. Turn the
+    supplied user problem into testable requirements.

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoi-sales-client-success",
+  "version": "0.1.0",
+  "description": "Account research, discovery preparation and relationship reviews.",
+  "author": {
+    "name": "House of Ichigo"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HOI Sales & Client Success",
+        "shortDescription": "Reviewed client workflows",
+        "longDescription": "Account research, discovery preparation and relationship reviews. Uses selected evidence and reviewed client context. No tools, connections or schedules are installed.",
+        "developerName": "House of Ichigo",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me use HOI Sales & Client Success for my selected client."
+      }
+    }
+  }
+}

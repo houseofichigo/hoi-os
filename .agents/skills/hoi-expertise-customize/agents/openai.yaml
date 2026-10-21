@@ -1,0 +1,4 @@
+interface:
+  display_name: "Customize expertise"
+  short_description: "Tailor expertise using reviewed client evidence"
+  default_prompt: "Use $hoi-expertise-customize to prepare a private profile for the relevant plugins using my selected onboarding evidence."

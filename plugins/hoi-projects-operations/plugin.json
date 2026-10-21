@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoi-projects-operations",
+  "version": "0.1.0",
+  "description": "Project intake, commitment extraction and working-copy organization.",
+  "author": {
+    "name": "House of Ichigo"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HOI Projects & Operations",
+        "shortDescription": "Reviewed client workflows",
+        "longDescription": "Project intake, commitment extraction and working-copy organization. Uses selected evidence and reviewed client context. No tools, connections or schedules are installed.",
+        "developerName": "House of Ichigo",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me use HOI Projects & Operations for my selected client."
+      }
+    }
+  }
+}

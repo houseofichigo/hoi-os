@@ -1,0 +1,5 @@
+interface:
+  display_name: Support case triage
+  short_description: Draft support case triage with evidence
+  default_prompt: Use $hoi-support-triage for this selected client. Triage a
+    selected support case using the approved service policy.

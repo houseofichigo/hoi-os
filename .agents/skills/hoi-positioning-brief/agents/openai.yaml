@@ -1,0 +1,5 @@
+interface:
+  display_name: Positioning brief
+  short_description: Draft positioning brief with evidence
+  default_prompt: Use $hoi-positioning-brief for this selected client. Draft a
+    positioning brief for the supplied offering and audience.

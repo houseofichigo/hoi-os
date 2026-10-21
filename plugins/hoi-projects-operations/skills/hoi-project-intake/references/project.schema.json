@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HOI project creation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project_title",
+    "client_name",
+    "objective",
+    "scope_in",
+    "scope_out",
+    "deliverables",
+    "phases",
+    "risks",
+    "impact",
+    "tech_stack",
+    "next_steps",
+    "priority",
+    "start_date",
+    "due_date",
+    "status",
+    "owner",
+    "tags"
+  ],
+  "properties": {
+    "project_title": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "client_name": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "scope_in": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "scope_out": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "deliverables": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "phases": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "risks": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "impact": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "tech_stack": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "next_steps": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["High", "Medium", "Low"]
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Inbox", "Planning", "In Progress", "Completed"]
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "tags": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^\\s*[^,\\s][^,]*(?:,\\s*[^,\\s][^,]*)*\\s*$"
+    }
+  }
+}

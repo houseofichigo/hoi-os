@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoi-customer-support",
+  "version": "0.1.0",
+  "description": "Case triage, response drafts and recurring-issue knowledge.",
+  "author": {
+    "name": "House of Ichigo"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HOI Customer Support & Service Quality",
+        "shortDescription": "Reviewed client workflows",
+        "longDescription": "Case triage, response drafts and recurring-issue knowledge. Uses selected evidence and reviewed client context. No tools, connections or schedules are installed.",
+        "developerName": "House of Ichigo",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me use HOI Customer Support & Service Quality for my selected client."
+      }
+    }
+  }
+}

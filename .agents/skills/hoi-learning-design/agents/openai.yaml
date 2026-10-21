@@ -1,0 +1,5 @@
+interface:
+  display_name: Learning design brief
+  short_description: Draft learning design brief with evidence
+  default_prompt: Use $hoi-learning-design for this selected client. Design a
+    learning sequence for supplied learner outcomes.

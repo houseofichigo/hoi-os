@@ -1,0 +1,5 @@
+interface:
+  display_name: Control evidence assessment
+  short_description: Draft control evidence assessment with evidence
+  default_prompt: Use $hoi-control-evidence for this selected client. Map selected
+    evidence to the agreed controls.

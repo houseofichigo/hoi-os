@@ -1,0 +1,5 @@
+interface:
+  display_name: Communication brief
+  short_description: Draft communication brief with evidence
+  default_prompt: Use $hoi-communication-brief for this selected client. Draft a
+    communication brief for a defined audience and objective.

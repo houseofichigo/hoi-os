@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoi-finance-reporting",
+  "version": "0.1.0",
+  "description": "Read-only variance, close preparation and cash scenarios.",
+  "author": {
+    "name": "House of Ichigo"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HOI Finance & Business Reporting",
+        "shortDescription": "Reviewed client workflows",
+        "longDescription": "Read-only variance, close preparation and cash scenarios. Uses selected evidence and reviewed client context. No tools, connections or schedules are installed.",
+        "developerName": "House of Ichigo",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me use HOI Finance & Business Reporting for my selected client."
+      }
+    }
+  }
+}

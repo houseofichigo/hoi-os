@@ -1,0 +1,5 @@
+interface:
+  display_name: Incident triage brief
+  short_description: Draft incident triage brief with evidence
+  default_prompt: Use $hoi-incident-triage for this selected client. Prepare an
+    incident triage brief from selected observations.

@@ -1,0 +1,5 @@
+interface:
+  display_name: Vendor proposal comparison
+  short_description: Draft vendor proposal comparison with evidence
+  default_prompt: Use $hoi-vendor-comparison for this selected client. Compare
+    selected vendor proposals against approved criteria.

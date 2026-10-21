@@ -1,0 +1,5 @@
+interface:
+  display_name: People policy preparation
+  short_description: Draft people policy preparation with evidence
+  default_prompt: Use $hoi-people-policy-draft for this selected client. Draft a
+    people policy from confirmed operating decisions.

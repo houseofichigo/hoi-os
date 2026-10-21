@@ -68,6 +68,396 @@
       ]
     },
     {
+      "name": "hoi-acceptance-review",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "delivery acceptance review",
+          "revue acceptation livraison",
+          "review a delivery against its agreed acceptance criteria"
+        ],
+        "requiredInputs": [
+          "acceptanceCriteria",
+          "deliveryEvidence"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "acceptance-review-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Criteria or delivered version are ambiguous",
+          "Required acceptance evidence is absent"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-acceptance-review/references/evaluation.json"
+        ],
+        "examples": [
+          "Review a delivery against its agreed acceptance criteria."
+        ]
+      },
+      "description": "Use when asked to review a delivery against its agreed acceptance criteria. Not for deploying, merging or approving a release automatically.",
+      "presentation": {
+        "displayName": "Delivery acceptance review",
+        "shortDescription": "Use when asked to review a delivery against its agreed acceptance criteria.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Review a delivery against its agreed acceptance criteria."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-account-research",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "account research",
+          "recherche de compte",
+          "research the selected account for a business conversation"
+        ],
+        "requiredInputs": [
+          "account",
+          "objective"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "account-research-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Account identity is ambiguous",
+          "Requested sources exceed the selected scope"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-account-research/references/evaluation.json"
+        ],
+        "examples": [
+          "Research the selected account for a business conversation."
+        ]
+      },
+      "description": "Use when asked to research the selected account for a business conversation. Not for bulk prospect scraping or unsolicited outreach.",
+      "presentation": {
+        "displayName": "Account research",
+        "shortDescription": "Use when asked to research the selected account for a business conversation.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Research the selected account for a business conversation."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-analysis-plan",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "analysis plan",
+          "plan analyse",
+          "plan an analysis to answer a defined decision question"
+        ],
+        "requiredInputs": [
+          "decisionQuestion",
+          "availableData"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "analysis-plan-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Data cannot identify the requested causal effect",
+          "The objective invites unsupported sensitive inference"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-analysis-plan/references/evaluation.json"
+        ],
+        "examples": [
+          "Plan an analysis to answer a defined decision question."
+        ]
+      },
+      "description": "Use when asked to plan an analysis to answer a defined decision question. Not for automatic model deployment or fabricated statistical significance.",
+      "presentation": {
+        "displayName": "Analysis plan",
+        "shortDescription": "Use when asked to plan an analysis to answer a defined decision question.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Plan an analysis to answer a defined decision question."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-architecture-decision",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "architecture decision brief",
+          "decision architecture",
+          "compare technical options for the selected decision"
+        ],
+        "requiredInputs": [
+          "decision",
+          "constraints"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "architecture-decision-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Critical system constraints are missing",
+          "The decision needs unavailable security or operational evidence"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-architecture-decision/references/evaluation.json"
+        ],
+        "examples": [
+          "Compare technical options for the selected decision."
+        ]
+      },
+      "description": "Use when asked to compare technical options for the selected decision. Not authority for production changes or an untested performance guarantee.",
+      "presentation": {
+        "displayName": "Architecture decision brief",
+        "shortDescription": "Use when asked to compare technical options for the selected decision.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Compare technical options for the selected decision."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-assessment-review",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "assessment alignment review",
+          "revue alignement evaluation",
+          "review an assessment against learning outcomes and policy"
+        ],
+        "requiredInputs": [
+          "learningOutcomes",
+          "assessment"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "assessment-review-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Assessment policy is missing",
+          "High-stakes decisions require qualified review"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-assessment-review/references/evaluation.json"
+        ],
+        "examples": [
+          "Review an assessment against learning outcomes and policy."
+        ]
+      },
+      "description": "Use when asked to review an assessment against learning outcomes and policy. Not for autonomous learner scoring or certification decisions.",
+      "presentation": {
+        "displayName": "Assessment alignment review",
+        "shortDescription": "Use when asked to review an assessment against learning outcomes and policy.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Review an assessment against learning outcomes and policy."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
       "name": "hoi-audit",
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
@@ -221,6 +611,84 @@
       ]
     },
     {
+      "name": "hoi-cash-scenarios",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "cash-flow scenarios",
+          "scenarios de tresorerie",
+          "prepare cash-flow scenarios from approved balances and commitments"
+        ],
+        "requiredInputs": [
+          "period",
+          "currency"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "cash-scenarios-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Opening balance or period is missing",
+          "Mixed currencies lack an approved conversion basis"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-cash-scenarios/references/evaluation.json"
+        ],
+        "examples": [
+          "Prepare cash-flow scenarios from approved balances and commitments."
+        ]
+      },
+      "description": "Use when asked to prepare cash-flow scenarios from approved balances and commitments. Not for initiating transfers, prioritizing creditors as legal advice or guaranteed forecasts.",
+      "presentation": {
+        "displayName": "Cash-flow scenarios",
+        "shortDescription": "Use when asked to prepare cash-flow scenarios from approved balances and commitments.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Prepare cash-flow scenarios from approved balances and commitments."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
       "name": "hoi-chief-of-staff",
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
@@ -299,6 +767,240 @@
       ]
     },
     {
+      "name": "hoi-client-review",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "client relationship review",
+          "revue de relation client",
+          "review client outcomes and relationship risks from selected records"
+        ],
+        "requiredInputs": [
+          "client",
+          "period"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "client-review-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Success criteria are absent",
+          "Evidence is incomplete; present a partial review"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-client-review/references/evaluation.json"
+        ],
+        "examples": [
+          "Review client outcomes and relationship risks from selected records."
+        ]
+      },
+      "description": "Use when asked to review client outcomes and relationship risks from selected records. Not for automatic renewal outreach, account changes or contract decisions.",
+      "presentation": {
+        "displayName": "Client relationship review",
+        "shortDescription": "Use when asked to review client outcomes and relationship risks from selected records.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Review client outcomes and relationship risks from selected records."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-close-preparation",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "close preparation",
+          "preparation de cloture",
+          "prepare the period-close checklist from supplied accounting policies"
+        ],
+        "requiredInputs": [
+          "period",
+          "accountingBasis"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "close-preparation-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Accounting basis or entity is unclear",
+          "Period completeness cannot be established"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-close-preparation/references/evaluation.json"
+        ],
+        "examples": [
+          "Prepare the period-close checklist from supplied accounting policies."
+        ]
+      },
+      "description": "Use when asked to prepare the period-close checklist from supplied accounting policies. Not for preparing filings, certifying accounts or executing ledger changes.",
+      "presentation": {
+        "displayName": "Close preparation",
+        "shortDescription": "Use when asked to prepare the period-close checklist from supplied accounting policies.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Prepare the period-close checklist from supplied accounting policies."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-communication-brief",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "communication brief",
+          "brief de communication",
+          "draft a communication brief for a defined audience and objective"
+        ],
+        "requiredInputs": [
+          "audience",
+          "objective"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "communication-brief-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Essential claims lack evidence",
+          "Recipient scope or communication purpose is unclear"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-communication-brief/references/evaluation.json"
+        ],
+        "examples": [
+          "Draft a communication brief for a defined audience and objective."
+        ]
+      },
+      "description": "Use when asked to draft a communication brief for a defined audience and objective. Not for autonomous external communication or impersonating an approver.",
+      "presentation": {
+        "displayName": "Communication brief",
+        "shortDescription": "Use when asked to draft a communication brief for a defined audience and objective.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Draft a communication brief for a defined audience and objective."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
       "name": "hoi-company-onboarding",
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
@@ -339,6 +1041,84 @@
         "references/document-map.md",
         "references/evidence-and-interviews.md",
         "references/member.md"
+      ]
+    },
+    {
+      "name": "hoi-competitor-research",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "competitor research",
+          "recherche concurrentielle",
+          "compare selected competitors for our target market"
+        ],
+        "requiredInputs": [
+          "market",
+          "competitors"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "competitor-research-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Market or competitor identity is ambiguous",
+          "Required research is unavailable; deliver only supported coverage"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-competitor-research/references/evaluation.json"
+        ],
+        "examples": [
+          "Compare selected competitors for our target market."
+        ]
+      },
+      "description": "Use when asked to compare selected competitors for our target market. Not a substitute for private market data or authorization to contact competitors.",
+      "presentation": {
+        "displayName": "Competitor research",
+        "shortDescription": "Use when asked to compare selected competitors for our target market.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Compare selected competitors for our target market."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
       ]
     },
     {
@@ -419,6 +1199,552 @@
       ]
     },
     {
+      "name": "hoi-content-strategy",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "content strategy",
+          "strategie de contenu",
+          "plan a content strategy from audience questions and approved knowledge"
+        ],
+        "requiredInputs": [
+          "audience",
+          "objective"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "content-strategy-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Channel or audience constraints conflict",
+          "Requested volume would require unsupported claims"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-content-strategy/references/evaluation.json"
+        ],
+        "examples": [
+          "Plan a content strategy from audience questions and approved knowledge."
+        ]
+      },
+      "description": "Use when asked to plan a content strategy from audience questions and approved knowledge. Not for automatic posting or fabricated SEO volumes.",
+      "presentation": {
+        "displayName": "Content strategy",
+        "shortDescription": "Use when asked to plan a content strategy from audience questions and approved knowledge.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Plan a content strategy from audience questions and approved knowledge."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-contract-issues",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "contract issue spotting",
+          "points de vigilance contractuels",
+          "identify contract issues against the selected review playbook"
+        ],
+        "requiredInputs": [
+          "jurisdiction",
+          "reviewObjective"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "contract-issues-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Jurisdiction or operative version is ambiguous",
+          "A professional conclusion is requested beyond available authority"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-contract-issues/references/evaluation.json"
+        ],
+        "examples": [
+          "Identify contract issues against the selected review playbook."
+        ]
+      },
+      "description": "Use when asked to identify contract issues against the selected review playbook. Not legal advice, signature authority or automatic contract approval.",
+      "presentation": {
+        "displayName": "Contract issue spotting",
+        "shortDescription": "Use when asked to identify contract issues against the selected review playbook.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Identify contract issues against the selected review playbook."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-control-evidence",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "control evidence assessment",
+          "evaluation des preuves de controle",
+          "map selected evidence to the agreed controls"
+        ],
+        "requiredInputs": [
+          "frameworkVersion",
+          "systemScope"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "control-evidence-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Framework version or scope is unclear",
+          "Required evidence is inaccessible"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-control-evidence/references/evaluation.json"
+        ],
+        "examples": [
+          "Map selected evidence to the agreed controls."
+        ]
+      },
+      "description": "Use when asked to map selected evidence to the agreed controls. Not an audit opinion, certification or permission to alter systems.",
+      "presentation": {
+        "displayName": "Control evidence assessment",
+        "shortDescription": "Use when asked to map selected evidence to the agreed controls.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Map selected evidence to the agreed controls."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-data-quality-review",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "data quality review",
+          "revue qualite donnees",
+          "review selected data for completeness consistency and duplication"
+        ],
+        "requiredInputs": [
+          "dataset",
+          "reviewObjective"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "data-quality-review-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "The selected dataset cannot be inspected",
+          "Sampling limits prevent a whole-dataset claim"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-data-quality-review/references/evaluation.json"
+        ],
+        "examples": [
+          "Review selected data for completeness consistency and duplication."
+        ]
+      },
+      "description": "Use when asked to review selected data for completeness consistency and duplication. Not for destructive cleaning or asserting statistical representativeness without evidence.",
+      "presentation": {
+        "displayName": "Data quality review",
+        "shortDescription": "Use when asked to review selected data for completeness consistency and duplication.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Review selected data for completeness consistency and duplication."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-design-brief",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "design brief",
+          "brief de design",
+          "prepare a design brief for the selected audience and surface"
+        ],
+        "requiredInputs": [
+          "audience",
+          "surface"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "design-brief-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Audience or surface is ambiguous",
+          "Required brand rights or assets are unavailable"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-design-brief/references/evaluation.json"
+        ],
+        "examples": [
+          "Prepare a design brief for the selected audience and surface."
+        ]
+      },
+      "description": "Use when asked to prepare a design brief for the selected audience and surface. Not for redesigning unrelated surfaces or claiming a prototype is usability-tested.",
+      "presentation": {
+        "displayName": "Design brief",
+        "shortDescription": "Use when asked to prepare a design brief for the selected audience and surface.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Prepare a design brief for the selected audience and surface."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-discovery-preparation",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "discovery preparation",
+          "preparation de decouverte",
+          "prepare a discovery conversation for an account and objective"
+        ],
+        "requiredInputs": [
+          "account",
+          "objective"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "discovery-preparation-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "The requested objective conflicts with recorded client intent",
+          "Confidential account context is unavailable"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-discovery-preparation/references/evaluation.json"
+        ],
+        "examples": [
+          "Prepare a discovery conversation for an account and objective."
+        ]
+      },
+      "description": "Use when asked to prepare a discovery conversation for an account and objective. Not for autonomous qualification decisions or sending invitations.",
+      "presentation": {
+        "displayName": "Discovery preparation",
+        "shortDescription": "Use when asked to prepare a discovery conversation for an account and objective.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Prepare a discovery conversation for an account and objective."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-employee-onboarding",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "employee onboarding plan",
+          "plan integration collaborateur",
+          "prepare an onboarding plan for a supplied role"
+        ],
+        "requiredInputs": [
+          "role",
+          "startContext"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "employee-onboarding-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Role or start context is missing",
+          "The plan would disclose unauthorized personnel records"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-employee-onboarding/references/evaluation.json"
+        ],
+        "examples": [
+          "Prepare an onboarding plan for a supplied role."
+        ]
+      },
+      "description": "Use when asked to prepare an onboarding plan for a supplied role. Not for repeating company-wide interviews or automatically creating user accounts.",
+      "presentation": {
+        "displayName": "Employee onboarding plan",
+        "shortDescription": "Use when asked to prepare an onboarding plan for a supplied role.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Prepare an onboarding plan for a supplied role."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
       "name": "hoi-evaluate",
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
@@ -457,6 +1783,200 @@
       "files": [
         "SKILL.md",
         "agents/openai.yaml"
+      ]
+    },
+    {
+      "name": "hoi-expertise-customize",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [],
+      "optionalConnections": [],
+      "description": "Prepare, compare and review a private client profile for selected HOI expertise plugins after company or client onboarding. Use when tailoring business workflows to a client's evidence, operating model, brand, metrics or review conventions. Does not install plugins, configure connections or grant permissions.",
+      "presentation": {
+        "displayName": "Customize expertise",
+        "shortDescription": "Prepare client profiles from selected onboarding evidence.",
+        "category": "Setup",
+        "icon": "setup",
+        "examples": [
+          "Customize the selected expertise plugins for this client."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/profile-fields.json",
+        "references/profile-workflow.md",
+        "scripts/profile.py"
+      ]
+    },
+    {
+      "name": "hoi-finance-variance",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "financial variance analysis",
+          "analyse des ecarts budgetaires",
+          "explain budget versus actual for the selected period"
+        ],
+        "requiredInputs": [
+          "period",
+          "currency"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "finance-variance-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Currency, period or arithmetic inputs are invalid",
+          "A reconciliation mismatch prevents a reliable total"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-finance-variance/references/evaluation.json"
+        ],
+        "examples": [
+          "Explain budget versus actual for the selected period."
+        ]
+      },
+      "description": "Use when asked to explain budget versus actual for the selected period. Not for investment advice, statutory assurance, journal posting or payments.",
+      "presentation": {
+        "displayName": "Financial variance analysis",
+        "shortDescription": "Use when asked to explain budget versus actual for the selected period.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Explain budget versus actual for the selected period."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json",
+        "scripts/variance.py"
+      ]
+    },
+    {
+      "name": "hoi-incident-triage",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "incident triage brief",
+          "brief de triage incident",
+          "prepare an incident triage brief from selected observations"
+        ],
+        "requiredInputs": [
+          "incidentScope",
+          "observations"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "incident-triage-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Live containment requires authority not supplied",
+          "Sensitive evidence cannot be accessed in this context"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-incident-triage/references/evaluation.json"
+        ],
+        "examples": [
+          "Prepare an incident triage brief from selected observations."
+        ]
+      },
+      "description": "Use when asked to prepare an incident triage brief from selected observations. Not for autonomous incident response, public notification or attribution of an attacker.",
+      "presentation": {
+        "displayName": "Incident triage brief",
+        "shortDescription": "Use when asked to prepare an incident triage brief from selected observations.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Prepare an incident triage brief from selected observations."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
       ]
     },
     {
@@ -570,6 +2090,84 @@
       ]
     },
     {
+      "name": "hoi-learning-design",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "learning design brief",
+          "conception pedagogique",
+          "design a learning sequence for supplied learner outcomes"
+        ],
+        "requiredInputs": [
+          "learners",
+          "learningOutcomes"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "learning-design-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Outcomes are too vague to assess",
+          "Necessary prerequisite material is unavailable"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-learning-design/references/evaluation.json"
+        ],
+        "examples": [
+          "Design a learning sequence for supplied learner outcomes."
+        ]
+      },
+      "description": "Use when asked to design a learning sequence for supplied learner outcomes. Not for claiming learning effectiveness before learner evaluation.",
+      "presentation": {
+        "displayName": "Learning design brief",
+        "shortDescription": "Use when asked to design a learning sequence for supplied learner outcomes.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Design a learning sequence for supplied learner outcomes."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
       "name": "hoi-meeting-prep",
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
@@ -648,6 +2246,162 @@
       ]
     },
     {
+      "name": "hoi-metric-definition",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "metric definition",
+          "definition indicateur",
+          "define an auditable metric for the selected business question"
+        ],
+        "requiredInputs": [
+          "businessQuestion",
+          "population"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "metric-definition-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Population or purpose is ambiguous",
+          "Required data is outside authorized scope"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-metric-definition/references/evaluation.json"
+        ],
+        "examples": [
+          "Define an auditable metric for the selected business question."
+        ]
+      },
+      "description": "Use when asked to define an auditable metric for the selected business question. Not for claiming metric values without data or executing warehouse writes.",
+      "presentation": {
+        "displayName": "Metric definition",
+        "shortDescription": "Use when asked to define an auditable metric for the selected business question.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Define an auditable metric for the selected business question."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-obligation-map",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "contract obligation mapping",
+          "cartographie des obligations",
+          "extract obligations from the selected agreement"
+        ],
+        "requiredInputs": [
+          "agreementVersion",
+          "reviewObjective"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "obligation-map-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Agreement version is unclear",
+          "A referenced appendix or triggering event is missing"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-obligation-map/references/evaluation.json"
+        ],
+        "examples": [
+          "Extract obligations from the selected agreement."
+        ]
+      },
+      "description": "Use when asked to extract obligations from the selected agreement. Not for accepting commitments, interpreting disputed legal duties or sending notices.",
+      "presentation": {
+        "displayName": "Contract obligation mapping",
+        "shortDescription": "Use when asked to extract obligations from the selected agreement.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Extract obligations from the selected agreement."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
       "name": "hoi-onboard",
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
@@ -719,6 +2473,396 @@
       "files": [
         "SKILL.md",
         "agents/openai.yaml"
+      ]
+    },
+    {
+      "name": "hoi-people-policy-draft",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "people policy preparation",
+          "preparation politique rh",
+          "draft a people policy from confirmed operating decisions"
+        ],
+        "requiredInputs": [
+          "policyObjective",
+          "jurisdiction"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "people-policy-draft-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Jurisdiction is unknown",
+          "The request requires a binding employment determination"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-people-policy-draft/references/evaluation.json"
+        ],
+        "examples": [
+          "Draft a people policy from confirmed operating decisions."
+        ]
+      },
+      "description": "Use when asked to draft a people policy from confirmed operating decisions. Not legal advice or authority to change employment terms.",
+      "presentation": {
+        "displayName": "People policy preparation",
+        "shortDescription": "Use when asked to draft a people policy from confirmed operating decisions.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Draft a people policy from confirmed operating decisions."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-policy-review",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "policy consistency review",
+          "revue de coherence des politiques",
+          "review a policy against selected internal requirements"
+        ],
+        "requiredInputs": [
+          "policyVersion",
+          "reviewObjective"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "policy-review-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Applicable policy version is missing",
+          "Specialist correctness cannot be established"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-policy-review/references/evaluation.json"
+        ],
+        "examples": [
+          "Review a policy against selected internal requirements."
+        ]
+      },
+      "description": "Use when asked to review a policy against selected internal requirements. Not for publishing policy or determining regulatory compliance.",
+      "presentation": {
+        "displayName": "Policy consistency review",
+        "shortDescription": "Use when asked to review a policy against selected internal requirements.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Review a policy against selected internal requirements."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-positioning-brief",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "positioning brief",
+          "brief de positionnement",
+          "draft a positioning brief for the supplied offering and audience"
+        ],
+        "requiredInputs": [
+          "offering",
+          "audience"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "positioning-brief-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Offering or audience is missing",
+          "A proposed claim requires evidence the client has not supplied"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-positioning-brief/references/evaluation.json"
+        ],
+        "examples": [
+          "Draft a positioning brief for the supplied offering and audience."
+        ]
+      },
+      "description": "Use when asked to draft a positioning brief for the supplied offering and audience. Not for legal approval of advertising claims or automatic campaign publication.",
+      "presentation": {
+        "displayName": "Positioning brief",
+        "shortDescription": "Use when asked to draft a positioning brief for the supplied offering and audience.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Draft a positioning brief for the supplied offering and audience."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-practice-design",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "practice activity design",
+          "conception exercice",
+          "create a practice activity for a defined learning outcome"
+        ],
+        "requiredInputs": [
+          "learningOutcome",
+          "learnerContext"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "practice-design-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "The requested outcome cannot be observed",
+          "The scenario would require unsafe or unauthorized actions"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-practice-design/references/evaluation.json"
+        ],
+        "examples": [
+          "Create a practice activity for a defined learning outcome."
+        ]
+      },
+      "description": "Use when asked to create a practice activity for a defined learning outcome. Not for automated grading or assessment-policy changes.",
+      "presentation": {
+        "displayName": "Practice activity design",
+        "shortDescription": "Use when asked to create a practice activity for a defined learning outcome.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Create a practice activity for a defined learning outcome."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-product-requirements",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "product requirements brief",
+          "cadrage des exigences produit",
+          "turn the supplied user problem into testable requirements"
+        ],
+        "requiredInputs": [
+          "userProblem",
+          "desiredOutcome"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "product-requirements-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "The user outcome is unclear",
+          "Requirements conflict with supplied constraints"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-product-requirements/references/evaluation.json"
+        ],
+        "examples": [
+          "Turn the supplied user problem into testable requirements."
+        ]
+      },
+      "description": "Use when asked to turn the supplied user problem into testable requirements. Not authorization to deploy, replace a platform or broaden scope.",
+      "presentation": {
+        "displayName": "Product requirements brief",
+        "shortDescription": "Use when asked to turn the supplied user problem into testable requirements.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Turn the supplied user problem into testable requirements."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
       ]
     },
     {
@@ -884,6 +3028,84 @@
       ]
     },
     {
+      "name": "hoi-role-clarity",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "role clarity brief",
+          "clarification des roles",
+          "clarify responsibilities and handoffs for a selected role"
+        ],
+        "requiredInputs": [
+          "role",
+          "objective"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "role-clarity-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Role owner or organizational scope is unclear",
+          "Sensitive personnel information is outside scope"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-role-clarity/references/evaluation.json"
+        ],
+        "examples": [
+          "Clarify responsibilities and handoffs for a selected role."
+        ]
+      },
+      "description": "Use when asked to clarify responsibilities and handoffs for a selected role. Not for hiring, promotion, dismissal or automated employee scoring.",
+      "presentation": {
+        "displayName": "Role clarity brief",
+        "shortDescription": "Use when asked to clarify responsibilities and handoffs for a selected role.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Clarify responsibilities and handoffs for a selected role."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
       "name": "hoi-security",
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",
@@ -956,6 +3178,240 @@
       "files": [
         "SKILL.md",
         "agents/openai.yaml"
+      ]
+    },
+    {
+      "name": "hoi-support-knowledge",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "support knowledge proposal",
+          "proposition article support",
+          "propose a reusable support article from selected resolved cases"
+        ],
+        "requiredInputs": [
+          "cases",
+          "topic"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "support-knowledge-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Resolution is not evidenced",
+          "Steps require unsafe or unauthorized access"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-support-knowledge/references/evaluation.json"
+        ],
+        "examples": [
+          "Propose a reusable support article from selected resolved cases."
+        ]
+      },
+      "description": "Use when asked to propose a reusable support article from selected resolved cases. Not for promoting every conversation into approved knowledge.",
+      "presentation": {
+        "displayName": "Support knowledge proposal",
+        "shortDescription": "Use when asked to propose a reusable support article from selected resolved cases.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Propose a reusable support article from selected resolved cases."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-support-response",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "support response draft",
+          "brouillon reponse support",
+          "draft a support response grounded in approved policy and knowledge"
+        ],
+        "requiredInputs": [
+          "case",
+          "responseObjective"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "support-response-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "The answer requires unverified account access",
+          "Policy and requested remedy conflict"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-support-response/references/evaluation.json"
+        ],
+        "examples": [
+          "Draft a support response grounded in approved policy and knowledge."
+        ]
+      },
+      "description": "Use when asked to draft a support response grounded in approved policy and knowledge. Not for sending replies or approving refunds.",
+      "presentation": {
+        "displayName": "Support response draft",
+        "shortDescription": "Use when asked to draft a support response grounded in approved policy and knowledge.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Draft a support response grounded in approved policy and knowledge."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-support-triage",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "support case triage",
+          "triage demande support",
+          "triage a selected support case using the approved service policy"
+        ],
+        "requiredInputs": [
+          "case",
+          "servicePolicy"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "support-triage-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Identity-sensitive action requires verification",
+          "The case exceeds approved support scope"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-support-triage/references/evaluation.json"
+        ],
+        "examples": [
+          "Triage a selected support case using the approved service policy."
+        ]
+      },
+      "description": "Use when asked to triage a selected support case using the approved service policy. Not for automatically closing cases or making account/security changes.",
+      "presentation": {
+        "displayName": "Support case triage",
+        "shortDescription": "Use when asked to triage a selected support case using the approved service policy.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Triage a selected support case using the approved service policy."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
       ]
     },
     {
@@ -1032,6 +3488,396 @@
       "files": [
         "SKILL.md",
         "agents/openai.yaml"
+      ]
+    },
+    {
+      "name": "hoi-threat-model",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "threat modelling",
+          "modele de menaces",
+          "prepare a threat model for the selected system boundary"
+        ],
+        "requiredInputs": [
+          "systemScope",
+          "assets"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "threat-model-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "System ownership or scope is unclear",
+          "Testing would exceed authorization"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-threat-model/references/evaluation.json"
+        ],
+        "examples": [
+          "Prepare a threat model for the selected system boundary."
+        ]
+      },
+      "description": "Use when asked to prepare a threat model for the selected system boundary. Not authorization for scanning, exploitation or production changes.",
+      "presentation": {
+        "displayName": "Threat modelling",
+        "shortDescription": "Use when asked to prepare a threat model for the selected system boundary.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Prepare a threat model for the selected system boundary."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-ux-content-review",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "ux and content review",
+          "revue ux contenu",
+          "review a user flow for clarity accessibility and recovery"
+        ],
+        "requiredInputs": [
+          "userTask",
+          "surfaceEvidence"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "ux-content-review-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Only partial screens are available; constrain conclusions",
+          "Runtime validation would require unavailable access"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-ux-content-review/references/evaluation.json"
+        ],
+        "examples": [
+          "Review a user flow for clarity accessibility and recovery."
+        ]
+      },
+      "description": "Use when asked to review a user flow for clarity accessibility and recovery. Not for silently changing code or certifying accessibility.",
+      "presentation": {
+        "displayName": "UX and content review",
+        "shortDescription": "Use when asked to review a user flow for clarity accessibility and recovery.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Review a user flow for clarity accessibility and recovery."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-vendor-comparison",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "vendor proposal comparison",
+          "comparaison fournisseurs",
+          "compare selected vendor proposals against approved criteria"
+        ],
+        "requiredInputs": [
+          "criteria",
+          "proposals"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "vendor-comparison-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Proposals cover materially different scopes",
+          "Required comparison assumptions are unapproved"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-vendor-comparison/references/evaluation.json"
+        ],
+        "examples": [
+          "Compare selected vendor proposals against approved criteria."
+        ]
+      },
+      "description": "Use when asked to compare selected vendor proposals against approved criteria. Not for vendor selection approval or executing purchases.",
+      "presentation": {
+        "displayName": "Vendor proposal comparison",
+        "shortDescription": "Use when asked to compare selected vendor proposals against approved criteria.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Compare selected vendor proposals against approved criteria."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-vendor-criteria",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "vendor evaluation criteria",
+          "criteres evaluation fournisseur",
+          "define vendor criteria for a supplied purchasing need"
+        ],
+        "requiredInputs": [
+          "purchaseNeed",
+          "constraints"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "vendor-criteria-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Purchasing objective is unclear",
+          "Weights or constraints require an owner decision"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-vendor-criteria/references/evaluation.json"
+        ],
+        "examples": [
+          "Define vendor criteria for a supplied purchasing need."
+        ]
+      },
+      "description": "Use when asked to define vendor criteria for a supplied purchasing need. Not for awarding contracts or issuing binding procurement terms.",
+      "presentation": {
+        "displayName": "Vendor evaluation criteria",
+        "shortDescription": "Use when asked to define vendor criteria for a supplied purchasing need.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Define vendor criteria for a supplied purchasing need."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
+      ]
+    },
+    {
+      "name": "hoi-vendor-review",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [
+        "knowledge:search",
+        "knowledge:evidence"
+      ],
+      "optionalConnections": [],
+      "routing": {
+        "intents": [
+          "vendor performance review",
+          "revue performance fournisseur",
+          "review a vendor against supplied commitments and service evidence"
+        ],
+        "requiredInputs": [
+          "vendor",
+          "period"
+        ],
+        "contextDomains": [
+          "sources",
+          "wiki",
+          "memory",
+          "records"
+        ],
+        "outputType": "vendor-review-draft",
+        "permittedOperations": [
+          "knowledge:search",
+          "knowledge:evidence"
+        ],
+        "exclusions": [
+          "approval",
+          "publication",
+          "external-write",
+          "recursive-delegation"
+        ],
+        "stopConditions": [
+          "Contract or service scope is missing",
+          "Legal interpretation is needed for a disputed obligation"
+        ],
+        "evaluationRefs": [
+          "skills/hoi-vendor-review/references/evaluation.json"
+        ],
+        "examples": [
+          "Review a vendor against supplied commitments and service evidence."
+        ]
+      },
+      "description": "Use when asked to review a vendor against supplied commitments and service evidence. Not for terminating suppliers, changing contracts or sending notices.",
+      "presentation": {
+        "displayName": "Vendor performance review",
+        "shortDescription": "Use when asked to review a vendor against supplied commitments and service evidence.",
+        "category": "Delivery",
+        "icon": "delivery",
+        "examples": [
+          "Review a vendor against supplied commitments and service evidence."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client-context.md",
+        "references/evaluation.json",
+        "references/provenance.json"
       ]
     },
     {

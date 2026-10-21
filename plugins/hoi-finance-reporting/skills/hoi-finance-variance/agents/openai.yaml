@@ -1,0 +1,5 @@
+interface:
+  display_name: Financial variance analysis
+  short_description: Draft financial variance analysis with evidence
+  default_prompt: Use $hoi-finance-variance for this selected client. Explain
+    budget versus actual for the selected period.

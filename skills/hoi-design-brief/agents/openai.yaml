@@ -1,0 +1,5 @@
+interface:
+  display_name: Design brief
+  short_description: Draft design brief with evidence
+  default_prompt: Use $hoi-design-brief for this selected client. Prepare a design
+    brief for the selected audience and surface.

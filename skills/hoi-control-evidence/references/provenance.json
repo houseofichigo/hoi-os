@@ -1,0 +1,28 @@
+{
+  "author": "House of Ichigo",
+  "version": "0.1.0",
+  "authorship": "Original HOI instructions; conceptual references only, no upstream code or prose copied.",
+  "references": [
+    {
+      "repository": "GRCEngClub/claude-grc-engineering",
+      "url": "https://github.com/GRCEngClub/claude-grc-engineering",
+      "checkedOn": "2026-10-21",
+      "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/GRCEngClub/claude-grc-engineering/blob/784fd9ab375c95f867a34d865f0b2b59ac899b73/README.md",
+          "sha256": "f12966450a0ff48b5c718a2326db95692513cf54172167f5f7af06887ed37159"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/GRCEngClub/claude-grc-engineering/blob/784fd9ab375c95f867a34d865f0b2b59ac899b73/LICENSE",
+          "sha256": "d1c92a61d3d8b1f99c5e160a0d09f5f81f5c9422aa702eb56aa8408486a377c2"
+        }
+      ],
+      "commit": "784fd9ab375c95f867a34d865f0b2b59ac899b73",
+      "status": "reference-pinned",
+      "licenseAssessment": "MIT for original material; reference exceptions include CC BY-SA and CC BY-ND; no copying"
+    }
+  ]
+}

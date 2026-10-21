@@ -1,0 +1,5 @@
+interface:
+  display_name: Client relationship review
+  short_description: Draft client relationship review with evidence
+  default_prompt: Use $hoi-client-review for this selected client. Review client
+    outcomes and relationship risks from selected records.

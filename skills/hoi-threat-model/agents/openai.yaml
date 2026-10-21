@@ -1,0 +1,5 @@
+interface:
+  display_name: Threat modelling
+  short_description: Draft threat modelling with evidence
+  default_prompt: Use $hoi-threat-model for this selected client. Prepare a threat
+    model for the selected system boundary.

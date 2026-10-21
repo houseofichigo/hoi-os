@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chief of Staff"
+  short_description: "Review priorities, promises and upcoming work."
+  default_prompt: "Use $hoi-chief-of-staff for this request, respecting HOI review and source permissions."

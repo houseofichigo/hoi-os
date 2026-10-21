@@ -1,0 +1,5 @@
+interface:
+  display_name: Contract obligation mapping
+  short_description: Draft contract obligation mapping with evidence
+  default_prompt: Use $hoi-obligation-map for this selected client. Extract
+    obligations from the selected agreement.

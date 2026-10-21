@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoi-security-compliance",
+  "version": "0.1.0",
+  "description": "Threat modelling, control evidence and incident triage preparation.",
+  "author": {
+    "name": "House of Ichigo"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HOI Security & Compliance",
+        "shortDescription": "Reviewed client workflows",
+        "longDescription": "Threat modelling, control evidence and incident triage preparation. Uses selected evidence and reviewed client context. No tools, connections or schedules are installed.",
+        "developerName": "House of Ichigo",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me use HOI Security & Compliance for my selected client."
+      }
+    }
+  }
+}

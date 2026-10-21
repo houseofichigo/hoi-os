@@ -1,0 +1,28 @@
+{
+  "author": "House of Ichigo",
+  "version": "0.1.0",
+  "authorship": "Original HOI instructions; conceptual references only, no upstream code or prose copied.",
+  "references": [
+    {
+      "repository": "anthropics/claude-for-legal",
+      "url": "https://github.com/anthropics/claude-for-legal",
+      "checkedOn": "2026-10-21",
+      "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/anthropics/claude-for-legal/blob/4a6c651889c97cc9140580363c73e0eb17379c2b/README.md",
+          "sha256": "2dee4ff1a199c663fa42e9518d9716a9eff3c6c570b4fb766582c477e09f551c"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/anthropics/claude-for-legal/blob/4a6c651889c97cc9140580363c73e0eb17379c2b/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ],
+      "commit": "4a6c651889c97cc9140580363c73e0eb17379c2b",
+      "status": "reference-pinned",
+      "licenseAssessment": "Apache-2.0"
+    }
+  ]
+}

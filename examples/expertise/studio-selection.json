@@ -1,0 +1,19 @@
+{
+  "workspaceId": "fictional-studio",
+  "clientId": "client-studio",
+  "packs": {
+    "marketing-brand": {
+      "audiences": {
+        "state": "confirmed",
+        "value": "Independent fictional retailers",
+        "evidence": [
+          {
+            "recordId": "fictional-owner-statement",
+            "revision": "1",
+            "locator": "Owner interview, 2026-01-01"
+          }
+        ]
+      }
+    }
+  }
+}

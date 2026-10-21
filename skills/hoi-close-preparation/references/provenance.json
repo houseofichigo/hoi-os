@@ -1,0 +1,28 @@
+{
+  "author": "House of Ichigo",
+  "version": "0.1.0",
+  "authorship": "Original HOI instructions; conceptual references only, no upstream code or prose copied.",
+  "references": [
+    {
+      "repository": "Amazon-Quick/Amazon-Quick-official-catalog",
+      "url": "https://github.com/Amazon-Quick/Amazon-Quick-official-catalog",
+      "checkedOn": "2026-10-21",
+      "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/Amazon-Quick/Amazon-Quick-official-catalog/blob/ee132f4d9a7b92df2400901f29ae0253863e9297/README.md",
+          "sha256": "85d60e1658eb3e718a9ce9cf5a64601586a4ae605151b51cf67b30f09dc94128"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/Amazon-Quick/Amazon-Quick-official-catalog/blob/ee132f4d9a7b92df2400901f29ae0253863e9297/LICENSE",
+          "sha256": "6f829c66e5130120d139a1a9011cd0952bb7197ef78baa8c495fc99acbe37685"
+        }
+      ],
+      "commit": "ee132f4d9a7b92df2400901f29ae0253863e9297",
+      "status": "reference-pinned",
+      "licenseAssessment": "MIT-0"
+    }
+  ]
+}

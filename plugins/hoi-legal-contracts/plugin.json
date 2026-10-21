@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoi-legal-contracts",
+  "version": "0.1.0",
+  "description": "Contract issue spotting, obligation mapping and policy review drafts.",
+  "author": {
+    "name": "House of Ichigo"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HOI Legal & Contracts",
+        "shortDescription": "Reviewed client workflows",
+        "longDescription": "Contract issue spotting, obligation mapping and policy review drafts. Uses selected evidence and reviewed client context. No tools, connections or schedules are installed.",
+        "developerName": "House of Ichigo",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me use HOI Legal & Contracts for my selected client."
+      }
+    }
+  }
+}

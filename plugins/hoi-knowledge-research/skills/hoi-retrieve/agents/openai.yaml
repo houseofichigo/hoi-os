@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evidence search"
+  short_description: "Find passages that support an answer."
+  default_prompt: "Use $hoi-retrieve for this request, respecting HOI review and source permissions."

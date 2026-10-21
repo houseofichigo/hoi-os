@@ -1,0 +1,5 @@
+interface:
+  display_name: UX and content review
+  short_description: Draft ux and content review with evidence
+  default_prompt: Use $hoi-ux-content-review for this selected client. Review a
+    user flow for clarity accessibility and recovery.

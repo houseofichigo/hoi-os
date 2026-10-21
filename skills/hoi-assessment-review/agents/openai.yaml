@@ -1,0 +1,5 @@
+interface:
+  display_name: Assessment alignment review
+  short_description: Draft assessment alignment review with evidence
+  default_prompt: Use $hoi-assessment-review for this selected client. Review an
+    assessment against learning outcomes and policy.

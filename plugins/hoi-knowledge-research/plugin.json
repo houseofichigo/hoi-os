@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoi-knowledge-research",
+  "version": "0.1.0",
+  "description": "Grounded retrieval, knowledge review and wiki drafting.",
+  "author": {
+    "name": "House of Ichigo"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HOI Knowledge & Research",
+        "shortDescription": "Reviewed client workflows",
+        "longDescription": "Grounded retrieval, knowledge review and wiki drafting. Uses selected evidence and reviewed client context. No tools, connections or schedules are installed.",
+        "developerName": "House of Ichigo",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me use HOI Knowledge & Research for my selected client."
+      }
+    }
+  }
+}

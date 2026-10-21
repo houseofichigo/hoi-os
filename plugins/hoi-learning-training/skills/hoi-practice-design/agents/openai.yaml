@@ -1,0 +1,5 @@
+interface:
+  display_name: Practice activity design
+  short_description: Draft practice activity design with evidence
+  default_prompt: Use $hoi-practice-design for this selected client. Create a
+    practice activity for a defined learning outcome.

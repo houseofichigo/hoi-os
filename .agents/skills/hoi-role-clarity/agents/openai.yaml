@@ -1,0 +1,5 @@
+interface:
+  display_name: Role clarity brief
+  short_description: Draft role clarity brief with evidence
+  default_prompt: Use $hoi-role-clarity for this selected client. Clarify
+    responsibilities and handoffs for a selected role.

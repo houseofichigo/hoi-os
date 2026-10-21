@@ -1,0 +1,5 @@
+interface:
+  display_name: Cash-flow scenarios
+  short_description: Draft cash-flow scenarios with evidence
+  default_prompt: Use $hoi-cash-scenarios for this selected client. Prepare
+    cash-flow scenarios from approved balances and commitments.

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoi-chief-of-staff",
+  "version": "0.1.0",
+  "description": "Priorities, exact meeting preparation and reviewed expertise setup.",
+  "author": {
+    "name": "House of Ichigo"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HOI Chief of Staff",
+        "shortDescription": "Reviewed client workflows",
+        "longDescription": "Priorities, exact meeting preparation and reviewed expertise setup. Uses selected evidence and reviewed client context. No tools, connections or schedules are installed.",
+        "developerName": "House of Ichigo",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me use HOI Chief of Staff for my selected client."
+      }
+    }
+  }
+}

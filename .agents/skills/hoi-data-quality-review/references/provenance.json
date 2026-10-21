@@ -1,0 +1,28 @@
+{
+  "author": "House of Ichigo",
+  "version": "0.1.0",
+  "authorship": "Original HOI instructions; conceptual references only, no upstream code or prose copied.",
+  "references": [
+    {
+      "repository": "dbt-labs/dbt-agent-skills",
+      "url": "https://github.com/dbt-labs/dbt-agent-skills",
+      "checkedOn": "2026-10-21",
+      "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/dbt-labs/dbt-agent-skills/blob/b8facde20b7a92c40ce3e6b86b71c4b92aa44040/README.md",
+          "sha256": "47bc0ac05cab7ce71ccfff2bc7ed3a978156c2fb1b5c1ebd2d7a1e72bdd1d2f6"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/dbt-labs/dbt-agent-skills/blob/b8facde20b7a92c40ce3e6b86b71c4b92aa44040/LICENSE",
+          "sha256": "a25c0f444db00399e225e96559b376d92188fbab622b50c5d4db7c556f77daff"
+        }
+      ],
+      "commit": "b8facde20b7a92c40ce3e6b86b71c4b92aa44040",
+      "status": "reference-pinned",
+      "licenseAssessment": "Apache-2.0"
+    }
+  ]
+}

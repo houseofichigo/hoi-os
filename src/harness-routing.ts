@@ -71,6 +71,27 @@ const patterns: [string, RegExp][] = [
     /\b(find|search|retrieve|look up|what|which|who|when|where|why|how|que|chercher|rechercher|trouver|quel|quelle|quels|quelles|qui|quand|ou|comment|pourquoi)\b/,
   ],
 ];
+// Product-authored literal phrases only: imported metadata cannot inject regexes
+// or executable operations. This still returns a plan and never executes it.
+function expertiseMatches(text: string): string[] {
+  const catalogue = JSON.parse(readFileSync(new URL("../../expertise/catalog.json", import.meta.url), "utf8"));
+  const hits: { id: string; start: number; end: number }[] = [];
+  for (const task of catalogue.packs.flatMap((pack: any) => pack.tasks)) {
+    for (const phrase of task.phrases) {
+      const escaped = norm(phrase).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      for (const match of text.matchAll(new RegExp(`(^|[^a-z0-9])(${escaped})(?=$|[^a-z0-9])`, "g"))) {
+        const start = match.index! + match[1].length;
+        hits.push({ id: task.skillId, start, end: start + match[2].length });
+      }
+    }
+  }
+  // A longer domain phrase disambiguates a contained generic phrase; separate
+  // requested outputs remain separate hits and still require clarification.
+  return [...new Set(hits.filter(hit => !hits.some(other =>
+    other.start <= hit.start && other.end >= hit.end &&
+    other.end - other.start > hit.end - hit.start
+  )).map(hit => hit.id))];
+}
 export function routeHarness(s: Store, raw: unknown, h: Host) {
   s.assertHost(h);
   const input = routeInput.parse(raw),
@@ -117,9 +138,9 @@ export function routeHarness(s: Store, raw: unknown, h: Host) {
   else if (input.workflow)
     selected = ["hoi-chief-of-staff", "hoi-meeting-prep"];
   else {
-    const matches = patterns
+    const matches = [...patterns
       .filter(([, pattern]) => pattern.test(text))
-      .map(([name]) => name);
+      .map(([name]) => name), ...expertiseMatches(text)];
     selected = matches.filter(
       (name) => name !== "hoi-retrieve" || matches.length === 1,
     );
@@ -130,7 +151,7 @@ export function routeHarness(s: Store, raw: unknown, h: Host) {
         fields: ["intent"],
         question: selected.length
           ? "Which output should come first? Select one skill, or the priorities-and-meeting workflow."
-          : "Do you want to find evidence, prepare a meeting, review priorities, extract actions or structure a project brief?",
+          : "Which output do you need? Choose a core workflow or a named expertise skill; ambiguous domain requests need a focused objective.",
       };
   }
   const stages: any[] = [];

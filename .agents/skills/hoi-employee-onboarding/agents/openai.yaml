@@ -1,0 +1,5 @@
+interface:
+  display_name: Employee onboarding plan
+  short_description: Draft employee onboarding plan with evidence
+  default_prompt: Use $hoi-employee-onboarding for this selected client. Prepare
+    an onboarding plan for a supplied role.

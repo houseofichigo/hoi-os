@@ -1,0 +1,5 @@
+interface:
+  display_name: Contract issue spotting
+  short_description: Draft contract issue spotting with evidence
+  default_prompt: Use $hoi-contract-issues for this selected client. Identify
+    contract issues against the selected review playbook.

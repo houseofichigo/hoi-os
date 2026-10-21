@@ -1,0 +1,5 @@
+interface:
+  display_name: Vendor evaluation criteria
+  short_description: Draft vendor evaluation criteria with evidence
+  default_prompt: Use $hoi-vendor-criteria for this selected client. Define vendor
+    criteria for a supplied purchasing need.

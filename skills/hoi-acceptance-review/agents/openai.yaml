@@ -1,0 +1,5 @@
+interface:
+  display_name: Delivery acceptance review
+  short_description: Draft delivery acceptance review with evidence
+  default_prompt: Use $hoi-acceptance-review for this selected client. Review a
+    delivery against its agreed acceptance criteria.

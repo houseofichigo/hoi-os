@@ -1,0 +1,5 @@
+interface:
+  display_name: Competitor research
+  short_description: Draft competitor research with evidence
+  default_prompt: Use $hoi-competitor-research for this selected client. Compare
+    selected competitors for our target market.

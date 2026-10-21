@@ -1,0 +1,5 @@
+interface:
+  display_name: Discovery preparation
+  short_description: Draft discovery preparation with evidence
+  default_prompt: Use $hoi-discovery-preparation for this selected client. Prepare
+    a discovery conversation for an account and objective.

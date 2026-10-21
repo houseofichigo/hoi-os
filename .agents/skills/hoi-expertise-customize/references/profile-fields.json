@@ -1,0 +1,101 @@
+{
+  "chief-of-staff": {
+    "planningHorizon": "Planning horizon supplied by the owner",
+    "decisionCriteria": "How the owner weighs urgency, impact and dependencies",
+    "reviewRoles": "Descriptive review contacts; not permission grants"
+  },
+  "knowledge-research": {
+    "preferredLanguages": "Languages to search and present",
+    "sourcePreferences": "Preferred evidence types and known coverage limits",
+    "reviewCadence": "Desired review interval, not an enabled schedule"
+  },
+  "projects-operations": {
+    "deliveryModel": "How work is delivered and accepted",
+    "completionCriteria": "What counts as accepted or completed work",
+    "planningConventions": "Milestone and dependency conventions"
+  },
+  "marketing-brand": {
+    "audiences": "Intended buyers/users and excluded segments",
+    "offerings": "Current approved products or services",
+    "brandReference": "Stable reference to reviewed brand guidance",
+    "approvedClaims": "Claims with supporting evidence",
+    "channels": "Selected communication channels"
+  },
+  "sales-client-success": {
+    "idealCustomer": "Evidence-based target customer description",
+    "salesStages": "Stage definitions and observable entry/exit evidence",
+    "offerings": "Approved offer and pricing references",
+    "relationshipModel": "Project, subscription or other relationship model",
+    "successMeasures": "Client-confirmed outcomes"
+  },
+  "finance-reporting": {
+    "baseCurrency": "Reporting currency; never infer",
+    "accountingBasis": "Cash/accrual and supplied reporting conventions",
+    "fiscalCalendar": "Fiscal periods and boundaries",
+    "materiality": "Approved analysis threshold; does not waive review",
+    "accountMap": "Reference to the current chart of accounts"
+  },
+  "legal-contracts": {
+    "jurisdictions": "Applicable jurisdictions supplied by the client",
+    "legalPlaybook": "Approved legal playbook reference",
+    "contractTypes": "Supported document types",
+    "reviewContact": "Qualified reviewer contact; not delegated authority",
+    "riskPositions": "Recorded negotiation positions"
+  },
+  "security-compliance": {
+    "systemScope": "Systems and trust boundaries in scope",
+    "frameworks": "Selected standards and licensed reference versions",
+    "dataClasses": "Approved data classification references",
+    "incidentPolicy": "Current incident/escalation procedure",
+    "reviewRoles": "Authorized security contacts, descriptive only"
+  },
+  "people-hr": {
+    "organizationModel": "Teams and role ownership references",
+    "employmentJurisdictions": "Applicable locations; unknown stays unknown",
+    "peoplePolicies": "Reviewed people-policy references",
+    "roleFramework": "Approved responsibility/competency framework",
+    "reviewContacts": "HR and line-manager reviewers"
+  },
+  "product-technology": {
+    "productGoals": "Confirmed user outcomes and product constraints",
+    "technologyContext": "Current systems and supported interfaces",
+    "nonFunctionalNeeds": "Availability, accessibility, privacy and performance requirements",
+    "deliveryStandards": "Definition of done and review practices",
+    "decisionOwners": "Product/technical review contacts"
+  },
+  "learning-training": {
+    "learners": "Audience and relevant prior knowledge",
+    "learningOutcomes": "Observable desired capabilities",
+    "deliveryConstraints": "Format, accessibility and time constraints",
+    "assessmentPolicy": "Approved assessment and feedback policy",
+    "materialReferences": "Current approved learning material"
+  },
+  "design-communication": {
+    "brandReference": "Client brand source and permitted assets",
+    "audiences": "Audience and accessibility needs",
+    "voice": "Approved tone and terminology",
+    "channels": "Target surfaces and constraints",
+    "claimsPolicy": "Approved claims and review boundaries"
+  },
+  "data-analytics": {
+    "metricDefinitions": "Approved metric formulas and grain",
+    "dataSources": "Authorized data references and coverage",
+    "reportingCalendar": "Reporting periods and timezone",
+    "privacyConstraints": "Applicable minimization constraints",
+    "analysisObjectives": "Decisions the analysis supports"
+  },
+  "procurement-vendors": {
+    "purchaseObjectives": "Business need and scope",
+    "evaluationCriteria": "Reviewed criteria and weights",
+    "commercialConstraints": "Budget, currency and contract constraints",
+    "vendorPolicies": "Approved procurement/security requirements",
+    "reviewRoles": "Procurement and specialist review contacts"
+  },
+  "customer-support": {
+    "supportScope": "Products/services and supported channels",
+    "servicePolicies": "Approved response, refund and escalation policies",
+    "voice": "Client support tone and terminology",
+    "escalationContacts": "Authorized escalation contacts",
+    "knowledgeReferences": "Current approved support material"
+  }
+}

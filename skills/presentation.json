@@ -215,5 +215,338 @@
       "Help a team member describe their work.",
       "Build a client context pack from this brief."
     ]
+  },
+  "hoi-competitor-research": {
+    "displayName": "Competitor research",
+    "shortDescription": "Use when asked to compare selected competitors for our target market.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Compare selected competitors for our target market."
+    ]
+  },
+  "hoi-positioning-brief": {
+    "displayName": "Positioning brief",
+    "shortDescription": "Use when asked to draft a positioning brief for the supplied offering and audience.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Draft a positioning brief for the supplied offering and audience."
+    ]
+  },
+  "hoi-content-strategy": {
+    "displayName": "Content strategy",
+    "shortDescription": "Use when asked to plan a content strategy from audience questions and approved knowledge.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Plan a content strategy from audience questions and approved knowledge."
+    ]
+  },
+  "hoi-account-research": {
+    "displayName": "Account research",
+    "shortDescription": "Use when asked to research the selected account for a business conversation.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Research the selected account for a business conversation."
+    ]
+  },
+  "hoi-discovery-preparation": {
+    "displayName": "Discovery preparation",
+    "shortDescription": "Use when asked to prepare a discovery conversation for an account and objective.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Prepare a discovery conversation for an account and objective."
+    ]
+  },
+  "hoi-client-review": {
+    "displayName": "Client relationship review",
+    "shortDescription": "Use when asked to review client outcomes and relationship risks from selected records.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Review client outcomes and relationship risks from selected records."
+    ]
+  },
+  "hoi-finance-variance": {
+    "displayName": "Financial variance analysis",
+    "shortDescription": "Use when asked to explain budget versus actual for the selected period.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Explain budget versus actual for the selected period."
+    ]
+  },
+  "hoi-close-preparation": {
+    "displayName": "Close preparation",
+    "shortDescription": "Use when asked to prepare the period-close checklist from supplied accounting policies.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Prepare the period-close checklist from supplied accounting policies."
+    ]
+  },
+  "hoi-cash-scenarios": {
+    "displayName": "Cash-flow scenarios",
+    "shortDescription": "Use when asked to prepare cash-flow scenarios from approved balances and commitments.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Prepare cash-flow scenarios from approved balances and commitments."
+    ]
+  },
+  "hoi-contract-issues": {
+    "displayName": "Contract issue spotting",
+    "shortDescription": "Use when asked to identify contract issues against the selected review playbook.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Identify contract issues against the selected review playbook."
+    ]
+  },
+  "hoi-obligation-map": {
+    "displayName": "Contract obligation mapping",
+    "shortDescription": "Use when asked to extract obligations from the selected agreement.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Extract obligations from the selected agreement."
+    ]
+  },
+  "hoi-policy-review": {
+    "displayName": "Policy consistency review",
+    "shortDescription": "Use when asked to review a policy against selected internal requirements.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Review a policy against selected internal requirements."
+    ]
+  },
+  "hoi-threat-model": {
+    "displayName": "Threat modelling",
+    "shortDescription": "Use when asked to prepare a threat model for the selected system boundary.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Prepare a threat model for the selected system boundary."
+    ]
+  },
+  "hoi-control-evidence": {
+    "displayName": "Control evidence assessment",
+    "shortDescription": "Use when asked to map selected evidence to the agreed controls.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Map selected evidence to the agreed controls."
+    ]
+  },
+  "hoi-incident-triage": {
+    "displayName": "Incident triage brief",
+    "shortDescription": "Use when asked to prepare an incident triage brief from selected observations.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Prepare an incident triage brief from selected observations."
+    ]
+  },
+  "hoi-role-clarity": {
+    "displayName": "Role clarity brief",
+    "shortDescription": "Use when asked to clarify responsibilities and handoffs for a selected role.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Clarify responsibilities and handoffs for a selected role."
+    ]
+  },
+  "hoi-employee-onboarding": {
+    "displayName": "Employee onboarding plan",
+    "shortDescription": "Use when asked to prepare an onboarding plan for a supplied role.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Prepare an onboarding plan for a supplied role."
+    ]
+  },
+  "hoi-people-policy-draft": {
+    "displayName": "People policy preparation",
+    "shortDescription": "Use when asked to draft a people policy from confirmed operating decisions.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Draft a people policy from confirmed operating decisions."
+    ]
+  },
+  "hoi-product-requirements": {
+    "displayName": "Product requirements brief",
+    "shortDescription": "Use when asked to turn the supplied user problem into testable requirements.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Turn the supplied user problem into testable requirements."
+    ]
+  },
+  "hoi-architecture-decision": {
+    "displayName": "Architecture decision brief",
+    "shortDescription": "Use when asked to compare technical options for the selected decision.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Compare technical options for the selected decision."
+    ]
+  },
+  "hoi-acceptance-review": {
+    "displayName": "Delivery acceptance review",
+    "shortDescription": "Use when asked to review a delivery against its agreed acceptance criteria.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Review a delivery against its agreed acceptance criteria."
+    ]
+  },
+  "hoi-learning-design": {
+    "displayName": "Learning design brief",
+    "shortDescription": "Use when asked to design a learning sequence for supplied learner outcomes.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Design a learning sequence for supplied learner outcomes."
+    ]
+  },
+  "hoi-practice-design": {
+    "displayName": "Practice activity design",
+    "shortDescription": "Use when asked to create a practice activity for a defined learning outcome.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Create a practice activity for a defined learning outcome."
+    ]
+  },
+  "hoi-assessment-review": {
+    "displayName": "Assessment alignment review",
+    "shortDescription": "Use when asked to review an assessment against learning outcomes and policy.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Review an assessment against learning outcomes and policy."
+    ]
+  },
+  "hoi-design-brief": {
+    "displayName": "Design brief",
+    "shortDescription": "Use when asked to prepare a design brief for the selected audience and surface.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Prepare a design brief for the selected audience and surface."
+    ]
+  },
+  "hoi-communication-brief": {
+    "displayName": "Communication brief",
+    "shortDescription": "Use when asked to draft a communication brief for a defined audience and objective.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Draft a communication brief for a defined audience and objective."
+    ]
+  },
+  "hoi-ux-content-review": {
+    "displayName": "UX and content review",
+    "shortDescription": "Use when asked to review a user flow for clarity accessibility and recovery.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Review a user flow for clarity accessibility and recovery."
+    ]
+  },
+  "hoi-metric-definition": {
+    "displayName": "Metric definition",
+    "shortDescription": "Use when asked to define an auditable metric for the selected business question.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Define an auditable metric for the selected business question."
+    ]
+  },
+  "hoi-data-quality-review": {
+    "displayName": "Data quality review",
+    "shortDescription": "Use when asked to review selected data for completeness consistency and duplication.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Review selected data for completeness consistency and duplication."
+    ]
+  },
+  "hoi-analysis-plan": {
+    "displayName": "Analysis plan",
+    "shortDescription": "Use when asked to plan an analysis to answer a defined decision question.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Plan an analysis to answer a defined decision question."
+    ]
+  },
+  "hoi-vendor-criteria": {
+    "displayName": "Vendor evaluation criteria",
+    "shortDescription": "Use when asked to define vendor criteria for a supplied purchasing need.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Define vendor criteria for a supplied purchasing need."
+    ]
+  },
+  "hoi-vendor-comparison": {
+    "displayName": "Vendor proposal comparison",
+    "shortDescription": "Use when asked to compare selected vendor proposals against approved criteria.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Compare selected vendor proposals against approved criteria."
+    ]
+  },
+  "hoi-vendor-review": {
+    "displayName": "Vendor performance review",
+    "shortDescription": "Use when asked to review a vendor against supplied commitments and service evidence.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Review a vendor against supplied commitments and service evidence."
+    ]
+  },
+  "hoi-support-triage": {
+    "displayName": "Support case triage",
+    "shortDescription": "Use when asked to triage a selected support case using the approved service policy.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Triage a selected support case using the approved service policy."
+    ]
+  },
+  "hoi-support-response": {
+    "displayName": "Support response draft",
+    "shortDescription": "Use when asked to draft a support response grounded in approved policy and knowledge.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Draft a support response grounded in approved policy and knowledge."
+    ]
+  },
+  "hoi-support-knowledge": {
+    "displayName": "Support knowledge proposal",
+    "shortDescription": "Use when asked to propose a reusable support article from selected resolved cases.",
+    "category": "Delivery",
+    "icon": "delivery",
+    "examples": [
+      "Propose a reusable support article from selected resolved cases."
+    ]
+  },
+  "hoi-expertise-customize": {
+    "displayName": "Customize expertise",
+    "shortDescription": "Prepare client profiles from selected onboarding evidence.",
+    "category": "Setup",
+    "icon": "setup",
+    "examples": [
+      "Customize the selected expertise plugins for this client."
+    ]
   }
 }

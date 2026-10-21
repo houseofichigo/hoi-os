@@ -1,0 +1,5 @@
+interface:
+  display_name: Architecture decision brief
+  short_description: Draft architecture decision brief with evidence
+  default_prompt: Use $hoi-architecture-decision for this selected client. Compare
+    technical options for the selected decision.

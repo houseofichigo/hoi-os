@@ -4,7 +4,7 @@ Current local edition, 19 October 2026. The seven phases and 25 steps remain in 
 
 ## Reconciliation
 
-`method/SKILL_MAP.json` records all 15 supplied skill names, exact source-instruction hashes and supported destinations. These are explanatory routes, not executable aliases. The product now bundles 23 instructions, including the document/interview skill `hoi-company-onboarding`; the company inventory and installed workspace versions remain separate.
+`method/SKILL_MAP.json` records all 15 supplied skill names, exact source-instruction hashes and supported destinations. These are explanatory routes, not executable aliases. The product now bundles 60 instructions, including the document/interview skill `hoi-company-onboarding`; the company inventory and installed workspace versions remain separate.
 
 | Supplied role    | Supported route                                   | Decision                                                                                                            |
 | ---------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -60,3 +60,5 @@ Static instructions cannot repair the supplied ZIP's defects. This edition repla
 [hoi-company-onboarding](../skills/hoi-company-onboarding/SKILL.md) has no required engine operations. It prepares document drafts from selected existing evidence and asks remaining questions. In this product catalogue it ships through the same optional local adapters as the other operational instruction packages. It is not a new runtime onboarding endpoint and does not give ChatGPT automatic access to previous conversations.
 
 Company mode reconciles the agreed document set (the baseline is 19); member mode produces one role/workflow profile; client mode links shared context to current briefs. The engine's state and adapter-managed manuals remain authoritative. [Review scenarios and acceptance](COMPANY_ONBOARDING.md) distinguish package/adapter verification from actual interview effectiveness.
+
+The 15 optional expertise plugins compose existing foundations and new task skills. See [Expertise plugins](EXPERTISE_PLUGINS.md) for composition, client customization and validation boundaries.

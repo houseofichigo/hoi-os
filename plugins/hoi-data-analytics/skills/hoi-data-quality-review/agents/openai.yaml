@@ -1,0 +1,5 @@
+interface:
+  display_name: Data quality review
+  short_description: Draft data quality review with evidence
+  default_prompt: Use $hoi-data-quality-review for this selected client. Review
+    selected data for completeness consistency and duplication.

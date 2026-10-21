@@ -1,0 +1,270 @@
+[
+  {
+    "repository": "kostja94/marketing-skills",
+    "url": "https://github.com/kostja94/marketing-skills",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/kostja94/marketing-skills/blob/b59bbdedd9b203ff731445e37dc11c3a14256547/README.md",
+        "sha256": "e2b9025e9cfb7220302304135b1c1eec6dbb689a2daf17e0221147ebb97db7d2"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/kostja94/marketing-skills/blob/b59bbdedd9b203ff731445e37dc11c3a14256547/LICENSE",
+        "sha256": "9f06c77b8931e39ae797195faa02c45a9d1785c844d6aa1dcb2056a52fbaa6f5"
+      }
+    ],
+    "commit": "b59bbdedd9b203ff731445e37dc11c3a14256547",
+    "status": "reference-pinned",
+    "licenseAssessment": "MIT"
+  },
+  {
+    "repository": "Amazon-Quick/Amazon-Quick-official-catalog",
+    "url": "https://github.com/Amazon-Quick/Amazon-Quick-official-catalog",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/Amazon-Quick/Amazon-Quick-official-catalog/blob/ee132f4d9a7b92df2400901f29ae0253863e9297/README.md",
+        "sha256": "85d60e1658eb3e718a9ce9cf5a64601586a4ae605151b51cf67b30f09dc94128"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/Amazon-Quick/Amazon-Quick-official-catalog/blob/ee132f4d9a7b92df2400901f29ae0253863e9297/LICENSE",
+        "sha256": "6f829c66e5130120d139a1a9011cd0952bb7197ef78baa8c495fc99acbe37685"
+      }
+    ],
+    "commit": "ee132f4d9a7b92df2400901f29ae0253863e9297",
+    "status": "reference-pinned",
+    "licenseAssessment": "MIT-0"
+  },
+  {
+    "repository": "zarif3624/gtm-skills",
+    "url": "https://github.com/zarif3624/gtm-skills",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/zarif3624/gtm-skills/blob/920c5ac06ac58b49d40b81eede960b2cb5635c7f/README.md",
+        "sha256": "4ab56b069eb389fbd31cab189fd54ce1e34f7dfe8276a4b8c41a8bf323b8e5fd"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/zarif3624/gtm-skills/blob/920c5ac06ac58b49d40b81eede960b2cb5635c7f/LICENSE",
+        "sha256": "5805b72bb6c0c4b44e600a352cdf9e5e50d1f01fa1c1f111cd8a5355960c7ca0"
+      }
+    ],
+    "commit": "920c5ac06ac58b49d40b81eede960b2cb5635c7f",
+    "status": "reference-pinned",
+    "licenseAssessment": "MIT"
+  },
+  {
+    "repository": "gaintrace/customer-success-skills",
+    "url": "https://github.com/gaintrace/customer-success-skills",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/gaintrace/customer-success-skills/blob/25ea90726e57e6c531b3661e7b67f223de92cb0c/README.md",
+        "sha256": "13e550b138b866e5210d2a8808e036bb0005ac270507b2fe294781441b74bb4d"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/gaintrace/customer-success-skills/blob/25ea90726e57e6c531b3661e7b67f223de92cb0c/LICENSE",
+        "sha256": "7192d78d4144771f99c6c68ed5037850334df3c67acb043fa53bb8e5c38610bb"
+      }
+    ],
+    "commit": "25ea90726e57e6c531b3661e7b67f223de92cb0c",
+    "status": "reference-pinned",
+    "licenseAssessment": "MIT"
+  },
+  {
+    "repository": "anthropics/claude-for-legal",
+    "url": "https://github.com/anthropics/claude-for-legal",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/anthropics/claude-for-legal/blob/4a6c651889c97cc9140580363c73e0eb17379c2b/README.md",
+        "sha256": "2dee4ff1a199c663fa42e9518d9716a9eff3c6c570b4fb766582c477e09f551c"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/anthropics/claude-for-legal/blob/4a6c651889c97cc9140580363c73e0eb17379c2b/LICENSE",
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      }
+    ],
+    "commit": "4a6c651889c97cc9140580363c73e0eb17379c2b",
+    "status": "reference-pinned",
+    "licenseAssessment": "Apache-2.0"
+  },
+  {
+    "repository": "GRCEngClub/claude-grc-engineering",
+    "url": "https://github.com/GRCEngClub/claude-grc-engineering",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/GRCEngClub/claude-grc-engineering/blob/784fd9ab375c95f867a34d865f0b2b59ac899b73/README.md",
+        "sha256": "f12966450a0ff48b5c718a2326db95692513cf54172167f5f7af06887ed37159"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/GRCEngClub/claude-grc-engineering/blob/784fd9ab375c95f867a34d865f0b2b59ac899b73/LICENSE",
+        "sha256": "d1c92a61d3d8b1f99c5e160a0d09f5f81f5c9422aa702eb56aa8408486a377c2"
+      }
+    ],
+    "commit": "784fd9ab375c95f867a34d865f0b2b59ac899b73",
+    "status": "reference-pinned",
+    "licenseAssessment": "MIT for original material; reference exceptions include CC BY-SA and CC BY-ND; no copying"
+  },
+  {
+    "repository": "github/spec-kit",
+    "url": "https://github.com/github/spec-kit",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/github/spec-kit/blob/505781d7cabb5180b7098a7d8371c48456f9d4f6/README.md",
+        "sha256": "3baa99368443f26244b3a021b40eaf6f167ee591f5759c91315ad50d0a204592"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/github/spec-kit/blob/505781d7cabb5180b7098a7d8371c48456f9d4f6/LICENSE",
+        "sha256": "2510b446bc1f0cf9702453075d20cd88631e20e5642658edb7325d9c1eb534f7"
+      }
+    ],
+    "commit": "505781d7cabb5180b7098a7d8371c48456f9d4f6",
+    "status": "reference-pinned",
+    "licenseAssessment": "MIT"
+  },
+  {
+    "repository": "carpentries/lesson-development-training",
+    "url": "https://github.com/carpentries/lesson-development-training",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/carpentries/lesson-development-training/blob/2bc8daf4513227f0cbebdccbb2793f48810d2850/README.md",
+        "sha256": "0081e3367f8b0629ff9858c6e1dbf085cb29ab034c6b2cd3010b1517e6f609cb"
+      },
+      {
+        "path": "LICENSE.md",
+        "url": "https://github.com/carpentries/lesson-development-training/blob/2bc8daf4513227f0cbebdccbb2793f48810d2850/LICENSE.md",
+        "sha256": "464ee1631583fc4bbe9b93c79acc15455ef84bed3eff828cd1caf69acc7a033d"
+      }
+    ],
+    "commit": "2bc8daf4513227f0cbebdccbb2793f48810d2850",
+    "status": "reference-pinned",
+    "licenseAssessment": "CC BY instructional material; no material copied"
+  },
+  {
+    "repository": "dragonoasis/open-design-agent",
+    "url": "https://github.com/dragonoasis/open-design-agent",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/dragonoasis/open-design-agent/blob/e2c458d02feef0bc7d1c6819570af1b34de90698/README.md",
+        "sha256": "9f185f7ab878bb1a2a062c8ff4184870257fd330ece4ca2a4f093e1871cdf7d6"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/dragonoasis/open-design-agent/blob/e2c458d02feef0bc7d1c6819570af1b34de90698/LICENSE",
+        "sha256": "1e20f368cab9727c371291494c45e02239424bfb81fec5b53fcefdbdcd90eabe"
+      }
+    ],
+    "commit": "e2c458d02feef0bc7d1c6819570af1b34de90698",
+    "status": "reference-pinned",
+    "licenseAssessment": "MIT"
+  },
+  {
+    "repository": "dbt-labs/dbt-agent-skills",
+    "url": "https://github.com/dbt-labs/dbt-agent-skills",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/dbt-labs/dbt-agent-skills/blob/b8facde20b7a92c40ce3e6b86b71c4b92aa44040/README.md",
+        "sha256": "47bc0ac05cab7ce71ccfff2bc7ed3a978156c2fb1b5c1ebd2d7a1e72bdd1d2f6"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/dbt-labs/dbt-agent-skills/blob/b8facde20b7a92c40ce3e6b86b71c4b92aa44040/LICENSE",
+        "sha256": "a25c0f444db00399e225e96559b376d92188fbab622b50c5d4db7c556f77daff"
+      }
+    ],
+    "commit": "b8facde20b7a92c40ce3e6b86b71c4b92aa44040",
+    "status": "reference-pinned",
+    "licenseAssessment": "Apache-2.0"
+  },
+  {
+    "repository": "open-contracting/standard",
+    "url": "https://github.com/open-contracting/standard",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/open-contracting/standard/blob/eb57a46e69efead6ae62144fe1b7cefc53d07ff2/README.md",
+        "sha256": "51add32e48c23f734242d4de78bd2cb28fae95835ab5b9145bdfaf40a3186df5"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/open-contracting/standard/blob/eb57a46e69efead6ae62144fe1b7cefc53d07ff2/LICENSE",
+        "sha256": "121f2d55df06faa5f366feb63385f73c5952959678f9fc6d042010d4f43b2619"
+      }
+    ],
+    "commit": "eb57a46e69efead6ae62144fe1b7cefc53d07ff2",
+    "status": "reference-pinned",
+    "licenseAssessment": "Apache-2.0; logo excluded"
+  },
+  {
+    "repository": "chatwoot/chatwoot",
+    "url": "https://github.com/chatwoot/chatwoot",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/chatwoot/chatwoot/blob/9499b695380e21ca7a2f9941c5c08b3d85a553f9/README.md",
+        "sha256": "00b1867b3e486325ff35a8d5194e937974a02cab39cbbc0a0d9846e3c1ff1ac7"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/chatwoot/chatwoot/blob/9499b695380e21ca7a2f9941c5c08b3d85a553f9/LICENSE",
+        "sha256": "602d38a808315f221a5e72e2e90e40cb9300f09aa4b317a6a8f1a0c7a3d2175d"
+      }
+    ],
+    "commit": "9499b695380e21ca7a2f9941c5c08b3d85a553f9",
+    "status": "reference-pinned",
+    "licenseAssessment": "MIT core with enterprise-license exceptions; no runtime reused"
+  },
+  {
+    "repository": "basecamp/handbook",
+    "url": "https://github.com/basecamp/handbook",
+    "checkedOn": "2026-10-21",
+    "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/basecamp/handbook/blob/c9536061f26d0b5bd9f2f900d63e27e9f4deb4ed/README.md",
+        "sha256": "42db6f898fbee62bfd06f92907c3cbbbe4fac21664209669451622d24d6671b6"
+      }
+    ],
+    "commit": "c9536061f26d0b5bd9f2f900d63e27e9f4deb4ed",
+    "status": "reference-pinned",
+    "licenseAssessment": "No standalone LICENSE verified; excluded from reuse"
+  }
+]

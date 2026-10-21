@@ -1,0 +1,5 @@
+interface:
+  display_name: Policy consistency review
+  short_description: Draft policy consistency review with evidence
+  default_prompt: Use $hoi-policy-review for this selected client. Review a policy
+    against selected internal requirements.

@@ -1,0 +1,5 @@
+interface:
+  display_name: Close preparation
+  short_description: Draft close preparation with evidence
+  default_prompt: Use $hoi-close-preparation for this selected client. Prepare the
+    period-close checklist from supplied accounting policies.

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoi-design-communication",
+  "version": "0.1.0",
+  "description": "Design briefs, UX/content reviews and message architecture.",
+  "author": {
+    "name": "House of Ichigo"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HOI Design & Communication",
+        "shortDescription": "Reviewed client workflows",
+        "longDescription": "Design briefs, UX/content reviews and message architecture. Uses selected evidence and reviewed client context. No tools, connections or schedules are installed.",
+        "developerName": "House of Ichigo",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me use HOI Design & Communication for my selected client."
+      }
+    }
+  }
+}

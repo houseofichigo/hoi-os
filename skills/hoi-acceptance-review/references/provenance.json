@@ -1,0 +1,28 @@
+{
+  "author": "House of Ichigo",
+  "version": "0.1.0",
+  "authorship": "Original HOI instructions; conceptual references only, no upstream code or prose copied.",
+  "references": [
+    {
+      "repository": "github/spec-kit",
+      "url": "https://github.com/github/spec-kit",
+      "checkedOn": "2026-10-21",
+      "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/github/spec-kit/blob/505781d7cabb5180b7098a7d8371c48456f9d4f6/README.md",
+          "sha256": "3baa99368443f26244b3a021b40eaf6f167ee591f5759c91315ad50d0a204592"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/github/spec-kit/blob/505781d7cabb5180b7098a7d8371c48456f9d4f6/LICENSE",
+          "sha256": "2510b446bc1f0cf9702453075d20cd88631e20e5642658edb7325d9c1eb534f7"
+        }
+      ],
+      "commit": "505781d7cabb5180b7098a7d8371c48456f9d4f6",
+      "status": "reference-pinned",
+      "licenseAssessment": "MIT"
+    }
+  ]
+}

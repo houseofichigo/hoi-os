@@ -1,0 +1,5 @@
+interface:
+  display_name: Analysis plan
+  short_description: Draft analysis plan with evidence
+  default_prompt: Use $hoi-analysis-plan for this selected client. Plan an
+    analysis to answer a defined decision question.

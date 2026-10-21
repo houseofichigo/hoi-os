@@ -1,0 +1,28 @@
+{
+  "author": "House of Ichigo",
+  "version": "0.1.0",
+  "authorship": "Original HOI instructions; conceptual references only, no upstream code or prose copied.",
+  "references": [
+    {
+      "repository": "dragonoasis/open-design-agent",
+      "url": "https://github.com/dragonoasis/open-design-agent",
+      "checkedOn": "2026-10-21",
+      "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/dragonoasis/open-design-agent/blob/e2c458d02feef0bc7d1c6819570af1b34de90698/README.md",
+          "sha256": "9f185f7ab878bb1a2a062c8ff4184870257fd330ece4ca2a4f093e1871cdf7d6"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/dragonoasis/open-design-agent/blob/e2c458d02feef0bc7d1c6819570af1b34de90698/LICENSE",
+          "sha256": "1e20f368cab9727c371291494c45e02239424bfb81fec5b53fcefdbdcd90eabe"
+        }
+      ],
+      "commit": "e2c458d02feef0bc7d1c6819570af1b34de90698",
+      "status": "reference-pinned",
+      "licenseAssessment": "MIT"
+    }
+  ]
+}

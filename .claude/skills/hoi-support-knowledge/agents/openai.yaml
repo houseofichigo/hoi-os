@@ -1,0 +1,5 @@
+interface:
+  display_name: Support knowledge proposal
+  short_description: Draft support knowledge proposal with evidence
+  default_prompt: Use $hoi-support-knowledge for this selected client. Propose a
+    reusable support article from selected resolved cases.

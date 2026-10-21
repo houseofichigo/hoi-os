@@ -1,0 +1,5 @@
+interface:
+  display_name: Content strategy
+  short_description: Draft content strategy with evidence
+  default_prompt: Use $hoi-content-strategy for this selected client. Plan a
+    content strategy from audience questions and approved knowledge.

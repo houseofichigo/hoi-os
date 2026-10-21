@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoi-people-hr",
+  "version": "0.1.0",
+  "description": "Role clarity, onboarding plans and policy preparation.",
+  "author": {
+    "name": "House of Ichigo"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HOI People & HR",
+        "shortDescription": "Reviewed client workflows",
+        "longDescription": "Role clarity, onboarding plans and policy preparation. Uses selected evidence and reviewed client context. No tools, connections or schedules are installed.",
+        "developerName": "House of Ichigo",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me use HOI People & HR for my selected client."
+      }
+    }
+  }
+}

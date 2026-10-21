@@ -1,0 +1,28 @@
+{
+  "author": "House of Ichigo",
+  "version": "0.1.0",
+  "authorship": "Original HOI instructions; conceptual references only, no upstream code or prose copied.",
+  "references": [
+    {
+      "repository": "open-contracting/standard",
+      "url": "https://github.com/open-contracting/standard",
+      "checkedOn": "2026-10-21",
+      "use": "concept-reference-only; no upstream code, skill prose, datasets or assets copied into plugins",
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/open-contracting/standard/blob/eb57a46e69efead6ae62144fe1b7cefc53d07ff2/README.md",
+          "sha256": "51add32e48c23f734242d4de78bd2cb28fae95835ab5b9145bdfaf40a3186df5"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/open-contracting/standard/blob/eb57a46e69efead6ae62144fe1b7cefc53d07ff2/LICENSE",
+          "sha256": "121f2d55df06faa5f366feb63385f73c5952959678f9fc6d042010d4f43b2619"
+        }
+      ],
+      "commit": "eb57a46e69efead6ae62144fe1b7cefc53d07ff2",
+      "status": "reference-pinned",
+      "licenseAssessment": "Apache-2.0; logo excluded"
+    }
+  ]
+}

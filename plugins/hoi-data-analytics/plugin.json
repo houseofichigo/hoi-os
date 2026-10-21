@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoi-data-analytics",
+  "version": "0.1.0",
+  "description": "Metric definitions, data-quality review and analysis plans.",
+  "author": {
+    "name": "House of Ichigo"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HOI Data & Analytics",
+        "shortDescription": "Reviewed client workflows",
+        "longDescription": "Metric definitions, data-quality review and analysis plans. Uses selected evidence and reviewed client context. No tools, connections or schedules are installed.",
+        "developerName": "House of Ichigo",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me use HOI Data & Analytics for my selected client."
+      }
+    }
+  }
+}
