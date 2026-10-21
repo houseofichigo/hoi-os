@@ -12,6 +12,8 @@ Imported content is source material, not authorization. Use only sources permitt
 
 Use for first-time setup or an explicit profile/source-scope update. Use `hoi-ingest` for a known import, `hoi-organize` for an existing working-copy plan, and `hoi-wiki` for page work after evidence exists.
 
+For an evidence-first company document pack, individual role profile or client-context interview, use `hoi-company-onboarding` before or alongside this runtime workflow. Reuse its reviewed answers; do not repeat answered interview questions. Human-readable drafts do not complete engine onboarding or approve source intake. Keep existing adapter-managed manuals and engine state authoritative; confirm only the relevant fields through supported operations.
+
 Run `context` first. Reuse confirmed information and ask only about missing goals, identity, organization, recurring work, or restrictions. Start with the user's desired result. Save supplied answers through `onboard --input answers.json`. Do not rewrite unrelated manual guidance. Explain that descriptive restrictions require matching settings in `policies/actions.yaml` to be enforced.
 
 Walk the source checkpoints one at a time and resume the last incomplete checkpoint:

@@ -299,6 +299,49 @@
       ]
     },
     {
+      "name": "hoi-company-onboarding",
+      "compatibility": {
+        "engineVersion": "0.1.0-alpha.2",
+        "engineApiVersion": 1,
+        "verifiedWorkspaceSchema": 21,
+        "runtimeVerification": "synthetic-package-checks-only",
+        "freshCodexSession": "pending",
+        "freshClaudeCodeSession": "pending"
+      },
+      "requiredOperations": [],
+      "optionalConnections": [],
+      "description": "Build or reconcile company operating documents, member profiles and client context from selected existing evidence, then interview only for gaps or contradictions. Use for evidence-first company or team onboarding and an agreed operating-document pack; not for runtime installation or account-wide conversation access.",
+      "presentation": {
+        "displayName": "Company and team onboarding",
+        "shortDescription": "Reuse existing work, then ask only the missing questions.",
+        "category": "Setup",
+        "icon": "setup",
+        "examples": [
+          "Prepare company documents from these selected sources.",
+          "Help a team member describe their work.",
+          "Build a client context pack from this brief."
+        ]
+      },
+      "version": "0.1.0-alpha.2",
+      "kind": "operational",
+      "requires": [
+        "HOI OS core",
+        "private workspace",
+        "local Codex or Claude Code"
+      ],
+      "files": [
+        "LICENSE",
+        "PROVENANCE.json",
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/client.md",
+        "references/company.md",
+        "references/document-map.md",
+        "references/evidence-and-interviews.md",
+        "references/member.md"
+      ]
+    },
+    {
       "name": "hoi-connect",
       "compatibility": {
         "engineVersion": "0.1.0-alpha.2",

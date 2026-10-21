@@ -364,5 +364,9 @@
       "harness:route"
     ],
     "optionalConnections": []
+  },
+  "hoi-company-onboarding": {
+    "requiredOperations": [],
+    "optionalConnections": []
   }
 }

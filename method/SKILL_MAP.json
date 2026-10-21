@@ -10,10 +10,11 @@
       "suppliedSkill": "hoi-onboard",
       "suppliedInstructionSha256": "367c3da3e9d1558de5df8804f76dfe8d87f2cd16e0eab78fecf0e5d6080ca2d7",
       "engineSkills": [
+        "hoi-company-onboarding",
         "hoi-onboard"
       ],
       "disposition": "retain",
-      "contract": "Owner interview and engine onboarding; no automatic memory seeding."
+      "contract": "Evidence-first document/interview preparation followed by supported engine onboarding; reviewed answers reused, no automatic memory seeding or intake approval."
     },
     {
       "suppliedSkill": "hoi-govern",

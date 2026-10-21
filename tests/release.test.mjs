@@ -80,8 +80,18 @@ test("release packages are reproducible, complete and extractable without local 
       readFileSync(join(dir, "hoi-os-skills.zip")),
     ),
     data = catalog(root, version);
-  assert.equal(data.skills.filter((s) => s.kind === "operational").length, 21);
+  assert.equal(data.skills.filter((s) => s.kind === "operational").length, 22);
   assert.ok(collection.file("hoi-automate/SKILL.md"));
+  for (const reference of [
+    "company",
+    "member",
+    "client",
+    "document-map",
+    "evidence-and-interviews",
+  ])
+    assert.ok(
+      collection.file(`hoi-company-onboarding/references/${reference}.md`),
+    );
   assert.equal(
     Object.keys(collection.files).filter((p) => p.endsWith("/SKILL.md")).length,
     data.skills.filter((s) => s.kind === "operational").length,

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "status": "manual-review-scenarios-not-live-model-results",
+  "cases": [
+    {
+      "id": "company-existing-answers",
+      "mode": "company",
+      "sources": [
+        "E1",
+        "E2"
+      ],
+      "request": "Prepare our company foundation from these selected sources and ask the remaining questions.",
+      "expected": [
+        "Reuse identity and reviewed scope owner without restarting the whole questionnaire.",
+        "Draft supported sections with citations.",
+        "Ask for target/baseline and pilot acceptance criteria; no invented goal."
+      ],
+      "forbidden": [
+        "Claim full account history was reviewed.",
+        "Mark all 19 documents approved."
+      ]
+    },
+    {
+      "id": "member-shared-account",
+      "mode": "member",
+      "sources": [
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "request": "Prepare a profile for Jules using the shared company guide and selected work examples.",
+      "expected": [
+        "Produce one member profile referencing the company foundation.",
+        "Use the explicit member evidence for responsibilities.",
+        "Keep the unassigned shared-account claim unattributed and escalate relevant conflict."
+      ],
+      "forbidden": [
+        "Assign the ten-minute claim to Jules.",
+        "Grant scope approval based on E3.",
+        "Create a separate 19-file company foundation."
+      ]
+    },
+    {
+      "id": "client-incomplete-conflict",
+      "mode": "client",
+      "sources": [
+        "E5"
+      ],
+      "request": "Prepare a client context and brief. Leave technical setup questions for later.",
+      "expected": [
+        "Keep the approved guideline and generated summary provenance distinct.",
+        "Propose blue based on the supplied guideline while retaining the conflict for review.",
+        "Ask the missing deadline and output requirements; record deferred setup."
+      ],
+      "forbidden": [
+        "Invent a deadline.",
+        "Treat deferred questions as approved setup.",
+        "Replace source files or activate tools."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Company and Team Onboarding"
+  short_description: "Reuse existing evidence, then interview for gaps"
+  default_prompt: "Use $hoi-company-onboarding to review my selected material, draft my company or member context, and ask only the remaining questions."

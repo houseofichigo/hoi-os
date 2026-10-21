@@ -4,25 +4,25 @@ Current local edition, 19 October 2026. The seven phases and 25 steps remain in 
 
 ## Reconciliation
 
-`method/SKILL_MAP.json` records all 15 supplied skill names, exact source-instruction hashes and supported destinations. These are explanatory routes, not executable aliases. The product still bundles 22 engine-client instructions; the company inventory is separate.
+`method/SKILL_MAP.json` records all 15 supplied skill names, exact source-instruction hashes and supported destinations. These are explanatory routes, not executable aliases. The product now bundles 23 instructions, including the document/interview skill `hoi-company-onboarding`; the company inventory and installed workspace versions remain separate.
 
-| Supplied role    | Supported route                                   | Decision                                                                                             |
-| ---------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Onboard          | `hoi-onboard`                                     | Keep owner interview, first useful result and explicit source selection.                             |
-| Govern           | Onboarding, managed manuals and maintained guides | No generated competing GOALS, MEMORY, PROPOSED or permission stores.                                 |
-| Organize         | `hoi-organize`                                    | Use exact working-copy plans and engine approvals; preserve originals.                               |
-| Connect          | `hoi-connect`, Configuration                      | Separate observed host-tool availability from engine OAuth and scope.                                |
-| App              | `hoi-3d-map`, optional Knowledge Hub              | Replace static workbench generation; users may build additional engine clients.                      |
-| Ingest           | `hoi-ingest`                                      | Keep reviewed manifests, stable revisions and item outcomes.                                         |
-| Wiki author      | `hoi-wiki-author`                                 | Draft, compare and publish through versioned engine operations.                                      |
-| 3D map           | `hoi-3d-map`                                      | Shared readers and accessible list; no private static HTML export.                                   |
-| Retrieve         | `hoi-retrieve`                                    | Ranked, permitted evidence and exact citations; explicit fallback coverage.                          |
-| Skill author     | `hoi-build-capability`, Skills management         | Draft role instructions; compare and explicitly review activation; separate adapter synchronization. |
-| Evaluate         | `hoi-evaluate`                                    | Frozen comparisons and independent review; no automatic status promotion.                            |
-| Automate         | `hoi-connect` scheduling guidance                 | Host-dependent. A register does not create or pause a schedule. No scheduler added.                  |
-| Memory propose   | `hoi-capture`, `hoi-session-capture`              | Reviewed engine memory, attribution, immutable history; no Decision-line approvals.                  |
-| Knowledge review | `hoi-knowledge-review`                            | Current evidence health, review identity and persistent dismissals.                                  |
-| Audit            | `hoi-audit`                                       | Observed checks and explicit untested domains.                                                       |
+| Supplied role    | Supported route                                   | Decision                                                                                                            |
+| ---------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Onboard          | `hoi-company-onboarding` → `hoi-onboard`          | Reuse selected evidence for documents and interviews, then handle runtime onboarding and explicit source selection. |
+| Govern           | Onboarding, managed manuals and maintained guides | Business reference documents stay distinct from engine goals, memory, approvals and permissions.                    |
+| Organize         | `hoi-organize`                                    | Use exact working-copy plans and engine approvals; preserve originals.                                              |
+| Connect          | `hoi-connect`, Configuration                      | Separate observed host-tool availability from engine OAuth and scope.                                               |
+| App              | `hoi-3d-map`, optional Knowledge Hub              | Replace static workbench generation; users may build additional engine clients.                                     |
+| Ingest           | `hoi-ingest`                                      | Keep reviewed manifests, stable revisions and item outcomes.                                                        |
+| Wiki author      | `hoi-wiki-author`                                 | Draft, compare and publish through versioned engine operations.                                                     |
+| 3D map           | `hoi-3d-map`                                      | Shared readers and accessible list; no private static HTML export.                                                  |
+| Retrieve         | `hoi-retrieve`                                    | Ranked, permitted evidence and exact citations; explicit fallback coverage.                                         |
+| Skill author     | `hoi-build-capability`, Skills management         | Draft role instructions; compare and explicitly review activation; separate adapter synchronization.                |
+| Evaluate         | `hoi-evaluate`                                    | Frozen comparisons and independent review; no automatic status promotion.                                           |
+| Automate         | `hoi-connect` scheduling guidance                 | Host-dependent. A register does not create or pause a schedule. No scheduler added.                                 |
+| Memory propose   | `hoi-capture`, `hoi-session-capture`              | Reviewed engine memory, attribution, immutable history; no Decision-line approvals.                                 |
+| Knowledge review | `hoi-knowledge-review`                            | Current evidence health, review identity and persistent dismissals.                                                 |
+| Audit            | `hoi-audit`                                       | Observed checks and explicit untested domains.                                                                      |
 
 Role skills use the existing `skills:draft` contract, with name, expected version, Markdown and optional prior revision. Supporting files are retained when an explicit prior revision is used. Importing packages uses preview → commit draft → review. Activation binds the revision/checksum. Engine permissions do not come from instructions. Assistant sessions still need their own host authorization; this documentation does not certify discovery or invocation in a fresh host.
 
@@ -54,3 +54,9 @@ The packaged `hub:acceptance` command installs both adapters only in its own new
 - After restoration to another directory, use supported setup to refresh machine-local runtime paths before an assistant opens the restored copy. An adapter's integrity status does not attest host discovery or successful tool execution.
 
 Static instructions cannot repair the supplied ZIP's defects. This edition replaces the conflicting paths with tested engine paths. The supplied scripts remain historical and unsupported. No new provider, automatic skill optimization, background watcher, model spend, private adapter installation or publication is implied.
+
+## Company, member and client preparation
+
+[hoi-company-onboarding](../skills/hoi-company-onboarding/SKILL.md) has no required engine operations. It prepares document drafts from selected existing evidence and asks remaining questions. In this product catalogue it ships through the same optional local adapters as the other operational instruction packages. It is not a new runtime onboarding endpoint and does not give ChatGPT automatic access to previous conversations.
+
+Company mode reconciles the agreed document set (the baseline is 19); member mode produces one role/workflow profile; client mode links shared context to current briefs. The engine's state and adapter-managed manuals remain authoritative. [Review scenarios and acceptance](COMPANY_ONBOARDING.md) distinguish package/adapter verification from actual interview effectiveness.

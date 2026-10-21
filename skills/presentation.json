@@ -204,5 +204,16 @@
       "Prepare a daily knowledge-health automation.",
       "Inspect an automation before resuming."
     ]
+  },
+  "hoi-company-onboarding": {
+    "displayName": "Company and team onboarding",
+    "shortDescription": "Reuse existing work, then ask only the missing questions.",
+    "category": "Setup",
+    "icon": "setup",
+    "examples": [
+      "Prepare company documents from these selected sources.",
+      "Help a team member describe their work.",
+      "Build a client context pack from this brief."
+    ]
   }
 }

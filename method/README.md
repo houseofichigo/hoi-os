@@ -11,3 +11,9 @@ This transition retains schema 19 and existing source/wiki/memory identities. Th
 See [transition ownership and remaining work](../docs/HARNESS_TRANSITION.md), [Hub usage](../docs/KNOWLEDGE_HUB.md) and [reviewed skill comparisons](../docs/SKILL_IMPROVEMENT.md).
 
 Current skill routing: [SKILL_MAP.json](SKILL_MAP.json). It records all 15 supplied roles and their engine equivalents; it does not activate the archived Python implementations.
+
+## Prepare a shared company foundation
+
+Use [hoi-company-onboarding](../skills/hoi-company-onboarding/SKILL.md) to review selected existing documents or conversation exports, draft supported sections and ask only about gaps or contradictions. Company mode offers an adaptable 19-document map; member mode creates a lightweight profile that references the shared foundation; client mode prepares shared relationship/context records and an active brief. It does not imply access to an account's complete history.
+
+The documents describe owner intent and evidence. They do not replace engine onboarding, managed manuals, reviewed memory or approvals. Continue with `hoi-onboard` for actual workspace setup and intake. See [integration and review guide](../docs/COMPANY_ONBOARDING.md).

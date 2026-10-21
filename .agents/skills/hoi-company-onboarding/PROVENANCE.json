@@ -1,0 +1,11 @@
+{
+  "name": "hoi-company-onboarding",
+  "version": "0.1.0",
+  "author": "House of Ichigo",
+  "created": "2026-10-21",
+  "origin": "Product-namespaced adaptation of the original company-harness-onboarding 0.1.0 instructions",
+  "license": "MIT",
+  "publication_status": "unreleased product source",
+  "runtime_activation": "source integration only; installed workspaces unchanged",
+  "contains_company_or_client_records": false
+}
