@@ -1623,6 +1623,7 @@
     "tests/engine.test.mjs",
     "tests/expertise.test.mjs",
     "tests/fixtures/discovery/cases.json",
+    "tests/foundation-docs.test.mjs",
     "tests/google-actions.test.mjs",
     "tests/graph-query.test.mjs",
     "tests/harness-adapters.test.mjs",

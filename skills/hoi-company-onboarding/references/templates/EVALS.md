@@ -2,7 +2,7 @@
 
 Status: draft — not validated.
 Owner: to confirm (Evaluator).
-Foundation reference: hoi-company-foundation 2.1.0.
+Foundation reference: hoi-company-foundation 2.2.0.
 Last reviewed: unknown.
 
 Acceptance questions and observed results. Populate from selected evidence and confirmed answers. Preserve unknowns.

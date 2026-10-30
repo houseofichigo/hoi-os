@@ -2,7 +2,7 @@
 
 Status: draft — not validated.
 Owner: to confirm (Capability maintainer).
-Foundation reference: hoi-company-foundation 2.1.0.
+Foundation reference: hoi-company-foundation 2.2.0.
 Last reviewed: unknown.
 
 Capability inventory and lifecycle. Populate from selected evidence and confirmed answers. Preserve unknowns.

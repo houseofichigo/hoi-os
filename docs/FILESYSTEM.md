@@ -51,3 +51,11 @@ Schema 20 automation definitions, grants (hashes only), scheduler observations a
 ## Schema-21 discovery records
 
 Selected conversation originals are preserved under the existing dated `archives/` path. Indexed selections use ordinary source revisions and passages. SQLite `session_exports` retains selected turn provenance; `session_imports` journals reviewed, idempotent commits. `knowledge_artifacts` remains the derived artifact owner. `discovery_units` and FTS5 `discovery_search` are disposable projections rebuilt through the engine. `knowledge_enrichment_requests` links manual invocations to existing AI jobs and usage reservations. Do not edit these database tables by hand. Backups retain authoritative payloads/originals; restoration preserves uncertainty and leaves schedules paused.
+
+## Workspace location and existing systems
+
+Choose a dedicated private local folder inside the organization’s existing environment, never its root or a Git/product checkout. Existing folders remain where they are; selected sources are read in place and imported only through reviewed engine operations. Keep established document locations and link them rather than creating competing copies. A folder boundary alone does not limit host filesystem access.
+
+The active workspace contains SQLite and coordinated files. This release does not certify concurrent cloud-sync, network-drive or multiple-machine access to that live workspace. Default to local storage outside active OneDrive/Drive/Dropbox synchronization. If the organization uses a synced tree, keep the engine workspace separately local; a maintainer must verify storage, locking and backup/restore before adopting another topology. Synchronizing a database directory is not a verified backup. Export a completed engine backup and handle it under the organization’s storage/disclosure policy. No source selection, sync or folder relocation is authorized by this guide.
+
+Keep a credential-free systems inventory in TOOLS: contents, owner, sensitivity, access route and observed installation/configuration/permission/verification states. Native connectors, assistant tools/MCP, reviewed exports and unavailable access are distinct. Unknown ownership stays unknown.

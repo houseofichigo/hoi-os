@@ -12,10 +12,10 @@ En formation, commencer avec [Learn HOI OS](../learn/README.fr.md) : dossier et 
 
 | Composant | Utilité et limites | Étapes |
 |---|---|---|
-| Espace privé | Conserver les enregistrements sélectionnés hors du dépôt produit. Un dossier ne restreint pas à lui seul l’accès de l’assistant aux fichiers ; permissions de l’hôte et contrôles du moteur ont des périmètres distincts. | 1, 4 |
+| Espace privé | Créer un sous-dossier privé dédié dans l’environnement existant, hors du dépôt produit et jamais à la racine de l’organisation. Garder les dossiers sources en place et pointer vers les documents canoniques existants. Si cet environnement est synchronisé dans le cloud, utiliser un espace moteur local distinct tant que ce déploiement n’est pas vérifié. Un dossier ne restreint pas à lui seul l’accès de l’assistant aux fichiers ; permissions de l’hôte et contrôles du moteur ont des périmètres distincts. | 1, 4 |
 | Moteur et adaptateurs | Stocker les enregistrements et contrôler les opérations enregistrées. La présence d’un adaptateur ne prouve ni installation ni compatibilité ; découvrir le moteur installé. | 2, 3, 7 |
-| Inventaire | Décrire les fichiers sélectionnés sur place : lus, repérés, inaccessibles ou exclus. Aucun déplacement ou import silencieux. | 5, 6 |
-| Fondation documentaire | Vingt responsabilités couvrant organisation, rôles, règles et usage responsable. Les modèles décrivent une intention ; ils n’accordent aucun droit. | 8–10 |
+| Inventaire des fichiers et systèmes | Décrire les fichiers sélectionnés sur place : lus, repérés, inaccessibles ou exclus. Inventorier aussi les systèmes, leur contenu, responsable, sensibilité et voie d’accès possible. Aucun déplacement ou import silencieux. | 5–7 |
+| Fondation documentaire | Vingt responsabilités couvrant organisation, rôles, règles et usage responsable. Le manifeste associe chaque document à son étape d’introduction : rédiger progressivement puis revoir lorsque les preuves changent. Les modèles décrivent une intention ; ils n’accordent aucun droit. | 8–10 |
 | Hub, sources et wikis | Consulter les originaux préservés et les pages maintenues avec leurs preuves exactes. Un sujet peut avoir un wiki principal explicitement attribué et des pages liées. Les déclarations utilisateur approuvées restent attribuées. | 11–13 |
 | Carte et graphe | Inspecter les liens enregistrés et les chemins bornés de connexion ou d’impact. La similarité ne crée aucun lien affirmé ; un chemin ne prouve pas une affirmation composée. | 14, 15 |
 | Recherche | Réunir les preuves pertinentes autorisées, dont la mémoire approuvée. Référence exacte et soutien factuel sont deux contrôles distincts. | 16 |

@@ -2,7 +2,7 @@
 
 Status: draft — not validated.
 Owner: to confirm (Workspace owner and participants).
-Foundation reference: hoi-company-foundation 2.1.0.
+Foundation reference: hoi-company-foundation 2.2.0.
 Last reviewed: unknown.
 
 Responsible use and prompting. Populate from selected evidence and confirmed answers. Preserve unknowns.

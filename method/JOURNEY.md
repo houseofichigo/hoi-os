@@ -21,18 +21,18 @@ The technical journey below is a reference sequence. For a folder-first workshop
 
 ## Phase 1 — Set up
 
-1. **Create a private workspace.** Choose a directory outside this product checkout; do not use a company root or an existing private vault as a test target. Gate: an explicit location and owner.
+1. **Create a private workspace.** Choose a dedicated private local subfolder within the existing organizational environment (for example `Atelier Nord/HOI/`), outside the product checkout and never at the organizational root. Keep existing folders and canonical documents in place; link them rather than making competing copies. If that environment is cloud-synchronized, keep the active SQLite engine workspace separately local unless its storage and recovery have been verified; see [workspace storage](../docs/FILESYSTEM.md#workspace-location-and-existing-systems). Use fictional data in a separate test workspace, never an existing private vault as a test target. Gate: an explicit location and owner; no folder relocation or source ingestion is implied.
 2. **Install the engine.** Run `npm ci`, then `npm run setup -- --surface hub --workspace "../My HOI Workspace" --non-interactive`. Optional adapters: `node bin/hoi.mjs adapter install codex --workspace "../My HOI Workspace" --json`. Gate: health and adapter status reflect what was actually configured. Never run the historical Python installer over this checkout or workspace.
 3. **Start recovery history.** Create an engine backup and restore a separate copy using the [operations guide](../docs/OPERATIONS.md). Gate: checksums and restored records agree. Git history is optional for authored instructions; never stage private originals or credentials automatically.
 4. **Open the workspace.** Open the selected folder in a supported assistant, or launch the Hub. Gate: the intended workspace is identified and accessible. No inferred host permissions.
 
 ## Phase 2 — Inventory
 
-Look before acting. The inventory reads the existing drive or folders where they are; the organisation then chooses what enters the workspace.
+Look before acting. The inventory reads the existing drive or folders where they are; also list the systems used for the selected work. The organisation then chooses what enters the workspace and which access routes to review.
 
 5. **Select documents.** Choose a bounded file/folder set or select files in Hub → Ingestion. Gate: explicit selection; nothing is silently imported.
 6. **Inventory and organise.** Inspect the manifest, duplicates, unsupported items and restrictions. Approve the exact import or separate working-copy plan. Gate: preserved original identities and item outcomes; no arbitrary movement of private folders.
-7. **Check tools.** Inspect actual connections, adapters and registered operations. Gate: installed, configured, permitted and verified states are distinguished. A declaration cannot enable a connection.
+7. **Inventory systems and tools.** List the systems the selected work depends on: mail, calendar, CRM, ERP/accounting, chat, shared documents and other tools. Record what each holds, owner, sensitivity and access route: supported native connection (for example Gmail, Google Calendar, Google Drive or local folder), authorized assistant tool/MCP server, reviewed export through `import-connection`, or none. Unknowns remain unknown. Draft TOOLS.md from this inventory without credentials. Then inspect actual connections, adapters and registered operations for the selected routes. Gate: installed, configured, permitted and verified states are distinct; missing owners/access decisions remain visible; declarations and export schemas do not prove live connectivity or authorize access.
 
 ## Phase 3 — Foundation and ethics
 
@@ -73,6 +73,27 @@ Look before acting. The inventory reads the existing drive or folders where they
 27. **Review and audit.** Check evidence health, gaps, revoked access, recovery and skill comparisons. Gate: pass/fail/not-tested states reflect evidence. Dismiss unchanged findings through existing review operations.
 28. **Reaffirm ownership.** Revisit “What stays mine” in ROLE, preserve the approved version and record remaining limitations. Gate: the user understands what HOI can do, what requires review and what is still unavailable.
 
+## Documents introduced at each step
+
+<!-- foundation-steps:start -->
+
+Documents are introduced progressively at the technical journey step that supplies their evidence, then reviewed when circumstances change. These are planning associations, not automatic file creation. The folder-first Learn path may draft README and a minimal manual before engine installation. CLAUDE/GEMINI pointers are created only when relevant; installing the engine alone does not install adapters or create those manuals. Existing canonical document locations remain valid. MEMORY/PROPOSED point to engine records and never grant approval.
+
+| Step | Documents |
+|---|---|
+| 2 | `README.md`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` |
+| 6 | `FILESYSTEM.md`, `FILING.md` |
+| 7 | `TOOLS.md`, `docs/TOOL_CONVENTIONS.md` |
+| 8 | `ABOUT_US.md`, `GOALS.md` |
+| 9 | `ROLES.md` |
+| 10 | `RULES.md`, `ETHICS.md`, `VALIDATION-GUIDE.md` |
+| 17 | `SKILLS.md` |
+| 20 | `EVALS.md` |
+| 23 | `WORKFLOWS.md`, `AUTOMATIONS.md` |
+| 26 | `MEMORY.md`, `PROPOSED.md` |
+
+<!-- foundation-steps:end -->
+
 ## Previous numbering
 
 The 25-step journey (seven phases, Describe before Feed) is preserved in [the exact prior product method](history/JOURNEY-25.md); the original upstream method is retained separately in [the source archive](source-1.1.0/JOURNEY.md). Three steps are new (15, 17, 19); the inventory now precedes the description of the organisation.
@@ -85,7 +106,7 @@ The 25-step journey (seven phases, Describe before Feed) is preserved in [the ex
 | 7 Establish governance              | 10 (now with ethics)                          |
 | 8 Select documents                  | 5                                             |
 | 9 Inventory and organise            | 6                                             |
-| 10 Check tools                      | 7                                             |
+| 10 Check tools                      | 7 Inventory systems and tools                 |
 | 11–14                               | 11–14                                         |
 | —                                   | 15 Trace connections and impact (new)         |
 | 15 Ask a grounded question          | 16                                            |

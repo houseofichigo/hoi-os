@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "hoi-company-foundation",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "effectiveDate": "2026-10-29",
   "language": "en",
   "count": 20,
@@ -20,7 +20,8 @@
         "Purpose and entry points",
         "Document map and review status",
         "Next useful workflow"
-      ]
+      ],
+      "introducedAtStep": 2
     },
     {
       "path": "ABOUT_US.md",
@@ -38,7 +39,8 @@
         "Offerings and supported capabilities",
         "People and selected sources",
         "Unknowns and conflicts"
-      ]
+      ],
+      "introducedAtStep": 8
     },
     {
       "path": "GOALS.md",
@@ -56,7 +58,8 @@
         "Measures and owners",
         "Review dates",
         "Links to authoritative onboarding records when installed"
-      ]
+      ],
+      "introducedAtStep": 8
     },
     {
       "path": "ROLES.md",
@@ -74,7 +77,8 @@
         "Inputs and expected outputs",
         "What stays human-owned",
         "Handoffs and escalation"
-      ]
+      ],
+      "introducedAtStep": 9
     },
     {
       "path": "AGENTS.md",
@@ -92,7 +96,8 @@
         "Read only relevant references",
         "Evidence and review boundaries",
         "Actual engine entrypoint when installed"
-      ]
+      ],
+      "introducedAtStep": 2
     },
     {
       "path": "RULES.md",
@@ -110,7 +115,8 @@
         "Observed engine-enforced controls",
         "Required reviews",
         "Unavailable actions and discrepancies"
-      ]
+      ],
+      "introducedAtStep": 10
     },
     {
       "path": "ETHICS.md",
@@ -132,7 +138,8 @@
         "Human review and correction",
         "Responsible prompting",
         "Stop, report and use proportionate resources"
-      ]
+      ],
+      "introducedAtStep": 10
     },
     {
       "path": "FILESYSTEM.md",
@@ -150,7 +157,8 @@
         "Authoritative copies and originals",
         "Drafts, revisions and exports",
         "Backup and recovery references"
-      ]
+      ],
+      "introducedAtStep": 6
     },
     {
       "path": "FILING.md",
@@ -168,7 +176,8 @@
         "Filing decisions and receipts",
         "Prior versions",
         "Unresolved duplicates"
-      ]
+      ],
+      "introducedAtStep": 6
     },
     {
       "path": "TOOLS.md",
@@ -182,11 +191,12 @@
       ],
       "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
       "sections": [
-        "Purpose and selected accounts",
-        "Available, installed, configured and tested states",
-        "Permissions and disclosure",
-        "Failures and limitations"
-      ]
+        "Systems inventory: purpose, data held, owner and sensitivity",
+        "Access route: native connection, assistant tool or MCP, reviewed export, or none",
+        "Installed, configured, permitted and verified states",
+        "Verification evidence, unknowns and proposed next action"
+      ],
+      "introducedAtStep": 7
     },
     {
       "path": "docs/TOOL_CONVENTIONS.md",
@@ -205,7 +215,8 @@
         "Bounded reads and exact evidence",
         "Expected versions and exact approvals",
         "Cancellation and uncertain outcomes"
-      ]
+      ],
+      "introducedAtStep": 7
     },
     {
       "path": "SKILLS.md",
@@ -223,7 +234,8 @@
         "Availability, installation and activation",
         "Relevant contracts",
         "Evaluation and limitations"
-      ]
+      ],
+      "introducedAtStep": 17
     },
     {
       "path": "WORKFLOWS.md",
@@ -241,7 +253,8 @@
         "Inputs, outputs and exclusions",
         "Acceptance checks",
         "Review points, clarification and recovery"
-      ]
+      ],
+      "introducedAtStep": 23
     },
     {
       "path": "AUTOMATIONS.md",
@@ -259,7 +272,8 @@
         "Disabled, configured and verified states",
         "Trigger ownership and availability",
         "Budget, failures and stop procedure"
-      ]
+      ],
+      "introducedAtStep": 23
     },
     {
       "path": "EVALS.md",
@@ -277,7 +291,8 @@
         "Expected and forbidden claims",
         "Baseline and candidate observations",
         "Human factual review and limitations"
-      ]
+      ],
+      "introducedAtStep": 20
     },
     {
       "path": "MEMORY.md",
@@ -295,7 +310,8 @@
         "Approved record references",
         "Validity and supersession",
         "Missing runtime: no memory store configured"
-      ]
+      ],
+      "introducedAtStep": 26
     },
     {
       "path": "PROPOSED.md",
@@ -313,7 +329,8 @@
         "Decision owner and current state",
         "Evidence and exact payload",
         "Missing runtime: descriptive proposals only"
-      ]
+      ],
+      "introducedAtStep": 26
     },
     {
       "path": "VALIDATION-GUIDE.md",
@@ -331,7 +348,8 @@
         "Missing, conflicting and deferred",
         "Evidence and named reviewer",
         "Validation record and next review"
-      ]
+      ],
+      "introducedAtStep": 10
     },
     {
       "path": "CLAUDE.md",
@@ -349,7 +367,8 @@
         "Actual host setup status",
         "Relevant operating documents",
         "Managed block ownership"
-      ]
+      ],
+      "introducedAtStep": 2
     },
     {
       "path": "GEMINI.md",
@@ -367,7 +386,8 @@
         "Host and engine support not verified by file presence",
         "Relevant operating documents",
         "No inferred permissions"
-      ]
+      ],
+      "introducedAtStep": 2
     }
   ],
   "legacyMappings": {
@@ -393,5 +413,6 @@
       "VALIDATION-GUIDE.md"
     ]
   },
-  "migration": "Document responsibility mapping only. Preserve existing client names, paths and history; no automatic rename or runtime migration."
+  "migration": "Document responsibility mapping only. Preserve existing client names, paths and history; no automatic rename or runtime migration.",
+  "journeyVersion": "2.0.0"
 }

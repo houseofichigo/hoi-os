@@ -15,3 +15,5 @@ Company document onboarding is supplied by `skills/hoi-company-onboarding/`; run
 `expertise/catalog.json` owns pack composition, domain task methods and client-field requirements. `scripts/sync-expertise.mjs` generates corresponding skills and plugin copies; run `npm run expertise:sync`, `npm run skills:sync` and `npm run check` after edits. Keep private profiles out of the product. Profile review is descriptive and cannot grant engine authority. No package installation or publication follows from generation.
 
 Documentation maintenance: method/journey.json owns 28-step numbering; method/foundation.json owns 20 responsibilities. Run foundation:sync, skills:sync and docs:sync after source changes; check Learn EN/FR parity and journey links. Keep historical numbering in archived reports. The Learn kit must work with operations in this release, not unpublished engine APIs.
+
+Foundation 2.2.0 maps every document to introducedAtStep. Keep the journey document table generated from that manifest. Workspace guidance must preserve external source locations, local database storage limits and optional host-manual creation.

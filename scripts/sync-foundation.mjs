@@ -8,6 +8,10 @@ if (
   new Set(m.documents.map((d) => d.path)).size !== 20
 )
   throw Error("FOUNDATION_COUNT");
+const journey = JSON.parse(readFileSync("method/journey.json"));
+const validSteps = new Set(journey.phases.flatMap((p) => p.steps));
+if (m.journeyVersion !== journey.version)
+  throw Error("FOUNDATION_JOURNEY_VERSION");
 const paths = new Set(m.documents.map((d) => d.path));
 function emit(p, t) {
   if (check) {
@@ -20,6 +24,7 @@ function emit(p, t) {
 }
 for (const d of m.documents) {
   if (
+    !validSteps.has(d.introducedAtStep) ||
     !d.owner ||
     !d.validation ||
     !existsSync(d.template) ||
@@ -34,12 +39,13 @@ for (const d of m.documents) {
 const intro =
   "# HOI foundation — 20 document responsibilities\n\nGenerated from method/foundation.json, version " +
   m.version +
-  ". Canonical language: English; participant guide: [Learn](../learn/README.md). These are reviewed human documents, not replacement engine state. Existing client filenames and locations stay in place: record a responsibility mapping, never rename automatically.\n\n";
+  ". Canonical language: English; participant guide: [Learn](../learn/README.md). Introduced-at-step values are technical planning references, not automatic creation. Learn may draft minimal manuals earlier; host pointers are optional and do not install adapters. These are reviewed human documents, not replacement engine state. Existing client filenames and locations stay in place: record a responsibility mapping, never rename automatically.\n\n";
 const table =
-  "| Document | Purpose | Accountable owner | Validation |\n|---|---|---|---|\n" +
+  "| Document | Purpose | Accountable owner | Validation | Introduced at step |\n|---|---|---|---|---|\n" +
   m.documents
     .map(
-      (d) => `| \`${d.path}\` | ${d.purpose} | ${d.owner} | ${d.validation} |`,
+      (d) =>
+        `| \`${d.path}\` | ${d.purpose} | ${d.owner} | ${d.validation} | ${d.introducedAtStep} |`,
     )
     .join("\n") +
   "\n";
@@ -85,3 +91,28 @@ console.log(
   "20 foundation responsibilities, templates and links " +
     (check ? "verified" : "generated"),
 );
+
+const explanation =
+  "Documents are introduced progressively at the technical journey step that supplies their evidence, then reviewed when circumstances change. These are planning associations, not automatic file creation. The folder-first Learn path may draft README and a minimal manual before engine installation. CLAUDE/GEMINI pointers are created only when relevant; installing the engine alone does not install adapters or create those manuals. Existing canonical document locations remain valid. MEMORY/PROPOSED point to engine records and never grant approval.";
+const stepRows = [...new Set(m.documents.map((d) => d.introducedAtStep))]
+  .sort((a, b) => a - b)
+  .map(
+    (step) =>
+      `| ${step} | ${m.documents
+        .filter((d) => d.introducedAtStep === step)
+        .map((d) => "`" + d.path + "`")
+        .join(", ")} |`,
+  )
+  .join("\n");
+const section =
+  "<!-- foundation-steps:start -->\n\n" +
+  explanation +
+  "\n\n| Step | Documents |\n|---|---|\n" +
+  stepRows +
+  "\n\n<!-- foundation-steps:end -->";
+const journeyPath = "method/JOURNEY.md";
+const journeyText = readFileSync(journeyPath, "utf8");
+const marker =
+  /<!-- foundation-steps:start -->[\s\S]*?<!-- foundation-steps:end -->/;
+if (!marker.test(journeyText)) throw Error("FOUNDATION_JOURNEY_MARKER");
+emit(journeyPath, journeyText.replace(marker, section));
