@@ -83,6 +83,9 @@ test("all views, search, evidence, originals, keyboard and narrow viewport", asy
   }
   await page.getByRole("searchbox").fill("Cedar");
   await page.getByRole("button", { name: /^Cedar brief document/ }).click();
+  await page.getByRole("button", { name: "Review impact", exact: true }).click();
+  await expect(page.getByText(/Maximum two hops/)).toBeVisible();
+  await page.getByRole("button", { name: "Clear graph result" }).click();
   await expect(
     page.getByRole("button", { name: /supporting passage/ }).first(),
   ).toBeVisible();
@@ -216,3 +219,15 @@ test("1000-document map performance on recorded machine", async ({
     expect(graphMs).toBeLessThan(5000);
   }
 });
+
+for (const width of [390, 768, 1280, 1440]) {
+  test(`graph inspection remains usable at ${width}px`, async ({page}) => {
+    await page.setViewportSize({width,height:900});
+    await page.goto(url);
+    await page.getByRole('button',{name:/^Cedar brief document/}).click();
+    await page.getByRole('button',{name:'Review impact',exact:true}).click();
+    await expect(page.getByText(/Maximum two hops/)).toBeVisible();
+    await page.getByRole('button',{name:'Clear graph result'}).click();
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  });
+}

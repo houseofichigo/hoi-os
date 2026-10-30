@@ -1,3 +1,4 @@
+import { graphQuery } from "./graph-query.js";
 import {
   previewSession,
   commitSession,
@@ -348,6 +349,8 @@ const subcommands: Record<string, string[]> = {
     "compare",
   ],
   knowledge: [
+    "path",
+    "impact",
     "configure-discovery",
     "enrich-preview",
     "enrich",
@@ -428,7 +431,7 @@ const commands = new Set(
   ),
 );
 const reads = new Set(
-  "harness:route automation:preview automation:status automation:history memory:compare memory:list memory:get memory:history activity: activity:list activity:get suggestions: suggestions:list suggestions:get chat:results onboard:status google-policy: email-actions: email-actions:list ai: ai:status ai:job inbox: inbox:get inbox:email-candidates skills: skills:list skills:get views:client views:project views:training preferences: preferences:get processing: processing:list entity-merge: entity-merge:list jobs: jobs:list adapter: adapter:status engine: engine:status engine:operations app-read security configuration dashboard health doctor audit diagnostics context ingest-plan retrieve query-data consolidate calendar:list calendar: records:client records:project records:training source: source:list source:get source:impact sync: sync:list chat: chat:status chat:get chat:conversations chat:conversation chat:evidence knowledge:health knowledge:artifacts knowledge:artifact knowledge:session knowledge:enrich-preview knowledge:enrich-status knowledge:index-status knowledge:search knowledge:evidence knowledge:dates knowledge: knowledge:list knowledge:replacements daily: daily:view intake: intake:list intake:mentions intake:decisions project: project:list project:get task: task:list task:proposals task:get task:history wiki: wiki:list wiki:get wiki:contradictions wiki:pages wiki:page wiki:compare wiki:history wiki:node wiki:taxonomy wiki:search wiki:templates wiki:backlinks".split(
+  "knowledge:path knowledge:impact harness:route automation:preview automation:status automation:history memory:compare memory:list memory:get memory:history activity: activity:list activity:get suggestions: suggestions:list suggestions:get chat:results onboard:status google-policy: email-actions: email-actions:list ai: ai:status ai:job inbox: inbox:get inbox:email-candidates skills: skills:list skills:get views:client views:project views:training preferences: preferences:get processing: processing:list entity-merge: entity-merge:list jobs: jobs:list adapter: adapter:status engine: engine:status engine:operations app-read security configuration dashboard health doctor audit diagnostics context ingest-plan retrieve query-data consolidate calendar:list calendar: records:client records:project records:training source: source:list source:get source:impact sync: sync:list chat: chat:status chat:get chat:conversations chat:conversation chat:evidence knowledge:health knowledge:artifacts knowledge:artifact knowledge:session knowledge:enrich-preview knowledge:enrich-status knowledge:index-status knowledge:search knowledge:evidence knowledge:dates knowledge: knowledge:list knowledge:replacements daily: daily:view intake: intake:list intake:mentions intake:decisions project: project:list project:get task: task:list task:proposals task:get task:history wiki: wiki:list wiki:get wiki:contradictions wiki:pages wiki:page wiki:compare wiki:history wiki:node wiki:taxonomy wiki:search wiki:templates wiki:backlinks".split(
     " ",
   ),
 );
@@ -765,6 +768,8 @@ async function dispatch(s: Store, host: Host, request: OperationInput) {
         );
       break;
     case "knowledge":
+      if (p[1] === "path" || p[1] === "impact")
+        return graphQuery(s, host, p[1], input());
       if (p[1] === "configure-discovery")
         return configureDiscovery(s, host, input());
       if (p[1] === "health") return knowledgeHealth(s, host);

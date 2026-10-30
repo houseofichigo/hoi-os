@@ -54,6 +54,21 @@ export default function KnowledgeMap({ api, embedded = false }) {
       matchMedia("(prefers-reduced-motion: reduce)").matches,
     ),
     [width, setWidth] = useState(700);
+  const [pathTarget, setPathTarget] = useState("");
+  const [graphResult, setGraphResult] = useState(null);
+  async function inspectGraph(mode) {
+    try {
+      const q = new URLSearchParams({
+        source: selected.id,
+        depth: "2",
+        ...(mode === "path" ? { target: pathTarget } : {}),
+      });
+      const result = await (await api(`knowledge/${mode}?${q}`)).json();
+      setGraphResult(result);
+    } catch (e) {
+      setGraphResult({ state: "error", note: e.message, nodes: [], links: [] });
+    }
+  }
   const graphRef = useRef(),
     panel = useRef();
   async function refresh() {
@@ -109,10 +124,16 @@ export default function KnowledgeMap({ api, embedded = false }) {
   );
   const graphData = useMemo(
     () => ({
-      nodes: filtered.nodes.map((n) => ({ ...n })),
-      links: filtered.links.map((l) => ({ ...l })),
+      nodes: (graphResult?.state === "ready"
+        ? graphResult.nodes
+        : filtered.nodes
+      ).map((n) => ({ ...n })),
+      links: (graphResult?.state === "ready"
+        ? graphResult.links
+        : filtered.links
+      ).map((l) => ({ ...l })),
     }),
-    [filtered],
+    [filtered, graphResult],
   );
   const dates = useMemo(
     () => [...new Set(data.nodes.map((n) => n.date).filter(Boolean))].sort(),
@@ -144,6 +165,7 @@ export default function KnowledgeMap({ api, embedded = false }) {
       url.searchParams.set("node", n.id);
       history.pushState({}, "", url);
     }
+    setGraphResult(null);
     setSelected(n);
     setWikiRef(null);
     setCreateWiki(false);
@@ -628,6 +650,64 @@ export default function KnowledgeMap({ api, embedded = false }) {
                 {selected.content ??
                   `${selected.authority ?? "Manually maintained"} record${selected.stale ? " · evidence needs review" : ""}.`}
               </p>
+              <div>
+                <label>
+                  Connection target
+                  <select
+                    value={pathTarget}
+                    onChange={(e) => setPathTarget(e.target.value)}
+                  >
+                    <option value="">Choose record</option>
+                    {data.nodes
+                      .filter((n) => n.id !== selected.id)
+                      .map((n) => (
+                        <option key={n.id} value={n.id}>
+                          {n.name}
+                        </option>
+                      ))}
+                  </select>
+                </label>
+                <button
+                  disabled={!pathTarget}
+                  onClick={() => inspectGraph("path")}
+                >
+                  Explain connection
+                </button>
+                <button onClick={() => inspectGraph("impact")}>
+                  Review impact
+                </button>
+                {graphResult && (
+                  <div role="status">
+                    <p>
+                      {graphResult.state} · Maximum two hops.{" "}
+                      {graphResult.partial ? "Partial results." : ""}{" "}
+                      {graphResult.note}
+                    </p>
+                    <ul>
+                      {graphResult.links.map((e) => (
+                        <li key={e.id}>
+                          {data.nodes.find((n) => n.id === e.source)?.name} →{" "}
+                          {e.type} ({e.basis}) →{" "}
+                          {data.nodes.find((n) => n.id === e.target)?.name}
+                          {(e.evidence ?? [])
+                            .filter((ref) => ref.passageId)
+                            .map((ref) => (
+                              <button
+                                key={ref.passageId}
+                                onClick={() => showPassage(ref.passageId)}
+                              >
+                                Read path evidence
+                              </button>
+                            ))}
+                        </li>
+                      ))}
+                    </ul>
+                    <button onClick={() => setGraphResult(null)}>
+                      Clear graph result
+                    </button>
+                  </div>
+                )}
+              </div>
               <div className="actions">
                 <button
                   onClick={() => {

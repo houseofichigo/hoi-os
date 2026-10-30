@@ -667,7 +667,12 @@ export function searchWiki(
   s: Store,
   query: string,
   h: Host,
-  opts: { project?: string; client?: string; limit?: number } = {},
+  opts: {
+    project?: string;
+    client?: string;
+    limit?: number;
+    pageId?: string;
+  } = {},
 ) {
   if (s.schemaVersion < 15) return [];
   check(s, h);
@@ -679,6 +684,8 @@ export function searchWiki(
   for (const p of wikiLibrary(s, h).filter(
     (x) => x.status === "canonical" && x.evidenceCurrent,
   )) {
+    if (opts.pageId && p.pageId !== opts.pageId && p.id !== opts.pageId)
+      continue;
     if (opts.project) {
       const project = listProjects(s, h).find(
         (x: any) => x.id === opts.project || x.entity_id === opts.project,

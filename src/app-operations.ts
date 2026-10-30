@@ -1,3 +1,4 @@
+import { graphQuery } from "./graph-query.js";
 import {
   previewSession,
   commitSession,
@@ -523,6 +524,17 @@ export function appRead(
   const options = { app },
     url = new URL("http://127.0.0.1" + pathname + query);
   let result: any;
+  if (
+    pathname === "/api/knowledge/path" ||
+    pathname === "/api/knowledge/impact"
+  )
+    return graphQuery(s, host, pathname.endsWith("/path") ? "path" : "impact", {
+      source: url.searchParams.get("source"),
+      ...(url.searchParams.has("target")
+        ? { target: url.searchParams.get("target") }
+        : {}),
+      depth: Number(url.searchParams.get("depth") || 1),
+    });
   if (pathname === "/api/knowledge/health") return knowledgeHealth(s, host);
   if (pathname === "/api/knowledge/artifacts")
     return listArtifacts(s, host, {

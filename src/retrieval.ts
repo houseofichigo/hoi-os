@@ -515,21 +515,14 @@ function relationshipExpansion(
     if (ids.has(target)) continue;
     let candidates: EvidenceItem[] = [];
     if (s.one("SELECT 1 FROM sources WHERE id=?", target)) {
-      candidates = knowledgeSearch(
-        s,
-        {
-          query: "",
-          sourceId: target,
-          expandRelationships: false,
-          expandContext: false,
-        },
-        h,
-      ).evidence;
-      candidates = candidates.filter(
-        (e) =>
-          (!v.project || e.relatedRecords.includes(v.project)) &&
-          (!v.client || e.relatedRecords.includes(v.client)),
-      );
+      candidates = knowledgeSearch(s, {
+        ...v, sourceId: target, expandRelationships: false, expandContext: false,
+      }, h).evidence;
+      // An explicitly recorded contradiction must remain visible even when
+      // it uses different vocabulary. Label this bounded fallback honestly.
+      if (!candidates.length && edge.type === "CONTRADICTS")
+        candidates = knowledgeSearch(s, { ...v, query: "", sourceId: target,
+          limit: 3, expandRelationships: false, expandContext: false }, h).evidence;
     } else {
       const m = eligibleMemories(s, h, v.project, v.client).find(
         (m) => m.id === target,
@@ -562,10 +555,48 @@ function relationshipExpansion(
         ];
       }
     }
+    if (
+      !candidates.length &&
+      !s.one("SELECT 1 FROM sources WHERE id=?", target)
+    ) {
+      candidates = searchWiki(s, v.query, h, {
+        ...v,
+        pageId: target,
+        limit: 20,
+      }).map((w) => ({
+        kind: "wiki",
+        id: `wiki:${w.wikiRevisionId}:${w.blockId}`,
+        recordId: w.pageId,
+        revision: w.wikiRevisionId,
+        title: w.title,
+        excerpt: w.quote,
+        provenance: w.provenance,
+        attribution: w.author ?? null,
+        effectiveDate: w.effectiveDate ?? null,
+        relatedRecords: [],
+        supportingEvidence: w.evidence,
+        reference: {
+          pageId: w.pageId,
+          wikiRevisionId: w.wikiRevisionId,
+          blockId: w.blockId,
+        },
+        score: w.score ?? 0,
+        method: "relationship",
+        reason: "Exact linked published page",
+        data: w,
+      }));
+      if (v.scope === "workspace")
+        candidates.push(
+          ...operationalEvidence(s, h, v).filter((e) => e.recordId === target),
+        );
+    }
     for (const e of candidates) {
       if (out.some((x) => x.id === e.id)) continue;
       out.push({
         ...e,
+        score: terms(v.query).filter((t) =>
+          terms(e.title + " " + e.excerpt).includes(t),
+        ).length,
         method: "relationship",
         reason: `Explicit ${edge.type} relationship; ${edge.type === "CONTRADICTS" ? "inspect both statements" : "one-hop evidence expansion"}`,
         relationship: {
@@ -577,10 +608,11 @@ function relationshipExpansion(
           evidence: proof,
         },
       });
-      if (out.length >= 20) return out;
     }
   }
-  return out;
+  return out
+    .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id))
+    .slice(0, 20);
 }
 function finishSearch(
   s: Store,
