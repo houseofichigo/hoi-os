@@ -29,4 +29,4 @@ Run `npm run check`, `npm run format:check`, browser regressions and the publica
 
 ## Routing and automation gate
 
-See [schema-20 verification](AUTOMATION_VALIDATION.md) for observed checks and remaining host/evaluation gates. Authored routing fixtures are not independent human labels. Inactive n8n templates are not live workflows. Do not activate private sources, install schedules or claim continuous uptime from local tests.
+See [schema-20 verification](records/AUTOMATION_VALIDATION.md) for observed checks and remaining host/evaluation gates. Authored routing fixtures are not independent human labels. Inactive n8n templates are not live workflows. Do not activate private sources, install schedules or claim continuous uptime from local tests.

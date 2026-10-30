@@ -2,7 +2,7 @@
 
 HOI OS combines a guided harness, the existing governed knowledge engine, optional assistant skills and an optional local Knowledge Hub. Users can build other interfaces over registered operations.
 
-Start with [the current 25-step journey](JOURNEY.md). [ABOUT_US](templates/ABOUT_US.template.md) and [ROLE](templates/ROLE.template.md) retain the supplied organisation and role interviews. They describe owner intent; they do not configure permissions or grant approvals. Confirm relevant answers through engine onboarding, and use approved memory records for durable facts.
+Start with [how HOI OS works](../docs/HOW_IT_WORKS.md), then [the 28-step journey](JOURNEY.md). [ABOUT_US](templates/ABOUT_US.template.md), [ROLE](templates/ROLE.template.md) and [ETHICS](templates/ETHICS.template.md) are owner templates: ABOUT_US and ROLE retain the supplied organisation and role interviews, and ETHICS adapts the [ethics guide](../docs/ETHICS.md). They describe owner intent; they do not configure permissions or grant approvals. Confirm relevant answers through engine onboarding, and use approved memory records for durable facts.
 
 The complete supplied top-level Markdown and documentation are preserved under `source-1.1.0/`, with [checksums](PROVENANCE.json). Those files are **historical reference material, not executable installation instructions**. Their Python installer, generated workbench, plain-Markdown approvals and automatic availability claims are not adopted. Preserve these originals when revising the current method.
 
@@ -14,6 +14,6 @@ Current skill routing: [SKILL_MAP.json](SKILL_MAP.json). It records all 15 suppl
 
 ## Prepare a shared company foundation
 
-Use [hoi-company-onboarding](../skills/hoi-company-onboarding/SKILL.md) to review selected existing documents or conversation exports, draft supported sections and ask only about gaps or contradictions. Company mode offers an adaptable 19-document map; member mode creates a lightweight profile that references the shared foundation; client mode prepares shared relationship/context records and an active brief. It does not imply access to an account's complete history.
+Use [hoi-company-onboarding](../skills/hoi-company-onboarding/SKILL.md) to review selected existing documents or conversation exports, draft supported sections and ask only about gaps or contradictions. Company mode offers an adaptable 20-document map; member mode creates a lightweight profile that references the shared foundation; client mode prepares shared relationship/context records and an active brief. It does not imply access to an account's complete history.
 
 The documents describe owner intent and evidence. They do not replace engine onboarding, managed manuals, reviewed memory or approvals. Continue with `hoi-onboard` for actual workspace setup and intake. See [integration and review guide](../docs/COMPANY_ONBOARDING.md).

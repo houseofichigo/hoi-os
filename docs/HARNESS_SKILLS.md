@@ -1,6 +1,6 @@
 # Harness skills and installation
 
-Current local edition, 19 October 2026. The seven phases and 25 steps remain in `method/JOURNEY.md`. The supplied 1.1.0 ZIP is preserved unchanged. Its Python utilities, guard plugin, static viewers and generated state stores are not installed. The governed engine, schema 20 and optional Knowledge Hub remain authoritative.
+Documentation candidate, 30 October 2026. The eight phases and 28 steps are in `method/JOURNEY.md` (previous 25-step numbering mapped there). The supplied 1.1.0 ZIP is preserved unchanged. Its Python utilities, guard plugin, static viewers and generated state stores are not installed. The governed engine, schema 21 and optional Knowledge Hub remain authoritative.
 
 ## Reconciliation
 

@@ -4,6 +4,8 @@ import { sha } from "./files.js";
 import { z } from "zod";
 export const GUIDE_NAMES = [
   "RULES.md",
+  "ETHICS.md",
+  "ETHICS.fr.md",
   "FILESYSTEM.md",
   "TOOL_CONVENTIONS.md",
   "OPERATIONS_REFERENCE.md",

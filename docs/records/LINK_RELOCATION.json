@@ -1,0 +1,74 @@
+[
+  {
+    "report": "AUTOMATION_VALIDATION.md",
+    "original": "originals/AUTOMATION_VALIDATION.md.txt",
+    "sha256": "3eea051caf58d71a87850e0de89ff65d5ff91ec1e6ef015ea928f45ff00aed8e",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  },
+  {
+    "report": "HUB_ACCEPTANCE_VALIDATION.md",
+    "original": "originals/HUB_ACCEPTANCE_VALIDATION.md.txt",
+    "sha256": "128ab97a6a36c26dc442942584c9a5dc3f5169c5c1ade61bfd703bb6f762c781",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  },
+  {
+    "report": "ENGINE_BATCH_E.md",
+    "original": "originals/ENGINE_BATCH_E.md.txt",
+    "sha256": "3de2b7cdbf7656d80211698b9a0363431a30284a7a1a0939fff87503d2db9c32",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  },
+  {
+    "report": "ENGINE_BATCH_D.md",
+    "original": "originals/ENGINE_BATCH_D.md.txt",
+    "sha256": "040514214688226279cbe710739d1441819146b65465e18a7d72784a6bc2257e",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  },
+  {
+    "report": "HARNESS_RECONCILIATION_VALIDATION.md",
+    "original": "originals/HARNESS_RECONCILIATION_VALIDATION.md.txt",
+    "sha256": "3c79b08d256261ae1b8e6b54f70f858d8f20513bcdc2a427d316648d00be67c8",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  },
+  {
+    "report": "COMPLETION_PLAN.md",
+    "original": "originals/COMPLETION_PLAN.md.txt",
+    "sha256": "a7ced1d1a458621a9aa96d150c36cc32841263c8bb5ccb7ae1190a87c402eff5",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  },
+  {
+    "report": "ENGINE_BATCH_F.md",
+    "original": "originals/ENGINE_BATCH_F.md.txt",
+    "sha256": "93252c3c55ea67f5dbcf11d7895845ef593185439d4deff208583220f65186c6",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  },
+  {
+    "report": "HARNESS_FOUNDATION_VALIDATION.md",
+    "original": "originals/HARNESS_FOUNDATION_VALIDATION.md.txt",
+    "sha256": "d98b7e9d10d61cb240a607727c1ebbe945971df1003dc69b59856f2cde20f645",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  },
+  {
+    "report": "FINAL_VALIDATION.md",
+    "original": "originals/FINAL_VALIDATION.md.txt",
+    "sha256": "1d1ba3c0606b9eca29528e60b43f35eca46eb508d8fb734132aa372a8430beee",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  },
+  {
+    "report": "ENGINE_BATCH_B.md",
+    "original": "originals/ENGINE_BATCH_B.md.txt",
+    "sha256": "0619091e7c69ef6525e82557a7ecd57237500e48ee77ff05450df142d8d3212e",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  },
+  {
+    "report": "CHIEF_RECIPE_VALIDATION.md",
+    "original": "originals/CHIEF_RECIPE_VALIDATION.md.txt",
+    "sha256": "691e3657178b29a20a66beb41caddc26f899e8eece4a16053d3301a6764e06be",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  },
+  {
+    "report": "HUB_EXTRACTION_VALIDATION.md",
+    "original": "originals/HUB_EXTRACTION_VALIDATION.md.txt",
+    "sha256": "5acc39247b8db98071fd19ebe45b5648a421369ba5ae68a44800e24441de9870",
+    "change": "relative links relocated; unavailable artifact explicitly labelled"
+  }
+]

@@ -4,7 +4,7 @@ Audience: workspace owners, assistant adapters and operators of local scheduler 
 
 ## What is available
 
-HOI remains a 25-step harness, a local engine and an optional Knowledge Hub. The product now has 22 optional skills. No desktop app, proprietary scheduler, hosted service, recursive agent framework or mandatory AI key was added.
+HOI remains a 28-step harness, a local engine and an optional Knowledge Hub. The product now has 22 optional skills. No desktop app, proprietary scheduler, hosted service, recursive agent framework or mandatory AI key was added.
 
 `harness route --input request.json` returns an exact record read, one eligible skill, a clarification or the explicit priorities-and-meeting workflow. It does not execute. The five automatic candidates are retrieve, meeting preparation, Chief of Staff, task intake and project intake. Project intake keeps its exact 17-field schema. Automatic routing is deterministic and conservative; manual selection remains available. Route metadata cannot grant tools or approvals. Workflows expose at most three stages and retain the five-round overall limit; these are plans for the existing host workflow, not a new recursive executor.
 
@@ -56,4 +56,4 @@ Schema 20 adds definitions, scoped grants, schedule observations, connection own
 
 Manual mode needs no scheduler or API key. Host scheduling requires the selected computer, host and engine. Continuous hosting requires a user-operated available machine, secure credential access, explicit startup configuration and verified backups. This upgrade installs no background service and does not change network binding. Docker/remote n8n cannot assume host loopback access; never expose the general engine API publicly to make a template connect.
 
-Local tests cover engine contracts and loopback transport. Human routing labels, generated-answer factual support, live API responses, real Codex/n8n publication, reboot tests, fresh hosts and Windows remain separate evidence gates. See [validation](AUTOMATION_VALIDATION.md).
+Local tests cover engine contracts and loopback transport. Human routing labels, generated-answer factual support, live API responses, real Codex/n8n publication, reboot tests, fresh hosts and Windows remain separate evidence gates. See [validation](records/AUTOMATION_VALIDATION.md).

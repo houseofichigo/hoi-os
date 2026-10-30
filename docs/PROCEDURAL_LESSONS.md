@@ -38,4 +38,4 @@ Skill lessons are excluded from automatic factual context, unified current/histo
 
 The Hub editor preserves the pinned skill, evidence and observation type while allowing statement, scope, limitation and date corrections. Re-pinning via the typed memory contract requires a valid exact revision; source reports and previous revisions remain preserved.
 
-See [comparison contract](SKILL_IMPROVEMENT.md), [governance](RULES.md), [storage](FILESYSTEM.md), [generated operations](OPERATIONS_REFERENCE.md) and [local validation](PROCEDURAL_LESSONS_VALIDATION.md). A synthetic demonstration is not proof that a skill improved real work.
+See [comparison contract](SKILL_IMPROVEMENT.md), [governance](RULES.md), [storage](FILESYSTEM.md), [generated operations](OPERATIONS_REFERENCE.md) and [local validation](records/PROCEDURAL_LESSONS_VALIDATION.md). A synthetic demonstration is not proof that a skill improved real work.

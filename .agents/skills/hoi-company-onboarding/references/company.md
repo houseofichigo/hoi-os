@@ -4,7 +4,7 @@
 
 The company owner or delegated coordinator validates common identity, priorities and responsibilities. Other contributors can supply examples and specialist knowledge. Technical preparation can be done by the facilitator; do not ask the owner to invent runtime settings.
 
-Review existing company introduction, offers, selected work examples, current operating documents and chosen conversation summaries. Use the actual agreed file plan. If none exists, offer the 19-file baseline in document-map.md. Do not move repositories, reorganize production storage or install a runtime as a side effect.
+Review existing company introduction, offers, selected work examples, current operating documents and chosen conversation summaries. Use the actual agreed file plan. If none exists, offer the 20-file baseline in document-map.md. Do not move repositories, reorganize production storage or install a runtime as a side effect.
 
 ## Questions — ask only uncovered topics
 

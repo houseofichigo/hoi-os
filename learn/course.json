@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "version": "1.1.0",
+  "foundationVersion": "2.1.0",
+  "modules": [
+    {
+      "id": 1,
+      "steps": [
+        1,
+        4
+      ],
+      "en": "en/01.md",
+      "fr": "fr/01.md",
+      "fixtures": [
+        "fixtures/cedar-offering.md",
+        "fixtures/cedar-meeting.md",
+        "fixtures/cedar-conflict.md",
+        "fixtures/cedar-old.md"
+      ],
+      "output": "baseline-v1.md plus measurement row; preserve original output separately from annotations."
+    },
+    {
+      "id": 2,
+      "steps": [
+        5,
+        6
+      ],
+      "en": "en/02.md",
+      "fr": "fr/02.md",
+      "fixtures": [
+        "fixtures/cedar-offering.md",
+        "fixtures/cedar-meeting.md",
+        "fixtures/cedar-conflict.md",
+        "fixtures/cedar-old.md"
+      ],
+      "output": "inventory.md, with explicit selected scope and untouched source files."
+    },
+    {
+      "id": 3,
+      "steps": [
+        1,
+        4,
+        8,
+        9
+      ],
+      "en": "en/03.md",
+      "fr": "fr/03.md",
+      "fixtures": [
+        "fixtures/cedar-offering.md",
+        "fixtures/cedar-meeting.md",
+        "fixtures/cedar-conflict.md",
+        "fixtures/cedar-old.md"
+      ],
+      "output": "Reviewed document map and progressively created drafts; open decisions remain explicit."
+    },
+    {
+      "id": 4,
+      "steps": [
+        10
+      ],
+      "en": "en/04.md",
+      "fr": "fr/04.md",
+      "fixtures": [
+        "fixtures/cedar-offering.md",
+        "fixtures/cedar-meeting.md",
+        "fixtures/cedar-conflict.md",
+        "fixtures/cedar-old.md"
+      ],
+      "output": "ETHICS draft, rewritten prompts and observable checks."
+    },
+    {
+      "id": 5,
+      "steps": [
+        2,
+        3,
+        7,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "en": "en/05.md",
+      "fr": "fr/05.md",
+      "fixtures": [
+        "fixtures/cedar-offering.md",
+        "fixtures/cedar-meeting.md",
+        "fixtures/cedar-conflict.md",
+        "fixtures/cedar-old.md"
+      ],
+      "output": "Import receipt, exact passages, wiki draft/comparison and recovery evidence."
+    },
+    {
+      "id": 6,
+      "steps": [
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "en": "en/06.md",
+      "fr": "fr/06.md",
+      "fixtures": [
+        "fixtures/cedar-offering.md",
+        "fixtures/cedar-meeting.md",
+        "fixtures/cedar-conflict.md",
+        "fixtures/cedar-old.md"
+      ],
+      "output": "Evidence checklist and saved cited draft; review boundary explicit."
+    },
+    {
+      "id": 7,
+      "steps": [
+        20,
+        21,
+        25,
+        26,
+        27,
+        28
+      ],
+      "en": "en/07.md",
+      "fr": "fr/07.md",
+      "fixtures": [
+        "fixtures/cedar-offering.md",
+        "fixtures/cedar-meeting.md",
+        "fixtures/cedar-conflict.md",
+        "fixtures/cedar-old.md"
+      ],
+      "output": "Structural results, assisted report, human review sheet and fresh-session handover."
+    },
+    {
+      "id": 8,
+      "steps": [
+        23,
+        24,
+        27,
+        28
+      ],
+      "en": "en/08.md",
+      "fr": "fr/08.md",
+      "fixtures": [
+        "fixtures/cedar-offering.md",
+        "fixtures/cedar-meeting.md",
+        "fixtures/cedar-conflict.md",
+        "fixtures/cedar-old.md"
+      ],
+      "output": "Department handover and honest evaluation/release status."
+    }
+  ],
+  "verification": {
+    "independentHumanReview": "not-verified",
+    "participants": "not-verified",
+    "minimumParticipants": 3
+  },
+  "journeyVersion": "2.0.0"
+}

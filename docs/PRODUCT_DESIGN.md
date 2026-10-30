@@ -27,7 +27,7 @@ Clean Windows visual baselines, live connector reliability, real-data quality an
 
 ### Local verification — 27 September 2026
 
-The final macOS arm64 build passed 182 core tests, 33 browser tests and 2 Electron tests. Runtime mirrors and the skill catalogue match. Build-specific results are retained in [the verification record](verification/visual-workspace-2026-09-27.json). The desktop checks include isolated rendering, app-only import, bundled CLI access, restart, clean quit and explicit upgrade-copy recovery.
+The final macOS arm64 build passed 182 core tests, 33 browser tests and 2 Electron tests. Runtime mirrors and the skill catalogue match. Build-specific results are retained in the verification record (historical evidence file not distributed; not verified by this candidate). The desktop checks include isolated rendering, app-only import, bundled CLI access, restart, clean quit and explicit upgrade-copy recovery.
 
 Browser checks include unsent skill starters, draft replacement review, chart drill-down, source gallery parity, record edit cancellation and responsive screenshots. Reviewed gallery screenshot baselines cover macOS at 390 and 1440 pixels; functional layout checks additionally cover 768 and 1280 pixels. Other-platform visual baselines remain pending. The 1,000-document map benchmark had an intermittent timeout, passed its isolated rerun, and then passed the full suite after its motion preference was made explicit; reduced motion is checked separately.
 

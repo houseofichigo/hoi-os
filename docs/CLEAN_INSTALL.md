@@ -154,4 +154,4 @@ No private migration, external connection, AI configuration, GitHub update or pu
 
 ## Follow-up readiness batches
 
-See [historical upgrade, clean-Mac kit and signing assessment](RELEASE_READINESS_BATCHES.md). The original schema-1 release source now generates a genuine historical-schema fixture that successfully migrates and restores; this improves on marker-only simulations, while still using current compatible dependencies. The clean-Mac kit is prepared. Native signing/Gatekeeper checks fail for the current unsigned candidate and no valid signing identity is available, so public distribution remains blocked.
+See [historical upgrade, clean-Mac kit and signing assessment](records/RELEASE_READINESS_BATCHES.md). The original schema-1 release source now generates a genuine historical-schema fixture that successfully migrates and restores; this improves on marker-only simulations, while still using current compatible dependencies. The clean-Mac kit is prepared. Native signing/Gatekeeper checks fail for the current unsigned candidate and no valid signing identity is available, so public distribution remains blocked.

@@ -12,4 +12,4 @@ Ask only what remains missing:
 
 Create/reconcile a client overview, stakeholder roles, brand/domain context and working conventions, with a source register. Put current scope and acceptance criteria in an engagement brief. Preserve the distinction between relationship-level facts and project-specific requests. Do not treat inferred visual rules as a newly approved brandbook.
 
-Use shared reusable capabilities with the selected client context. Do not automatically create a separate skill or full 19-document foundation for every client. A separate company foundation is appropriate only when implementing an operating system for the client's own organization.
+Use shared reusable capabilities with the selected client context. Do not automatically create a separate skill or full 20-document foundation for every client. A separate company foundation is appropriate only when implementing an operating system for the client's own organization.

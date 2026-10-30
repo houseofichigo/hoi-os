@@ -55,7 +55,7 @@ Same as ABOUT_US §9, except:
 
 ## 8. What gets checked
 <!-- ask: Which checks matter for this role (facts, citations, tone, staying in role, naming the objective, shape, contradictions shown, gaps stated)? -->
-<!-- ask: Eight to twelve test questions you would ask this harness. The expected answers are written later, at step 17. -->
+<!-- ask: Eight to twelve test questions you would ask this harness. The expected answers are written later, at step 20. -->
 
 ## 9. Automations wanted
 <!-- ask: Which jobs would you like to run without asking — on a schedule (every Monday 08:00) or on an event (a new file arrives)? -->

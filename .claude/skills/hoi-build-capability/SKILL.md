@@ -14,6 +14,10 @@ Use `build-capability --input capability.json`. Supported tools are context, ret
 
 ## Authoring a role skill
 
-A role skill is reviewed instructions, separate from a capability’s executable steps. For method step 16 (historical hoi-skill-author), gather the trigger, permitted inputs, expected output, example and failure conditions from the user’s ROLE interview. Discover `skills list`, `skills get` and `skills draft` first. Save a draft with name, expectedVersion and Markdown; use fromRevision when editing so supporting files are retained. Never edit bundled product files in a private workspace.
+A role skill is reviewed instructions, separate from a capability’s executable steps. For method step 17 (historical hoi-skill-author), gather the trigger, permitted inputs, expected output, example and failure conditions from the user’s ROLE interview. Discover `skills list`, `skills get` and `skills draft` first. Save a draft with name, expectedVersion and Markdown; use fromRevision when editing so supporting files are retained. Never edit bundled product files in a private workspace.
 
 Show the instructions, required operations, exact revision/checksum, examples and comparison evidence. Ask the user to review activation in Hub → Skills → Manage skills. Creating a draft is not activation; evaluation is not approval. Workspace adapter synchronization has its own preview and confirmation. Do not run the historical register/mirror scripts or overwrite unrelated host skills. If draft operations are unavailable, return a proposed Markdown artifact and explain the missing capability rather than claiming installation.
+
+## Learning and responsible use
+
+The 28-step method maps to eight Learn modules. Start with a folder, read-only inventory and a minimal manual; engine installation is needed only when governed ingestion begins. Use the 20-responsibility foundation manifest where supplied, including ETHICS. Review documents one at a time and preserve customized filenames. ETHICS informs judgement but grants no permissions. Check exact citations and factual support separately; a review cannot approve itself. Discover the installed engine before calling operations.

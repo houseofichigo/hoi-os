@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-09",
+  "buildId": "95d7f29f0028f6517e5452eb9178bbeb558599682ec476e97dea55baef891a1e",
+  "scope": "fictional workspaces; local developer and staged macOS arm64",
+  "suites": [
+    {
+      "suite": "core",
+      "passed": true,
+      "tests": 274
+    },
+    {
+      "suite": "browser",
+      "passed": true,
+      "tests": 44
+    },
+    {
+      "suite": "desktop",
+      "passed": true,
+      "tests": 2
+    }
+  ],
+  "coreNote": "274 total: 271 passed, 3 opt-in model tests skipped. Browser 44 and staged macOS arm64 Electron 2 passed on the calendar/connector-evidence build. No live connector, model-specific or quality evaluation was rerun.",
+  "localModel": "Prior offline tests cover bilingual retrieval and index recovery. Model-specific tests were not rerun for the memory-draft build.",
+  "limitations": [
+    "No clean-machine, Windows or live paid-provider certification.",
+    "Historical search remains lexical.",
+    "No human-labelled quality certification; synthetic lexical measurements do not establish hybrid or multi-domain performance.",
+    "Synthetic 10000-unit warm p95 is now 0.99 seconds on Apple M5; representative-corpus, cold-start and platform guarantees remain unverified. Existing French conflict ranking regression remains unchanged."
+  ],
+  "evaluation": "Synthetic 10000-passage benchmark measured exact-ID and broad lexical workloads on Apple M5. Human-labelled bilingual quality and factual-support gates remain unverified.",
+  "candidateCorpus": "120 paired diagnostic queries: 116 hybrid, 4 historical lexical. Draft-label recall@5 increased from 0.521739 to 0.934783, no observed recall regressions or forbidden returned references. All 34 unanswerable cases returned hybrid evidence. Tiny fixtures and unreviewed labels do not establish acceptance.",
+  "sharedEvaluation": "Corrected 1018-unit run: 116 hybrid and 4 historical lexical queries; provisional recall@5 98.91%, nDCG@10 96.50%, one French conflict recall regression, zero forbidden returned references. Warm p95 505.48ms under partially overlapping core-test load. Initial query-key mismatch report preserved as invalid hybrid evidence. Labels unreviewed; no answer-quality certification.",
+  "scaleEvaluation": {
+    "report": "evaluation/knowledge-v1/measurements/2026-10-09-shared-hybrid-10000.json",
+    "eligibleUnits": 10000,
+    "hybridQueries": 116,
+    "historicalLexicalQueries": 4,
+    "warmP50Ms": 3384.1640420000767,
+    "warmP95Ms": 5242.941957999952,
+    "p95TargetMs": 2000,
+    "performanceTargetMet": false,
+    "independentQualityAcceptance": false,
+    "note": "No runtime changes or new regression-suite claim in this evaluation-only batch. Prior matching-build core/browser/desktop evidence retained.",
+    "historicalBaseline": true
+  },
+  "optimizedScaleEvaluation": {
+    "report": "evaluation/knowledge-v1/measurements/2026-10-09-policy-snapshot-10000.json",
+    "eligibleUnits": 10000,
+    "warmP50Ms": 543.7871660000019,
+    "warmP95Ms": 987.2333340000005,
+    "p95TargetMs": 2000,
+    "performanceTargetMetOnMeasuredFixture": true,
+    "changedOrderedResults": [],
+    "forbiddenReturnedReferences": 0,
+    "independentQualityAcceptance": false,
+    "measuredBuildId": "53c885bb29a703d550f4826acadbd6733510ca9a7549642664ae48252cfee9e7",
+    "note": "Historical v2 knowledge-only measurement. Not rerun or claimed as v3 operational portfolio performance."
+  },
+  "independentReviewPacket": {
+    "path": "evaluation/knowledge-v1/review-packets/2026-10-09-shared-10000/README.md",
+    "cases": 120,
+    "families": 12,
+    "status": "pending-independent-review",
+    "generatedAnswers": 0,
+    "humanApprovals": 0,
+    "note": "Engine-resolved fictional evidence with empty decision fields. Exporter rejects mismatched labels/questions and revoked evidence; this does not close the human evaluation gate."
+  },
+  "memoryRecovery": {
+    "status": "synthetic-regressions-passed",
+    "tests": "tests/memory-recovery-hardening.test.mjs",
+    "schema": 19,
+    "checks": [
+      "Reject malformed, empty, duplicate-path, traversal and checksum-inconsistent journals before applying any write in that journal",
+      "Preserve invalid pending journal and existing files",
+      "Back up a partially applied two-memory replacement, restore separately, recover and restart twice",
+      "Preserve both IDs, approved/superseded states, revision counts and exact post-write checksums",
+      "Leave original interrupted workspace unchanged by restored-copy recovery"
+    ],
+    "privateWorkspaceMigrated": false
+  },
+  "memoryDrafts": {
+    "status": "implemented-and-synthetically-verified",
+    "schema": 19,
+    "operations": ["memory:draft", "memory:save-draft", "memory:compare"],
+    "checks": [
+      "Saved proposed edits retain identity and immutable revisions",
+      "Stale edits rejected and identical retries return the same result",
+      "Restoration creates a proposal without changing approved knowledge",
+      "Comparison exposes predecessor changes and approval remains exact-version",
+      "Assistant edits cannot inherit user attribution",
+      "Backup and separate restore preserve drafts and history",
+      "Browser correction, reload, comparison and restoration workflow"
+    ],
+    "limitations": [
+      "App edits preserve existing evidence and subject links; changing those uses typed engine operations",
+      "No human quality, clean-machine, Windows or live-provider certification"
+    ],
+    "privateWorkspaceMigrated": false
+  },
+  "operationalEvidence": {
+    "profile": "unified-retrieval-v3",
+    "status": "implemented-and-synthetically-verified",
+    "kinds": ["project", "client", "task", "event", "connection"],
+    "defaultScope": "knowledge",
+    "workspaceScope": "explicit",
+    "checks": [
+      "Current records compete before bounded context allocation",
+      "Exact versions and fingerprints resolve through permission-filtered reads",
+      "Record edits and archived evidence invalidate prior references",
+      "Knowledge-only Chat excludes operational records",
+      "Saved Chat record citations and Evidence display preserve exact versions"
+    ],
+    "limitations": [
+      "Operational ranking is lexical",
+      "Historical operational references are unavailable",
+      "No current performance or human quality certification for operational portfolios"
+    ]
+  },
+  "calendarConnectorEvidence": {
+    "status": "implemented-and-synthetically-verified",
+    "checks": [
+      "Recurring occurrences retain distinct identities",
+      "Cancellation and changed imports invalidate previous references",
+      "Archive excludes dependent calendar evidence",
+      "Connector summaries exclude raw configuration, labels and error text",
+      "Connector visibility remains host-scoped",
+      "Disconnect invalidates saved Chat snapshot evidence"
+    ],
+    "freshness": "24-hour recency threshold, explicitly limited to saved/synchronized scope",
+    "privateWorkspaceMigrated": false,
+    "liveConnectorVerified": false
+  }
+}

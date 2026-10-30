@@ -1,29 +1,40 @@
-# Baseline of 19 shared operating documents
+# HOI foundation — 20 document responsibilities
 
-This is a document-planning baseline, not a requirement imposed by every runtime. Reuse canonical existing locations and naming where an agreed plan exists. Root entry files remain where the host expects them; departmental paths can hold detailed references. Imported templates named AGENTS.md remain drafts until deliberately adopted.
+Generated from method/foundation.json, version 2.1.0. Canonical language: English; participant guide: the product Learn kit when available. These are reviewed human documents, not replacement engine state. Existing client filenames and locations stay in place: record a responsibility mapping, never rename automatically.
 
-| File | Content | Main evidence / owner |
-| --- | --- | --- |
-| README.md | Entry point and links | Actual document map / coordinator |
-| AGENTS.md | Short entry manual and pointers | Approved working rules / facilitator + owner |
-| SKILLS.md | Capability inventory and separate lifecycle states | Verified source/install records / facilitator |
-| FILESYSTEM.md | Actual locations and authoritative copies | Observed paths / coordinator |
-| FILING.md | Source-to-destination history and versions | Filing receipts / custodian |
-| ABOUT_US.md | Company identity, offer and people | Company sources + owner |
-| GOALS.md | Priorities, measures, owners and review dates | Owner decisions |
-| ROLE.md | Purpose and scope of assistance | Owner and workflow examples |
-| RULES.md | Decision rights and operational conventions | Owner decisions; distinguish instructions from controls |
-| KNOWLEDGE.md | Authority, provenance, freshness and correction | Source register / domain owners |
-| TOOLS.md | Tools, accounts by purpose, status and verification | Reported usage + technical checks; no credentials |
-| SOURCE-SCOPES.md | Exact selected sources and exclusions | Source selection / responsible owner |
-| TOOL_CONVENTIONS.md | Result verification, failure and retries | Applicable runtime contract / facilitator |
-| ROUTING.md | Selection of relevant context and methods | Observed capabilities / facilitator |
-| ROLE-BRIEFS.md | Contributors, specialist outputs and handoffs | Owner and team |
-| AUTOMATIONS.md | Observed schedules and states | Actual scheduler evidence; unknown is not active |
-| WORKFLOW-BACKLOG.md | Prioritized workflow proposals and outcomes | Real work examples + owner priorities |
-| EVALS.md | Acceptance cases, evidence and results | Workflow criteria and actual tests |
-| CHANGE-AND-RECOVERY.md | Version review, restore evidence and rollback | Tested procedures; unknowns explicit |
+| Document | Purpose | Accountable owner | Validation |
+|---|---|---|---|
+| `README.md` | Navigation and observed status | Coordinator | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `ABOUT_US.md` | Evidence-backed organisation and offers | Organisation owner | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `GOALS.md` | Readable business priorities | Organisation owner | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `ROLES.md` | People, responsibilities and decision rights | Organisation owner and members | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `AGENTS.md` | Short private assistant entry manual | Workspace owner | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `RULES.md` | Decision rights and operating boundaries | Workspace owner | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `ETHICS.md` | Responsible use and prompting | Workspace owner and participants | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `FILESYSTEM.md` | Actual locations and preservation | Document custodian | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `FILING.md` | Provenance and filing history | Document custodian | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `TOOLS.md` | Observed tools and account scope | Tool owner | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `docs/TOOL_CONVENTIONS.md` | Evidence, errors and safe execution | Workspace owner | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `SKILLS.md` | Capability inventory and lifecycle | Capability maintainer | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `WORKFLOWS.md` | Repeatable processes and handoffs | Process owners | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `AUTOMATIONS.md` | Observed schedules and owners | Automation owner | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `EVALS.md` | Acceptance questions and observed results | Evaluator | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `MEMORY.md` | Index into reviewed memory | Memory reviewer | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `PROPOSED.md` | Index into pending decisions | Decision owners | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `VALIDATION-GUIDE.md` | Confirmed decisions and open questions | Organisation owner | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `CLAUDE.md` | Claude pointer to shared instructions | Workspace owner | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
+| `GEMINI.md` | Gemini pointer to shared instructions | Workspace owner | Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval. |
 
-The coverage table and review checklist support these files and are not counted among the 19. Do not add dummy runtime stores, synthetic permissions, invented automation identifiers or per-member memory databases to meet a file count.
+## Historical mapping
 
-For a company pack, check the actual required set, nonempty contents, links and unresolved decisions. A skeleton with placeholders can be a prepared template but cannot be called a validated foundation. Do not rewrite existing business approvals by editing Markdown.
+The old optional product list is preserved in method/history/document-map-v1.md. The confirmed commercial list had 19 responsibilities; ETHICS adds the twentieth. No engine migration follows.
+
+- `ROLE.md` → `ROLES.md`. Preserve existing files; reconcile responsibilities during review.
+- `KNOWLEDGE.md` → `FILING.md`, `FILESYSTEM.md`, `MEMORY.md`. Preserve existing files; reconcile responsibilities during review.
+- `SOURCE-SCOPES.md` → `TOOLS.md`, `RULES.md`. Preserve existing files; reconcile responsibilities during review.
+- `ROUTING.md` → `AGENTS.md`, `SKILLS.md`. Preserve existing files; reconcile responsibilities during review.
+- `ROLE-BRIEFS.md` → `ROLES.md`. Preserve existing files; reconcile responsibilities during review.
+- `WORKFLOW-BACKLOG.md` → `WORKFLOWS.md`. Preserve existing files; reconcile responsibilities during review.
+- `CHANGE-AND-RECOVERY.md` → `FILESYSTEM.md`, `docs/TOOL_CONVENTIONS.md`, `VALIDATION-GUIDE.md`. Preserve existing files; reconcile responsibilities during review.
+
+MEMORY and PROPOSED are pointers to approved records and reviewed proposals. Goals are a readable description of onboarding/profile goals. Adapter manuals are documentation; their presence does not verify host installation. Review documents one by one, starting with a read-only inventory and a minimal manual.

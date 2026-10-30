@@ -1,6 +1,6 @@
 # Install and verify the optional Knowledge Hub
 
-Audience: people trying the current, unreleased harness package. The governed engine, 25-step method and 22 optional skill packages remain the product. The old Electron app and its installer evidence are historical. This guide describes a Node installation, not a signed desktop application.
+Audience: people trying the current, unreleased harness package. The governed engine, 28-step method and 22 optional skill packages remain the product. The old Electron app and its installer evidence are historical. This guide describes a Node installation, not a signed desktop application.
 
 ## Install in two separate locations
 

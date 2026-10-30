@@ -25,3 +25,6 @@ backups/
 
 # Generated native session artifact; never distribute.
 /:memory:.ses
+
+# Dependency directory may be a local development symlink.
+node_modules

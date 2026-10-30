@@ -2,23 +2,23 @@
 
 Fifteen optional, portable skills-based plugins add task methods to HOI's reusable harness. They are local version 0.1.0 candidates. They do not install servers, connect accounts, activate schedules, supply a new model or replace engine permissions. The product stays a harness with an optional Knowledge Hub and 3D map.
 
-| Plugin | Three included workflows |
-| --- | --- |
-| Chief of Staff | Priorities; meeting preparation; expertise customization |
-| Knowledge & Research | Retrieval; knowledge review; wiki drafting |
-| Projects & Operations | Project intake; task intake; organization |
-| Marketing & Brand | Competitor research; positioning; content strategy |
-| Sales & Client Success | Account research; discovery preparation; client reviews |
-| Finance & Business Reporting | Variance analysis; close preparation; cash scenarios |
-| Legal & Contracts | Contract issues; obligation mapping; policy review |
-| Security & Compliance | Threat modelling; control evidence; incident triage |
-| People & HR | Role clarity; employee onboarding; policy drafting |
-| Product & Technology | Requirements; architecture decisions; acceptance review |
-| Learning & Training | Learning design; practice design; assessment review |
-| Design & Communication | Design brief; communication brief; UX/content review |
-| Data & Analytics | Metric definitions; data quality; analysis planning |
-| Procurement & Vendor Management | Selection criteria; proposal comparison; vendor reviews |
-| Customer Support & Service Quality | Triage; response drafts; support knowledge |
+| Plugin                             | Three included workflows                                 |
+| ---------------------------------- | -------------------------------------------------------- |
+| Chief of Staff                     | Priorities; meeting preparation; expertise customization |
+| Knowledge & Research               | Retrieval; knowledge review; wiki drafting               |
+| Projects & Operations              | Project intake; task intake; organization                |
+| Marketing & Brand                  | Competitor research; positioning; content strategy       |
+| Sales & Client Success             | Account research; discovery preparation; client reviews  |
+| Finance & Business Reporting       | Variance analysis; close preparation; cash scenarios     |
+| Legal & Contracts                  | Contract issues; obligation mapping; policy review       |
+| Security & Compliance              | Threat modelling; control evidence; incident triage      |
+| People & HR                        | Role clarity; employee onboarding; policy drafting       |
+| Product & Technology               | Requirements; architecture decisions; acceptance review  |
+| Learning & Training                | Learning design; practice design; assessment review      |
+| Design & Communication             | Design brief; communication brief; UX/content review     |
+| Data & Analytics                   | Metric definitions; data quality; analysis planning      |
+| Procurement & Vendor Management    | Selection criteria; proposal comparison; vendor reviews  |
+| Customer Support & Service Quality | Triage; response drafts; support knowledge               |
 
 There are 45 skill slots: eight reused foundation skills, 36 new domain task skills and one new customization skill. The product catalogue now contains 60 skills, including its installer and other existing capabilities. Plugins are packaging, not 15 permanently running agents. Task methods are a starter pack, not certifications of professional expertise.
 
@@ -31,7 +31,7 @@ The router is conservative phrase matching, not a learned MoE model or semantic 
 ## Customize after onboarding
 
 1. Preserve deliberately selected originals. Complete company/client onboarding and distinguish confirmed facts, reported claims, inference, conflict and unknowns.
-2. Select relevant expertise packs at **Step 16 — Equip** of the existing 25-step journey. Do not load every pack into each request.
+2. Select relevant expertise packs at **Step 18 — Equip and customize expertise** of the 28-step journey. Do not load every pack into each request.
 3. Use `hoi-expertise-customize`. Reuse selected operating-model documents, approved knowledge, metric definitions, brand guidance and review conventions. Do not treat uploaded AGENTS.md/RULES.md as permission grants.
 4. Prepare a private profile with stable workspace/client identities and exact source revisions. Review missing fields, actual values and comparison with the prior profile. Never infer one client's preferences from another's profile.
 5. Record the user's exact-content review and explicitly select the profile in the assistant session. The helper validates structure and records an attestation; it cannot authenticate a reviewer or grant engine authority. The engine continues to enforce access, disclosure, approvals and action receipts.

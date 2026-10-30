@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
@@ -25,6 +26,7 @@ import {
 } from "../dist/core/tasks.js";
 import { serve } from "../dist/core/server.js";
 import { configuration } from "../dist/core/configuration.js";
+import { installedGuides } from "../dist/core/guides.js";
 import { verifyBackup } from "../dist/core/backup.js";
 test("default setup runs intake, audit, map and task approval without assistant files", async (t) => {
   const root = mkdtempSync(join(tmpdir(), "hoi app only ")),
@@ -188,6 +190,7 @@ test("portable guides are versioned, legacy-aware and preserve modified copies a
   const base = `.hoi/guides/${m.guides.digest}`;
   for (const name of [
     "RULES.md",
+    "ETHICS.md",
     "FILESYSTEM.md",
     "TOOL_CONVENTIONS.md",
     "OPERATIONS_REFERENCE.md",
@@ -197,12 +200,30 @@ test("portable guides are versioned, legacy-aware and preserve modified copies a
       readFileSync(s.path("AGENTS.md"), "utf8").includes(`${base}/${name}`),
     );
   }
+  assert.ok(existsSync(s.path(`${base}/ETHICS.fr.md`)));
   assert.equal(adapterStatus(s)[0].documentationStatus, "current");
+  const legacyGuide = structuredClone(m.guides);
+  delete legacyGuide.files["ETHICS.md"];
+  delete legacyGuide.files["ETHICS.fr.md"];
+  legacyGuide.digest = createHash("sha256")
+    .update(JSON.stringify(legacyGuide.files))
+    .digest("hex");
+  const legacyBase = `.hoi/guides/${legacyGuide.digest}`;
+  mkdirSync(s.path(legacyBase), { recursive: true });
+  for (const name of Object.keys(legacyGuide.files))
+    writeFileSync(
+      s.path(`${legacyBase}/${name}`),
+      readFileSync(s.path(`${base}/${name}`)),
+    );
+  assert.doesNotThrow(() => installedGuides(legacyGuide));
+  m.guides = legacyGuide;
+  writeFileSync(manifestPath, JSON.stringify(m));
+  assert.equal(adapterStatus(s)[0].status, "documentation-update-needed");
   delete m.guides;
   writeFileSync(manifestPath, JSON.stringify(m));
   assert.equal(adapterStatus(s)[0].status, "documentation-update-needed");
   updateAdapters(s, "local", { action: "install", hosts: ["codex"] });
-  const rules = s.path(`${base}/RULES.md`);
+  const rules = s.path(`${base}/ETHICS.md`);
   writeFileSync(
     rules,
     "My customized guidance. Never grants engine permissions.",
@@ -217,7 +238,7 @@ test("portable guides are versioned, legacy-aware and preserve modified copies a
     action: "install",
     hosts: ["codex"],
   });
-  assert.ok(result.conflicts.includes(`${base}/RULES.md`));
+  assert.ok(result.conflicts.includes(`${base}/ETHICS.md`));
   assert.ok(result.conflicts.includes("AGENTS.md"));
   assert.equal(readFileSync(manual, "utf8"), before);
   assert.equal(

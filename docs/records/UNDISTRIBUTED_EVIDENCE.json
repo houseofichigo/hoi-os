@@ -1,0 +1,22 @@
+[
+  {
+    "document": "docs/CONSULTING_SKILLS.md",
+    "reference": "verification/consulting-skills-2026-09-27.json"
+  },
+  {
+    "document": "docs/CONSULTING_SKILLS.md",
+    "reference": "verification/chat-upload-2026-09-27.json"
+  },
+  {
+    "document": "docs/CONSULTING_SKILLS.md",
+    "reference": "verification/work-charts-2026-09-27.json"
+  },
+  {
+    "document": "docs/KNOWLEDGE_CORE.md",
+    "reference": "verification/knowledge-core-2026-09-27.json"
+  },
+  {
+    "document": "docs/PRODUCT_DESIGN.md",
+    "reference": "verification/visual-workspace-2026-09-27.json"
+  }
+]

@@ -30,7 +30,7 @@ Synthetic regression coverage includes mixed delivery, stale edits, activation/r
 
 ## Verified on 27 September 2026
 
-180 core tests, 28 browser tests and 2 Electron tests passed on macOS arm64. The shared build identity is `5e208b255a563c75736a50c4a72dae7671805e98750aed258be28e69e2d1c649`. [Build-specific evidence](verification/consulting-skills-2026-09-27.json) records suite versions and times. Migration/restore used isolated synthetic workspaces; no private upgrade was performed.
+180 core tests, 28 browser tests and 2 Electron tests passed on macOS arm64. The shared build identity is `5e208b255a563c75736a50c4a72dae7671805e98750aed258be28e69e2d1c649`. Build-specific evidence (historical evidence file not distributed; not verified by this candidate) records suite versions and times. Migration/restore used isolated synthetic workspaces; no private upgrade was performed.
 
 A fresh fictional demo is running locally with mixed delivery projects, an unscheduled training project and a reviewed example workspace skill. These samples are not imported company records.
 
@@ -42,7 +42,7 @@ Choose Project brief (hoi-project-intake) or To-do proposal (hoi-task-intake) in
 
 Uploading does not invoke a model. The existing prepare/copy/validate handoff remains. Audio/video transcription is not configured. Project Action integration is still separate; the project skill alone does not create a local or external project.
 
-Chat upload verification: 182 core, 29 browser and 2 Electron tests passed on macOS arm64. See [build-specific evidence](verification/chat-upload-2026-09-27.json). The new browser scenario confirms that reviewing a manifest alone creates no source and that imported transcript evidence is pinned to the chosen task-skill handoff. No private migration, external Action call or publication was performed.
+Chat upload verification: 182 core, 29 browser and 2 Electron tests passed on macOS arm64. See build-specific evidence (historical evidence file not distributed; not verified by this candidate). The new browser scenario confirms that reviewing a manifest alone creates no source and that imported transcript evidence is pinned to the chosen task-skill handoff. No private migration, external Action call or publication was performed.
 
 ## Home and project charts — 27 September 2026
 
@@ -50,4 +50,4 @@ Home now includes a portfolio summary with project-status and delivery-mix bars,
 
 HOI Cobalt, Learn teal, Build green and Lead magenta distinguish chart series; warning and danger colours retain their status meaning. Direct labels and counts accompany colour. A single restrained bar reveal respects reduced motion. The motion direction was informed by [Didier Girard's code-generated motion-design example](https://fr.linkedin.com/posts/didiergirard_opus-55-15-secondes-de-motion-design-activity-7509265816480165889-LEBb); no external animation code was copied.
 
-Verification: 182 core, 30 browser and 2 Electron tests passed on macOS arm64. The browser regression covers filtered counts, exact project navigation, empty completion denominators, reduced motion and widths of 390, 768, 1280 and 1440 pixels. See [build-specific evidence](verification/work-charts-2026-09-27.json). Charts were demonstrated using the fictional workspace; real-data pilot and other-platform verification remain separate. No private migration or GitHub update occurred.
+Verification: 182 core, 30 browser and 2 Electron tests passed on macOS arm64. The browser regression covers filtered counts, exact project navigation, empty completion denominators, reduced motion and widths of 390, 768, 1280 and 1440 pixels. See build-specific evidence (historical evidence file not distributed; not verified by this candidate). Charts were demonstrated using the fictional workspace; real-data pilot and other-platform verification remain separate. No private migration or GitHub update occurred.

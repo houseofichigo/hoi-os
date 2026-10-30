@@ -39,4 +39,4 @@ The local builder never publishes. `desktop-release/SHA256SUMS` covers completed
 
 ## Verification boundaries
 
-See [Batch E evidence](ENGINE_BATCH_E.md) and the [completion plan](COMPLETION_PLAN.md). Local synthetic tests do not establish live Google reliability, assistant synthesis quality, clean-machine install/uninstall behavior or the ten-day pilot. External web-result popups are currently blocked by desktop navigation policy; OAuth alone opens the system browser. Use the existing browser interface for those external research links until the reviewed external-link flow is implemented.
+See [Batch E evidence](records/ENGINE_BATCH_E.md) and the [completion plan](records/COMPLETION_PLAN.md). Local synthetic tests do not establish live Google reliability, assistant synthesis quality, clean-machine install/uninstall behavior or the ten-day pilot. External web-result popups are currently blocked by desktop navigation policy; OAuth alone opens the system browser. Use the existing browser interface for those external research links until the reviewed external-link flow is implemented.

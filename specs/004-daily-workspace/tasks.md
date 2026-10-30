@@ -8,4 +8,4 @@
 - [x] Core/browser regression verification
 - [x] Completion record and remaining release gates
 
-Evidence: [Batch D record](../../docs/ENGINE_BATCH_D.md). All validation used fictional data; private migration and live-provider verification remain separate gates.
+Evidence: [Batch D record](../../docs/records/ENGINE_BATCH_D.md). All validation used fictional data; private migration and live-provider verification remain separate gates.

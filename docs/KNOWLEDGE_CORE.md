@@ -38,7 +38,7 @@ The UI is a safe Markdown reading/editing surface; raw HTML and executable embed
 
 The wiki regression collection includes 30 labelled fictional bilingual queries (24 answerable, six missing-answer cases), exact evidence resolution, legacy migration, review boundaries, permission revocation, stale versions, publication retries, tag redirects, interrupted SQL writes, backup/restore and Chat citation validation. These checks do not establish 95% factual support on real AI-authored briefs; that requires the human-reviewed pilot.
 
-Verified on macOS arm64 on 2026-09-27: **192 core tests, 34 browser tests and 2 Electron tests passed**. The runtime skill mirrors/catalogue also match. [Build-specific evidence](verification/knowledge-core-2026-09-27.json) records the exact build and suite digests.
+Verified on macOS arm64 on 2026-09-27: **192 core tests, 34 browser tests and 2 Electron tests passed**. The runtime skill mirrors/catalogue also match. Build-specific evidence (historical evidence file not distributed; not verified by this candidate) records the exact build and suite digests.
 
 The browser wiki flow covers persisted drafts, publication, reload, map opening and widths of 390, 768, 1280 and 1440 pixels. The Electron regressions cover renderer isolation, import, bundled CLI, restart, shutdown and a verified upgraded workspace copy. They do not constitute Windows verification or a full assistive-technology audit.
 

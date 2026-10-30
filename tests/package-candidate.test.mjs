@@ -85,12 +85,26 @@ test("complete candidate contains exact Hub bytes, 60 skills, reproducible hashe
   for (const name of Object.keys(archive.files))
     assert.doesNotMatch(name, /^(node_modules|desktop|\.secrets|\.local)\//);
   assert.ok(archive.file("docs/FINAL_HANDOVER.md"));
+  for (const path of [
+    "learn/README.md",
+    "learn/README.fr.md",
+    "learn/en/07.md",
+    "learn/fr/07.md",
+    "method/foundation.json",
+    "method/journey.json",
+    "method/templates/foundation/ETHICS.md",
+    "docs/ETHICS.md",
+    "docs/ETHICS.fr.md",
+    "docs/HOW_IT_WORKS.md",
+    "docs/HOW_IT_WORKS.fr.md",
+  ])
+    assert.ok(archive.file(path), path);
   const start = readFileSync(join(one, "START_HERE.md"), "utf8");
   assert.match(start, /\]\(hub\/docs\/AUTOMATIONS\.md\)/);
   for (const [, name] of start.matchAll(/\]\((hub\/docs\/[^)]+\.md)\)/g))
     assert.ok(existsSync(join(one, name)), name);
   const validation = await archive
-    .file("docs/AUTOMATION_VALIDATION.md")
+    .file("docs/records/AUTOMATION_VALIDATION.md")
     .async("string");
   for (const [, name] of validation.matchAll(/\]\(([A-Z_]+\.md)\)/g))
     assert.ok(archive.file("docs/" + name), name);

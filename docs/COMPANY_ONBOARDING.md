@@ -6,7 +6,7 @@
 
 | Mode    | Evidence                                                             | Output                                                    | Reviewer                                      |
 | ------- | -------------------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------- |
-| Company | Selected existing company documents, conversations and owner answers | Reconciled operating documents; optional 19-file baseline | Owner or delegated coordinator                |
+| Company | Selected existing company documents, conversations and owner answers | Reconciled operating documents; optional 20-file baseline | Owner or delegated coordinator                |
 | Member  | Shared reviewed foundation, member examples and answers              | One concise role/workflow profile                         | Member, plus responsible lead for assignments |
 | Client  | Selected relationship context, guidelines and active brief           | Shared client context and engagement brief                | Account and delivery owners                   |
 
@@ -14,7 +14,7 @@ Read the relevant skill references. First make a coverage table of supported ans
 
 ## Document ownership
 
-The 19-file baseline is human-readable company context. Reconcile existing locations and review states. In an installed workspace, inspect managed manuals before choosing output paths; do not overwrite adapter blocks or create parallel engine state. Business goals and filing records may describe reviewed decisions and receipts but do not replace onboarding, source identity, approval or schedule records. Draft presence does not mean onboarding is complete.
+The 20-file baseline is human-readable company context. Reconcile existing locations and review states. In an installed workspace, inspect managed manuals before choosing output paths; do not overwrite adapter blocks or create parallel engine state. Business goals and filing records may describe reviewed decisions and receipts but do not replace onboarding, source identity, approval or schedule records. Draft presence does not mean onboarding is complete.
 
 Keep originals and prior versions. Distinguish reported, inferred, confirmed, conflicting, missing and deferred information. Retain written review and ask for the decisions needed to make the next workflow useful. A member's preferences do not redefine company-wide responsibilities.
 

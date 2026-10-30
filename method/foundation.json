@@ -1,0 +1,397 @@
+{
+  "schemaVersion": 1,
+  "id": "hoi-company-foundation",
+  "version": "2.1.0",
+  "effectiveDate": "2026-10-29",
+  "language": "en",
+  "count": 20,
+  "documents": [
+    {
+      "path": "README.md",
+      "purpose": "Navigation and observed status",
+      "owner": "Coordinator",
+      "template": "method/templates/foundation/README.md",
+      "references": [
+        "ABOUT_US.md",
+        "VALIDATION-GUIDE.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Purpose and entry points",
+        "Document map and review status",
+        "Next useful workflow"
+      ]
+    },
+    {
+      "path": "ABOUT_US.md",
+      "purpose": "Evidence-backed organisation and offers",
+      "owner": "Organisation owner",
+      "template": "method/templates/foundation/ABOUT_US.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Identity and audience",
+        "Offerings and supported capabilities",
+        "People and selected sources",
+        "Unknowns and conflicts"
+      ]
+    },
+    {
+      "path": "GOALS.md",
+      "purpose": "Readable business priorities",
+      "owner": "Organisation owner",
+      "template": "method/templates/foundation/GOALS.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Confirmed objectives",
+        "Measures and owners",
+        "Review dates",
+        "Links to authoritative onboarding records when installed"
+      ]
+    },
+    {
+      "path": "ROLES.md",
+      "purpose": "People, responsibilities and decision rights",
+      "owner": "Organisation owner and members",
+      "template": "method/templates/foundation/ROLES.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Responsibilities",
+        "Inputs and expected outputs",
+        "What stays human-owned",
+        "Handoffs and escalation"
+      ]
+    },
+    {
+      "path": "AGENTS.md",
+      "purpose": "Short private assistant entry manual",
+      "owner": "Workspace owner",
+      "template": "method/templates/foundation/AGENTS.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Selected workspace and scope",
+        "Read only relevant references",
+        "Evidence and review boundaries",
+        "Actual engine entrypoint when installed"
+      ]
+    },
+    {
+      "path": "RULES.md",
+      "purpose": "Decision rights and operating boundaries",
+      "owner": "Workspace owner",
+      "template": "method/templates/foundation/RULES.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Declared rules",
+        "Observed engine-enforced controls",
+        "Required reviews",
+        "Unavailable actions and discrepancies"
+      ]
+    },
+    {
+      "path": "ETHICS.md",
+      "purpose": "Responsible use and prompting",
+      "owner": "Workspace owner and participants",
+      "template": "method/templates/foundation/ETHICS.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Purpose and affected people",
+        "Confidentiality and minimisation",
+        "Facts, assumptions and evidence",
+        "Fairness and accessibility",
+        "Transparency and attribution",
+        "Human review and correction",
+        "Responsible prompting",
+        "Stop, report and use proportionate resources"
+      ]
+    },
+    {
+      "path": "FILESYSTEM.md",
+      "purpose": "Actual locations and preservation",
+      "owner": "Document custodian",
+      "template": "method/templates/foundation/FILESYSTEM.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Observed locations",
+        "Authoritative copies and originals",
+        "Drafts, revisions and exports",
+        "Backup and recovery references"
+      ]
+    },
+    {
+      "path": "FILING.md",
+      "purpose": "Provenance and filing history",
+      "owner": "Document custodian",
+      "template": "method/templates/foundation/FILING.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Selected sources and checksums when observed",
+        "Filing decisions and receipts",
+        "Prior versions",
+        "Unresolved duplicates"
+      ]
+    },
+    {
+      "path": "TOOLS.md",
+      "purpose": "Observed tools and account scope",
+      "owner": "Tool owner",
+      "template": "method/templates/foundation/TOOLS.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Purpose and selected accounts",
+        "Available, installed, configured and tested states",
+        "Permissions and disclosure",
+        "Failures and limitations"
+      ]
+    },
+    {
+      "path": "docs/TOOL_CONVENTIONS.md",
+      "purpose": "Evidence, errors and safe execution",
+      "owner": "Workspace owner",
+      "template": "method/templates/foundation/docs/TOOL_CONVENTIONS.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Discover supported operations",
+        "Use actual assistant identity",
+        "Bounded reads and exact evidence",
+        "Expected versions and exact approvals",
+        "Cancellation and uncertain outcomes"
+      ]
+    },
+    {
+      "path": "SKILLS.md",
+      "purpose": "Capability inventory and lifecycle",
+      "owner": "Capability maintainer",
+      "template": "method/templates/foundation/SKILLS.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Sources and exact versions",
+        "Availability, installation and activation",
+        "Relevant contracts",
+        "Evaluation and limitations"
+      ]
+    },
+    {
+      "path": "WORKFLOWS.md",
+      "purpose": "Repeatable processes and handoffs",
+      "owner": "Process owners",
+      "template": "method/templates/foundation/WORKFLOWS.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "What repeats and what changes",
+        "Inputs, outputs and exclusions",
+        "Acceptance checks",
+        "Review points, clarification and recovery"
+      ]
+    },
+    {
+      "path": "AUTOMATIONS.md",
+      "purpose": "Observed schedules and owners",
+      "owner": "Automation owner",
+      "template": "method/templates/foundation/AUTOMATIONS.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Selected definitions and scopes",
+        "Disabled, configured and verified states",
+        "Trigger ownership and availability",
+        "Budget, failures and stop procedure"
+      ]
+    },
+    {
+      "path": "EVALS.md",
+      "purpose": "Acceptance questions and observed results",
+      "owner": "Evaluator",
+      "template": "method/templates/foundation/EVALS.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Frozen cases and evidence",
+        "Expected and forbidden claims",
+        "Baseline and candidate observations",
+        "Human factual review and limitations"
+      ]
+    },
+    {
+      "path": "MEMORY.md",
+      "purpose": "Index into reviewed memory",
+      "owner": "Memory reviewer",
+      "template": "method/templates/foundation/MEMORY.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Authoritative memory location",
+        "Approved record references",
+        "Validity and supersession",
+        "Missing runtime: no memory store configured"
+      ]
+    },
+    {
+      "path": "PROPOSED.md",
+      "purpose": "Index into pending decisions",
+      "owner": "Decision owners",
+      "template": "method/templates/foundation/PROPOSED.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Authoritative proposal references",
+        "Decision owner and current state",
+        "Evidence and exact payload",
+        "Missing runtime: descriptive proposals only"
+      ]
+    },
+    {
+      "path": "VALIDATION-GUIDE.md",
+      "purpose": "Confirmed decisions and open questions",
+      "owner": "Organisation owner",
+      "template": "method/templates/foundation/VALIDATION-GUIDE.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Confirmed, reported and inferred",
+        "Missing, conflicting and deferred",
+        "Evidence and named reviewer",
+        "Validation record and next review"
+      ]
+    },
+    {
+      "path": "CLAUDE.md",
+      "purpose": "Claude pointer to shared instructions",
+      "owner": "Workspace owner",
+      "template": "method/templates/foundation/CLAUDE.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Shared instructions reference",
+        "Actual host setup status",
+        "Relevant operating documents",
+        "Managed block ownership"
+      ]
+    },
+    {
+      "path": "GEMINI.md",
+      "purpose": "Gemini pointer to shared instructions",
+      "owner": "Workspace owner",
+      "template": "method/templates/foundation/GEMINI.md",
+      "references": [
+        "README.md",
+        "RULES.md",
+        "ETHICS.md"
+      ],
+      "validation": "Review sources, unresolved decisions, local links and observed capabilities with the named owner. File presence is not approval.",
+      "sections": [
+        "Shared instructions reference",
+        "Host and engine support not verified by file presence",
+        "Relevant operating documents",
+        "No inferred permissions"
+      ]
+    }
+  ],
+  "legacyMappings": {
+    "ROLE.md": "ROLES.md",
+    "KNOWLEDGE.md": [
+      "FILING.md",
+      "FILESYSTEM.md",
+      "MEMORY.md"
+    ],
+    "SOURCE-SCOPES.md": [
+      "TOOLS.md",
+      "RULES.md"
+    ],
+    "ROUTING.md": [
+      "AGENTS.md",
+      "SKILLS.md"
+    ],
+    "ROLE-BRIEFS.md": "ROLES.md",
+    "WORKFLOW-BACKLOG.md": "WORKFLOWS.md",
+    "CHANGE-AND-RECOVERY.md": [
+      "FILESYSTEM.md",
+      "docs/TOOL_CONVENTIONS.md",
+      "VALIDATION-GUIDE.md"
+    ]
+  },
+  "migration": "Document responsibility mapping only. Preserve existing client names, paths and history; no automatic rename or runtime migration."
+}

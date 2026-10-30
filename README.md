@@ -4,11 +4,23 @@
 
 HOI keeps evidence, reviewed memory and governed operations in a workspace you own. Optional assistants use the same engine. The Knowledge Hub lets you import selected files, read and edit wikis, review memory and explore an evidence-linked 3D map. You can build your own application on the registered operations.
 
-This checkout is an **unreleased local candidate**. The earlier full business application and Electron installer are retired. Historical skills releases remain separate; a package's base version alone does not identify this candidate. Use its build fingerprint and checksums. The current schema-20 upgrade adds selective routing and disabled-by-default automation; see [current verification](docs/AUTOMATION_VALIDATION.md). See [final handover](docs/FINAL_HANDOVER.md) and [documentation index](docs/DOCUMENTATION.md).
+## Start here
+
+| You are                                | Read first                                                             | Then                                                                                                                                     |
+| -------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| A business owner or participant        | [How HOI OS works](docs/HOW_IT_WORKS.md): the parts, in plain language | [The 28-step journey](method/JOURNEY.md) and the [ethics guide](docs/ETHICS.md)                                                          |
+| Building a harness for an organisation | [The 28-step journey](method/JOURNEY.md)                               | [Company onboarding](docs/COMPANY_ONBOARDING.md), [expertise plugins](docs/EXPERTISE_PLUGINS.md), [Knowledge Hub](docs/KNOWLEDGE_HUB.md) |
+| A developer                            | [Start from source](#start-from-source) below                          | [Architecture](docs/ARCHITECTURE.md), [CLI](docs/CLI.md), [documentation index](docs/DOCUMENTATION.md)                                   |
+
+Guides live in `docs/`. Build, batch and validation records live in [`docs/records/`](docs/records/): they document how the product was verified and are not instructions.
+
+## Status
+
+This checkout is an **unreleased local candidate**. The earlier full business application and Electron installer are retired. Historical skills releases remain separate; a package's base version alone does not identify this candidate. Use its build fingerprint and checksums. The current schema-20 upgrade adds selective routing and disabled-by-default automation; see [current verification](docs/records/AUTOMATION_VALIDATION.md). See [final handover](docs/FINAL_HANDOVER.md) and [documentation index](docs/DOCUMENTATION.md).
 
 ## What is included
 
-- A **25-step method in seven phases**, with preserved source documents and templates: [method](method/README.md).
+- A **28-step method in eight phases**, with preserved source documents and templates: [method](method/README.md).
 - The shared engine: preserved originals, ranked retrieval, versioned wikis and reviewed memory, tasks, approvals, durable work and recovery.
 - **60 optional skills: one installer and 59 operational skills**, with workspace-scoped Codex/Claude adapters.
 - An optional browser Knowledge Hub: **Knowledge · Skills · Configuration**, including a 3D map and accessible record list.
@@ -141,14 +153,18 @@ Code and skill instructions are [MIT licensed](LICENSE). Forking and reuse are w
 
 ## Selective routing and scheduled maintenance (local source upgrade)
 
-Schema 20 adds conservative skill routing and opt-in, scope-bound intake/check/draft automation. The 25-step method and optional Knowledge Hub remain. No schedules activate on install. [Guide](docs/AUTOMATIONS.md) · [Validation and remaining gates](docs/AUTOMATION_VALIDATION.md) · [Codex trigger](integrations/codex/schedule-prompt.md) · [n8n templates](integrations/n8n/README.md).
+Schema 20 adds conservative skill routing and opt-in, scope-bound intake/check/draft automation. The method (now 28 steps) and optional Knowledge Hub remain. No schedules activate on install. [Guide](docs/AUTOMATIONS.md) · [Validation and remaining gates](docs/records/AUTOMATION_VALIDATION.md) · [Codex trigger](integrations/codex/schedule-prompt.md) · [n8n templates](integrations/n8n/README.md).
 
 ### Precise knowledge pipelines — schema 21 candidate
 
 [Selected session capture, enrichment and pipeline health](docs/KNOWLEDGE_PIPELINES.md) extend the existing engine and optional Hub. The baseline matcher is corrected; candidate observation ranking remains opt-in. Originals, reviewed memory and wiki authority remain unchanged. This local source upgrade does not update private workspaces or publish a release.
 
-[Schema-21 validation, measured performance and remaining gates](docs/DISCOVERY_VALIDATION.md).
+[Schema-21 validation, measured performance and remaining gates](docs/records/DISCOVERY_VALIDATION.md).
 
 ## Optional expertise plugins
 
-[15 client-customizable plugins](docs/EXPERTISE_PLUGINS.md) package 45 focused workflows. Customize after onboarding within Step 16; private profiles never grant permissions. Local candidates only; no installation, runtime migration or publication is implied.
+[15 client-customizable plugins](docs/EXPERTISE_PLUGINS.md) package 45 focused workflows. Customize after onboarding within Step 18; private profiles never grant permissions. Local candidates only; no installation, runtime migration or publication is implied.
+
+## Learn HOI OS — Build your harness
+
+Start with [the bilingual Learn kit](learn/README.md) for a folder-first workshop, or follow [the technical 28-step journey](method/JOURNEY.md). Modules 1–4 need no engine or API key. The [20-document foundation](method/FOUNDATION.md) supplies one maintained template per responsibility. Participant effectiveness and independent answer-quality review remain unverified.

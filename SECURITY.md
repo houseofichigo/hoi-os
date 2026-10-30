@@ -1,7 +1,7 @@
 # Security reporting
 
 HOI OS is alpha, without a stable security-support guarantee. Current capabilities
-and unverified domains are described in [Security evidence](docs/SECURITY_EVIDENCE.md).
+and unverified domains are described in [Security evidence](docs/records/SECURITY_EVIDENCE.md).
 A passing check is scoped evidence, not certification.
 
 Do not post credentials, document content, private paths or exploit details in a
